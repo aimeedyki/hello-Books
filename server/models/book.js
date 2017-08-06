@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) =>{
           foreignKey: 'categoryId',
           targetKey: 'category',
           onDelete: 'CASCADE',
-      }
+      });
     }
+  }
   });
   return Book;
 };
