@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <title>hello books</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width initial-scale= 1.0">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+     
+</head>
+<body class="booksville" id="background-image"> 
+    
+  <div class="header">
+    <div class="container">
+      
+      <div class="row">
+        <div style="background-color: #800080;">
+            <h2 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;"" >WELCOME TO BOOKSVILLE</h1>
+        </div>
+        <div align="right">
+          <ul style="color: white;">
+              <li>
+                  <a style="color: white;" class="page-scroll" href="adminpage.html">Admin</a>
+              </li>
+              <li>
+                  <a style="color: white;" class="page-scroll" href="#services">About us</a>
+              </li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="tab" class="col-sm-10 col-sm-offset-4 show-forms">
+        <button class="tablinks" onclick="openTab(event, 'register')" style="color: white;">REGISTER</button>
+        <button class="tablinks" onclick="openTab(event, 'login')" style="color: white;">LOGIN</button>
+    </div>
+    
+      <div id="register" class="tabcontent" align="center">
+      <div id="form-wrapper">
+        <form action="/" method="post">
+            <input type="text" placeholder="First name" name="firstname" required>
+              <br>
+            <input type="text" placeholder="Last name" name="lastname" required>
+              <br>
+            <input type="text" placeholder="Email" name="email" required>
+              <br>
+            <input type="text" placeholder="Username" name="username" required>
+              <br>
+            <input type="password" placeholder="Password" name="password" required>
+              <br>
+              <label style="color: white;"><b>Membership Level</b></label>
+              <select name="cars">
+                <option value="rookie">Rookie</option>
+                <option value="bookworm">Bookworm N2000/month</option>
+                <option value="voracious">Voracious N5000/month</option>
+                <option value="admin">Admin</option>
+              </select>
+              <br>
+              <p style="color: white;">By creating an account you agree to our Terms & Conditions</a></p>
+
+              <div class="clearfix" align="center">
+                <button type="submit" class="btn">Sign Up</button>
+              </div>
+        </form>
+        <div class="social-login">
+            <p class="google">Or signup with:</p>
+            <div class="social-login-buttons">
+                <a class="btn-link-1" href="#"><i class="fa fa-google-plus"></i></a>
+            </div>
+        </div>
+      </div>
+      </div>
+      
+   
+    
+    <div id="login" class="tabcontent" align="center">
+        <div id="form-wrapper" style="max-width:1000px; ">
+            <form action = "/" method = "post">
+                <input id="username" type="text" placeholder="Username" name="username" required>
+                <br>
+                <input id = "psw" type="password" placeholder="Password" name="psw" required>
+                <br>
+                <button id = "loginid" type="submit" class="btn" style="font-size: 14px">Login</button>
+                <br>
+            </form>
+          </div>
+            <div class="social-login">
+                <p class="google">Or login with:</p>
+                <a class="btn-link-1" href="userPage.html"><i class="fa fa-google-plus"></i></a>
+                </div>    
+            </div>
+        </div>
+    </div>    
+  
+  </div><!-- tab-content -->
+  </div>
+</div>
+
+</body>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <title>hello books</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale= 1.0">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/index.js"></script>
+</head>
+<body id="background-image" class="booksville">
+    <!-- Header -->
+    <div class="header">
+    <div class="container">
+      
+      <div class="row">
+        <div style="background-color: #800080;">
+            <h2 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;"" >BOOKSVILLE</h1>
+        </div>
+        <div align="right">
+          <ul style="color: white;">
+              <li>
+                  <pstyle="color: white;" <strong>Welcome</strong> Administrator</p>
+              </li>
+              <li>
+                  <a style="color: white;" class="page-scroll" href="adminpage.html">Help</a>
+              </li>
+              <li>
+                  <a style="color: white;" class="page-scroll" href="adminpage.html">Log out</a>
+              </li>
+          </ul>
+        </div>
+    </div>
+    <div class="topnav" id="myTopnav">
+      <a style="color: white;" class="tablinks"  onclick="openTab(event, 'addBook')">Add book</a>
+       <a style="color: white;" class="tablinks" onclick="openTab(event, 'modifyBooks')">Modify books</a>
+       <a style="color: white;" class="tablinks" onclick="openTab(event, 'notifications')">Notifications</a>
+       <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+   <!-- tab content to add books-->		
+	<div class="tabcontent" id="addBook" align="center">
+		    <div style="color: #8b008b" >
+				<div class="box-head">
+				    <h2  style= "color:white;" align ="center">NEW BOOK</h2>
+				</div>
+				<div class="bookform">
+				  <form action="" method="post" align= "center" ">
+			        <input type="text" placeholder="Title" class="field small-field" />
+					<br>
+					<input type="text" placeholder="Category" class="field small-field" />
+					<br>
+					<input type="text" placeholder="Description" class="field small-field" />	
+					<br>
+					<input type="text" placeholder="Quantity" class="field small-field" />	
+					<br>
+					<input type="text" placeholder="Upload book file" class="field small-field"  style="margin-left: 10%;" />
+					<input type="submit" class="btn" value="Upload" />
+					<br>
+					<input type="submit" class="btn" value="Add Book" />
+				  </form>
+				</div>
+			</div>
+			<br />
+		</div>
+        <!-- tab to modify books-->
+		<div class="tabcontent" id="modifyBooks" align="center" style="background-color: white;">
+		    <div class="table">
+	    	    <table border="0" cellspacing="0" cellpadding="0" style="background-color: white; float: center;">
+							<tr>
+								<th>Title</th>
+								<th>Category</th>
+								<th>In stock</th>
+								<th width="110" class="ac">manage book</th>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> Lord of the rings</a></h3></td>
+								<td>thriller</td>
+								<td>3</td>
+								<td><a href="#">Delete</a><span>  </span><a href="#">Edit</a></td>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> Lord of the rings.</a></h3></td>
+								<td>comedy</td>
+								<td>1</td>
+								<td><a href="#" >Delete</a><span>  </span><a href="#" >Edit</a></td>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> Lord of the rings.</a></h3></td>
+								<td>romance</td>
+								<td>1</td>
+								<td><a href="#">Delete</a><span>  </span><a href="#">Edit</a></td>
+							</tr>
+							<tr >
+								<td><h3><a href="#"> Living in bondage.</a></h3></td>
+								<td>thriller</td>
+								<td>14</td>
+								<td><a href="#">Delete</a><span>  </span><a href="#">Edit</a></td>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> why wait</a></h3></td>
+								<td>thriller</td>
+								<td>2</td>
+								<td><a href="#">Delete</a><span>  </span><a href="#">Edit</a></td>
+							</tr>
+							<tr class="odd">
+								<td><h3><a href="#"> game of thrones</a></h3></td>
+								<td>thriller</td>
+								<td><a href="#">6r</a></td>
+								<td><a href="#">Delete</a><span>  </span><a href="#">Edit</a></td>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> lord of the rings</a></h3></td>
+								<td>thriller</td>
+								<td><a href="#">3</a></td>
+								<td><a href="#" >Delete</a><span>  </span><a href="#" Edit</a></td>
+							</tr>
+							<tr>
+								<td><h3><a href="#"> Lord of the rings</a></h3></td>
+								<td>thriller</td>
+								<td>12</td>
+								<td><a href="#">Delete</a><span>  </span><a href="#" >Edit</a></td>
+							</tr>
+					</table>
+				
+				</div>
+		</div>
+        <!-- notification tab-->
+		<div class="tabcontent" id="notifications" align="center" style="background-color: white;">
+		    <div class="table" >
+				<table border="0" cellspacing="0" cellpadding="0" style="background-color: white; float: center;">
+					<tr>						
+						<th>User</th>
+						<th>Book</th>
+						<th>Action</th>
+						<th>Date</th>
+					</tr>
+					<tr>
+						<td> jane joe</td>
+						<td><h3><a href="#">Lord of the rings</a></h3></td>
+						<td>returned</td>
+						<td><a href="#">03/07/2017</a></td>
+					</tr>
+                    <tr>						
+						<td> jane joe</td>
+						<td><h3><a href="#">Lord of the rings.</a></h3></td>
+						<td>borrowed</td>
+						<td><a href="#">03/07/2017</a></td>
+					</tr>
+					<tr>
+						<td> jane joe</td>
+						<td><h3><a href="#">Lord of the rings</a></h3></td>
+						<td>returned</td>
+						<td><a href="#">03/07/2017</a></td>
+					</tr>
+					<tr>
+						<td> jane joe</td>
+						<td><h3><a href="#">Lord of the rings</a></h3></td>
+						<td>returned</td>
+						<td><a href="#">03/07/2017</a></td>
+					</tr>
+                    <tr>
+	            </table>
+			</div>
+		</div>
+</div>
+
+	
+
+</body>

@@ -1,0 +1,23 @@
+{
+  "name": "booksville",
+  "version": "1.0.0",
+  "description": "a simple library app that manages its processes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aimeedyki/hello-Books.git"
+  },
+  "keywords": [
+    "Library",
+    "Books"
+  ],
+  "author": "Amarachi Akuwudike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aimeedyki/hello-Books/issues"
+  },
+  "homepage": "https://github.com/aimeedyki/hello-Books#readme"
+}
