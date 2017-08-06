@@ -10,9 +10,9 @@ module.exports = (app) => {
   //route for registration
   app.post('/api/v1/users/signup', usersController.create);
   //route for login
- /* app.post('/api/v1/users/signin', usersController.auth);
+ app.post('/api/v1/users/signin', usersController.auth);
   //route for adding a book
-  app.post('/api/v1/books', booksController.create );
+/*  app.post('/api/v1/books', booksController.create );
   //route for modifying book information
   app.put('/api/v1/books/:bookid', booksController.modify);
   //displays allbooks in the library
