@@ -21,20 +21,18 @@ module.exports = {
   //authenticates login
   auth(req, res, next){
     return user
-    .all({ where: { email: req.body.email }})
-     .then(user => res.status(201).send(user))
-      .catch(error => console.log(error.message)); 
-    /*.then((user)=>{
+    .findOne({ where: { username: req.body.username }})
+     .then((user)=>{
 
             if(req.body.password === user.password){
-              res.send(status);
+              res.send(user);
             } 
             else {
               res.send("password or email is incorrect");
             }
           })
      
-    .catch(error => console.log(error.message)); */
+    .catch(error => console.log(error.message)); 
   },
 
 };
