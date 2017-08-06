@@ -1,9 +1,11 @@
 const users = require('./users');
-/*const books = require('./books');
-const histories = require('./histories')*/
+const categories = require('./categories');
+const books = require('./books');
+//const histories = require('./histories')*/
 //controllers for users,books, 
 module.exports = {
   users,
- /* books,
-  histories,*/
+  categories,
+ books,
+ // histories,*/
 };
