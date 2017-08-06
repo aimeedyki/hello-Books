@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: DataTypes.STRING,
@@ -9,37 +11,24 @@ module.exports = (sequelize, DataTypes) => {
     level: DataTypes.STRING,
     profilepic: DataTypes.STRING
   }, 
-  //hashes password
-  /*{  hooks: {
-       beforeCreate: (user, fn) => {
-         const salt = bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt)=>{
-          return salt
-         });
-         bcrypt.hash(user.password, salt, null, (err, hash)=>{
-             if(err) return next(err);
-             user.password = hash;
-             return fn(null, user);
-         });
-         /*user.password = bcrypt.hashSync(user.password, salt);*/
-  /*    }
-    },
+  
+//hashes password
+  {  hooks: {
+       beforeCreate: (user1) => {
+         const salt = bcrypt.genSaltSync();
+         user1.password = bcrypt.hashSync(user1.password, salt);
+       }
+     },
     instanceMethods: {
-        /*generateHash: (password) => {
+        generateHash: (password) => {
             return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        },*/
-    /*   validPassword: (password) =>{
-            /*return bcrypt.compareSync(password, this.password);*/
-     /*     bcrypt.compare(password, passwd, (err, issmatch)=>{
-              if(err) console.log(err)
-              if (isMatch){
-                  return done(null,user)
-              } else{
-                return done(null, false)
-              }
-            });
-          }
         },
-    },*/
+        validPassword: (password) =>{
+            return bcrypt.compareSync(password, this.password);
+        },
+    },
+    
+  }); 
  {
     classMethods: {
       associate: (models) => {
@@ -49,6 +38,6 @@ module.exports = (sequelize, DataTypes) => {
         });
       }
     }
-  });
+  };
   return User;
 };

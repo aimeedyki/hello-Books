@@ -16,7 +16,7 @@ module.exports = {
       })
           
       .then(user => res.status(201).send(user))
-      .catch(error => res.status(400).send(error)); 
+      .catch(error => res.status(400).send(error.message)); 
   },
   //authenticates login
   auth(req, res, next){
