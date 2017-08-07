@@ -40,15 +40,6 @@ module.exports = {
           as: 'categoryId',
         },
       },
-       category: {
-        type: Sequelize.STRING,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'categories',
-          key: 'category',
-          as: 'category',
-        },
-      },
     });
   },
   down: (queryInterface, Sequelize)=> {

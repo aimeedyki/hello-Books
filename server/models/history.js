@@ -5,20 +5,16 @@ module.exports = (sequelize, DataTypes)=> {
     returnedDate: DataTypes.DATE,
     return: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
-    username: DataTypes.STRING,
     bookId: DataTypes.INTEGER,
-    title: DataTypes.STRING,
-  }, {
+    }, {
     classMethods: {
       associate: (models) => {
         History.belongsTo(models.Book, {
           foreignKey: 'bookId',
-          targetKey: 'title',
           onDelete: 'CASCADE',
       });
       History.belongsTo(models.User, {
           foreignKey: 'userId',
-          targetKey: 'username',
           onDelete: 'CASCADE',
       });
     }

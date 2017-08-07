@@ -36,15 +36,6 @@ module.exports = {
           as: 'userId',
         },
       },
-      username: {
-        type: Sequelize.STRING,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'users',
-          key: 'username',
-          as: 'username',
-        },
-      },
       bookId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -52,15 +43,6 @@ module.exports = {
           model: 'books',
           key: 'id',
           as: 'bookId',
-        },
-      },
-      title: {
-        type: Sequelize.STRING,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'books',
-          key: 'title',
-          as: 'bookTitle',
         },
       },
     });
