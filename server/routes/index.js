@@ -14,6 +14,8 @@ module.exports = (app) => {
  app.post('/api/v1/users/signin', usersController.auth);
   //route for category
  app.post('/api/v1/category', categoriesController.create);
+  //route for category
+ app.get('/api/v1/category', categoriesController.list);
   //route for adding a book
   app.post('/api/v1/books', booksController.create );
   //route for modifying book information
