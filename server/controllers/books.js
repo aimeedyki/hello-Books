@@ -18,16 +18,21 @@ module.exports = {
   },
  //modifys book
   modify(req, res) {
-    book.update({
+    return book
+    .update({
           title: req.body.title,
           image: req.body.image,
           description: req.body.description,
           quantity: req.body.quantity,
-          categoryId: req.body.category,
+          categoryId: req.body.categoryId,
+          author: req.body.author,
+          category: req.body.category,
       },
-        { where: { id: req.body.id } 
+        { where: { id: req.params.id },
+         returning: true,
+        plain: true
       })
-      .then(book => res.status(201).send("updated"))
+      .then(book => res.status(201).send(book))
       .catch(error => console.log(error.message)); 
   },
   //displays all books
