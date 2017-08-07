@@ -17,8 +17,8 @@ module.exports = {
   //returns the book by updating the history with return date
   modify(req, res) {
     history.update({
-          title: req.body.title,
-          borrowed: req.body.borrowed,
+     title: req.body.title,
+        borrowed: req.body.borrowed,
           returnDate: req.body.returnDate,
           returned: req.body.returned,
   },

@@ -1,20 +1,22 @@
-const category = require('../models').Category;
+import {Category} from '../models';
 
-module.exports = {
+export default {
   //creates a category
-  create(req, res) {
-    return category
+  produce(req, res) {
+    return Category
       .create({
         category: req.body.category,
-        })
+      })
+
       .then(categories => res.status(201).send(categories))
-      .catch(error => console.log(error.message)); 
+      .catch(error => res.status(400).send(error));
   },
+
   //displays all categories
   list(req, res) {
-    return category
-    .all()
-    .then(categories => res.status(200).send(categories))
-    .catch(error => res.status(400).send(error));
-},
-}
+    return Category
+      .all()
+      .then(categories => res.status(200).send(categories))
+      .catch(error => res.status(400).send(error));
+  },
+};
