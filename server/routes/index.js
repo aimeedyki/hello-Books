@@ -12,9 +12,9 @@ module.exports = (app) => {
   app.post('/api/v1/users/signup', usersController.create);
   //route for login
  app.post('/api/v1/users/signin', usersController.auth);
-  //route for category
+  //route for creating a category
  app.post('/api/v1/category', categoriesController.create);
-  //route for category
+  //route for displaying all categories
  app.get('/api/v1/category', categoriesController.list);
   //route for adding a book
   app.post('/api/v1/books', booksController.create );
