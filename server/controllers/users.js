@@ -1,57 +1,45 @@
-const user = require('../models').User;
-const bcrypt = require('bcrypt');
-const jwt    = require('jsonwebtoken');
+import {User} from '../models';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-module.exports = {
-  //creates a user 
-  create(req, res) {
-     return user
+export default {
+  // creates a user
+  produce(req, res) {
+    return User
       .create({
-            email: req.body.email,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            username: req.body.username,
-            password: req.body.password,
-            level: req.body.level,
-            profilepic: req.body.profilepic,
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        password: req.body.password,
+        level: req.body.level,
+        profilepic: req.body.profilepic,
       })
           
       .then(user => res.status(201).send(user))
       .catch(error => res.status(400).send(error.message)); 
   },
+
   //authenticates login
   auth(req, res){
-    return user
-    .findOne({where:{ username: req.body.username}}, (error, user)=>{
-      if(error) throw error;
-      if(!user){
-        res.json({success:false, message: "Authentification failed. User does not exist"});
-      } else if (user){
-          if(user.password != req.body.password){
-            res.json({success:false, message: "Authentification failed. password is incorrect"})
+    return User
+      .findOne({where:{ username: req.body.username}}, (error, User)=>{
+        if(error) throw error;
+        if(!User){
+          res.json({success:false, message: 'Authentification failed. User does not exist'});
+        } else if (User){
+          if(bcrypt.compareSync(req.body.password, this.password === false)){
+            res.json({success:false, message: 'Authentification failed. password is incorrect'});
           } else {
-                const token = jwt.sign(user, app.get('superSecret'), {
-                  expiresInMinutes: 1440
-                });
-                res.json({success: true,
-                    message: "Enjoy your token!",
-                    token: token
-
-                });
+            expiresInMinutes: 1440;
           }
-      }
-    });
-     /*.then((user)=>{
+          res.json({success: true,
+            message: 'Enjoy your token!',
+            token: token,
+          });
+        }
+      });
+  }
 
-            if(user.validPassword(req.body.password)){
-              res.send(user);
-            } 
-            else {
-              res.send("password or email is incorrect");
-            }
-          })
-     
-    .catch(error => console.log(error.message)); */
-  },
 
 };
