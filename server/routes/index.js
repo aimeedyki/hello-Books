@@ -2,19 +2,21 @@ import usersController from '../controllers/users';
 import booksController from '../controllers/books';
 import historiesController from '../controllers/histories';
 import categoriesController from '../controllers/categories';
+import authController from '../controllers/auth';
+import authentication from '../middleware/authentication';
 import express from 'express';
 const app = express();
 
-app.get('/api', (req, res) => res.status(200).send({
-  message: 'Welcome to Booksville!',
-}));
+
 // route for registration
-app.post('/api/v1/users/signup', usersController.produce);
+app.post('/api/v1/users/signup', usersController.signup);
 
 // route for login
-//app.post('/api/v1/users/signin', usersController.auth);
+app.post('/api/v1/users/signin', authController.login);
+app.use(authentication.verifyUser);
+
 // route for creating a category
-app.post('/api/v1/category', categoriesController.produce);
+app.post('/api/v1/category', categoriesController.addCategory);
 
 // route for displaying all categories
 app.get('/api/v1/category', categoriesController.list);

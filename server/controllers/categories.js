@@ -2,7 +2,7 @@ import {Category} from '../models';
 
 export default {
   //creates a category
-  produce(req, res) {
+  addCategory(req, res) {
     return Category
       .create({
         category: req.body.category,
