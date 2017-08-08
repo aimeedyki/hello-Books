@@ -1,11 +1,12 @@
-const users = require('./users');
-const categories = require('./categories');
-const books = require('./books');
-const histories = require('./histories')
-//controllers for users,books, 
-module.exports = {
+import  users from './users';
+import categories from './categories';
+import books from './books';
+import histories from './histories';
+
+//controllers for users,books,
+export default {
   users,
   categories,
- books,
+  books,
   histories,
 };

@@ -33,8 +33,8 @@ export default (sequelize, DataTypes) => {
       },
       validate: {
         isNotShort: (value) => {
-          if (value.length < 8) {
-            throw new Error('Password should be atleast 8 characters');
+          if (value.length < 3) {
+            throw new Error('Username should be atleast 3 characters');
           }
         },
       },
@@ -47,10 +47,10 @@ export default (sequelize, DataTypes) => {
             throw new Error('Password should be atleast 8 characters');
           }
         },
-        notNull:{
+      /*  notNull:{
           args: true,
           msg: 'Please choose a password'
-        },
+        },*/
       },
     },
     level: DataTypes.STRING,

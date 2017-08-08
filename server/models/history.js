@@ -1,4 +1,4 @@
-'use strict';
+
 export default (sequelize, DataTypes)=> {
   const History = sequelize.define('History', {
     borrowedDate: DataTypes.DATE,

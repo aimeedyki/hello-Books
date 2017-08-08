@@ -4,7 +4,7 @@ import {Book} from '../models';
 
 export default {
   //user borrows a book and creates a history record
-  produce (req, res) {
+  borrow (req, res) {
     return Book.findById(req.body.bookId)
       .then(Book => {
         if (!Book) {
@@ -58,9 +58,13 @@ export default {
 
   //displays user history
   list(req, res) {
+      const whereClause = {userId: req.params.userId}
+      if(req.query.return === 'false'){
+          whereClause.return = false;
+      }
 
     return History
-      .all({ where: { userId: req.params.userId }})
+      .all({ where: whereClause})
 
       .then(histories => res.status(200).send(histories))
       .catch(error => res.status(400).send(error.message));

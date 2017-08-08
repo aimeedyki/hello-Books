@@ -1,6 +1,4 @@
 import {User} from '../models';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 export default {
   // creates a user
@@ -15,12 +13,8 @@ export default {
         level: req.body.level,
         profilepic: req.body.profilepic,
       })
-          
+
       .then(user => res.status(201).send(user))
-      .catch(error => res.status(400).send(error.message)); 
+      .catch(error => res.status(400).send(error.message));
   },
-
-
-
-
 };
