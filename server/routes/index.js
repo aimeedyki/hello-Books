@@ -20,7 +20,7 @@ app.post('/api/v1/category', categoriesController.produce);
 app.get('/api/v1/category', categoriesController.list);
 
 // route for adding a book
-app.post('/api/v1/books', booksController.produce );
+app.post('/api/v1/books', booksController.addBook );
 
 // route for modifying book information
 app.put('/api/v1/books/:id', booksController.modify);
@@ -29,16 +29,13 @@ app.put('/api/v1/books/:id', booksController.modify);
 app.get('/api/v1/books', booksController.list);
 
 // borrows a book and saves to history of a user
-app.post('/api/v1/users/:userId/books', historiesController.produce);
+app.post('/api/v1/users/:userId/books', historiesController.borrow);
 
 //returns a book to the library by updating date returned
 app.put('/api/v1/users/:userId/books', historiesController.modify);
 
 //displays history
 app.get('/api/v1/users/:userId/books', historiesController.list);
-
-//display not returned
-app.get('/api/v1/users/:userId/books?return=false', historiesController.returned)
 
 
 export default app;
