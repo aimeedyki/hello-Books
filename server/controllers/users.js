@@ -2,7 +2,7 @@ import {User} from '../models';
 
 export default {
   // creates a user
-  produce(req, res) {
+  signup(req, res) {
     return User
       .create({
         email: req.body.email,

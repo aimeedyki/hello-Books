@@ -1,6 +1,7 @@
 import {User} from '../models';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import getUserToken from '../helpers/jwt';
 
 const authController = {
   login(req, res) {
@@ -26,10 +27,11 @@ const authController = {
           res.status(401).send({ message: 'Password is incorrect' });
         }
       })
-      .catch(error => res.status(400).send({
-        error,
+      .catch(error => res.status(400).send(error.message));
+      /*.catch(error => res.status(400).send({
+        error.message,
         message: 'Error occurred while authenticating user'
-      }));
+      }));*/
   }
 };
 
