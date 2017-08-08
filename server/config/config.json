@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "admin1",
+    "password": "booksville",
+    "database": "booksville",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "dialect": "postgresql"
+  },
+  "test": {
+     "username": "admin1",
+    "password": "booksville",
+    "database": "booksville",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "dialect": "postgresql"
+  },
+  "production": {
+     "username": "admin1",
+    "password": "booksville",
+    "database": "booksville",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "dialect": "postgresql"
+  }
+}
