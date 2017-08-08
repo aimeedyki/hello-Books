@@ -27,23 +27,29 @@ export default (sequelize, DataTypes) => {
         args: false,
         msg: 'Please enter a username',
       },
-      unique:{
+      unique: {
         args: true,
         msg: 'Username already exists! Please choose another username'
       },
       validate: {
-        len: {
-          args: [3,10],
-          msg: 'Username should be more than 2 characters and less than 10',
+        isNotShort: (value) => {
+          if (value.length < 8) {
+            throw new Error('Password should be atleast 8 characters');
+          }
         },
       },
     },
     password:{
       type: DataTypes.STRING,
       validate: {
-        len: {
-          args: [3,10],
-          msg: 'Password should be more than 2 characters and less than 10',
+        isNotShort: (value) => {
+          if (value.length < 8) {
+            throw new Error('Password should be atleast 8 characters');
+          }
+        },
+        notNull:{
+          args: true,
+          msg: 'Please choose a password'
         },
       },
     },
@@ -58,16 +64,7 @@ export default (sequelize, DataTypes) => {
       user.password = bcrypt.hashSync(user.password, salt);
     }
   },
-    /*instanceMethods: {
-        generateHash: (password) => {
-            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        },
-        validPassword: (password) =>{
-            return bcrypt.compareSync(password, this.password);
-        },
-    },*/
-    
-  }); 
+  });
 
   User.associate = (models) => {
     User.hasMany(models.History, {

@@ -19,8 +19,13 @@ export default {
 
   //modifies book
   modify(req, res) {
-    return Book
-      .update({
+    return Book.findById(req.params.id)
+      .then(book => {
+        if (!book) {
+          return res.status(404).send({error: 'Book does not exist in this Library'});
+        }
+      },
+      Book.update({
         title: req.body.title,
         image: req.body.image,
         description: req.body.description,
@@ -28,7 +33,7 @@ export default {
         categoryId: req.body.categoryId,
         author: req.body.author,
         category: req.body.category,
-      },
+      }),
       { where: { id: req.params.id },
         returning: true,
         plain: true
