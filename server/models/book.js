@@ -1,5 +1,5 @@
 'use strict';
-module.exports = (sequelize, DataTypes) =>{
+export default (sequelize, DataTypes) =>{
   const Book = sequelize.define('Book', {
     title: DataTypes.STRING,
     author: DataTypes.STRING,
@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) =>{
         Book.belongsTo(models.Category, {
           foreignKey: 'categoryId',
           onDelete: 'CASCADE',
-      });
+        });
+      }
     }
-  }
   });
   return Book;
 };

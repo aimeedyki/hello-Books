@@ -1,5 +1,5 @@
-'use strict';
-module.exports = (sequelize, DataTypes) =>{
+
+export default  (sequelize, DataTypes) =>{
   const Category = sequelize.define('Category', {
     category: DataTypes.STRING
   }, {
