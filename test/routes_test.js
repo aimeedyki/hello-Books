@@ -32,8 +32,8 @@ describe('User', ()=>{
 
   it ('should return 200 when login is successful', (done) =>{
     server.put('/api/v1/users/signin')
-      .send({'username': 'jamieeee',
-        'password': 'bookieee',
+      .send({'username': 'johnie',
+        'password': 'bookiiii',
       })
       .end((err, res)=>{
         assert.equal(res.status, 200)
@@ -46,7 +46,7 @@ describe('User', ()=>{
 describe('Book', ()=>{
   it ('should return 201 when a book is added', (done)=>{
     server.post('/api/v1/books')
-      .send({'title': 'George jungle',
+      .send({'title': 'jungle book',
         'author': 'Waltz Disney',
         'description':'a tale about a jungle boy',
         'image': 'assd.jpg',
@@ -60,7 +60,7 @@ describe('Book', ()=>{
   });
   it ('should return 200 when a book is modified', (done)=>{
     server.put('/api/v1/books/1')
-      .send({'title': 'Midnight Monster',
+      .send({'title': 'Midnight wail',
         'author': 'James Hardy',
         'description':'a tale about family',
         'image': 'assd.jpg',
@@ -84,11 +84,11 @@ describe('Book', ()=>{
 
 describe ('History', ()=>{
   it ('should return 201 when a book is borrowed', (done)=>{
-    server.post('/api/v1/users/1/books')
+    server.post('/api/v1/users/2/books')
       .send({
         'borrowedDate': '02/08/2017',
         'return': 'false',
-        'bookId': '6',
+        'bookId': '4',
       })
       .end((err, res)=>{
         assert.equal(res.status, 201),
@@ -96,11 +96,11 @@ describe ('History', ()=>{
       });
   });
   it ('should return 200 when a book is returned', (done)=>{
-    server.put('/api/v1/users/1/books')
+    server.put('/api/v1/users/2/books')
       .send({
         'borrowedDate': '02/08/2017',
-        'return': 'false',
-        'bookId': '2',
+        'return': 'true',
+        'bookId': '3',
       })
       .end((err, res)=>{
         assert.equal(res.status, 200),
@@ -108,14 +108,14 @@ describe ('History', ()=>{
       });
   });
   it ('should return 200 when displaying all books a user has borrowed', (done)=>{
-    server.get('/api/v1/users/1/books')
+    server.get('/api/v1/users/1/allbooks')
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();
       });
   });
   it ('should return 200 when displaying all books a user has borrowed but not returned', (done)=>{
-    server.get('/api/v1/users/1/books?return=false')
+    server.get('/api/v1/users/1/allbooks?returned=false')
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();
@@ -134,7 +134,7 @@ describe ('Category', ()=>{
       });
   });
   it ('should return 200 when displaying all categories in the library', (done)=>{
-    server.get('/api/v1/users/1/books?return=false')
+    server.get('/api/v1/category')
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();

@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
   up: (queryInterface, Sequelize) =>{
     return queryInterface.createTable('Books', {
       id: {
@@ -21,7 +21,7 @@ export default {
       },
       quantity: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

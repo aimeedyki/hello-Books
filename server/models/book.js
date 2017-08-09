@@ -5,17 +5,18 @@ export default (sequelize, DataTypes) =>{
     title: DataTypes.STRING,
     author: DataTypes.STRING,
     description: DataTypes.STRING,
-    quantity: DataTypes.STRING,
+    quantity: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Book.belongsTo(models.Category, {
-          foreignKey: 'categoryId',
-          onDelete: 'CASCADE',
-        });
-      }
-    }
-  });
+  })
+  Book.associate= (models) => {
+    Book.belongsTo(models.Category, {
+      foreignKey: 'categoryId',
+    });
+    Book.hasMany(models.History, {foreignKey: 'id'});
+        //,{
+    //   foreignKey: 'bookId',
+    // });
+  };
+
   return Book;
 };
