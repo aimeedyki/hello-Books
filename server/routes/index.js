@@ -7,7 +7,9 @@ import authentication from '../middleware/authentication';
 import express from 'express';
 const app = express();
 
-
+app.get('/', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
 // route for registration
 app.post('/api/v1/users/signup', usersController.signup);
 
@@ -40,6 +42,8 @@ app.post('/api/v1/books', booksController.addBook );
 // route for modifying book information
 app.put('/api/v1/books/:id', booksController.modify);
 
-
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
 
 export default app;
