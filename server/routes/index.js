@@ -13,7 +13,7 @@ app.post('/api/v1/users/signup', usersController.signup);
 
 // route for login
 app.post('/api/v1/users/signin', authController.login);
-app.use(authentication.verifyUser);
+//app.use(authentication.verifyUser);
 
 // route for creating a category
 app.post('/api/v1/category', categoriesController.addCategory);

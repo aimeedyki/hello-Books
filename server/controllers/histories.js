@@ -5,7 +5,7 @@ import {Book} from '../models';
 export default {
   //user borrows a book and creates a history record
   borrow (req, res) {
-    return Book.findById(req.body.bookId)
+    Book.findById(req.body.id)
       .then(Book => {
         if (!Book) {
           return res.status(404).send({error: 'Book does not exist'});
@@ -13,7 +13,6 @@ export default {
         if (Book.quantity === 0) {
           return res.status(200).send({message: 'This book is out of stock! Please try again later.'});
         }
-
         return History.findOne({
           where: {
             bookId: req.body.bookId
@@ -31,10 +30,11 @@ export default {
             Book.update({
               quantity: (Book.quantity - 1),
             });
-          });
-      })
-      .then(History => res.status(201).send(History))
-      .catch(error => res.status(400).send(error.message));
+          })
+
+          .then(History => res.status(201).send(History))
+          .catch(error => res.status(400).send(error.message));
+      });
   },
 
   // returns the book by updating the history with return date
@@ -58,10 +58,10 @@ export default {
 
   //displays user history
   list(req, res) {
-      const whereClause = {userId: req.params.userId}
-      if(req.query.return === 'false'){
-          whereClause.return = false;
-      }
+    const whereClause = {userId: req.params.userId}
+    if(req.query.return === 'false'){
+      whereClause.return = false;
+    }
 
     return History
       .all({ where: whereClause})
