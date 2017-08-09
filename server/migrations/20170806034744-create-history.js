@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
   up: (queryInterface, Sequelize)=> {
     return queryInterface.createTable('Histories', {
       id: {
@@ -15,7 +15,7 @@ export default {
       returnedDate: {
         type: Sequelize.DATE
       },
-      return: {
+      returned: {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
@@ -33,7 +33,6 @@ export default {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'userId',
         },
       },
       bookId: {
@@ -42,7 +41,6 @@ export default {
         references: {
           model: 'Books',
           key: 'id',
-          as: 'bookId',
         },
       },
     });

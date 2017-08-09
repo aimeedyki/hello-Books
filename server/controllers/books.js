@@ -6,7 +6,7 @@ export default {
     return Book.find({where: {title: req.body.title}})
       .then(book => {
         if (book) {
-          return res.status(400).send({error: 'Book already exists in this Library'});
+          return res.status(409).send({error: 'Book already exists in this Library'});
         }
         Book.create({
           title: req.body.title,

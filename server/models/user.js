@@ -68,7 +68,7 @@ export default (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.hasMany(models.History, {
-      foreignKey: 'userId',
+      foreignKey: 'id',
       as: 'histories',
     });
   };
