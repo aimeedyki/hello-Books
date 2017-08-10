@@ -9,7 +9,7 @@ require('dotenv').config();
 const app = express();
 
 //sets port
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 app.listen(port, (err) => {
   /* eslint-disable no-console */
   if (err) console.log(err);

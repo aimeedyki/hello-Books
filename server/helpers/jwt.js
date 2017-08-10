@@ -1,11 +1,16 @@
 import jwt from 'jsonwebtoken';
 
+require('dotenv').config();
+const secret = process.env.SECRET;
+
 //generates token
+console.log(secret);
+
 const token = user =>
   jwt.sign({
-    userId: user.id,
-    userRole: user.level,
-  },process.env.secret, {
-    expiresIn:'72h'
+    username: user.username,
+    level: user.level,
+  }, secret , {
+    expiresIn:'10h'
   });
 export default token;

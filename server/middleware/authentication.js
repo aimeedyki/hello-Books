@@ -1,40 +1,28 @@
 import jwt from 'jsonwebtoken';
+const secret = process.env.SECRET || 'princess';
 
-
-require('dotenv').config();
 
 const authentication = {
-  /*This verifies all routes that starts with /api
-   It checks if there is token and check if the token is valid
-   if the token is valid, then it decodes it and send to the next route*/
-
-  verifyUser(request, response, next) {
-    const token = request.headers['x-access-token'] || request.headers.authorization;
+  verifyUser: (req, res, next) => {
+    const token = req.headers.authorization || req.headers['x-access-token'];
     if (!token) {
-      return response.status(401).send({
+      return res.status(401).send({
         message: 'Not Authorized'
       });
     }
-    jwt.verify(token, process.env.SECRET, (error, decoded) => {
+    jwt.verify(token, secret, (error, decoded) => {
       if (error) {
-        return response.status(401).send({
-          message: 'Invalid Token'
-        });
+        return res.status(401).send({message: 'Invalid token'});
       }
-      request.decoded = decoded;
+      req.decoded = decoded;
       next();
     });
   },
 
-  verifyAdmin(request, response, next){
-    if (request.decoded.user.level !== 'admin'){
-      return response.status(401).send({message: 'Not Authorized'});
-    } else{
-      next();
-    }
-  }
+ verifyAdmin: (req, res, next) => {
+   if(req.decoded && req.decoded.level ==='admin') return next();
+
+     return res.status(401).send({ message: 'you are not an admin' });
+   }
 };
-
-
-
 export default authentication;
