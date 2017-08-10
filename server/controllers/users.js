@@ -1,8 +1,11 @@
+import jwt from 'jsonwebtoken';
 import {User} from '../models';
+const secret = process.env.SECRET || 'princess';
+import getUserToken from '../helpers/jwt';
 
 export default {
   // creates a user
-  signup(req, res) {
+  signup: function (req, res) {
     return User
       .create({
         email: req.body.email,
@@ -14,7 +17,15 @@ export default {
         profilepic: req.body.profilepic,
       })
 
-      .then(user => res.status(201).send(user))
+      .then(user => {
+          const token = getUserToken(user);
+       /* const token = jwt.sign({
+          username: user.username,
+          level: user.level
+        }, secret, {expiresIn: '10h'});*/
+        res.status(201).send({user, token});
+      })
+
       .catch(error => res.status(400).send(error.message));
   },
 };
