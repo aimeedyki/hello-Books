@@ -4,8 +4,6 @@
   "description": "a simple library app that manages its processes",
   "main": "index.js",
   "scripts": {
-    "db:migrate": "NODE_ENV=production && cross-env DATABASE_URL=postgres://acsfhsyexlcbgj:afe62d5bff1b868b8071aee21239c1804b897d70a7178455143acca0ebd60d0a@ec2-174-129-193-169.compute-1.amazonaws.com:5432/dc6r8v8t6ovdik sequelize db:migrate",
-    "heroku-postbuild": "NODE_ENV=production && NODE_END=production sequelize db:migrate:undo:all && NODE_END=production sequelize db:migrate && npm run db:seed",
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
     "test": "SET NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register"
