@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      borrowedDate: {
+      expectedDate: {
         allowNull: false,
         type: Sequelize.DATE
       },

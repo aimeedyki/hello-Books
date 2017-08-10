@@ -28,6 +28,7 @@ app.put('/api/v1/users/:userId/books', historiesController.modify);
 //displays history
 app.get('/api/v1/users/:userId/allbooks', historiesController.list);
 
+// verifies token for admin privileged routes
 app.use(authentication.verifyUser);
 
 // route for creating a category

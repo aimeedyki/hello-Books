@@ -2,7 +2,7 @@
 .booksville{
   font-family: georgia, serif;
   font-size: 90%;
-  background-image: url('"../images/booksbw2.jpg"');
+  background-image: url("../images/booksbw2.jpg");
   }
 
 /*sets background image for all pages*/
@@ -24,6 +24,7 @@ h1, h2 {
     color: #555;
     line-height: 48px;
 }
+/*style for body*/
 body {
   background: #333;
     font-family: 'Roboto', sans-serif;
@@ -34,29 +35,24 @@ body {
     text-align: center;
 }
 
-
+/*media queries for responsiveness*/
 @media (min-width: 992px) and (max-width: 1199px) {}
 
 @media (min-width: 768px) and (max-width: 991px) {
-  
-  .forms-right-icons .icon { font-size: 22px; }
-  
-}
-
+   .forms-right-icons .icon { font-size: 22px; }
+ }
 @media (max-width: 767px) {
-  
   .show-forms, .forms-right-icons, .forms-right-icons .icon { text-align: center; }
   .forms-right-icons .icon { padding-top: 10px; }
   .forms-right-icons h3 { margin-top: 15px; }
-  
 }
 
 @media (max-width: 415px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
   h1, h2 { font-size: 28px; }
-
 }
+
 /*header properties*/
 #top { 
   height:53px;
@@ -74,6 +70,7 @@ body {
 .top-navigation span{ 
   color:#dca598; 
 }
+
 /*tab for login and registration*/
 div.tab {
     overflow: hidden;
@@ -85,12 +82,12 @@ div.tab {
   color: white;
   border-radius: 15px;
 }
-/*for userpage*/
+
+/*top navigation for userpage*/
 .topnav {
   overflow: hidden;
   background-color: #333;
 }
-
 .topnav a {
   float: left;
   display: inline-block;
@@ -100,15 +97,15 @@ div.tab {
   text-decoration: none;
   font-size: 17px;
 }
-
 .topnav a:hover {
   background-color: #ddd;
   color: black;
 }
-
 .topnav .icon {
   display: none;
-}div.tab2 {
+}
+
+div.tab2 {
     float: left;
     border: 1px solid #ccc;
     background-color: #800080;
@@ -117,7 +114,8 @@ div.tab {
     color: white;
     border: 3px solid #ccc;
 }
-/*for adminpage*/
+
+/*tab for adminpage*/
 div.tab3 { 
   height:53%;
   width: 41%; 
@@ -125,6 +123,7 @@ div.tab3 {
   outline: 5px solid #800080;
   background-color: #800080;
 }
+
 /* Style the buttons inside the tab */
 div.tab button, div.tab2 button {
     background-color: inherit;
@@ -136,8 +135,7 @@ div.tab button, div.tab2 button {
     transition: 0.3s;
     text-align: left;
 }
-
-div.tab3 button.active, div.tab3 button:hover { 
+div.tab3 button.active, div.tab3 button:hover {
   color: white; 
   text-align: center;
   background-color: #ff00ff;
@@ -162,10 +160,9 @@ div.tab button.active, div.tab2 button.active {
     display: none;
     padding: 6px 12px;
     border-top: none;
-
 }
 input[type=text], input[type=password] {
-    width: 30%;
+    width: 35%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block
@@ -185,6 +182,7 @@ div.tab3 button{
 .shell { 
   width:988px; 
   margin:0 auto; }
+
 /*google plus login button*/
 .google{
   color:white;
@@ -219,7 +217,7 @@ button#googleplus {
   background: #555; background: rgba(0, 0, 0, 0.3); color: #fff;
 }
 
-/*button style for submit or upload*/
+/*button style for submit or upload button*/
 .btn{
   background-color: #800080;
   color: white;
@@ -232,6 +230,7 @@ button#googleplus {
   background-color: #800080;
   color: white;
 }
+
 /*style for page navigation for books*/
 .pagination {
     float: center;
@@ -250,6 +249,7 @@ button#googleplus {
     border: 1px solid #800080;
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
 /*format for displaying books*/
 div.gallery {
     margin: 5px;
@@ -271,6 +271,7 @@ div.desc {
     color: #800080;
     background-color:   white;
   }
+
 /*formating for user profile*/
 .avatar{
     border-radius: 100px;
@@ -282,8 +283,6 @@ div.desc {
 div.profile-details {
     color: white;
     float: center;
-    /*margin-left: 60%;
-    margin-right: 46%;*/
     text-align: center;
     font-weight: bold;
     background-color: #800080;
@@ -292,15 +291,13 @@ div.profile-details {
 }
 .profile-content {
     float: center;
-    /*margin-left: 600px;
-    margin-right: 460px;*/
-    
-}
+ }
 .digits {
     font-weight: bold;
     font-size: 16px;
     color: white;
 }
+
 /*link styling*/
 a.zoom:hover, a.edit:hover {
     background-color: #800080 ;
@@ -342,6 +339,7 @@ li {
   border:solid 1px #dbd6a2; 
   color:white; 
   background-image:url(images/msg-ok.gif); }
+
 /*head of add book form*/
 .box-head { 
   border-radius: 20px;
@@ -351,10 +349,8 @@ li {
   line-height:60%; 
   white-space:nowrap; 
   border-bottom:solid 2px white; }
-.box-head .right{ 
- /* padding-top:5px; 
-  line-height:13px;}*/
-.field { border:solid 1px #d3cfc7; 
+
+ .field { border:solid 1px #d3cfc7;
   background:#fff; 
   padding:5px; }
 .small-field { border:solid 1px #d3cfc7;
@@ -366,7 +362,7 @@ li {
 
 /*style for table*/
 .table th{ 
-  background:#fffdfa 
+  background:#fffdfa;
   color:#818181; 
   text-align: left; 
   padding:7px 10px; 

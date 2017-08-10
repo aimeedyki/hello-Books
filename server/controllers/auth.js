@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import getUserToken from '../helpers/jwt';
 
+// Authorizes a User log in with token
 const authController = {
   login(req, res) {
     return User
@@ -14,6 +15,8 @@ const authController = {
         if (!user) {
           res.status(404).send({ message: 'User not found' });
         }
+
+        // compares password received to stored hash password
         const passkey = bcrypt.compareSync(req.body.password, user.password);
         if (passkey) {
           const token = getUserToken(user);
@@ -28,10 +31,6 @@ const authController = {
         }
       })
       .catch(error => res.status(400).send(error.message));
-      /*.catch(error => res.status(400).send({
-        error.message,
-        message: 'Error occurred while authenticating user'
-      }));*/
   }
 };
 

@@ -2,6 +2,7 @@
 import bcrypt from 'bcrypt';
 
 export default (sequelize, DataTypes) => {
+  // defines user attributes
   const User = sequelize.define('User', {
     email:{ 
       type: DataTypes.STRING,
@@ -47,13 +48,13 @@ export default (sequelize, DataTypes) => {
             throw new Error('Password should be atleast 8 characters');
           }
         },
-      /*  notNull:{
+        notNull:{
           args: true,
           msg: 'Please choose a password'
-        },*/
+        },
       },
     },
-    level: DataTypes.STRING,
+    level: {allownull: false, type: DataTypes.STRING},
     profilepic: DataTypes.STRING,
   }, 
   
@@ -66,6 +67,7 @@ export default (sequelize, DataTypes) => {
   },
   });
 
+  // defines user associations
   User.associate = (models) => {
     User.hasMany(models.History, {
       foreignKey: 'id',

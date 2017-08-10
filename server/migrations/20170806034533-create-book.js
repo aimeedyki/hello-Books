@@ -10,13 +10,19 @@ module.exports = {
       },
       title: {
         allowNull: false,
-        targetKey: true,
+        unique: true,
         type: Sequelize.STRING
       },
       author: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      image: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       quantity: {

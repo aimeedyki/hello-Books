@@ -2,7 +2,7 @@ import {Book}from '../models';
 import {History} from '../models';
 //const Book = model.Book
 export default {
-  //user borrows a book and creates a history record
+  // user borrows a book and creates a history record
   borrow (req, res) {
     return Book.find({where:{id: req.body.bookId}})
       .then(Book => {
@@ -13,7 +13,7 @@ export default {
           return res.status(404).send({message: 'This book is out of stock! Please try again later.'});
         }
         History.create({
-          borrowedDate: req.body.borrowedDate,
+          expectedDate: req.body.borrowedDate,
           returned: req.body.returned,
           userId: req.params.userId,
           bookId: req.body.bookId,
@@ -37,7 +37,7 @@ export default {
       .then(
         History.update({
           returnDate: req.body.returnDate,
-          return: req.body.returned,
+          returned: req.body.returned,
         },
         {
           where: {userId: req.params.userId, bookId: req.body.bookId},
