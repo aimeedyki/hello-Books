@@ -27,9 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Require routes into the application.
 import serverRoutes from './server/routes';
-app.use(serverRoutes);
-
-
+app.use(serverRoutes)
 
 
 

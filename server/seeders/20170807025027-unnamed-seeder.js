@@ -1,26 +1,26 @@
-'use strict';
+/* eslint-disable */
+const bcrypt = require('bcrypt');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+    return queryInterface.bulkInsert('Users', [
+        {
+            email: 'amarachi@gmail.com',
+            firstname: 'Amarachi',
+            lastname: 'Akuwudike',
+            username: 'aimeeamy',
+            password: bcrypt.hashSync('bookiiii', 10),
+            level: 'admin',
+            profilepic: 'img0001.jpg',
+            createdAt: new Date(),
+            updatedAt: new Date(),
 
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+        } ]);
   },
 
   down: function (queryInterface, Sequelize) {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
+      queryInterface.bulkDelete('Users', [{
+          username :'aimeeamy'
+      }])
   }
-};
+  };

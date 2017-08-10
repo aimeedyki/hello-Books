@@ -1,8 +1,9 @@
 import {Book} from '../models';
 
 export default {
-//adds a book
+// adds a book
   addBook(req, res) {
+      if (req.decoded.user.level === 'admin') {}
     return Book.find({where: {title: req.body.title}})
       .then(book => {
         if (book) {
@@ -12,7 +13,6 @@ export default {
           title: req.body.title,
           author: req.body.author,
           image: req.body.image,
-          category: req.body.category,
           description: req.body.description,
           quantity: req.body.quantity,
           categoryId: req.body.categoryId,
@@ -22,7 +22,7 @@ export default {
       });
   },
 
-  //modifies book
+  // modifies book
   modify(req, res) {
     return Book.findById(req.params.id)
       .then(book => {
@@ -46,7 +46,7 @@ export default {
       });
   },
 
-  //displays all books
+  // displays all books
   list(req, res) {
     return Book
       .all()

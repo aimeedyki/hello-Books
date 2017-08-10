@@ -1,7 +1,7 @@
 import {Category} from '../models';
 
 export default {
-  //creates a category
+  // creates a category
   addCategory(req, res) {
     return Category
       .create({
@@ -12,7 +12,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
-  //displays all categories
+  // displays all categories
   list(req, res) {
     return Category
       .all()

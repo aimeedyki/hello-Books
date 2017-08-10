@@ -13,13 +13,14 @@
   <script src="js/index.js"></script>
 </head>
 <body id="background-image" class="booksville">
-    <!-- Header -->
+
+<!-- Header -->
     <div class="header">
     <div class="container">
       
       <div class="row">
         <div style="background-color: #800080;">
-            <h2 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;"" >BOOKSVILLE</h1>
+            <h1 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;" >BOOKSVILLE</h1>
         </div>
         <div align="right">
           <ul style="color: white;">
@@ -35,13 +36,16 @@
           </ul>
         </div>
     </div>
+
+	<!-- navigation for admin page-->
     <div class="topnav" id="myTopnav">
       <a style="color: white;" class="tablinks"  onclick="openTab(event, 'addBook')">Add book</a>
        <a style="color: white;" class="tablinks" onclick="openTab(event, 'modifyBooks')">Modify books</a>
        <a style="color: white;" class="tablinks" onclick="openTab(event, 'notifications')">Notifications</a>
        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
     </div>
-   <!-- tab content to add books-->		
+
+		<!-- tab content to add books-->
 	<div class="tabcontent" id="addBook" align="center">
 		    <div style="color: #8b008b" >
 				<div class="box-head">
@@ -66,10 +70,11 @@
 			</div>
 			<br />
 		</div>
+
         <!-- tab to modify books-->
-		<div class="tabcontent" id="modifyBooks" align="center" style="background-color: white;">
+		<div class="tabcontent" id="modifyBooks" align="center" >
 		    <div class="table">
-	    	    <table border="0" cellspacing="0" cellpadding="0" style="background-color: white; float: center;">
+	    	    <table border="0" cellspacing="20" cellpadding="0" style="background-color: white; float: center;">
 							<tr>
 								<th>Title</th>
 								<th>Category</th>
@@ -128,10 +133,11 @@
 				
 				</div>
 		</div>
-        <!-- notification tab-->
-		<div class="tabcontent" id="notifications" align="center" style="background-color: white;">
+
+		<!-- notification tab-->
+		<div class="tabcontent" id="notifications" align="center" >
 		    <div class="table" >
-				<table border="0" cellspacing="0" cellpadding="0" style="background-color: white; float: center;">
+				<table border="0" cellspacing="20" cellpadding="0" style="background-color: white; float: center;">
 					<tr>						
 						<th>User</th>
 						<th>Book</th>
@@ -168,6 +174,6 @@
 		</div>
 </div>
 
-	
+	</div>
 
 </body>

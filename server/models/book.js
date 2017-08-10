@@ -1,21 +1,77 @@
 
 export default (sequelize, DataTypes) =>{
+  // defines attributes for book model
   const Book = sequelize.define('Book', {
-    id:  { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    description: DataTypes.STRING,
-    quantity: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
+    id:  { allownull: false, type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title:{ allowNull: {
+      args: false,
+      msg: 'Please enter book title',
+    },
+    unique: {
+      args: true,
+      msg: 'This Book already exists',
+    },
+    type: DataTypes.STRING,
+    validate:{
+      notEmpty:{
+        args: true,
+        msg: 'Please enter book title'
+      },
+    },
+    },
+    author: {
+      allowNull: {
+        args: false,
+        msg: 'Please enter an author',
+      },
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter an author'
+        },
+      },
+    },
+    description: {
+      allowNull: {
+        args: false,
+        msg: 'Please enter a description',
+      },
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter a description'
+        },
+      },
+    },
+    image: {
+      allowNull: true,
+      type: DataTypes.STRING,
+
+    },
+    quantity: {
+      allowNull: {
+        args: false,
+        msg: 'Please enter quantity',
+      },
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter quantity'
+        },
+      },
+    },
+    categoryId: {allownull: false, type: DataTypes.INTEGER,},
   })
+
+  // defines associations to category and history models
   Book.associate= (models) => {
     Book.belongsTo(models.Category, {
       foreignKey: 'categoryId',
     });
     Book.hasMany(models.History, {foreignKey: 'id'});
-        //,{
-    //   foreignKey: 'bookId',
-    // });
   };
 
   return Book;
