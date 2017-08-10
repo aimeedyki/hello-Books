@@ -1,5 +1,4 @@
 
-
 {
   "development": {
     "username": "admin1",
@@ -18,7 +17,11 @@
     "dialect": "postgresql"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
+   "username": "gdbqliph",
+    "password": "AWcLyH8kbPJDv3Q5-CpGwqYk9R0F-YWl",
+    "database": "gdbqliph",
+    "host": "babar.elephantsql.com",
+     "port": "5432",
+    "dialect": "postgresql"
   }
 }
