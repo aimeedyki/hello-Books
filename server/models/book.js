@@ -11,32 +11,57 @@ export default (sequelize, DataTypes) =>{
       args: true,
       msg: 'This Book already exists',
     },
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    validate:{
+      notEmpty:{
+        args: true,
+        msg: 'Please enter book title'
+      },
+    },
     },
     author: {
       allowNull: {
         args: false,
         msg: 'Please enter an author',
       },
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter an author'
+        },
+      },
     },
     description: {
       allowNull: {
         args: false,
         msg: 'Please enter a description',
       },
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter a description'
+        },
+      },
     },
     image: {
       allowNull: true,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+
     },
     quantity: {
       allowNull: {
         args: false,
         msg: 'Please enter quantity',
       },
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Please enter quantity'
+        },
+      },
     },
     categoryId: {allownull: false, type: DataTypes.INTEGER,},
   })

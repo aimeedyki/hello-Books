@@ -3,6 +3,7 @@ import {Book} from '../models';
 export default {
 // adds a book
   addBook(req, res) {
+      if (req.decoded.user.level === 'admin') {}
     return Book.find({where: {title: req.body.title}})
       .then(book => {
         if (book) {

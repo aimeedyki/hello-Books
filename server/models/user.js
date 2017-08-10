@@ -35,26 +35,34 @@ export default (sequelize, DataTypes) => {
       validate: {
         isNotShort: (value) => {
           if (value.length < 3) {
-            throw new Error('Username should be atleast 3 characters');
+            throw new Error('Username should be at least 3 characters');
           }
         },
       },
     },
     password:{
       type: DataTypes.STRING,
+      allowNull:{
+        args: true,
+        msg: 'Please choose a password'
+      },
       validate: {
         isNotShort: (value) => {
           if (value.length < 8) {
-            throw new Error('Password should be atleast 8 characters');
+            throw new Error('Password should be at least 8 characters');
           }
         },
-        notNull:{
+
+      },
+    },
+    level: {allownull: false, type: DataTypes.STRING,
+      validate: {
+        notEmpty:{
           args: true,
-          msg: 'Please choose a password'
+          msg: 'Please enter a level'
         },
       },
     },
-    level: {allownull: false, type: DataTypes.STRING},
     profilepic: DataTypes.STRING,
   }, 
   

@@ -22,7 +22,7 @@ const authController = {
           const token = getUserToken(user);
           const oldUser = {
             success: true,
-            userId: user.id,
+            username: user.username,
             userEmail: user.email,
           };
           res.status(200).send({ oldUser, token });

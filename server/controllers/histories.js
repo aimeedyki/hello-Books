@@ -13,20 +13,20 @@ export default {
           return res.status(404).send({message: 'This book is out of stock! Please try again later.'});
         }
         History.create({
-          expectedDate: req.body.borrowedDate,
-          returned: req.body.returned,
+          expectedDate: req.body.expectedDate,
+          returned: false,
           userId: req.params.userId,
           bookId: req.body.bookId,
         },
         { returning: true,
           plain: true
-        }) .then(History => res.status(200).send(History))
+        }) .then(History => res.status(201).send(History))
           .then(Book => {
             Book.update({
               quantity: (Book.quantity - 1),
             });
           })
-          .then(History => res.status(200).send(History))
+          .then(History => res.status(201).send(History))
           .catch(error => res.status(400).send(error.message));
       });
   },
@@ -34,22 +34,23 @@ export default {
   // returns the book by updating the history with return date
   modify(req, res) {
     return Book.find({where:{id: req.body.bookId}})
-      .then(
-        History.update({
-          returnDate: req.body.returnDate,
-          returned: req.body.returned,
-        },
-        {
-          where: {userId: req.params.userId, bookId: req.body.bookId},
-        })
-      ) .then(History => res.status(200).send(History))
-      .then(Book => {
-        Book.update({
-          quantity: (Book.quantity + 1),
-        },{where: {id: req.body.bookId}});
-      })
-      .then(History => res.status(200).send(History))
-      .catch(error => res.status(400).send(error.message));
+        .then(Book => {
+          History.update({
+                   returnDate: req.body.returnDate,
+                        returned: true,
+                    },
+                    {
+                        where: {userId: req.params.userId, bookId: req.body.bookId},
+                    })
+            .then(History => res.status(200).send(History))
+                .then(Book => {
+                    Book.update({
+                        quantity: (Book.quantity + 1),
+                    }, {where: {id: req.body.bookId}});
+                })
+             //   .then(History => res.status(200).send(History))
+                .catch(error => res.status(400).send(error.message));
+        });
   },
 
 
