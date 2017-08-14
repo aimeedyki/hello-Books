@@ -5,7 +5,7 @@ import getUserToken from '../helpers/jwt';
 
 export default {
   // creates a user
-  signup: function (req, res) {
+  signup: (req, res) =>{
     return User
       .create({
         email: req.body.email,
@@ -18,14 +18,16 @@ export default {
       })
 
       .then(user => {
-          const token = getUserToken(user);
-       /* const token = jwt.sign({
-          username: user.username,
-          level: user.level
-        }, secret, {expiresIn: '10h'});*/
+        const token = getUserToken(user);
         res.status(201).send({user, token});
       })
 
       .catch(error => res.status(400).send(error.message));
   },
+  profile: (req, res)=> {
+    return User.findById(req.params.id)
+
+      .then(user => {return res.status(200).send(user);})
+      .catch(error => res.status(400).send(error));
+  }
 };

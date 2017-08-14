@@ -17,6 +17,9 @@ app.post('/api/v1/users/signup', usersController.signup);
 // route for login
 app.post('/api/v1/users/signin', authController.login);
 
+//route to display user profile
+app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile);
+
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
 
