@@ -64,7 +64,7 @@ export default (sequelize, DataTypes) =>{
       },
     },
     categoryId: {allownull: false, type: DataTypes.INTEGER,},
-  })
+  }, {paranoid: true,})
 
   // defines associations to category and history models
   Book.associate= (models) => {

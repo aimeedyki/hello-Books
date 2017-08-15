@@ -17,6 +17,9 @@ app.post('/api/v1/users/signup', usersController.signup);
 // route for login
 app.post('/api/v1/users/signin', authController.login);
 
+//route to display user profile
+app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile);
+
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
 
@@ -38,14 +41,20 @@ app.post('/api/v1/category', authentication.verifyUser, authentication.verifyAdm
 // route for displaying all categories
 app.get('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.list);
 
+//route for displaying all the books by categories
+app.get('/api/v1/category/:id', authentication.verifyUser, categoriesController.display);
+
 // route for adding a book
 app.post('/api/v1/books', authentication.verifyUser, authentication.verifyAdmin, booksController.addBook );
 
 // route for modifying book information
 app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.modify);
 
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to booksville',
-}));
+// route for deleting a book
+app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.remove);
+
+//app.get('*', (req, res) => res.status(200).send({
+//  message: 'Welcome to booksville',
+//}));
 
 export default app;

@@ -3,6 +3,7 @@ import {assert} from 'chai';
 import app from '../app';
 const server = supertest.agent(app);
 import faker from 'faker';
+let token = '';
 
 describe('User', ()=>{
   it('should return 201 when a new user is created', (done)=>{
@@ -16,9 +17,9 @@ describe('User', ()=>{
         'profilepic': faker.internet.avatar(),
       } )
       .end((err, res)=>{
-        assert.equal(res.status, 201)
-        console.log(res.body);
-        done();
+        assert.equal(res.status, 201);
+        assert.isNotNull(res.body.User);
+                done();
       });
   });
   it('should return 400 for an empty form', (done =>{
@@ -37,7 +38,8 @@ describe('User', ()=>{
       })
       .end((err, res)=>{
         assert.equal(res.status, 200)
-
+        token = res.body.token;
+        console.log(token);
         done();
       });
   });
@@ -56,21 +58,22 @@ describe('User', ()=>{
 
 describe('Book', ()=>{
   it ('should return 201 when a book is added', (done)=>{
-    server.post('/api/v1/books')
+    
+    server.post('/api/v1/books').set('x-access-token', token)
       .send({'title': faker.lorem.sentence(),
         'author': faker.name.findName(),
         'description':'a tale about a jungle boy',
         'image': 'assd.jpg',
         'quantity': '10',
         'categoryId': ' 1',
-      })
+        })
       .end((err, res)=>{
         assert.equal(res.status, 201)
         done();
       });
   });
   it('should return 400 for an empty form', (done =>{
-    server.post('/api/v1/books')
+    server.post('/api/v1/books').set('x-access-token', token)
       .send({})
       .end((err, res)=>{
         assert.equal(res.status, 400);
@@ -78,7 +81,7 @@ describe('Book', ()=>{
       });
   }));
   it ('should return 200 when a book is modified', (done)=>{
-    server.put('/api/v1/books/1')
+    server.put('/api/v1/books/1').set('x-access-token', token)
       .send({'title': 'Midnight wail',
         'author': 'James Hardy',
         'description':'a tale about family',
@@ -92,7 +95,7 @@ describe('Book', ()=>{
       });
   });
   it ('should return 404 if book to be modified is not found', (done)=>{
-    server.put('/api/v1/books/1')
+    server.put('/api/v1/books/1').set('x-access-token', token)
       .send({'title': 'Midnight xxxyyy',
         'author': 'James Hardy',
         'description':'a tale about family',
@@ -106,7 +109,7 @@ describe('Book', ()=>{
       });
   });
   it ('should return 200 when displaying all books', (done)=>{
-    server.get('/api/v1/books')
+    server.get('/api/v1/books').set('x-access-token', token)
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();
@@ -116,7 +119,7 @@ describe('Book', ()=>{
 
 describe ('History', ()=>{
   it ('should return 201 when a book is borrowed', (done)=>{
-    server.post('/api/v1/users/1/books')
+    server.post('/api/v1/users/1/books').set('x-access-token', token)
       .send({
         'borrowedDate': '02/08/2017',
         'return': 'false',
@@ -128,7 +131,7 @@ describe ('History', ()=>{
       });
   });
   it ('should return 404 if book to be borrowed does not exist', (done)=>{
-    server.put('/api/v1/books/1')
+    server.put('/api/v1/books/1').set('x-access-token', token)
       .send({'title': 'Midnight xxxyyy',
         'author': 'James Hardy',
         'description':'a tale about family',
@@ -142,7 +145,7 @@ describe ('History', ()=>{
       });
   });
   it ('should return 200 when a book is returned', (done)=>{
-    server.put('/api/v1/users/2/books')
+    server.put('/api/v1/users/2/books').set('x-access-token', token)
       .send({
         'borrowedDate': '02/08/2017',
         'return': 'true',
@@ -154,14 +157,14 @@ describe ('History', ()=>{
       });
   });
   it ('should return 200 when displaying all books a user has borrowed', (done)=>{
-    server.get('/api/v1/users/1/allbooks')
+    server.get('/api/v1/users/1/allbooks').set('x-access-token', token)
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();
       });
   });
   it ('should return 200 when displaying all books a user has borrowed but not returned', (done)=>{
-    server.get('/api/v1/users/1/allbooks?returned=false')
+    server.get('/api/v1/users/1/allbooks?returned=false').set('x-access-token', token)
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();
@@ -171,7 +174,7 @@ describe ('History', ()=>{
 
 describe ('Category', ()=>{
   it ('should return 201 when a category is added', (done)=>{
-    server.post('/api/v1/category')
+    server.post('/api/v1/category').set('x-access-token', token)
       .send({ 'category': 'EDUCATIONAL'
       })
       .end((err, res)=>{
@@ -180,7 +183,7 @@ describe ('Category', ()=>{
       });
   });
   it ('should return 400 when an empty form is submitted', (done)=>{
-    server.post('/api/v1/category')
+    server.post('/api/v1/category').set('x-access-token', token)
       .send({ 'category': [] })
       .end((err, res)=>{
         assert.equal(res.status, 400),
@@ -188,7 +191,7 @@ describe ('Category', ()=>{
       });
   });
   it('should return 400 for an empty form', (done =>{
-    server.post('/api/v1/users/signup')
+    server.post('/api/v1/users/signup').set('x-access-token', token)
       .send({})
       .end((err, res)=>{
         assert.equal(res.status, 400);
@@ -196,7 +199,7 @@ describe ('Category', ()=>{
       });
   }));
   it ('should return 200 when displaying all categories in the library', (done)=>{
-    server.get('/api/v1/category')
+    server.get('/api/v1/category').set('x-access-token', token)
       .end((err, res)=>{
         assert.equal(res.status, 200),
         done();

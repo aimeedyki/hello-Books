@@ -1,4 +1,5 @@
 import {Category} from '../models';
+import {Book} from '../models';
 
 export default {
   // creates a category
@@ -18,5 +19,18 @@ export default {
       .all()
       .then(categories => res.status(200).send(categories))
       .catch(error => res.status(400).send(error));
+  },
+
+  //displays categories with the books in them
+  display(req, res){
+    return Category
+      .findById(req.params.id, {
+        include: [{
+          model: Book,
+          as: 'books',
+        }],
+      })
+      .then(category => res.status(200).send(category))
+      .catch(error => res.status(400).send(error.message));
   },
 };
