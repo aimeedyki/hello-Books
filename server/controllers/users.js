@@ -6,6 +6,20 @@ import getUserToken from '../helpers/jwt';
 export default {
   // creates a user
   signup: (req, res) =>{
+    let max = 0;
+    if(req.body.level === 'rookie')
+    {
+      max = 3;
+    }
+    if(req.body.level === 'bookworm')
+    {
+      max = 5;
+    }
+    if(req.body.level === 'voracious')
+    {
+      max = 10;
+    }
+
     return User
       .create({
         email: req.body.email,
@@ -15,6 +29,8 @@ export default {
         password: req.body.password,
         level: req.body.level,
         profilepic: req.body.profilepic,
+        max: max,
+        borrowCount: 0,
       })
 
       .then(user => {
@@ -24,6 +40,8 @@ export default {
 
       .catch(error => res.status(400).send(error.message));
   },
+
+  //displays user profile
   profile: (req, res)=> {
     return User.findById(req.params.id)
 

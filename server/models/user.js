@@ -64,6 +64,8 @@ export default (sequelize, DataTypes) => {
       },
     },
     profilepic: DataTypes.STRING,
+    max: DataTypes.INTEGER,
+    borrowCount: DataTypes.INTEGER,
   }, 
   
     // hashes password

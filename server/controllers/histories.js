@@ -1,6 +1,7 @@
 import {Book}from '../models';
 import {History} from '../models';
 import {Notification} from '../models';
+import {User} from '../models';
 //const Book = model.Book
 export default {
   // user borrows a book and creates a history record
@@ -13,31 +14,40 @@ export default {
         if (Book.quantity === 0) {
           return res.status(404).send({message: 'This book is out of stock! Please try again later.'});
         }
-        History.create({
-          expectedDate: req.body.expectedDate,
-          returned: false,
-          userId: req.params.userId,
-          bookId: req.body.bookId,
-        },
-        { returning: true,
-          plain: true
-        })
-          .then(history=> {
-            Book.update({
-              quantity: (Book.quantity - 1),
+        User.find({where: {id: req.params.userId}})
+          .then(user => {
+            if (User.borrowCount === User.max) {
+              return res.status(400).send({message: 'You have reached the maixmum number of books you can borrow'});
+            }
+            User.update({
+              borrowCount: User.borrowCount+=1,
+            }, {where: {id: req.params.userId}})
+            History.create({
+              expectedDate: new Date(Date.now() + (User.max * 24 * 60 * 60 * 1000)),
+              returned: false,
+              userId: req.params.userId,
+              bookId: req.body.bookId,
             },
-            {where: {id: req.body.bookId}})
-              .then(book => {
-                Notification.create({
-                  userId: req.params.userId,
-                  bookId: req.body.bookId,
-                  action: 'Borrowed',
-                })
-                  .then(notification => res.status(201).send(history));
-              });
-          })
-
-          .catch(error => res.status(400).send(error.message));
+            {
+              returning: true,
+              plain: true
+            })
+              .then(history => {
+                Book.update({
+                  quantity: (Book.quantity - 1),
+                },
+                {where: {id: req.body.bookId}})
+                  .then(book => {
+                    Notification.create({
+                      userId: req.params.userId,
+                      bookId: req.body.bookId,
+                      action: 'Borrowed',
+                    })
+                      .then(notification => res.status(201).send(history));
+                  });
+              })
+              .catch(error => res.status(400).send(error.message));
+          });
       });
   },
 
