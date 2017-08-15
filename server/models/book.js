@@ -72,6 +72,7 @@ export default (sequelize, DataTypes) =>{
       foreignKey: 'categoryId',
     });
     Book.hasMany(models.History, {foreignKey: 'id'});
+    Book.hasMany(models.Notification, {foreignKey: 'id'});
   };
 
   return Book;

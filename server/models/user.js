@@ -81,6 +81,10 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'id',
       as: 'histories',
     });
+    User.hasMany(models.Notification, {
+      foreignKey: 'id',
+      as: 'Notifications',
+    });
   };
   return User;
 };

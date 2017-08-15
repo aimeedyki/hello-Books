@@ -1,5 +1,6 @@
 import {Book}from '../models';
 import {History} from '../models';
+import {Notification} from '../models';
 //const Book = model.Book
 export default {
   // user borrows a book and creates a history record
@@ -20,13 +21,22 @@ export default {
         },
         { returning: true,
           plain: true
-        }) .then(History => res.status(201).send(History))
-          .then(Book => {
+        })
+          .then(history=> {
             Book.update({
               quantity: (Book.quantity - 1),
-            });
+            },
+            {where: {id: req.body.bookId}})
+              .then(book => {
+                Notification.create({
+                  userId: req.params.userId,
+                  bookId: req.body.bookId,
+                  action: 'Borrowed',
+                })
+                  .then(notification => res.status(201).send(history));
+              });
           })
-          .then(History => res.status(201).send(History))
+
           .catch(error => res.status(400).send(error.message));
       });
   },
@@ -34,23 +44,29 @@ export default {
   // returns the book by updating the history with return date
   modify(req, res) {
     return Book.find({where:{id: req.body.bookId}})
-        .then(Book => {
-          History.update({
-                   returnDate: req.body.returnDate,
-                        returned: true,
-                    },
-                    {
-                        where: {userId: req.params.userId, bookId: req.body.bookId},
-                    })
-            .then(History => res.status(200).send(History))
-                .then(Book => {
-                    Book.update({
-                        quantity: (Book.quantity + 1),
-                    }, {where: {id: req.body.bookId}});
+      .then(Book => {
+        History.update({
+          returnDate: req.body.returnDate,
+          returned: true,
+        },
+        {
+          where: {userId: req.params.userId, bookId: req.body.bookId},
+        })
+          .then(history => {
+            Book.update({
+              quantity: (Book.quantity + 1),
+            }, {where: {id: req.body.bookId}})
+              .then(book => {
+                Notification.create({
+                  userId: req.params.userId,
+                  bookId: req.body.bookId,
+                  action: 'Returned',
                 })
-             //   .then(History => res.status(200).send(History))
-                .catch(error => res.status(400).send(error.message));
-        });
+                  .then(notification => res.status(200).send({message: 'book has been returned'}));
+              });
+          })
+          .catch(error => res.status(400).send(error.message));
+      });
   },
 
 
