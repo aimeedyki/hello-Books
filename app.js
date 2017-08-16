@@ -1,7 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import passport from 'passport';
+import db from './server/models';
 import jwt from 'jsonwebtoken';
 require('dotenv').config();
 
@@ -16,6 +16,7 @@ app.listen(port, (err) => {
   console.log('started');
 });
 
+//db.sequelize.sync({ force: true })
 
 // Log requests to the console.
 app.use(logger('dev'));

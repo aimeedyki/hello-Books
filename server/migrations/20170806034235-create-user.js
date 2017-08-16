@@ -37,6 +37,14 @@ module.exports = {
       profilepic: {
         type: Sequelize.STRING
       },
+      max: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      borrowCount: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

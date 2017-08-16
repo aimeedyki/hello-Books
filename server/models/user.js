@@ -64,6 +64,8 @@ export default (sequelize, DataTypes) => {
       },
     },
     profilepic: DataTypes.STRING,
+    max: DataTypes.INTEGER,
+    borrowCount: DataTypes.INTEGER,
   }, 
   
     // hashes password
@@ -71,7 +73,7 @@ export default (sequelize, DataTypes) => {
     beforeCreate: (user) => {
       const salt = bcrypt.genSaltSync();
       user.password = bcrypt.hashSync(user.password, salt);
-    }
+    },
   },
   });
 
@@ -80,6 +82,10 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.History, {
       foreignKey: 'id',
       as: 'histories',
+    });
+    User.hasMany(models.Notification, {
+      foreignKey: 'id',
+      as: 'Notifications',
     });
   };
   return User;
