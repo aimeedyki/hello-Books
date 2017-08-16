@@ -6,18 +6,18 @@ import getUserToken from '../helpers/jwt';
 export default {
   // creates a user
   signup: (req, res) =>{
-    let max = 0;
+    let maxVal = 0;
     if(req.body.level === 'rookie')
     {
-      max = 3;
+      maxVal += 3;
     }
     if(req.body.level === 'bookworm')
     {
-      max = 5;
+      maxVal += 5;
     }
     if(req.body.level === 'voracious')
     {
-      max = 10;
+      maxVal += 10;
     }
 
     return User
@@ -29,7 +29,7 @@ export default {
         password: req.body.password,
         level: req.body.level,
         profilepic: req.body.profilepic,
-        max: max,
+        max: maxVal,
         borrowCount: 0,
       })
 

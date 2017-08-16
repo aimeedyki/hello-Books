@@ -16,14 +16,16 @@ export default {
         }
         User.find({where: {id: req.params.userId}})
           .then(user => {
-            if (User.borrowCount === User.max) {
+            console.log(user.max);
+            console.log(user.borrowCount);
+            if (user.level !== 'admin' && user.borrowCount === user.max) {
               return res.status(400).send({message: 'You have reached the maixmum number of books you can borrow'});
             }
             User.update({
-              borrowCount: User.borrowCount+=1,
+              borrowCount: (user.borrowCount + 1),
             }, {where: {id: req.params.userId}})
             History.create({
-              expectedDate: new Date(Date.now() + (User.max * 24 * 60 * 60 * 1000)),
+              expectedDate: new Date(Date.now() + (user.max * 24 * 60 * 60 * 1000)),
               returned: false,
               userId: req.params.userId,
               bookId: req.body.bookId,
@@ -62,20 +64,26 @@ export default {
         {
           where: {userId: req.params.userId, bookId: req.body.bookId},
         })
-          .then(history => {
-            Book.update({
-              quantity: (Book.quantity + 1),
-            }, {where: {id: req.body.bookId}})
-              .then(book => {
-                Notification.create({
-                  userId: req.params.userId,
-                  bookId: req.body.bookId,
-                  action: 'Returned',
-                })
-                  .then(notification => res.status(200).send({message: 'book has been returned'}));
-              });
-          })
-          .catch(error => res.status(400).send(error.message));
+        User.find({where: {id: req.params.userId}})
+          .then(user => {
+            User.update({
+              borrowCount: (user.borrowCount - 1),
+            }, {where: {id: req.params.userId}})
+              .then(history => {
+                Book.update({
+                  quantity: (Book.quantity + 1),
+                }, {where: {id: req.body.bookId}})
+                  .then(book => {
+                    Notification.create({
+                      userId: req.params.userId,
+                      bookId: req.body.bookId,
+                      action: 'Returned',
+                    })
+                      .then(notification => res.status(200).send({message: 'book has been returned'}));
+                  });
+              })
+              .catch(error => res.status(400).send(error.message));
+          });
       });
   },
 
