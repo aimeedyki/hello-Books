@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 app.listen(port, (err) => {
   /* eslint-disable no-console */
-  if (err) console.log(err, '+++++++++++++++++');
+  if (err) console.log(err);
   console.log('started');
 });
 

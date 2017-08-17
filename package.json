@@ -6,7 +6,8 @@
   "scripts": {
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
-    "test": "NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register --timeout 50000"
+    "test": "NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register --timeout 50000",
+    "test:db": "sequelize db:migrate --env test"
   },
   "repository": {
     "type": "git",
