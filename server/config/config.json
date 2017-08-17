@@ -9,10 +9,10 @@
     "dialect": "postgresql"
   },
   "test": {
-     "username": "admin1",
-    "password": "booksville",
-    "database": "testdb",
-    "host": "127.0.0.1",
+     "username": "lacupiwr",
+    "password": "W9rFITaoWLejNtBwe6_K_BqsBHmGjuj_",
+    "database": "lacupiwr",
+    "host": "babar.elephantsql.com",
     "port": "5432",
     "dialect": "postgresql"
   },
