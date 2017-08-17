@@ -1,8 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
-import db from './server/models';
-import jwt from 'jsonwebtoken';
+
 require('dotenv').config();
 
 // Set up the express app
@@ -12,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 app.listen(port, (err) => {
   /* eslint-disable no-console */
-  if (err) console.log(err);
+  if (err) console.log(err, '+++++++++++++++++');
   console.log('started');
 });
 
