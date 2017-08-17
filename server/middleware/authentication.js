@@ -19,10 +19,9 @@ const authentication = {
     });
   },
 
- verifyAdmin: (req, res, next) => {
-   if(req.decoded && req.decoded.level ==='admin') return next();
-
-     return res.status(401).send({ message: 'you are not an admin' });
-   }
+  verifyAdmin: (req, res, next) => {
+    if(req.decoded && req.decoded.level ==='admin') return next();
+    return res.status(401).send({ message: 'you are not an admin' });
+  }
 };
 export default authentication;

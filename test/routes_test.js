@@ -147,7 +147,7 @@ describe('Book', ()=>{
 
 describe ('History', ()=>{
   it ('should return 201 when a book is borrowed', (done)=>{
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
+    server.post('/api/v1/users/2/books').set('x-access-token', token)
       .send({
         'bookId': 1,
       })
