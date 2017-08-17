@@ -18,6 +18,7 @@ describe('User', ()=>{
         'profilepic': faker.internet.avatar(),
       } )
       .end((err, res)=>{
+        console.log(error.message);
         assert.equal(res.status, 201);
         token = res.body.token;
         assert.isNotNull(res.body.User);
@@ -28,6 +29,7 @@ describe('User', ()=>{
     server.post('/api/v1/users/signup')
       .send({})
       .end((err, res)=>{
+        console.log(error.message);
         assert.equal(res.status, 400);
         done();
       });
@@ -39,6 +41,7 @@ describe('User', ()=>{
         'password': 'bookiiii',
       })
       .end((err, res)=>{
+        console.log(error.message);
         assert.equal(res.status, 200)
         adminToken = res.body.token;
         done();
