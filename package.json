@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
-    "test": "SET NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register"
+    "test": "SET NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register mocha --timeout 15000"
   },
   "repository": {
     "type": "git",
