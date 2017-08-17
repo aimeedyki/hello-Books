@@ -4,7 +4,7 @@ require('dotenv').config();
 const secret = process.env.SECRET;
 
 //generates token
-console.log(secret);
+
 
 const token = user =>
   jwt.sign({
