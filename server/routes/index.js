@@ -12,6 +12,47 @@ app.get('/', (req, res) => res.status(200).send({
   message: 'Welcome to booksville',
 }));
 
+/**
+ * @swagger
+ * definition:
+ *   User:
+ *     properties:
+ *       email:
+ *         type: string
+ *       firstname:
+ *         type: string
+ *       lastname:
+ *         type: string
+ *       username:
+ *         type: string 
+ *       password:
+ *         type: string
+ *       level:
+ *         type: string
+ *       profilepic:
+ *         type: string
+ *       maxval:
+ *         type: integer
+ *       borrowCount:
+ *         type: integer
+ *       
+ */
+
+ /**
+ * @swagger
+ * /api/v1/users/signup:
+ *   post:
+ *     tags:
+ *       - User
+ *     description: creates a user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description:returns a created user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ */
 // route for registration
 app.post('/api/v1/users/signup', usersController.signup);
 

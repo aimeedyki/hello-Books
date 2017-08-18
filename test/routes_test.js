@@ -14,11 +14,11 @@ describe('User', ()=>{
         'lastname': faker.name.lastName(),
         'username': faker.internet.userName(),
         'password': 'bookiiii',
-        'level': 'rookie',
+        'level': 'admin',
         'profilepic': faker.internet.avatar(),
       } )
       .end((err, res)=>{
-        console.log(err);
+        //console.log(err.message);
         assert.equal(res.status, 201);
         token = res.body.token;
         assert.isNotNull(res.body.User);
