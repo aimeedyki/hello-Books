@@ -9,13 +9,12 @@
     "dialect": "postgresql"
   },
   "test": {
-    "username": "admin1",
-    "password": "booksville",
-    "database": "testdb",
+    "username": "postgres",
+    "password": "",
+    "database": "travis",
     "host": "127.0.0.1",
-    "port": "5432",
-    "dialect": "postgresql"
-  
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
    "username": "gdbqliph",
