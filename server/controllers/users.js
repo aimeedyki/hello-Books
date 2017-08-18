@@ -38,7 +38,10 @@ export default {
         res.status(201).send({user, token});
       })
 
-      .catch(error => res.status(400).send(error.message));
+      .catch(error =>{
+        console.log('====================================================', error);
+         return res.status(400).send(error.message);
+      })
   },
 
   //displays user profile
