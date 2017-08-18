@@ -37,7 +37,7 @@ describe('User', ()=>{
 
   it ('should return 200 when login is successful', (done) =>{
     server.post('/api/v1/users/signin')
-      .send({'username': 'Jeanie.Graham10',
+      .send({'username': 'Fredrick_Ziemann39',
         'password': 'bookiiii',
       })
       .end((err, res)=>{
