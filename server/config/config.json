@@ -9,12 +9,12 @@
     "dialect": "postgresql"
   },
   "test": {
-     "username": "lacupiwr",
-    "password": "W9rFITaoWLejNtBwe6_K_BqsBHmGjuj_",
-    "database": "lacupiwr",
-    "host": "babar.elephantsql.com",
-    "port": "5432",
-    "dialect": "postgresql"
+    "username": "postgres",
+    "password": "",
+    "database": "travis",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
    "username": "gdbqliph",

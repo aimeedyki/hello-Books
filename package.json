@@ -6,7 +6,9 @@
   "scripts": {
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
-    "test": "SET NODE_ENV=test&&mocha test/routes_test --compilers js:babel-register mocha --timeout 15000"
+    "test": "NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
+    "test:db": "sequelize db:migrate --env test",
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly mocha --compilers js:babel-register test/*.js"
   },
   "repository": {
     "type": "git",
@@ -51,6 +53,7 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.2",
     "sequelize-cli": "^2.8.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "swagger-jsdoc": "^1.9.7"
   }
 }

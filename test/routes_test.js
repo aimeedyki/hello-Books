@@ -7,7 +7,7 @@ let token = '';
 let adminToken = '';
 
 describe('User', ()=>{
-  it('should return 201 when a new user is created', (done)=>{
+  it('should return 201 when a regular user is created', (done)=>{
     server.post('/api/v1/users/signup')
       .send( {'email': faker.internet.email(),
         'firstname': faker.name.firstName(),
@@ -18,8 +18,26 @@ describe('User', ()=>{
         'profilepic': faker.internet.avatar(),
       } )
       .end((err, res)=>{
+        //console.log(err.message);
         assert.equal(res.status, 201);
         token = res.body.token;
+        assert.isNotNull(res.body.User);
+        done();
+      });
+  });
+  it('should return 201 when an admin user is created', (done)=>{
+    server.post('/api/v1/users/signup')
+      .send( {'email': faker.internet.email(),
+        'firstname': faker.name.firstName(),
+        'lastname': faker.name.lastName(),
+        'username': 'Fredrick_Ziemann39',
+        'password': 'bookiiii',
+        'level': 'admin',
+        'profilepic': faker.internet.avatar(),
+      } )
+      .end((err, res)=>{
+        assert.equal(res.status, 201);
+        adminToken = res.body.token;
         assert.isNotNull(res.body.User);
         done();
       });
@@ -28,6 +46,7 @@ describe('User', ()=>{
     server.post('/api/v1/users/signup')
       .send({})
       .end((err, res)=>{
+        console.log(err);
         assert.equal(res.status, 400);
         done();
       });
@@ -35,12 +54,12 @@ describe('User', ()=>{
 
   it ('should return 200 when login is successful', (done) =>{
     server.post('/api/v1/users/signin')
-      .send({'username': 'Jeanie.Graham10',
+      .send({'username': 'Fredrick_Ziemann39',
         'password': 'bookiiii',
       })
       .end((err, res)=>{
+        console.log(err);
         assert.equal(res.status, 200)
-        adminToken = res.body.token;
         done();
       });
   });
@@ -147,7 +166,7 @@ describe('Book', ()=>{
 
 describe ('History', ()=>{
   it ('should return 201 when a book is borrowed', (done)=>{
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
+    server.post('/api/v1/users/2/books').set('x-access-token', token)
       .send({
         'bookId': 1,
       })
