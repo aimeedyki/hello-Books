@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
-    "test": "cross-env NODE_ENV=test&& mocha test/routes_test --compilers js:babel-register --timeout 70000",
+    "test": "process.env.NODE_ENV=test&& mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "test:db": "sequelize db:migrate --env test",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly mocha --compilers js:babel-register test/*.js"
   },
