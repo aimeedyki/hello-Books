@@ -7,20 +7,37 @@ let token = '';
 let adminToken = '';
 
 describe('User', ()=>{
-  it('should return 201 when a new user is created', (done)=>{
+  it('should return 201 when a regular user is created', (done)=>{
     server.post('/api/v1/users/signup')
       .send( {'email': faker.internet.email(),
         'firstname': faker.name.firstName(),
         'lastname': faker.name.lastName(),
         'username': faker.internet.userName(),
         'password': 'bookiiii',
-        'level': 'admin',
+        'level': 'rookie',
         'profilepic': faker.internet.avatar(),
       } )
       .end((err, res)=>{
         //console.log(err.message);
         assert.equal(res.status, 201);
         token = res.body.token;
+        assert.isNotNull(res.body.User);
+        done();
+      });
+  });
+  it('should return 201 when an admin user is created', (done)=>{
+    server.post('/api/v1/users/signup')
+      .send( {'email': faker.internet.email(),
+        'firstname': faker.name.firstName(),
+        'lastname': faker.name.lastName(),
+        'username': 'Fredrick_Ziemann39',
+        'password': 'bookiiii',
+        'level': 'admin',
+        'profilepic': faker.internet.avatar(),
+      } )
+      .end((err, res)=>{
+        assert.equal(res.status, 201);
+        adminToken = res.body.token;
         assert.isNotNull(res.body.User);
         done();
       });
@@ -43,7 +60,6 @@ describe('User', ()=>{
       .end((err, res)=>{
         console.log(err);
         assert.equal(res.status, 200)
-        adminToken = res.body.token;
         done();
       });
   });
