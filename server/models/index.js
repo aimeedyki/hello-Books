@@ -6,7 +6,8 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];
 const db = {};
 console.log('+++++++++++++++++++++++++++',  config);
-console.log('============================================', env)
+console.log('============================================', env);
+console.log('---------------------------------------------', process.env.NODE_ENV)
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]);
