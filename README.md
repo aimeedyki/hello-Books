@@ -1,3 +1,9 @@
+[![Coverage Status](https://coveralls.io/repos/github/aimeedyki/hello-Books/badge.svg?branch=develop)](https://coveralls.io/github/aimeedyki/hello-Books?branch=develop)
+[![Issue Count](https://codeclimate.com/github/aimeedyki/hello-Books/badges/issue_count.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Test Coverage](https://codeclimate.com/github/aimeedyki/hello-Books/badges/coverage.svg)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
+[![Code Climate](https://codeclimate.com/github/aimeedyki/hello-Books/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Build Status](https://travis-ci.org/aimeedyki/hello-Books.svg?branch=master)](https://travis-ci.org/aimeedyki/hello-Books)
+
 # Hello Books
 
 This is a simple application that helps manage a library and its processes. The application has two user login roles: admin and regular user. Users can use this application to borrow books, return books, and check their history, etc. Users also have levels which define their rent privileges. The Admin takes care of inventory management; add books, modify books assign categories, etc.
