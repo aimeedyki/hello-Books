@@ -35,6 +35,41 @@ app.get('/', (req, res) => res.status(200).send({
 
 /**
  * @swagger
+ * definition:
+ *   Login:
+ *     properties:
+ *       username:
+ *         type: string 
+ *       password:
+ *         type: string   
+ */ 
+
+/**
+ * @swagger
+ * definition:
+ *   Change:
+ *     properties:
+ *       oldPassword:
+ *         type: string 
+ *       newPassword:
+ *         type: string  
+ *       x-access-token:
+ *         type: string
+ */ 
+
+/**
+ * @swagger
+ * definition:
+ *   Profile:
+ *     properties:
+ *       id:
+ *         type: integer  
+ *       x-access-token:
+ *         type: string
+ */  
+
+/**
+ * @swagger
  * /users/signup:
  *   post:
  *     tags:
@@ -53,17 +88,82 @@ app.get('/', (req, res) => res.status(200).send({
  *       201:
  *         description: Successfully created
  */  
+
 // route for registration
 app.post('/api/v1/users/signup', usersController.signup);
+
+/**
+ * @swagger
+ * /users/signin:
+ *   post:
+ *     tags:
+ *       - Users
+ *     description: Logs in a registered user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: User
+ *         description: User object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Login'
+ *     responses:
+ *       200:
+ *         description: User logged in
+ */ 
 
 // route for login
 app.post('/api/v1/users/signin', authController.login);
 
+/**
+ * @swagger
+ * /users/:id:
+ *   put:
+ *     tags:
+ *       - Users
+ *     description: Updates a logged in user's password
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: User
+ *         description: User object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Change'
+ *     responses:
+ *       200:
+ *         description: Password updated!!
+ */ 
+
 // route to change password
-app.put('/api/v1/users/:id/profile', authController.change);
+app.put('/api/v1/users/:id', authController.change);
+
+/**
+ * @swagger
+ * /users/:id:
+ *   get:
+ *     tags:
+ *       - Users
+ *     description: displays a users profile
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: User
+ *         description: User Id
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Profile'
+ *     responses:
+ *       200:
+ *         description: Profile displayed
+ */ 
 
 //route to display user profile
 app.get('/api/v1/users/:id/profile', authentication.verifyUser, usersController.profile);
+
 
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
