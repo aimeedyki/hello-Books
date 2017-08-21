@@ -30,29 +30,29 @@ app.get('/', (req, res) => res.status(200).send({
  *       level:
  *         type: string
  *       profilepic:
- *         type: string
- *       maxval:
- *         type: integer
- *       borrowCount:
- *         type: integer
- *       
+ *         type: string   
  */
 
- /**
+/**
  * @swagger
- * /api/v1/users/signup:
+ * /users/signup:
  *   post:
  *     tags:
- *       - User
- *     description: creates a user
+ *       - Users
+ *     description: Creates a new user
  *     produces:
  *       - application/json
- *     responses:
- *       201:
- *         description:returns a created user
+ *     parameters:
+ *       - name: User
+ *         description: User object
+ *         in: body
+ *         required: true
  *         schema:
  *           $ref: '#/definitions/User'
- */
+ *     responses:
+ *       201:
+ *         description: Successfully created
+ */  
 // route for registration
 app.post('/api/v1/users/signup', usersController.signup);
 
