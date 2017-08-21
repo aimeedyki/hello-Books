@@ -120,8 +120,31 @@ app.get('/', (req, res) => res.status(200).send({
  *       x-access-token:
  *         type: string
  */ 
+
+/**
+ * @swagger
+ * definition:
+ *   borrow:
+ *     properties:
+ *       bookId:
+ *         type: integer  
+ *       userId:
+ *         type: integer  
+ *       x-access-token:
+ *         type: string
+ */  
  
- 
+ /**
+ * @swagger
+ * definition:
+ *   history:
+ *     properties:
+ *       userId:
+ *         type: integer  
+ *       x-access-token:
+ *         type: string
+ */ 
+
 /**
  * @swagger
  * /users/signup:
@@ -383,24 +406,124 @@ app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verify
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
 
+/**
+ * @swagger
+ * /users/:userId/books:
+ *   post:
+ *     tags:
+ *       - Borrow
+ *     description: borrows a book
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Book
+ *         description: book details
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/borrow'
+ *     responses:
+ *       201:
+ *         description: book borrowed
+ */
+
 // borrows a book and saves to history of a user
 app.post('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.borrow);
 
-//returns a book to the library by updating date returned
+/**
+ * @swagger
+ * /users/:userId/books:
+ *   put:
+ *     tags:
+ *       - Borrow
+ *     description: returns a book
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Book
+ *         description: book details
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/borrow'
+ *     responses:
+ *       200:
+ *         description: book returned
+ */
+//returns a book to the library
 app.put('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.modify);
 
+/**
+ * @swagger
+ * /users/:userId/books:
+ *   get:
+ *     tags:
+ *       - Borrow
+ *     description: displays a user's borrow history
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: User
+ *         description: borrow details
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/history'
+ *     responses:
+ *       200:
+ *         description: book returned
+ */
 //displays history
 app.get('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.list);
 
-
+/**
+* @swagger
+* /users/:userId/books?returned=false:
+*   get:
+*     tags:
+*       - Borrow
+*     description: displays the books a user has not yet returned
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: User
+*         description: borrow details
+*         in: body
+*         required: true
+*         schema:
+*           $ref: '#/definitions/history'
+*     responses:
+*       200:
+*         description: books not returned displayed
+*/
 //displays the books user has not returned
 app.get('/api/v1/users/:userId/books?returned=false', authentication.verifyUser, historiesController.list);
 
+/**
+* @swagger
+* /users/:userId/books?returned=false:
+*   get:
+*     tags:
+*       - Notifications
+*     description: displays the notifications on user activities to admin
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: x-access-token
+*         description: token
+*         in: body
+*         required: true
+*         schema:
+*           $ref: '#/definitions/display'
+*     responses:
+*       200:
+*         description: notifications displayed
+*/
 //displays notifications
 app.get('/api/v1/notifications', authentication.verifyUser, authentication.verifyAdmin, notificationsController.list);
 
-//app.get('*', (req, res) => res.status(200).send({
-//  message: 'Welcome to booksville',
-//}));
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to booksville',
+}));
 
 export default app;
