@@ -2,6 +2,7 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
+import path from 'path';
 
 
 require('dotenv').config();
@@ -11,33 +12,28 @@ const app = express();
 
 //sets port
 const port = process.env.PORT || 8000;
-app.listen(port, (err) => {
-  /* eslint-disable no-console */
-  if (err) console.log(err);
-  console.log('started');
-});
 
 //db.sequelize.sync({ force: true })
 
 // swagger definition
 const swaggerDefinition = {
   info: {
-    title: 'Node Swagger API',
+    title: 'Hello books API',
     version: '1.0.0',
-    description: 'Hello i am swagger . I am one step ahead of postman. My job is to provide API description',
+    description: 'API that manages the processes for a library',
   },
   host: 'localhost:8000',
-  basePath: '/',
+  basePath: '/api/v1',
 };
 
 // options for swagger jsdoc 
 const options = {
-  swaggerDefinition: swaggerDefinition, // swagger definition
+  swaggerDefinition, // swagger definition
   apis: ['./server/routes/*.js'], // path where API specification are written
 };
 
 // initialize swaggerJSDoc
-//const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(options);
 
 // route for swagger.json
 app.get('/swagger.json', (req, res)=> {
@@ -45,6 +41,14 @@ app.get('/swagger.json', (req, res)=> {
   res.send(swaggerSpec);
 });
 
+app.use(express.static(path.join(__dirname, 'server/api-docs/')));
+console.log(path.join(__dirname, 'server/api-docs/'));
+
+app.listen(port, (err) => {
+  /* eslint-disable no-console */
+  if (err) console.log(err);
+  console.log('started');
+});
 // Log requests to the console.
 app.use(logger('dev'));
 
