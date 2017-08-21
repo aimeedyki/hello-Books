@@ -60,7 +60,7 @@ app.get('/', (req, res) => res.status(200).send({
 /**
  * @swagger
  * definition:
- *   Profile:
+ *   displayId:
  *     properties:
  *       id:
  *         type: integer  
@@ -68,6 +68,60 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: string
  */  
 
+ /**
+ * @swagger
+ * definition:
+ *   display:
+ *     properties:
+ *       x-access-token:
+ *         type: string
+ */  
+
+/**
+ * @swagger
+ * definition:
+ *   Book:
+ *     properties:
+ *       title:
+ *         type: string
+ *       author:
+ *         type: string
+ *       image:
+ *         type: string
+ *       description:
+ *         type: string 
+ *       quantity:
+ *         type: integer
+ *       categoryId:
+ *         type: integer
+ *       x-access-token:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * definition:
+ *   updateBook:
+ *     properties:
+ *       title:
+ *         type: string
+ *       author:
+ *         type: string
+ *       image:
+ *         type: string
+ *       description:
+ *         type: string 
+ *       quantity:
+ *         type: integer
+ *       categoryId:
+ *         type: integer
+ *       bookId:
+ *         type: integer
+ *       x-access-token:
+ *         type: string
+ */ 
+ 
+ 
 /**
  * @swagger
  * /users/signup:
@@ -155,16 +209,177 @@ app.put('/api/v1/users/:id', authController.change);
  *         in: body
  *         required: true
  *         schema:
- *           $ref: '#/definitions/Profile'
+ *           $ref: '#/definitions/displayId'
  *     responses:
  *       200:
  *         description: Profile displayed
  */ 
 
 //route to display user profile
-app.get('/api/v1/users/:id/profile', authentication.verifyUser, usersController.profile);
+app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile);
+
+/**
+ * @swagger
+ * /category:
+ *   post:
+ *     tags:
+ *       - Books
+ *     description: creates a book category and can only be accessed by admin users
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Category
+ *         description: category title
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/category'
+ *     responses:
+ *       200:
+ *         description: Category created
+ */ 
+
+// route for creating a category
+app.post('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.addCategory);
+
+/**
+ * @swagger
+ * /category:
+ *   get:
+ *     tags:
+ *       - Books
+ *     description: displays all categories
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: x-access-token
+ *         description: token
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/display'
+ *     responses:
+ *       200:
+ *         description: Available categories are displayed
+ */ 
+// route for displaying all categories
+app.get('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.list);
 
 
+/**
+ * @swagger
+ * /category/:id:
+ *   get:
+ *     tags:
+ *       - Books
+ *     description: displays all books in a category
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Category
+ *         description: category Id
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/displayId'
+ *     responses:
+ *       200:
+ *         description: Available books in this are displayed
+ */ 
+//route for displaying all the books by categories
+app.get('/api/v1/category/:id', authentication.verifyUser, categoriesController.display);
+
+/**
+ * @swagger
+ * /books:
+ *   post:
+ *     tags:
+ *       - Books
+ *     description: Creates a new book and can only be accessed by admin users
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Book
+ *         description: Book object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ *     responses:
+ *       201:
+ *         description: Successfully created
+ */ 
+
+// route for adding a book
+app.post('/api/v1/books', authentication.verifyUser, authentication.verifyAdmin, booksController.addBook );
+
+/**
+ * @swagger
+ * /books/:id:
+ *   put:
+ *     tags:
+ *       - Books
+ *     description: Updates a book and can only be accessed by admin users
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Book
+ *         description: Book object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/updateBook'
+ *     responses:
+ *       200:
+ *         description: Successfully updated
+ */ 
+
+// route for modifying book information
+app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.modify);
+
+/**
+ * @swagger
+ * /books/:id:
+ *   delete:
+ *     tags:
+ *       - Books
+ *     description: deletes a book and can only be accessed by admin users
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Book
+ *         description: Book id
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/displayId'
+ *     responses:
+ *       200:
+ *         description: Successfully updated
+ */ 
+
+// route for deleting a book
+app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.remove)
+/**
+ * @swagger
+ * /books:
+ *   get:
+ *     tags:
+ *       - Books
+ *     description: displays all books
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: x-access-token
+ *         description: token
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/display'
+ *     responses:
+ *       200:
+ *         description: Available books are displayed
+ */ 
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
 
@@ -177,29 +392,12 @@ app.put('/api/v1/users/:userId/books', authentication.verifyUser, historiesContr
 //displays history
 app.get('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.list);
 
-//displays notifications
-app.get('/api/v1/notifications', authentication.verifyUser, authentication.verifyAdmin, notificationsController.list);
 
 //displays the books user has not returned
 app.get('/api/v1/users/:userId/books?returned=false', authentication.verifyUser, historiesController.list);
 
-// route for creating a category
-app.post('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.addCategory);
-
-// route for displaying all categories
-app.get('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.list);
-
-//route for displaying all the books by categories
-app.get('/api/v1/category/:id', authentication.verifyUser, categoriesController.display);
-
-// route for adding a book
-app.post('/api/v1/books', authentication.verifyUser, authentication.verifyAdmin, booksController.addBook );
-
-// route for modifying book information
-app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.modify);
-
-// route for deleting a book
-app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.remove);
+//displays notifications
+app.get('/api/v1/notifications', authentication.verifyUser, authentication.verifyAdmin, notificationsController.list);
 
 //app.get('*', (req, res) => res.status(200).send({
 //  message: 'Welcome to booksville',
