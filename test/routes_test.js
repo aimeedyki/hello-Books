@@ -25,7 +25,8 @@ describe('User', ()=>{
         done();
       });
   });
-  it('should return 201 when an admin user is created', (done)=>{
+  it('should return 201 when an admin user is created', ()=>{
+    before((done)=>{
     server.post('/api/v1/users/signup')
       .send( {'email': faker.internet.email(),
         'firstname': faker.name.firstName(),
@@ -41,6 +42,7 @@ describe('User', ()=>{
         assert.isNotNull(res.body.User);
         done();
       });
+    });
   });
   it('should return 400 for an empty form', (done =>{
     server.post('/api/v1/users/signup')

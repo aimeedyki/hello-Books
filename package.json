@@ -4,6 +4,9 @@
   "description": "a simple library app that manages its processes",
   "main": "index.js",
   "scripts": {
+    "start:c": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
     "start:dev": "nodemon app.js --exec babel-node app.js",
     "start": "./node_modules/.bin/babel-node app.js",
     "test": "NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
@@ -24,7 +27,10 @@
     "url": "https://github.com/aimeedyki/hello-Books/issues"
   },
   "homepage": "https://github.com/aimeedyki/hello-Books#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  },
   "dependencies": {
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",
@@ -51,6 +57,8 @@
     "passport": "^0.3.2",
     "pg": "^7.1.0",
     "pg-hstore": "^2.3.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "sequelize": "^4.4.2",
     "sequelize-cli": "^2.8.0",
     "supertest": "^3.0.0",
