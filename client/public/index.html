@@ -9,6 +9,7 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/font-awesome.min.css">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
@@ -41,5 +42,12 @@
     -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('select').material_select();
+      });
+    </script>    
+    
+    
   </body>
 </html>

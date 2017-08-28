@@ -25,8 +25,7 @@ describe('User', ()=>{
         done();
       });
   });
-  it('should return 201 when an admin user is created', ()=>{
-    before((done)=>{
+  it('should return 201 when an admin user is created', (done)=>{
     server.post('/api/v1/users/signup')
       .send( {'email': faker.internet.email(),
         'firstname': faker.name.firstName(),
@@ -42,7 +41,6 @@ describe('User', ()=>{
         assert.isNotNull(res.body.User);
         done();
       });
-    });
   });
   it('should return 400 for an empty form', (done =>{
     server.post('/api/v1/users/signup')
@@ -73,7 +71,6 @@ describe('User', ()=>{
       })
       .end((err, res)=>{
         assert.equal(res.status, 404)
-        console.log(res.body);
         done();
       });
   });
@@ -168,7 +165,7 @@ describe('Book', ()=>{
 
 describe ('History', ()=>{
   it ('should return 201 when a book is borrowed', (done)=>{
-    server.post('/api/v1/users/2/books').set('x-access-token', token)
+    server.post('/api/v1/users/1/books').set('x-access-token', token)
       .send({
         'bookId': 1,
       })
@@ -187,7 +184,7 @@ describe ('History', ()=>{
       });
   });
   it ('should return 200 when a book is returned', (done)=>{
-    server.put('/api/v1/users/2/books').set('x-access-token', token)
+    server.put('/api/v1/users/1/books').set('x-access-token', token)
       .send({
         'bookId': 1,
       })
