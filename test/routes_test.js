@@ -64,13 +64,13 @@ describe('User', ()=>{
       });
   });
 
-  it ('should return 404 when login is unsuccessful', (done) =>{
+  it ('should return 400 when login is unsuccessful', (done) =>{
     server.put('/api/v1/users/signin')
       .send({'username': 'johniiiie',
         'password': 'bookiiii',
       })
       .end((err, res)=>{
-        assert.equal(res.status, 404)
+        assert.equal(res.status, 400)
         done();
       });
   });
