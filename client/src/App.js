@@ -6,8 +6,8 @@ import User from './components/User/User';
 class App extends Component {
   render() {
     return (
-      //<Home/>
-      <User/>
+      <Home/>
+      //<User/>
     );
   }
 }
