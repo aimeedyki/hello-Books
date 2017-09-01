@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './Tab.css';
 
 export default class Tab extends Component{
+  constructor(props) {
+    super(props);
+  }
   render(){
     return(
     <div className="container">  
       <div className="row purple-text">
         <div className="col s12">
           <ul className="tabs">
-          {this.props.data.map(function (tab) {
+          {this.props.data.map((tab)=> {
             return (
               <li className="col s3" key={tab.id}><a href={tab.idLink}>{tab.title}</a></li>)})}
           </ul>

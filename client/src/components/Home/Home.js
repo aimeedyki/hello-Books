@@ -46,7 +46,7 @@ render(){
           <p>Or signup with:</p>
         </div>
         <div className="col s6">                 
-          <Button type="submit" name="action" label="google plus"><i className="fa fa-google-plus"></i></Button>
+          <Button type="submit" name="action" label="google plus" icon="fa fa-google-plus"/>
         </div>  
       </div>       
     </form>

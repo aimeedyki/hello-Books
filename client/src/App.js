@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Home from './components/Home/Home';
 import User from './components/User/User';
 
@@ -6,8 +7,10 @@ import User from './components/User/User';
 class App extends Component {
   render() {
     return (
-      <Home/>
-      //<User/>
+      <MuiThemeProvider>
+      
+      <User/>
+      </MuiThemeProvider>
     );
   }
 }

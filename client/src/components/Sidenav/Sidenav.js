@@ -19,8 +19,6 @@ export default class Sidenav extends Component{
             <li><a href="#!">HISTORY</a></li>
             <li><a href="">OUTSTANDING</a></li>
             <li><a href="">PROFILE SETTINGS</a></li>
-            <li><a href=''>ADD BOOK</a></li>
-            <li><a href=''>MODIFY BOOK</a></li>
             <li><a href=''>NOTIFICATIONS</a></li>
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
