@@ -59,7 +59,8 @@ describe('User', ()=>{
       })
       .end((err, res)=>{
         console.log(err);
-        assert.equal(res.status, 200)
+        assert.equal(res.status, 200);
+        assert.isNotNull(res.body.User);
         done();
       });
   });
@@ -70,7 +71,28 @@ describe('User', ()=>{
         'password': 'bookiiii',
       })
       .end((err, res)=>{
-        assert.equal(res.status, 400)
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.User);
+        done();
+      });
+  });
+
+  it ('should return 200 when password change is successful', (done) =>{
+    server.put('/api/v1/users/1').set('x-access-token', token)
+      .send({'oldPassword': 'bookiiii',
+             'newPassword': 'journies',
+      })
+      .end((err, res)=>{
+        assert.equal(res.status, 200);
+        done();
+      });
+  });
+
+  it ('should return 200 when displaying a users profile', (done) =>{
+    server.get('/api/v1/users/1').set('x-access-token', token)
+      .end((err, res)=>{
+        assert.equal(res.status, 200);
+        assert.isNotNull(res.body.User);
         done();
       });
   });
@@ -101,6 +123,13 @@ describe ('Category', ()=>{
         done();
       });
   });
+  it ('should return 200 when displaying books by categories in the library', (done)=>{
+    server.get('/api/v1/category/1').set('x-access-token', adminToken)
+      .end((err, res)=>{
+        assert.equal(res.status, 200),
+        done();
+      });
+  });
 });
 
 describe('Book', ()=>{
@@ -115,6 +144,36 @@ describe('Book', ()=>{
       })
       .end((err, res)=>{
         assert.equal(res.status, 201)
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+  it ('should return 201 when a book is added', (done)=>{
+    server.post('/api/v1/books').set('x-access-token', adminToken)
+      .send({'title': 'howie made it',
+        'author': 'howie mandel',
+        'description':'a tale about a jungle boy',
+        'image': 'assd.jpg',
+        'quantity': '10',
+        'categoryId': ' 1',
+      })
+      .end((err, res)=>{
+        assert.equal(res.status, 201)
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+  it ('should return 200 when a book is deleted', (done)=>{
+    server.delete('/api/v1/books/2').set('x-access-token', adminToken)
+      .send({'title': 'howie made it',
+        'author': 'howie mandel',
+        'description':'a tale about a jungle boy',
+        'image': 'assd.jpg',
+        'quantity': '10',
+        'categoryId': ' 1',
+      })
+      .end((err, res)=>{
+        assert.equal(res.status, 200)
         done();
       });
   });
@@ -137,6 +196,7 @@ describe('Book', ()=>{
       })
       .end((err, res)=>{
         assert.equal(res.status, 200),
+        assert.isNotNull(res.body.Book);
         done();
       });
   });
@@ -209,3 +269,12 @@ describe ('History', ()=>{
   });
 });
 
+describe ('Notification', ()=>{
+  it ('should return 200 when admin displays notification', (done)=>{
+    server.get('/api/v1/notifications').set('x-access-token', adminToken)
+      .end((err, res)=>{
+        assert.equal(res.status, 200),
+        done();
+      });
+  });
+});
