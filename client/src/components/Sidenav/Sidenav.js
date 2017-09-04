@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 
 export default class Sidenav extends Component{
     render(){
@@ -15,11 +16,11 @@ export default class Sidenav extends Component{
                 <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
               </div>
             </li>
-            <li><a href="#!">LIBRARY</a></li>
-            <li><a href="#!">HISTORY</a></li>
-            <li><a href="">OUTSTANDING</a></li>
-            <li><a href="">PROFILE SETTINGS</a></li>
-            <li><a href=''>NOTIFICATIONS</a></li>
+            <li><NavLink to='/user/library'>LIBRARY</NavLink></li>
+            <li><NavLink to='/user/history'>HISTORY</NavLink></li>
+            <li><NavLink to='/user/notreturned'>OUTSTANDING</NavLink></li>
+            <li><NavLink to='/user/profile'>PROFILE SETTINGS</NavLink></li>
+            <li><NavLink to='/user/notifications'>NOTIFICATIONS</NavLink></li>
           </ul>
           <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
         </div>

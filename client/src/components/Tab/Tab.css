@@ -1,22 +1,24 @@
 .tabs{
     overflow-x: hidden;
+    background-color: #9c27b0;
 }
 .tabs .indicator {
-    color: #9c27b0 !important;
-    background-color: #9c27b0 !important; 
+    color: white !important;
+    background-color: white !important; 
 }  
 
 .tabs .tab a{
-    color:#9c27b0;
+    color:white !important;
 }
 
 .tabs .tab a:hover {
-    background-color:#9c27b0;
-    color: white;
+    background-color: white!important;
+    color: #9c27b0!important;
 } /*Text color on hover*/
 
 .tabs .tab a.active {
-    color:#9c27b0;
+    color: #9c27b0!important;
+    background-color: white;
  } /*Background and text color when a tab is active*/
 
  .input-field input:focus + label {

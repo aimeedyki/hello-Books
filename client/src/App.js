@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Home from './components/Home/Home';
-import User from './components/User/User';
+import Userpage from './components/Userpage/Userpage';
+import Library from './components/Library/Library';
+import {Route, Switch} from 'react-router-dom';
+
 
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
-      
-      <User/>
-      </MuiThemeProvider>
+      <Switch>
+        <Route exact path='/' component = {Home} />
+        <Route path = '/user' component = {Userpage}/>
+        <Route exact path = {'/books'} component={Library}/>
+      </Switch>
     );
   }
 }

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Input extends Component{
     render () {
         return (
-            <div className="input-field">
+            <div>
                 <input 
                     id={this.props.name}
                     required
