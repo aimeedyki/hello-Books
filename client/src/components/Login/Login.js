@@ -3,7 +3,6 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 import {Link} from 'react-router-dom';
 import { Redirect } from 'react-router';
-import React, { Component } from 'react';  
 import { connect } from 'react-redux';  
 import { loginUser } from '../../actions';
 
