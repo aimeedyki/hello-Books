@@ -1,0 +1,9 @@
+.card{
+    overflow:scroll;
+}
+
+.card img{
+   object-fit: cover;
+   max-height: 50%;
+   max-width: 100%;
+}

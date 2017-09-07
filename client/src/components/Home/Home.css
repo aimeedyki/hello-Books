@@ -1,0 +1,21 @@
+
+.background{
+ height: 750px;
+ background-color: #673ab7;
+}
+
+.nav-wrapper {
+  font-family: Comic Sans MS, cursive, sans-serif;
+}
+
+.greeting{
+  font-family: Comic Sans MS, cursive, sans-serif;
+}
+ 
+.front{
+  overflow: visible !important;
+}
+
+#pic{
+  margin-top: 7%;
+}

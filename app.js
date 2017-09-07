@@ -3,6 +3,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import path from 'path';
+import serverRoutes from './server/routes';
 
 
 require('dotenv').config();
@@ -42,13 +43,13 @@ app.get('/swagger.json', (req, res)=> {
 });
 
 app.use(express.static(path.join(__dirname, 'server/api-docs/')));
-console.log(path.join(__dirname, 'server/api-docs/'));
 
 app.listen(port, (err) => {
   /* eslint-disable no-console */
   if (err) console.log(err);
   console.log('started');
 });
+
 // Log requests to the console.
 app.use(logger('dev'));
 
@@ -58,7 +59,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // Require routes into the application.
-import serverRoutes from './server/routes';
 app.use(serverRoutes)
 
 
