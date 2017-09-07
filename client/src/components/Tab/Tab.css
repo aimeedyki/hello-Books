@@ -1,6 +1,6 @@
 .tabs{
     overflow-x: hidden;
-    background-color: #9c27b0;
+    background-color: #673ab7;
 }
 .tabs .indicator {
     color: white !important;
@@ -13,21 +13,21 @@
 
 .tabs .tab a:hover {
     background-color: white!important;
-    color: #9c27b0!important;
+    color: #673ab7!important;
 } /*Text color on hover*/
 
 .tabs .tab a.active {
-    color: #9c27b0!important;
+    color: #673ab7!important;
     background-color: white;
  } /*Background and text color when a tab is active*/
 
  .input-field input:focus + label {
-    color: #9c27b0 !important;
+    color: #673ab7 !important;
   }
   /* label underline focus color */
   .row .input-field input:focus {
-    border-bottom: 1px solid #9c27b0 !important;
-    box-shadow: 0 1px 0 0 #9c27b0 !important
+    border-bottom: 1px solid #673ab7 !important;
+    box-shadow: 0 1px 0 0 #673ab7 !important
   }
 
 
