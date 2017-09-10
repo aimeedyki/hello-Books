@@ -9,29 +9,32 @@ import ChangePassword from '../ChangePassword/ChangePassword';
 import Editprofile from '../Editprofile/Editprofile';
 import Addbook from '../Addbook/Addbook';
 import Useractivity from '../Useractivity/Useractivity';
-import {Route, Switch} from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
+import photo from '../../assets/images/profilephoto.jpg';
+import rookie from '../../assets/images/rookie.jpg';
 
-export default class Userpage extends Component{
+
+export default class Userpage extends Component {
   constructor(props) {
     super(props);
   }
-    render(){
-        return (
-          <div>
-            <Topnav levelicon='images/rookie.jpg'/>  
-            <Sidenav  profilepic='images/profilephoto.jpg' firstname='Grace' lastname='Joel' email='gracejoel@gmail.com'/>
-            <div> 
-              <Switch>
-                <Route path = {"/user/notreturned"} render={() => <Outstanding />}/>
-                <Route path = {"/user/new"} component = {Addbook} /> 
-                <Route path = {"/user/password"} component = {ChangePassword} />
-                <Route path = {"/user/profile"} component = {Editprofile} />
-                <Route path = {"/user/history"} component = {Borrowed} />
-                <Route exact path = {'/user/library'} render={() => <Library/>}/>
-                <Route path = {"/user/notifications"} component = {Useractivity} />
-              </Switch>
-            </div>
-          </div>    
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Topnav levelicon={rookie} />
+        <Sidenav profilepic={photo} firstname='Grace' lastname='Joel' email='gracejoel@gmail.com' />
+        <div>
+          <Switch>
+            <Route exact path={this.props.match.path} component={Library} />
+            <Route path="/user/notreturned" component={Outstanding} />
+            <Route path="/user/new" component={Addbook} />
+            <Route path="/user/password" component={ChangePassword} />
+            <Route exact path="/user/profile" component={Editprofile} profilepic={`/images/profilephoto.jpg`} />
+            <Route path="/user/history" component={Borrowed} />
+            <Route path="/user/notifications" component={Useractivity} />
+          </Switch>
+        </div>
+      </div>
+    );
+  }
 }

@@ -11,7 +11,7 @@ const row = (heading, index, header) =>
   </tr>;
 
 export default ({ data, header }) =>
-  <table>
+  <table >
     <thead>
       <tr>
         {header.map((heading, index) =>

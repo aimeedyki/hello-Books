@@ -3,6 +3,10 @@ import Tab from '../Tab/Tab';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import Login from '../Login/Login';
+import rookie from '../../assets/images/rookie.jpg';
+import bookworm from '../../assets/images/bookworm.png';
+import voracious from '../../assets/images/voracious.jpg';
+import admin from '../../assets/images/admin.jpg';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
@@ -73,23 +77,23 @@ export default class Signup extends Component {
                   </div>
                   <div className="row">
                     <div className="input-field col s12 m6 l6">
-                      <select id='level' className="icons">
+                      <select id='level' className="icons indigo-text text-darken-2">
                         <option value="" disabled selected>Select</option>
-                        <option value="rookie" data-icon="images/rookie.jpg" className="left circle">Rookie</option>
-                        <option value="bookworm" data-icon="images/bookworm.png" className="left circle">Bookworm  N2000/month</option>
-                        <option value="voracious" data-icon="images/voracious.jpg" className="left circle">Voracious  N5000/month</option>
-                        <option value="admin" data-icon="images/admin.jpg" className="left circle">Admin</option>
+                        <option value="rookie" data-icon={rookie} className="left circle">Rookie</option>
+                        <option value="bookworm" data-icon={bookworm} className="left circle">Bookworm  N2000/month</option>
+                        <option value="voracious" data-icon={voracious} className="left circle">Voracious  N5000/month</option>
+                        <option value="admin" data-icon={admin} className="left circle">Admin</option>
                       </select>
                       <label>Membership Level</label>
                     </div>
                     <p className='col s12 m6 l6'>
                       <input type="checkbox" id="agreed" />
-                      <label for="agreed">"By checking this box, you agree to our Terms & Conditions"</label>
+                      <label>"By checking this box, you agree to our Terms & Conditions"</label>
                     </p>
                   </div>
                   <div className="row">
                     <div className="col s12 m4 l4">
-                      <Button type="submit" name="action" label="Signup" icon="send" />
+                      <Button type="submit" name="action" icon='account_box' label="Signup"/>
                     </div>
                   </div>
                   {fireRedirect && (

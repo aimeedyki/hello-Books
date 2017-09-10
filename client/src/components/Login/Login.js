@@ -4,7 +4,6 @@ import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions';
 
 
 export default class Login extends Component {
@@ -39,7 +38,7 @@ export default class Login extends Component {
         <div className='col s12 m10 l10 offset-m1'>
           <div className='card front row'>
             <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
-              <h5 className='center greeting'>Welcome back! Login to continue</h5>
+              <h5 className='center'>Welcome back! Login to continue</h5>
               <form onSubmit={this.submitHandler}>
                 <div className="row">
                   <div className="input-field col s12">
@@ -53,7 +52,7 @@ export default class Login extends Component {
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
-                    <Button type="submit" name="action" label="Login" icon="send" />
+                    <Button type="submit" name="action" label="Login" icon="" />
 
                   </div>
                 </div>

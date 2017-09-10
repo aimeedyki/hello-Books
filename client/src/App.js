@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
-import Home from './components/Home/Home';
-import Userpage from './components/Userpage/Userpage';
-import Library from './components/Library/Library';
-import Admin from './components/Admin/Admin';
-import { Route, Switch } from 'react-router-dom';
+const Server = require('./server.js')
+const port = (process.env.PORT || 8080)
+const app = Server.app()
 
+if (process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  const config = require('../../webpack.dev.config.js')
+  const compiler = webpack(config)
 
-
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/user' component={Userpage} />
-        <Route exact path={'/books'} component={Library} />
-      </Switch>
-    );
-  }
+  app.use(webpackHotMiddleware(compiler))
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }))
 }
 
-
-
-export default App;
+app.listen(port)
+console.log(`Listening at http://localhost:${port}`)

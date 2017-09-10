@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './Tab.css';
+import { Link } from 'react-router-dom';
+//import './Tab.css';
 
 
 
@@ -12,7 +13,7 @@ export default class Tab extends Component {
 
     return (
 
-      <div className="row deep-purple-text">
+      <div className="row indigo-text text-darken-2'">
         <div className="col s12">
           <ul className="tabs center">
             {this.props.data.map((tab) => {
@@ -25,6 +26,9 @@ export default class Tab extends Component {
           {this.props.data.map(tab => {
             return (
               <div key={tab.id} id={tab.id}>
+                {
+                  console.log("what do you display", tab.content)
+                }
                 <tab.content />
               </div>
             )
