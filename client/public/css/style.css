@@ -1,0 +1,57 @@
+.background-set {
+  height: 750px;
+  background-color: #303f9f; }
+
+.front {
+  overflow: visible !important; }
+
+#pic {
+  margin-top: 7%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+
+.tabs {
+  overflow-x: hidden;
+  background-color: #303f9f; }
+
+.tabs .indicator {
+  color: white !important;
+  background-color: white !important; }
+
+.tabs .tab a {
+  color: white !important; }
+
+.tabs .tab a:hover {
+  background-color: white !important;
+  color: #303f9f !important; }
+
+/*Text color on hover*/
+.tabs .tab a.active {
+  color: #303f9f !important;
+  background-color: white; }
+
+/*Background and text color when a tab is active*/
+.input-field input:focus + label {
+  color: #303f9f  !important; }
+
+/* label underline focus color */
+.row .input-field input:focus {
+  border-bottom: 1px solid #303f9f  !important;
+  box-shadow: 0 1px 0 0 #303f9f  !important; }
+
+.book-image {
+  max-height: 70% !important; }
+
+.activator {
+  width: auto;
+  height: 180px !important;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain; }
+
+Navlink {
+  color: white; }
+
+.level-icon {
+  margin-top: 25% !important; }

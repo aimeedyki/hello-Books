@@ -24,10 +24,10 @@ export default class Home extends Component {
             </div>
           </nav>
         </div>
-       <div className="row white-text">
+        <div className="row white-text">
           <img src={homeImage} className=" col l4 m4 offset-m1 offset-l1 hide-on-small-only" id="pic" alt="BOOKSVILLE" />
           <div className="col s12 l6 m6 offset-m1 offset-l1">
-            <Tab data={data}/>
+            <Tab data={data} />
           </div>
         </div>
       </div>

@@ -26,9 +26,6 @@ export default class Tab extends Component {
           {this.props.data.map(tab => {
             return (
               <div key={tab.id} id={tab.id}>
-                {
-                  console.log("what do you display", tab.content)
-                }
                 <tab.content />
               </div>
             )

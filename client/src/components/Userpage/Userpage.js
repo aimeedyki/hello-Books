@@ -12,12 +12,26 @@ import Useractivity from '../Useractivity/Useractivity';
 import { Switch, Route, Router } from 'react-router-dom';
 import photo from '../../assets/images/profilephoto.jpg';
 import rookie from '../../assets/images/rookie.jpg';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 
-export default class Userpage extends Component {
+
+class Userpage extends Component {
   constructor(props) {
     super(props);
+
+    this.props.protectedTest();
   }
+
+  renderContent() {
+    if (this.props.content) {
+      return (
+        <p>{this.props.content}</p>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
@@ -38,3 +52,9 @@ export default class Userpage extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { content: state.auth.content };
+}
+
+export default connect(mapStateToProps, actions)(Userpage); 
