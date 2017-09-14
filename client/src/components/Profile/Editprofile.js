@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
 import ReactDOM from 'react-dom';
+
 import photo from '../../assets/images/profilephoto.jpg';
 import rookie from '../../assets/images/rookie.jpg';
 import bookworm from '../../assets/images/bookworm.png';
 import voracious from '../../assets/images/voracious.jpg';
 import admin from '../../assets/images/admin.jpg';
-import ChangePassword from '../ChangePassword/ChangePassword';
+import Input from '../Common/Input';
+import Button from '../Common/Button';
+import ChangePassword from './ChangePassword';
 
 export default class Editprofile extends Component {
   constructor(props) {

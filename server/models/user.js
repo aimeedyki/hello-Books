@@ -4,13 +4,13 @@ import bcrypt from 'bcrypt';
 export default (sequelize, DataTypes) => {
   // defines user attributes
   const User = sequelize.define('User', {
-    email:{ 
+    email: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
         msg: 'Please enter an email',
       },
-      unique:{
+      unique: {
         args: true,
         msg: 'Email already exists, please log in or choose a new email',
       },
@@ -20,8 +20,7 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
+
     username: {
       type: DataTypes.STRING,
       allowNull: {
@@ -40,9 +39,9 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    password:{
+    password: {
       type: DataTypes.STRING,
-      allowNull:{
+      allowNull: {
         args: true,
         msg: 'Please choose a password'
       },
@@ -55,9 +54,10 @@ export default (sequelize, DataTypes) => {
 
       },
     },
-    level: {allownull: false, type: DataTypes.STRING,
+    level: {
+      allownull: false, type: DataTypes.STRING,
       validate: {
-        notEmpty:{
+        notEmpty: {
           args: true,
           msg: 'Please enter a level'
         },
@@ -66,16 +66,17 @@ export default (sequelize, DataTypes) => {
     profilepic: DataTypes.STRING,
     max: DataTypes.INTEGER,
     borrowCount: DataTypes.INTEGER,
-  }, 
-  
-    // hashes password
-  {  hooks: {
-    beforeCreate: (user) => {
-      const salt = bcrypt.genSaltSync();
-      user.password = bcrypt.hashSync(user.password, salt);
-    },
   },
-  });
+
+    // hashes password
+    {
+      hooks: {
+        beforeCreate: (user) => {
+          const salt = bcrypt.genSaltSync();
+          user.password = bcrypt.hashSync(user.password, salt);
+        },
+      },
+    });
 
   // defines user associations
   User.associate = (models) => {

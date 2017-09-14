@@ -16,7 +16,7 @@ require('dotenv').config();
 const app = express();
 
 //sets port
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 
 //db.sequelize.sync({ force: true })
 

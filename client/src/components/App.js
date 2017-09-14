@@ -1,6 +1,6 @@
 import React from 'react';
-import Home from './Home/Home';
-import Userpage from './Userpage/Userpage';
+import Home from './Home';
+import Userpage from './Userpage';
 import Library from './Library/Library';
 import Notfound from './Notfound';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';

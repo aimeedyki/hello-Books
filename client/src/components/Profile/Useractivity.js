@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Table from '../Table/Table';
+
+import Table from '../Common/Table';
 
 export default class Outstanding extends Component {
   render() {

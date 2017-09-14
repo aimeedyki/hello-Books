@@ -4,29 +4,34 @@ import cookie from 'react-cookie';
 import {
   AUTH_USER,
   AUTH_ERROR,
-  UNAUTH_USER,
-  PROTECTED_TEST
+  CLEAR_ERROR,
+  STORE_USER
 } from './types';
 
-const API_URL = 'http://localhost:8000/api/v1';
+const API_URL = 'http://localhost:5000/api/v1';
+
+export function clearErrorMessage() {
+  return {
+    type: CLEAR_ERROR
+  };
+}
 
 export function errorHandler(dispatch, error, type) {
   let errorMessage = '';
-
-  if (error.data.error) {
-    errorMessage = error.data.error;
-  } else if (error.data) {
-    errorMessage = error.data;
-  } else {
-    errorMessage = error;
-  }
+  
+    if(error.data.error) {
+      errorMessage = error.data.error;
+    } else if(error.data){
+      errorMessage = error.data;
+    } else {
+      errorMessage = error;
+    }
 
   if (error.status === 401) {
     dispatch({
       type: type,
-      payload: 'You are not authorized to do this. Please login and try again.'
+      payload: 'Oops! you have strayed far from home... Please login to enjoy the Booksville experience.'
     });
-    logoutUser();
   } else {
     dispatch({
       type: type,
@@ -35,13 +40,18 @@ export function errorHandler(dispatch, error, type) {
   }
 }
 
-export function loginUser({ email, password }) {
+
+
+export function signupUser({ email, username, password, level }) {
   return function (dispatch) {
-    axios.post(`${API_URL}/auth/login`, { email, password })
+    axios.post(`${API_URL}/users/signup`, { email, username, password, level })
       .then(response => {
-        cookie.save('token', response.data.token, { path: '/' });
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token);
+        Materialize.toast('Signup successful! Welcome to Booksville', 7000)
         dispatch({ type: AUTH_USER });
-        window.location.href = CLIENT_ROOT_URL + '/dashboard';
+        dispatch({type:STORE_USER});
+        
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -49,42 +59,18 @@ export function loginUser({ email, password }) {
   }
 }
 
-export function signupUser({ email, firstName, lastName, password }) {
-  return function (dispatch) {
-    axios.post(`${API_URL}/users/signup`, { firstname, lastname, email, username, password, level })
-      .then(response => {
-        cookie.save('token', response.data.token, { path: '/' });
-        dispatch({ type: AUTH_USER });
-        window.location.href = CLIENT_ROOT_URL + '/user';
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, AUTH_ERROR)
-      });
-  }
-}
-
-export function logoutUser() {
-  return function (dispatch) {
-    dispatch({ type: UNAUTH_USER });
-    cookie.remove('token', { path: '/' });
-
-    window.location.href = CLIENT_ROOT_URL + '/login';
-  }
-}
-
-export function protectedTest() {
-  return function (dispatch) {
-    axios.get(`${API_URL}/protected`, {
-      headers: { 'Authorization': cookie.load('token') }
+export function signinUser({ username, password }) {  
+  return function(dispatch) {
+    axios.post(`${API_URL}/users/signin`, { email, password })
+    .then(response => {
+      localStorage.setItem('token', response.data.token);
+      dispatch({ type: AUTH_USER });
+      Materialize.toast('Welcome back to Booksville!!', 7000)
+      dispatch({type:STORE_USER});
     })
-      .then(response => {
-        dispatch({
-          type: PROTECTED_TEST,
-          payload: response.data.content
-        });
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, AUTH_ERROR)
-      });
+    .catch((error) => {
+      errorHandler(dispatch, error.response, AUTH_ERROR)
+    });
+    }
   }
-}
+

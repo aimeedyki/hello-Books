@@ -1,30 +1,25 @@
 import jwt from 'jsonwebtoken';
-import {User} from '../models';
-const secret = process.env.SECRET || 'princess';
+import { User } from '../models';
+const secret = process.env.SECRET;
 import getUserToken from '../helpers/jwt';
 
 export default {
   // creates a user
-  signup: (req, res) =>{
+  signup: (req, res) => {
     let maxVal = 0;
-    if(req.body.level === 'rookie')
-    {
+    if (req.body.level === 'rookie') {
       maxVal += 3;
     }
-    if(req.body.level === 'bookworm')
-    {
+    if (req.body.level === 'bookworm') {
       maxVal += 5;
     }
-    if(req.body.level === 'voracious')
-    {
+    if (req.body.level === 'voracious') {
       maxVal += 10;
     }
 
     return User
       .create({
         email: req.body.email,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
         username: req.body.username,
         password: req.body.password,
         level: req.body.level,
@@ -35,19 +30,19 @@ export default {
 
       .then(user => {
         const token = getUserToken(user);
-        res.status(201).send({user, token});
+        res.status(201).send({ user, token });
       })
 
-      .catch(error =>{
+      .catch(error => {
         return res.status(400).send(error.message);
       })
   },
 
   //displays user profile
-  profile: (req, res)=> {
+  profile: (req, res) => {
     return User.findById(req.params.id)
 
-      .then(user => {return res.status(200).send(user);})
+      .then(user => { return res.status(200).send(user); })
       .catch(error => res.status(400).send(error));
   }
 };

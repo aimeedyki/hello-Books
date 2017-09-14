@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Button from '../Button/Button';
+
+import Button from '../Common/Button';
 
 export default class Card extends Component {
   constructor(props) {

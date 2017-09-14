@@ -1,36 +1,40 @@
 import React, { Component } from 'react';
-import Topnav from '../Topnav/Topnav';
-import Sidenav from '../Sidenav/Sidenav';
-import Library from '../Library/Library';
-import Borrowed from '../Borrowed/Borrowed';
-import Outstanding from '../Outstanding/Outstanding';
-import Profile from '../Profile/Profile'
-import ChangePassword from '../ChangePassword/ChangePassword';
-import Editprofile from '../Editprofile/Editprofile';
-import Addbook from '../Addbook/Addbook';
-import Useractivity from '../Useractivity/Useractivity';
-import { Switch, Route, Router } from 'react-router-dom';
-import photo from '../../assets/images/profilephoto.jpg';
-import rookie from '../../assets/images/rookie.jpg';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import { Switch, Route, Router } from 'react-router-dom';
+
+import * as actions from '../actions';
+
+import Topnav from './Common/Topnav';
+import Sidenav from './Common/Sidenav';
+import Library from './Library/Library';
+import Borrowed from './Library/Borrowed';
+import Outstanding from './Library/Outstanding';
+import Profile from './Profile/Profile'
+import ChangePassword from './Profile/ChangePassword';
+import Editprofile from './Profile/Editprofile';
+import Addbook from './Library/Addbook';
+import Useractivity from './Profile/Useractivity';
+
+import photo from '../assets/images/profilephoto.jpg';
+import rookie from '../assets/images/rookie.jpg';
 
 
 
-class Userpage extends Component {
+
+export default class Userpage extends Component {
   constructor(props) {
     super(props);
 
-    this.props.protectedTest();
+    //this.props.protectedTest();
   }
 
-  renderContent() {
+  /*renderContent() {
     if (this.props.content) {
       return (
         <p>{this.props.content}</p>
       );
     }
-  }
+  }*/
 
   render() {
     return (
@@ -53,8 +57,8 @@ class Userpage extends Component {
   }
 }
 
-function mapStateToProps(state) {
+/*function mapStateToProps(state) {
   return { content: state.auth.content };
 }
 
-export default connect(mapStateToProps, actions)(Userpage); 
+export default connect(mapStateToProps, actions)(Userpage); */

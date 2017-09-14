@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import './Home.scss';
-import Tab from '../Tab/Tab';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
-import Login from '../Login/Login';
-import Signup from '../Signup/Signup';
-import homeImage from '../../assets/images/girl.png'
 import { Link } from 'react-router-dom';
+
+
+import Tab from './Common/Tab';
+import Input from './Common/Input';
+import Button from './Common/Button';
+import Login from './Authentication/Login';
+import Signup from './Authentication/Signup';
+import homeImage from '../assets/images/girl.png'
+
 
 export default class Home extends Component {
   render() {
