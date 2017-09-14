@@ -61,7 +61,7 @@ export function signupUser({ email, username, password, level }) {
 
 export function signinUser({ username, password }) {  
   return function(dispatch) {
-    axios.post(`${API_URL}/users/signin`, { email, password })
+    axios.post(`${API_URL}/users/signin`, { username, password })
     .then(response => {
       localStorage.setItem('token', response.data.token);
       dispatch({ type: AUTH_USER });

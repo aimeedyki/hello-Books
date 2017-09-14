@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import Input from '../Common/Input';
+
+import { signinUser, clearErrorMessage } from '../../actions';
+
 import Button from '../Common/Button';
 
 
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -54,7 +55,7 @@ export default class Login extends Component {
           <div className='card front row'>
             <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
               <h5 className='center'>Welcome back! Login to continue</h5>
-              <form onSubmit={this.submitHandler}>
+              <form onSubmit={this.handleFormSubmit}>
                 <div className="row">
                   <div className='input-field col s12'>
                     <input name='username' type='text' className='validate'
@@ -86,3 +87,14 @@ export default class Login extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.auth.error,
+  };
+}
+
+export default connect(mapStateToProps, {
+  signinUser,
+  clearErrorMessage
+})(withRouter(Login));
+
