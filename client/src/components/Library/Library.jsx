@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Editbook from './Editbook';
-import Addbook from './Addbook';
-import Tab from '../Common/Tab';
-import Book from '../Library/Book';
+import Editbook from './Editbook.jsx';
+import Addbook from './Addbook.jsx';
+import Tab from '../Common/Tab.jsx';
+import Book from '../Library/Book.jsx';
 
 const books = [{ title: 'the gods must be crazy', image: require('../../assets/images/davinci.jpg'), author: 'chinua achebe', category: 'THRILLER', description: 'A tales by moonlight', status: 'Available' },
 { title: 'Love yesterday now', image: require('../../assets/images/dolphin.jpg'), author: 'Joan Smith', category: 'ROMANCE', description: 'A love story', status: 'Out of stock' },

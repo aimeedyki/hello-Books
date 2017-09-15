@@ -15,8 +15,7 @@ export default function (state = initialState, action) {
       return { ...state, error: action.payload };
     case CLEAR_ERROR:
       return { ...state, error: '' };
-    case STORE_USER:
-      return { ...state, user: action.user };
+   
     default:
       return state;
   }

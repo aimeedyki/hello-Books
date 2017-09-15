@@ -8,7 +8,7 @@ body{
 	Ubuntu,
 	Cantarell,
 	"Helvetica Neue",
-	sans-serif;
+	sans-serif !important;
 
 }
 .tabs{
@@ -72,4 +72,8 @@ Navlink{
  
  #pic{
    margin-top: 7%;
+ }
+
+ .signin{
+ margin-top: 25%;
  }

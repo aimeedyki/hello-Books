@@ -1,7 +1,7 @@
-import {User} from '../models';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import getUserToken from '../helpers/jwt';
+import {User} from '../models';
 
 // Authorizes a User log in with token
 const authController = {
@@ -13,19 +13,20 @@ const authController = {
         }
       }).then((user) => {
         if (!user) {
-          res.status(404).send({ message: 'User not found' });
+          res.status(404).send({ message: 'Username does not exist. Please confirm username or sign up with us.' });
         }
 
         // compares password received to stored hash password
         const passkey = bcrypt.compareSync(req.body.password, user.password);
         if (passkey) {
           const token = getUserToken(user);
-          const oldUser = {
-            success: true,
+          const userDetails = {
             username: user.username,
-            userEmail: user.email,
-          };
-          res.status(200).send({ oldUser, token });
+            email: user.email,
+            level: user.level,
+            userId: user.id
+            };
+          res.status(200).send({ userDetails, token });
         } else {
           res.status(401).send({ message: 'Password is incorrect' });
         }

@@ -21,7 +21,7 @@ export default class Sidenav extends Component {
                 <img src={backpic} alt="background" />
               </div>
               <a href="#!user"><img className="circle" src={this.props.profilepic} alt="profile photo" /></a>
-              <a href="#!name"><span className="white-text name">{this.props.firstname} {this.props.lastname}</span></a>
+              <a href="#!name"><span className="white-text name">@{this.props.username}</span></a>
               <a href="#!email"><span className="white-text email">{this.props.email}</span></a>
             </div>
           </li>

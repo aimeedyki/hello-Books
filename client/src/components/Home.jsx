@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route} from 'react-router-dom';
 
 
-import Tab from './Common/Tab';
-import Input from './Common/Input';
-import Button from './Common/Button';
-import Login from './Authentication/Login';
-import Signup from './Authentication/Signup';
+import Tab from './Common/Tab.jsx';
+import Input from './Common/Input.jsx';
+import Button from './Common/Button.jsx';
+import Login from './Authentication/Login.jsx';
+import Signup from './Authentication/Signup.jsx';
 import homeImage from '../assets/images/girl.png'
 
 
 export default class Home extends Component {
   render() {
-    const data = [{ content: Login, id: 'login', idLink: '#login', title: 'LOGIN' },
-    { content: Signup, id: 'signup', idLink: '#signup', title: 'SIGN UP' }];
+    
     return (
       <div className='row background-set'>
         <div className="col s12 navbar-fixed white indigo-darken-2-text">
@@ -29,7 +28,11 @@ export default class Home extends Component {
         <div className="row white-text">
           <img src={homeImage} className=" col l4 m4 offset-m1 offset-l1 hide-on-small-only" id="pic" alt="BOOKSVILLE" />
           <div className="col s12 l6 m6 offset-m1 offset-l1">
-            <Tab data={data} />
+            <Switch>
+              <Route exact path='/' component={Login} />
+              <Route exact path='/signup' component={Signup} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
           </div>
         </div>
       </div>

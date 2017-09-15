@@ -7,7 +7,7 @@ module.exports = {
 
   entry: [
     'webpack-hot-middleware/client',
-    './client/src/index.js'
+    './client/src/index.jsx'
   ],
 
   output: {
@@ -32,7 +32,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: path.join(__dirname, 'node_modules')
       },

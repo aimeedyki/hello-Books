@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 
-import { signinUser, clearErrorMessage } from '../../actions';
 
-import Button from '../Common/Button';
+import { signinUser, clearErrorMessage } from '../../actions/authAction';
+
+import Button from '../Common/Button.jsx';
 
 
 
@@ -35,8 +35,12 @@ class Login extends Component {
 
   handleFormSubmit(event) {
     event.preventDefault()
-    this.props.signinUser(this.state)
-    this.props.history.push('/user');
+    this.props.signinUser(this.state).then(res => {
+      if (res) {
+        this.props.history.push('/user')
+      }
+    })
+
   }
 
   renderAlert() {
@@ -51,14 +55,14 @@ class Login extends Component {
   render() {
     return (
       <div className="row">
-        <div className='col s12 m10 l10 offset-m1'>
-          <div className='card front row'>
+        <div className='col s12 m10 l8 offset-m1 offset-l1'>
+          <div className='card front row signin'>
             <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
-              <h5 className='center'>Welcome back! Login to continue</h5>
+              <h5 className='center indigo-text text-darken-2'>Welcome back! Login to continue</h5>
               <form onSubmit={this.handleFormSubmit}>
                 <div className="row">
                   <div className='input-field col s12'>
-                    <input name='username' type='text' className='validate'
+                    <input name='username' type='text' className='validate black-text'
                       onChange={this.handleChange}
                       value={this.state.username}
                       required
@@ -66,8 +70,8 @@ class Login extends Component {
                     <label>Username</label>
                   </div>
                 </div>
-                <div className="row">
-                  <input name='password' type='password' className='validate'
+                <div className='input-field col s12'>
+                  <input name='password' type='password' className='validate black-text'
                     onChange={this.handleChange}
                     value={this.state.password}
                     required
@@ -75,10 +79,12 @@ class Login extends Component {
                   <label>Password</label>
                 </div>
                 <div className="row">
-                  <div className="input-field col s12">
+                  <div className="input-field col s4 offset-s3">
                     <Button type="submit" name="action" label="Login" icon="" />
                   </div>
                 </div>
+                <p className=' center indigo-text text-darken-2'>Not registered yet?</p>
+                <p className=' center indigo-text text-darken-2'>Please sign up <Link to= '/signup'>here</Link> to continue</p>
               </form>
             </div>
           </div>

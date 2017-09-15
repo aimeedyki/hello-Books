@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Table from '../Common/Table';
+import Table from '../Common/Table.jsx';
 
-export default class History extends Component {
+export default class Outstanding extends Component {
   render() {
-    const data = [{ title: "the beautiful", borrowdate: '17/8/2017', returndate: '23/8/2017' },
-    { title: "the bad", borrowdate: '31/7/2017', returndate: '2/8/2017' }];
+    const data = [{ title: "the beautiful", borrowdate: '17/8/2017', return: <a>RETURN</a> },
+    { title: "the bad", borrowdate: '31/7/2017', return: <a>RETURN</a> }];
     const header = [
       {
         name: "TITLE",
@@ -15,8 +15,8 @@ export default class History extends Component {
         prop: "borrowdate"
       },
       {
-        name: "DATE RETURNED",
-        prop: "returndate"
+        name: "RETURN NOW?",
+        prop: "return"
       }
     ];
     return (

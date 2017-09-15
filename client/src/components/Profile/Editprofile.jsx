@@ -6,9 +6,9 @@ import rookie from '../../assets/images/rookie.jpg';
 import bookworm from '../../assets/images/bookworm.png';
 import voracious from '../../assets/images/voracious.jpg';
 import admin from '../../assets/images/admin.jpg';
-import Input from '../Common/Input';
-import Button from '../Common/Button';
-import ChangePassword from './ChangePassword';
+import Input from '../Common/Input.jsx';
+import Button from '../Common/Button.jsx';
+import ChangePassword from './ChangePassword.jsx';
 
 export default class Editprofile extends Component {
   constructor(props) {

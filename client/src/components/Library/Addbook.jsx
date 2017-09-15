@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Input from '../Common/Input';
-import Button from '../Common/Button';
+import Input from '../Common/Input.jsx';
+import Button from '../Common/Button.jsx';
 
 export default class Add extends Component {
   render() {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route, withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
-import { withRouter } from 'react-router-dom';
 
-import { signupUser, clearErrorMessage } from '../../actions';
+import { signupUser, clearErrorMessage } from '../../actions/authAction';
 
-import Button from '../Common/Button';
+import Button from '../Common/Button.jsx';
 
 
 class Signup extends Component {
@@ -44,8 +43,12 @@ class Signup extends Component {
   handleFormSubmit(event) {
     event.preventDefault()
     if (this.state.password === this.state.confirmpassword) {
-      this.props.signupUser(this.state)
-      this.props.history.push('/user');
+      this.props.signupUser(this.state).then(res => {
+        if (res) {
+          this.props.history.push('/user')
+        }
+      })
+      
     } else {
       Materialize.toast('Passwords do not match', 4000)
     }
@@ -67,7 +70,7 @@ class Signup extends Component {
         <div className='col s12 m10 l10 offset-m1'>
           <div className='card front row'>
             <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
-              <h5 className='center greeting'>New User? Please fill your details and begin your journey with us!</h5>
+              <h5 className='center greeting indigo-text text-darken-2'>New User? Please fill your details and begin your journey with us!</h5>
               <form onSubmit={this.handleFormSubmit}>
                 <div className='row'>
                   <div className='input-field col s12'>
@@ -115,11 +118,11 @@ class Signup extends Component {
                   </select>
                 </div>
                 <div className='row'>
-                  <div className='col s12 m4 l4'>
+                  <div className='col s12 m4 l4 offset-l4 offset-m4'>
                     <Button type='submit' icon='account_box' label='Signup' />
                   </div>
                 </div>
-
+                <p className='center indigo-text text-darken-2'>Already registered? Please login <Link to= '/login'>here</Link></p>
               </form>
             </div>
           </div>

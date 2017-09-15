@@ -30,7 +30,13 @@ export default {
 
       .then(user => {
         const token = getUserToken(user);
-        res.status(201).send({ user, token });
+        const userDetails = {
+          username: user.username,
+          email: user.email,
+          level: user.level,
+          userId: user.id
+          };
+        res.status(201).send({ userDetails, token });
       })
 
       .catch(error => {
