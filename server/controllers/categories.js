@@ -17,7 +17,9 @@ export default {
   list(req, res) {
     return Category
       .all()
-      .then(categories => res.status(200).send(categories))
+      .then(categories => {
+        const allCategories = {categories};
+        res.status(200).send(allCategories)})
       .catch(error => res.status(400).send(error));
   },
 

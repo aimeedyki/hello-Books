@@ -16,7 +16,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      fireRedirect: false
+      
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);

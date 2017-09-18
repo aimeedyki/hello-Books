@@ -49,7 +49,9 @@ export default {
   list(req, res) {
     return Book
       .all()
-      .then(books => res.status(200).send(books))
+      .then(books => {
+        const allBooks = {books};
+        res.status(200).send(allBooks)})
       .catch(error => res.status(400).send(error));
   },
 

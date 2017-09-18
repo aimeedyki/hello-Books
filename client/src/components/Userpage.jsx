@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 
-import {displayUserpage} from '../actions/userAction';
+import { displayUserpage } from '../actions/userAction.js';
 
 
 import Topnav from './Common/Topnav.jsx';
@@ -14,7 +14,10 @@ import Profile from './Profile/Profile.jsx'
 import ChangePassword from './Profile/ChangePassword.jsx';
 import Editprofile from './Profile/Editprofile.jsx';
 import Addbook from './Library/Addbook.jsx';
+import Addcategory from './Library/Addcategory.jsx';
 import Useractivity from './Profile/Useractivity.jsx';
+import Editbook from './Library/Editbook.jsx';
+import Tab from './Library/Tab.jsx'
 
 import photo from '../assets/images/profilephoto.jpg';
 import rookie from '../assets/images/rookie.jpg';
@@ -25,39 +28,67 @@ import admin from '../assets/images/admin.jpg';
 
 
 
-export default class Userpage extends Component {
+class Userpage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      email: '',
+      userId: '',
+      level: '',
+      levelicon: ''
+    };
+    this.setLevelIcon = this.setLevelIcon.bind(this);
   }
 
-  componentWillMount(){
-    // this.props.displayUserpage();
-    // switch(this.props.user.level) {
-    //   case 'rookie':
-    //     return levelicon={rookie}
-    //   case 'bookworm':
-    //     return levelicon ={bookworm}   
-    //   case 'voracious':
-    //     return levelicon = {voracious}
-    //   case 'admin':
-    //     return levelicon = {admin}  
-    // } 
+  componentWillMount() {
+    this.props.displayUserpage();
   }
 
+  componentDidMount() {
+    const { username, email, level, userId } = this.props;
+    this.setState({
+      username,
+      email,
+      level,
+      userId
+    });
+  }
+
+  setLevelIcon(level) {
+    switch (level) {
+      case 'rookie':
+        return rookie;
+      case 'bookworm':
+        return bookworm;
+      case 'voracious':
+        return voracious;
+      case 'admin':
+        return admin;
+      default:
+        return rookie;
+    }
+  }
   render() {
+    const { levelicon } = this.state;
+    const { username, level, email } = this.props.user;
+
     return (
       <div>
-        <Topnav levelicon={rookie} />
-        <Sidenav profilepic={photo} username="@aimee" email="aimee@yahoo.com" />
+        <Topnav username={username} />
+        <Sidenav levelIcon={this.setLevelIcon(level)} username={username} email={email} />
         <div>
           <Switch>
-            <Route exact path={this.props.match.path} component={Library} />
-            <Route path="/user/notreturned" component={Outstanding} />
-            <Route path="/user/new" component={Addbook} />
-            <Route path="/user/password" component={ChangePassword} />
-            <Route exact path="/user/profile" component={Editprofile} profilepic={`/images/profilephoto.jpg`} />
-            <Route path="/user/history" component={Borrowed} />
-            <Route path="/user/notifications" component={Useractivity} />
+            <Route exact path={this.props.match.path} component={Tab} />
+            <Route path='/user/notreturned' component={Outstanding} />
+            <Route path='/user/new' component={Addbook} />
+            <Route path='/user/password' component={ChangePassword} />
+            <Route exact path='/user/profile' component={Editprofile} profilepic={this.setLevelIcon(level)} />
+            <Route path='/user/history' component={Borrowed} />
+            <Route path='/user/notifications' component={Useractivity} />
+            <Route path='/user/books' component={Addbook} />
+            <Route path='/user/edit-book' component={Editbook} />
+            <Route path='/user/category' component={Addcategory} />
           </Switch>
         </div>
       </div>
@@ -65,10 +96,13 @@ export default class Userpage extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return { user: userReducer.user};
-// }
+function mapStateToProps(state) {
+  const { user } = state.userReducer;
+  return {
+    user
+  };
+}
 
-// export default connect(mapStateToProps, {
-//   displayUserpage
-// })(Userpage);
+export default connect(mapStateToProps, {
+  displayUserpage
+})(Userpage);

@@ -2,20 +2,36 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   CLEAR_ERROR,
-  STORE_USER
+  UNAUTH_USER
 } from '../actions/types';
 
-const initialState = { error: '', message: '', content: '', authenticated: false, user: {} }
+const initialState = { error: '', message: '', authenticated: false, user: {} }
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, error: '', authenticated: true };
+      return {
+        ...state,
+        user: action.user,
+        authenticated: true
+      };
+    case UNAUTH_USER:
+      return {
+        ...state,
+        user: {},
+        authenticated: false
+      };
     case AUTH_ERROR:
-      return { ...state, error: action.payload };
+      return {
+        ...state,
+        error: action.payload
+      };
     case CLEAR_ERROR:
-      return { ...state, error: '' };
-   
+      return {
+        ...state,
+        error: ''
+      };
+
     default:
       return state;
   }

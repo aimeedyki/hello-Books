@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link} from 'react-router-dom';
 import Button from '../Common/Button.jsx';
 
 export default class Card extends Component {
@@ -24,7 +24,7 @@ export default class Card extends Component {
           <div className="fixed-action-btn">
             <a className="btn-floating btn-large indigo darken-2">RENT</a>
             <ul>
-              <li><a href="#editbook" className=" modal-trigger btn-floating indigo darken-2"><i className="material-icons">edit</i></a></li>
+              <li><Link to='/user/edit-book' className="btn-floating indigo darken-2"><i className="material-icons">edit</i></Link></li>
               <li><a className="btn-floating indigo darken-2"><i className="material-icons">delete</i></a></li>
             </ul>
           </div>

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link, Switch, Route} from 'react-router-dom';
 
 
-import Tab from './Common/Tab.jsx';
-import Input from './Common/Input.jsx';
+
 import Button from './Common/Button.jsx';
 import Login from './Authentication/Login.jsx';
 import Signup from './Authentication/Signup.jsx';

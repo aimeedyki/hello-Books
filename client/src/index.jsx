@@ -8,17 +8,20 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 
 
-import configureStore from './store/configureStore';
+import ConfigureStore from './store/configureStore';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
-import { setAuthorizationToken } from './actions/authAction';
+import { setAuthorizationToken, setCurrentUser } from './actions/authAction';
 
 
-const store = configureStore();
+const store = ConfigureStore();
 
 
 if (localStorage.token) {
   setAuthorizationToken(localStorage.token);
+  store.dispatch(
+    setCurrentUser(localStorage.user)
+  );
 }
 
 render(<Provider store={store}>

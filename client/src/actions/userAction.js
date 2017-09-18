@@ -1,10 +1,16 @@
 import axios from 'axios';
 import {
   GET_USER,
-  STORE_USER
 } from './types';
 
-// export function displayUserpage(){
-//   dispatch({type:GET_USER})
-
-// }
+export const displayUserpage = () =>{
+  let user = {}
+  
+  user = localStorage.getItem('user');
+  return(dispatch)=>{
+  dispatch({ type: GET_USER,
+      payload: JSON.parse(user)
+     })
+    }
+  
+}
