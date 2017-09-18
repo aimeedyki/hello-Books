@@ -4,10 +4,11 @@ import {
   ADD_CATEGORY,
   GET_CATEGORIES,
   MODIFY_BOOK,
-  GET_BOOKS
+  GET_BOOKS,
+  GET_BOOKS_BYCATEGORIES
 } from '../actions/types';
 
-const initialState = { error: '', books: [], categories: [] }
+const initialState = { error: '', books: [], categories: [], bookCategory:{} }
 
 
 export default (state = initialState, action) => {
@@ -42,7 +43,11 @@ export default (state = initialState, action) => {
         ...state,
         books: action.payload,
       };
-
+    case GET_BOOKS_BYCATEGORIES:
+      return {
+        ...state,
+        bookCategory: action.payload,
+      };
     default:
       return state;
   }

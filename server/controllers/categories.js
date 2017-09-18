@@ -32,7 +32,9 @@ export default {
           as: 'books',
         }],
       })
-      .then(category => res.status(200).send(category))
+      .then(category => {
+        const bookCategory = {category};
+        res.status(200).send(bookCategory)})
       .catch(error => res.status(400).send(error.message));
   },
 };

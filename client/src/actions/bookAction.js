@@ -5,7 +5,8 @@ import {
   GET_CATEGORIES,
   BOOK_ERROR,
   MODIFY_BOOK,
-  GET_BOOKS
+  GET_BOOKS,
+  GET_BOOKS_BYCATEGORIES
 } from './types';
 import { errorHandler } from './authAction'
 
@@ -25,6 +26,13 @@ export const setBooks = (books) => {
     payload: books
   }
 }
+export const setBookCategory = (category) => {
+  return {
+    type: GET_BOOKS_BYCATEGORIES,
+    payload: category
+  }
+}
+
 
 export const addBook = ({ title, author, description, quantity, categoryId }) => {
   return (dispatch) => {
@@ -97,6 +105,19 @@ export const getBooks = () => {
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR)
+      });
+  }
+}
+
+export const getBooksByCategory = (id) => {
+  return (dispatch) => {
+    return axios.get(`${API_URL}/category/${id}`)
+      .then(response => {
+        console.log('response is', response.data)
+        dispatch(setBookCategory(response.data.category));
+      })
+      .catch((error) => {
+        console.log('action error', error);
       });
   }
 }

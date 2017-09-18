@@ -8,4 +8,5 @@ export const AUTH_USER = 'auth_user',
   ADD_CATEGORY = 'add_category',
   GET_CATEGORIES = 'get_categories',
   MODIFY_BOOK = 'modify_book',
-  GET_BOOKS = 'get_books' ;
+  GET_BOOKS = 'get_books',
+  GET_BOOKS_BYCATEGORIES = 'get_books_bycategory' ;
