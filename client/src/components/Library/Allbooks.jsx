@@ -22,7 +22,7 @@ class Allbooks extends Component {
 					return (
 						<div key={book.id}>
 							<Book image={generic} title={book.title} author={book.author} category={book.category}
-								description={book.description} status={book.status} />
+								description={book.description} status={book.status} id={book.id} />
 						</div>
 					)
 				})}

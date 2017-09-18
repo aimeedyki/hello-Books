@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import {deleteBook} from '../../actions/bookAction.js'
 import Button from '../Common/Button.jsx';
 
-export default class Card extends Component {
+class Book extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(id){
+    const shouldDelete = confirm("Are you sure you want to delete this book");
+    if (shouldDelete === true) {
+        this.props.deleteBook(id)
+    }
   }
   render() {
     return (
@@ -25,7 +36,7 @@ export default class Card extends Component {
             <a className="btn-floating btn-large indigo darken-2">RENT</a>
             <ul>
               <li><Link to='/user/edit-book' className="btn-floating indigo darken-2"><i className="material-icons">edit</i></Link></li>
-              <li><a className="btn-floating indigo darken-2"><i className="material-icons">delete</i></a></li>
+              <li><a onClick={() => {this.handleClick(this.props.id)}} className="btn-floating indigo darken-2"><i className="material-icons">delete</i></a></li>
             </ul>
           </div>
         </div>
@@ -33,3 +44,13 @@ export default class Card extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+		state
+	};
+}
+
+export default connect(mapStateToProps, {
+	deleteBook,
+})(Book);

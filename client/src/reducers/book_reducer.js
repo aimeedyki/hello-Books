@@ -5,10 +5,11 @@ import {
   GET_CATEGORIES,
   MODIFY_BOOK,
   GET_BOOKS,
-  GET_BOOKS_BYCATEGORIES
+  GET_BOOKS_BYCATEGORIES,
+  DELETE_BOOK
 } from '../actions/types';
 
-const initialState = { error: '', books: [], categories: [], bookCategory:{} }
+const initialState = { error: '', books: [], categories: [], bookCategory: {} }
 
 
 export default (state = initialState, action) => {
@@ -47,6 +48,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookCategory: action.payload,
+      };
+    case DELETE_BOOK:
+      return {
+        ...state,
       };
     default:
       return state;

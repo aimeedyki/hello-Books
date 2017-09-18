@@ -6,7 +6,9 @@ import {
   BOOK_ERROR,
   MODIFY_BOOK,
   GET_BOOKS,
-  GET_BOOKS_BYCATEGORIES
+  GET_BOOKS_BYCATEGORIES,
+  DELETE_BOOK
+  
 } from './types';
 import { errorHandler } from './authAction'
 
@@ -82,7 +84,7 @@ export const addNewCategory = ({ category }) => {
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR)
       });
-  }
+  } 
 }
 
 export const getCategories = () => {
@@ -113,11 +115,24 @@ export const getBooksByCategory = (id) => {
   return (dispatch) => {
     return axios.get(`${API_URL}/category/${id}`)
       .then(response => {
-        console.log('response is', response.data)
         dispatch(setBookCategory(response.data.category));
       })
       .catch((error) => {
         console.log('action error', error);
+      });
+  }
+}
+
+export const deleteBook = (id) => {
+  return (dispatch) => {
+    return axios.delete(`${API_URL}/books/${id}`)
+      .then(response => {
+        Materialize.toast('Book has been deleted!', 4000)
+        dispatch({
+          type: DELETE_BOOK});
+       })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR)
       });
   }
 }
