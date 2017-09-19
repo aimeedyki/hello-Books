@@ -385,6 +385,10 @@ app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdm
 
 // route for deleting a book
 app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.remove)
+
+//route for getting a books detail
+app.get('/api/v1/books/:id', authentication.verifyUser,  booksController.viewBook)
+
 /**
  * @swagger
  * /books:

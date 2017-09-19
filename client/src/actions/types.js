@@ -10,4 +10,6 @@ export const AUTH_USER = 'auth_user',
   MODIFY_BOOK = 'modify_book',
   GET_BOOKS = 'get_books',
   GET_BOOKS_BYCATEGORIES = 'get_books_bycategory',
-  DELETE_BOOK = 'delete_book' ;
+  DELETE_BOOK = 'delete_book',
+  GET_ABOOK='get_abook',
+  BORROW_BOOK = 'borrow_book';

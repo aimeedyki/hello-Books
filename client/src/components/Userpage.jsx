@@ -17,7 +17,7 @@ import Addbook from './Library/Addbook.jsx';
 import Addcategory from './Library/Addcategory.jsx';
 import Useractivity from './Profile/Useractivity.jsx';
 import Editbook from './Library/Editbook.jsx';
-import Tab from './Library/Tab.jsx'
+
 
 import photo from '../assets/images/profilephoto.jpg';
 import rookie from '../assets/images/rookie.jpg';
@@ -79,7 +79,7 @@ class Userpage extends Component {
         <Sidenav levelIcon={this.setLevelIcon(level)} username={username} email={email} />
         <div>
           <Switch>
-            <Route exact path={this.props.match.path} component={Tab} />
+            <Route exact path={this.props.match.path} component={Library} />
             <Route path='/user/notreturned' component={Outstanding} />
             <Route path='/user/new' component={Addbook} />
             <Route path='/user/password' component={ChangePassword} />
@@ -87,7 +87,7 @@ class Userpage extends Component {
             <Route path='/user/history' component={Borrowed} />
             <Route path='/user/notifications' component={Useractivity} />
             <Route path='/user/books' component={Addbook} />
-            <Route path='/user/edit-book' component={Editbook} />
+            <Route path='/user/edit-book/:id' component={Editbook} />
             <Route path='/user/category' component={Addcategory} />
           </Switch>
         </div>

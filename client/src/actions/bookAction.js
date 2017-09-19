@@ -7,7 +7,9 @@ import {
   MODIFY_BOOK,
   GET_BOOKS,
   GET_BOOKS_BYCATEGORIES,
-  DELETE_BOOK
+  DELETE_BOOK,
+  GET_ABOOK,
+  BORROW_BOOK
   
 } from './types';
 import { errorHandler } from './authAction'
@@ -26,6 +28,13 @@ export const setBooks = (books) => {
   return {
     type: GET_BOOKS,
     payload: books
+  }
+}
+
+export const setaBook = (books) => {
+  return {
+    type: GET_ABOOK,
+    payload: book
   }
 }
 export const setBookCategory = (category) => {
@@ -53,9 +62,9 @@ export const addBook = ({ title, author, description, quantity, categoryId }) =>
   }
 }
 
-export const modifyBook = ({ title, author, description, quantity, categoryId }) => {
+export const modifyBook = ({ title, author, description, quantity, categoryId, id }) => {
   return (dispatch) => {
-    return axios.put(`${API_URL}/books`, { title, author, description, quantity, categoryId })
+    return axios.put(`${API_URL}/books/${id}`, { title, author, description, quantity, categoryId })
       .then(response => {
         Materialize.toast('Book information has been modified!', 4000)
         dispatch({
@@ -111,6 +120,18 @@ export const getBooks = () => {
   }
 }
 
+export const getaBook = (id) => {
+  return (dispatch) => {
+    return axios.get(`${API_URL}/books/${id}`)
+      .then(response => {
+        dispatch(setaBook(response.data.thisBook));
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR)
+      });
+  }
+}
+
 export const getBooksByCategory = (id) => {
   return (dispatch) => {
     return axios.get(`${API_URL}/category/${id}`)
@@ -130,6 +151,20 @@ export const deleteBook = (id) => {
         Materialize.toast('Book has been deleted!', 4000)
         dispatch({
           type: DELETE_BOOK});
+       })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR)
+      });
+  }
+}
+
+export const borrowBook = (bookId, userId) => {
+  return (dispatch) => {
+    return axios.post(`${API_URL}/users/${userId}/books`, {bookId})
+      .then(response => {
+        Materialize.toast('Thank you for borrowing!!', 4000)
+        dispatch({
+          type: BORROW_BOOK});
        })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR)

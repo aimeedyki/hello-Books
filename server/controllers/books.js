@@ -55,6 +55,18 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
+  //displays one book
+  viewBook(req, res){
+    return Book.findById(req.params.id)
+      .then(book => {
+        if (!book) {
+          return res.status(404).send({error: 'Book does not exist in this Library'});
+        }
+        const thisBook = {book};
+        res.status(200).send(thisBook)})
+        .catch(error => res.status(400).send(error.message));
+  },
+
   //deletes a book
   remove(req, res) {
     return Book

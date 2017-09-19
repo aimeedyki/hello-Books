@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { clearErrorMessage } from '../../actions/authAction.js';
-import { modifyBook, getCategories } from '../../actions/bookAction.js';
+import { modifyBook, getCategories, getaBook } from '../../actions/bookAction.js';
 
 import Button from '../Common/Button.jsx';
 
@@ -23,10 +23,22 @@ class Editbook extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
+    this.setBookDetails = this.setBookDetails.bind(this);
   }
 
   componentWillMount() {
     this.props.getCategories();
+    this.props.getaBook(this.props.id);
+    this.setBookDetails(this.props.book.title,
+      this.props.book.author,
+      this.props.book.description,
+      this.props.book.quantity,
+      this.props.book.categoryId)
+  }
+
+  setBookDetails(title, author, description, quantity, categoryId) {
+    this.setState({ title, author, description, quantity, categoryId }, () => {
+    })
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -63,7 +75,6 @@ class Editbook extends Component {
   }
 
   render() {
-
     return (
       <div className='row'>
         <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l3 '>
@@ -75,6 +86,7 @@ class Editbook extends Component {
                   <div className='input-field col s12'>
                     <input name='title' type='text' className='validate'
                       onChange={this.handleChange}
+                      defaultValue={this.state.title}
                       value={this.state.title}
                       required
                     />
@@ -83,6 +95,7 @@ class Editbook extends Component {
                   <div className='input-field col s12'>
                     <input name='author' type='text' className='validate'
                       onChange={this.handleChange}
+                      defaultValue={this.state.author}
                       value={this.state.author}
                       required
                     />
@@ -91,6 +104,7 @@ class Editbook extends Component {
                   <div className='input-field col s12'>
                     <input name='description' type='text' className='validate'
                       onChange={this.handleChange}
+                      defaultValue={this.state.description}
                       value={this.state.description}
                       required
                     />
@@ -98,6 +112,7 @@ class Editbook extends Component {
                   </div>
                   <div className='input-field col s12'>
                     <input name='quantity' type='text' className='validate'
+                      defaultValue={this.state.quantity}
                       onChange={this.handleChange}
                       value={this.state.quantity}
                       required
@@ -116,8 +131,11 @@ class Editbook extends Component {
                   </select>
                 </div>
                 <div className='row'>
-                  <div className='col s12 m4 l4 offset-l4 offset-m4'>
-                    <Button type='submit'  name='action' label='SAVE CHANGES'/>
+                  <div className='col s5 m4 l4 offset-l2 offset-m2'>
+                    <Button type='submit' name='action' label='SAVE CHANGES' />
+                  </div>
+                  <div className='col s5 m4 l4'>
+                    <Button type='reset' icon='cancel' name='action' label='CANCEL' />
                   </div>
                 </div>
               </form>
@@ -133,7 +151,8 @@ const mapStateToProps = (state) => {
 
   return {
     categories: state.bookReducer.categories,
-    errorMessage: state.bookReducer.error
+    errorMessage: state.bookReducer.error,
+    book: state.bookReducer.book
 
   };
 
@@ -141,5 +160,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   modifyBook,
-  clearErrorMessage, getCategories
+  clearErrorMessage, getCategories,getaBook
 })(withRouter(Editbook));
