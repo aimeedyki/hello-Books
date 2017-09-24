@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { displayUserpage, changeProfile } from '../../actions/userAction.js';
 
 import photo from '../../assets/images/profilephoto.jpg';
 import rookie from '../../assets/images/rookie.jpg';
@@ -10,26 +14,65 @@ import Input from '../Common/Input.jsx';
 import Button from '../Common/Button.jsx';
 import ChangePassword from './ChangePassword.jsx';
 
-export default class Editprofile extends Component {
+class ChangeProfile extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      username: ''
+    };
+    this.userId='';
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.setLevelIcon = this.setLevelIcon.bind(this);
   }
 
-  onselect() {
-
+  componentWillMount() {
+    this.props.displayUserpage();
   }
+
   componentDidMount() {
-    const element = ReactDOM.findDOMNode(this.refs.dropdown)
-    window.$(element).ready(function () {
-      window.$('select').material_select();
-    });
-
-    window.$(document).ready(function () {
-      window.$('.modal').modal();
+    const { username, email, level, userId } = this.props;
+    this.setState({
+      username,
+      email,
+      level,
+      userId
     });
   }
-  render() {
 
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault()
+    this.props.changeProfile(this.state).then(res => {
+      if (res) {
+        this.props.history.push('/user')
+      }
+    })
+  }
+
+  setLevelIcon(level) {
+    switch (level) {
+      case 'rookie':
+        return rookie;
+      case 'bookworm':
+        return bookworm;
+      case 'voracious':
+        return voracious;
+      case 'admin':
+        return admin;
+      default:
+        return rookie;
+    }
+  }
+  
+ 
+  render() {
+    const { levelicon } = this.state;
+    const { username, level, email } = this.props.user;
     return (
       <div className="row">
         <div className=' card col s10 m8 l6 offset-s1 offset-m2 offset-l3'>
@@ -86,3 +129,14 @@ export default class Editprofile extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  const { user } = state.userReducer;
+  return {
+    user
+  };
+}
+
+export default connect(mapStateToProps, {
+  displayUserpage,
+})(Editprofile);

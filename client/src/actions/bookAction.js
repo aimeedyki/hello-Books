@@ -9,7 +9,8 @@ import {
   GET_BOOKS_BYCATEGORIES,
   DELETE_BOOK,
   GET_ABOOK,
-  BORROW_BOOK
+  BORROW_BOOK,
+  RETURN_BOOK
   
 } from './types';
 import { errorHandler } from './authAction'
@@ -31,7 +32,7 @@ export const setBooks = (books) => {
   }
 }
 
-export const setaBook = (books) => {
+export const setaBook = (book) => {
   return {
     type: GET_ABOOK,
     payload: book
@@ -62,9 +63,9 @@ export const addBook = ({ title, author, description, quantity, categoryId }) =>
   }
 }
 
-export const modifyBook = ({ title, author, description, quantity, categoryId, id }) => {
+export const modifyBook = ({ title, author, description, quantity, categoryId, bookId }) => {
   return (dispatch) => {
-    return axios.put(`${API_URL}/books/${id}`, { title, author, description, quantity, categoryId })
+    return axios.put(`${API_URL}/books/${bookId}`, { title, author, description, quantity, categoryId })
       .then(response => {
         Materialize.toast('Book information has been modified!', 4000)
         dispatch({
@@ -121,13 +122,15 @@ export const getBooks = () => {
 }
 
 export const getaBook = (id) => {
+  
   return (dispatch) => {
     return axios.get(`${API_URL}/books/${id}`)
       .then(response => {
-        dispatch(setaBook(response.data.thisBook));
+        
+        dispatch(setaBook(response.data.book));
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR)
+        console.log(error)
       });
   }
 }
@@ -162,9 +165,25 @@ export const borrowBook = (bookId, userId) => {
   return (dispatch) => {
     return axios.post(`${API_URL}/users/${userId}/books`, {bookId})
       .then(response => {
+        
         Materialize.toast('Thank you for borrowing!!', 4000)
         dispatch({
           type: BORROW_BOOK});
+       })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR)
+      });
+  }
+}
+
+export const returnBook = (bookId, userId) => {
+  return (dispatch) => {
+    return axios.put(`${API_URL}/users/${userId}/books`, {bookId})
+      .then(response => {
+        
+        Materialize.toast('Book Returned!! Please browse for interesting reads', 4000)
+        dispatch({
+          type: RETURN_BOOK});
        })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR)

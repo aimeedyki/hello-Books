@@ -17,27 +17,42 @@ class Editbook extends Component {
       description: '',
       quantity: '',
       categoryId: '',
+      bookId: '',
       categories: []
     };
+    this.bookId= '';
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
     this.setBookDetails = this.setBookDetails.bind(this);
+    this.getBookId = this.getBookId.bind(this);
+
   }
 
+  componentDidMount() {
+    this.getBookId(this.props.location.pathname);
+    this.props.getaBook(this.bookId);
+    
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      this.setBookDetails(nextProps.book.title,
+      nextProps.book.author,
+      nextProps.book.description,
+      nextProps.book.quantity,
+      nextProps.book.categoryId, this.bookId)
+      
+    }
+  }
+  
   componentWillMount() {
     this.props.getCategories();
-    this.props.getaBook(this.props.id);
-    this.setBookDetails(this.props.book.title,
-      this.props.book.author,
-      this.props.book.description,
-      this.props.book.quantity,
-      this.props.book.categoryId)
   }
 
-  setBookDetails(title, author, description, quantity, categoryId) {
-    this.setState({ title, author, description, quantity, categoryId }, () => {
+  setBookDetails(title, author, description, quantity, categoryId, bookId) {
+    this.setState({ title, author, description, quantity, categoryId, bookId }, () => {
     })
   }
   handleChange(event) {
@@ -74,7 +89,16 @@ class Editbook extends Component {
     }
   }
 
+  getBookId(pathName) {
+    let stringArray = pathName.split('/');
+    const id = stringArray[2];
+    this.bookId = id;
+    
+  }
+
   render() {
+    const { book } = this.props;
+    
     return (
       <div className='row'>
         <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l3 '>
@@ -84,35 +108,35 @@ class Editbook extends Component {
               <form onSubmit={this.handleFormSubmit}>
                 <div className='row'>
                   <div className='input-field col s12'>
-                    <input name='title' type='text' className='validate'
+                    <input placeholder= 'Title' name='title' type='text' className='validate'
                       onChange={this.handleChange}
-                      defaultValue={this.state.title}
+                     
                       value={this.state.title}
                       required
                     />
                     <label>Title</label>
                   </div>
                   <div className='input-field col s12'>
-                    <input name='author' type='text' className='validate'
+                    <input placeholder = 'Author' name='author' type='text' className='validate'
                       onChange={this.handleChange}
-                      defaultValue={this.state.author}
+                     
                       value={this.state.author}
                       required
                     />
                     <label>Author</label>
                   </div>
                   <div className='input-field col s12'>
-                    <input name='description' type='text' className='validate'
+                    <input placeholder='Description' name='description' type='text' className='validate'
                       onChange={this.handleChange}
-                      defaultValue={this.state.description}
+                     
                       value={this.state.description}
                       required
                     />
                     <label>Description</label>
                   </div>
                   <div className='input-field col s12'>
-                    <input name='quantity' type='text' className='validate'
-                      defaultValue={this.state.quantity}
+                    <input placeholder='Quantity' name='quantity' type='text' className='validate'
+                      
                       onChange={this.handleChange}
                       value={this.state.quantity}
                       required
@@ -129,6 +153,7 @@ class Editbook extends Component {
                       )
                     })}
                   </select>
+                  <label>Change level</label>
                 </div>
                 <div className='row'>
                   <div className='col s5 m4 l4 offset-l2 offset-m2'>
@@ -160,5 +185,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   modifyBook,
-  clearErrorMessage, getCategories,getaBook
+  clearErrorMessage, getCategories, getaBook
 })(withRouter(Editbook));

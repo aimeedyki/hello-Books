@@ -29,7 +29,7 @@ class Book extends Component {
     this.props.borrowBook(id, userId);
   }
   render() {
-    const editPath=`/user/edit-book/${this.props.id}`;
+    const editPath=`/user/${this.props.id}/edit-book`;
     const { userId } = this.props.user;
     let status;
    

@@ -1,44 +1,44 @@
-import {Book}from '../models';
-import {History} from '../models';
-import {Notification} from '../models';
-import {User} from '../models';
+import { Book } from '../models';
+import { History } from '../models';
+import { Notification } from '../models';
+import { User } from '../models';
 //const Book = model.Book
 export default {
   // user borrows a book and creates a history record
-  borrow (req, res) {
-    return Book.find({where:{id: req.body.bookId}})
+  borrow(req, res) {
+    return Book.find({ where: { id: req.body.bookId } })
       .then(Book => {
         if (!Book) {
-          return res.status(404).send({error: 'Book does not exist'});
+          return res.status(404).send({ error: 'Book does not exist' });
         }
         if (Book.quantity === 0) {
-          return res.status(404).send({message: 'This book is out of stock! Please try again later.'});
+          return res.status(404).send({ message: 'This book is out of stock! Please try again later.' });
         }
-        User.find({where: {id: req.params.userId}})
+        User.find({ where: { id: req.params.userId } })
           .then(user => {
             console.log(user.max);
             console.log(user.borrowCount);
             if (user.level !== 'admin' && user.borrowCount === user.max) {
-              return res.status(400).send({message: 'You have reached the maixmum number of books you can borrow'});
+              return res.status(400).send({ message: 'You have reached the maixmum number of books you can borrow' });
             }
             User.update({
               borrowCount: (user.borrowCount + 1),
-            }, {where: {id: req.params.userId}})
+            }, { where: { id: req.params.userId } })
             History.create({
               expectedDate: new Date(Date.now() + (user.max * 24 * 60 * 60 * 1000)),
               returned: false,
               userId: req.params.userId,
               bookId: req.body.bookId,
             },
-            {
-              returning: true,
-              plain: true
-            })
+              {
+                returning: true,
+                plain: true
+              })
               .then(history => {
                 Book.update({
                   quantity: (Book.quantity - 1),
                 },
-                {where: {id: req.body.bookId}})
+                  { where: { id: req.body.bookId } })
                   .then(book => {
                     Notification.create({
                       userId: req.params.userId,
@@ -55,31 +55,32 @@ export default {
 
   // returns the book by updating the history with return date
   modify(req, res) {
-    return Book.find({where:{id: req.body.bookId}})
+    let today = new Date();
+    return Book.find({ where: { id: req.body.bookId } })
       .then(Book => {
         History.update({
-          returnDate: req.body.returnDate,
+          returnedDate: today,
           returned: true,
         },
-        {
-          where: {userId: req.params.userId, bookId: req.body.bookId},
-        })
-        User.find({where: {id: req.params.userId}})
+          {
+            where: { userId: req.params.userId, bookId: req.body.bookId },
+          })
+        User.find({ where: { id: req.params.userId } })
           .then(user => {
             User.update({
               borrowCount: (user.borrowCount - 1),
-            }, {where: {id: req.params.userId}})
+            }, { where: { id: req.params.userId } })
               .then(history => {
                 Book.update({
                   quantity: (Book.quantity + 1),
-                }, {where: {id: req.body.bookId}})
+                }, { where: { id: req.body.bookId } })
                   .then(book => {
                     Notification.create({
                       userId: req.params.userId,
                       bookId: req.body.bookId,
                       action: 'Returned',
                     })
-                      .then(notification => res.status(200).send({message: 'book has been returned'}));
+                      .then(notification => res.status(200).send({ message: 'book has been returned' }));
                   });
               })
               .catch(error => res.status(400).send(error.message));
@@ -90,14 +91,23 @@ export default {
 
   // displays user history
   list(req, res) {
-    const whereClause = {userId: req.params.userId}
-    if(req.query.returned === 'false'){
+    const whereClause = { userId: req.params.userId }
+    if (req.query.returned === 'false') {
       whereClause.returned = false;
     }
     return History
-      .findAll({ where: whereClause})
-
-      .then(histories => res.status(200).send(histories))
+      .findAll({
+        include: [{
+          model: Book,
+          as: 'book',
+          attributes: ['title'],
+        }],
+        where: whereClause
+      })
+      .then(histories => {
+        const allHistories = { histories };
+        res.status(200).send(allHistories)
+      })
       .catch(error => res.status(400).send(error));
   },
 

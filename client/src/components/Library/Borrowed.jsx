@@ -1,10 +1,47 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import moment from 'moment'
+
+
+import { getHistory, displayUserpage } from '../../actions/userAction.js'
 import Table from '../Common/Table.jsx';
 
-export default class History extends Component {
-  render() {
-    const data = [{ title: "the beautiful", borrowdate: '17/8/2017', returndate: '23/8/2017' },
-    { title: "the bad", borrowdate: '31/7/2017', returndate: '2/8/2017' }];
+class Borrowed extends Component {
+
+  constructor(props) {
+    super(props);
+    this.data = [],
+      this.state = {
+        histories: [],
+        userId: ''
+      }
+  }
+  componentDidMount() {
+    const { userId } = this.props.user;
+    this.props.getHistory(userId);
+    
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      
+      this.data = nextProps.histories.map((history) => {
+        let bookTitle = history.book.title;
+        let borrowed = moment(history.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        
+        let expected = moment(history.expectedDate).format('MMMM Do YYYY, h:mm:ss a');
+        let returned;
+        (history.returnedDate === null )? returned = 'Not returned' : returned  = moment(history.returnedDate).format('MMMM Do YYYY, h:mm:ss a');
+       
+        return ({
+          title: bookTitle,
+          borrowdate: borrowed,
+          returndate: returned,
+          due: expected
+        })
+      });
+    }
+  }
+  render() { 
     const header = [
       {
         name: "TITLE",
@@ -17,14 +54,33 @@ export default class History extends Component {
       {
         name: "DATE RETURNED",
         prop: "returndate"
+      },
+      {
+        name: 'DUE DATE',
+        prop: "due"
       }
     ];
     return (
       <div className="row">
-        <div className="col s12 l6 offset-l3">
-          <Table data={data} header={header} />
+
+        <div key={this.props.histories.id} className="col s12 l8 offset-l3">
+          <Table data={this.data}
+            header={header} />
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { user } = state.userReducer;
+
+  return {
+    histories: state.userReducer.histories,
+    user
+  };
+}
+
+export default connect(mapStateToProps, {
+  getHistory, displayUserpage
+})(Borrowed);

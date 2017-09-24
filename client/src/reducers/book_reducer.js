@@ -8,7 +8,8 @@ import {
   GET_BOOKS_BYCATEGORIES,
   DELETE_BOOK,
   GET_ABOOK,
-  BORROW_BOOK
+  BORROW_BOOK,
+  RETURN_BOOK
 } from '../actions/types';
 
 const initialState = { error: '', books: [], categories: [], bookCategory: {}, editedbook: {}, book: {} }
@@ -50,6 +51,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookCategory: action.payload,
+
       };
     case DELETE_BOOK:
       return {
@@ -63,6 +65,12 @@ export default (state = initialState, action) => {
     case BORROW_BOOK:
       return {
         ...state,
+        error: action.payload
+      };
+    case RETURN_BOOK:
+      return {
+        ...state,
+        error: action.payload
       };
     default:
       return state;

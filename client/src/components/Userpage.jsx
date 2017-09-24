@@ -83,11 +83,12 @@ class Userpage extends Component {
             <Route path='/user/notreturned' component={Outstanding} />
             <Route path='/user/new' component={Addbook} />
             <Route path='/user/password' component={ChangePassword} />
-            <Route exact path='/user/profile' component={Editprofile} profilepic={this.setLevelIcon(level)} />
+            <Route exact path='/user/profile' component={Profile} />
+            <Route path='/user/edit-profile' component={Editprofile} />
             <Route path='/user/history' component={Borrowed} />
             <Route path='/user/notifications' component={Useractivity} />
             <Route path='/user/books' component={Addbook} />
-            <Route path='/user/edit-book/:id' component={Editbook} />
+            <Route path='/user/:id/edit-book' component={Editbook} />
             <Route path='/user/category' component={Addcategory} />
           </Switch>
         </div>
