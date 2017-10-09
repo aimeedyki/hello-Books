@@ -45,7 +45,6 @@ class Outstanding extends Component {
    * @returns {*} void
    */
   return(id, userId) {
-    console.log('helloworld');
     const sure = confirm('Return this book?'); // eslint-disable-line no-alert
     if (sure === true) {
       /* eslint-disable no-undef */
