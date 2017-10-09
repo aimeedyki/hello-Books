@@ -12,7 +12,7 @@ import { logoutUser } from '../../actions/authAction';
  */
 class Topnav extends Component {
   /** Creates an instance of Topnav.
-     * @param {any} props 
+     * @param {any} props
      * @memberof Topnav
      */
   constructor(props) {
@@ -21,7 +21,7 @@ class Topnav extends Component {
   }
 
   /** Logs out user
-     * @param {any} event 
+     * @param {any} event
      * @memberof Topnav
      * @returns {*} void
      */

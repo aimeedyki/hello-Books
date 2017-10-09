@@ -14,7 +14,7 @@ import { errorHandler } from './authAction';
 
 const API_URL = 'http://localhost:5000/api/v1';
 
-// displays user details on userpage 
+// displays user details on userpage
 export const displayUserpage = () => {
   let user = {};
   user = localStorage.getItem('user');
@@ -26,7 +26,7 @@ export const displayUserpage = () => {
   };
 };
 
-// displays user details on userpage 
+// displays user details on userpage
 export const displayUser = userId => (
   dispatch => (
     axios.get(`${API_URL}/users/${userId}`)

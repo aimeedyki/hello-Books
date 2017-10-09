@@ -34,7 +34,7 @@ class Login extends Component {
   }
   /** calls the function to display error if there is an error
      * @returns {*} void
-     * @param {any} prevProps 
+     * @param {any} prevProps
      * @memberof Login
      */
   componentDidUpdate(prevProps) {

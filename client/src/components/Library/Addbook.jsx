@@ -7,13 +7,13 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { addBook, getCategories, imageUpload } from '../../actions/bookAction';
 import Button from '../Common/Button.jsx';
 
-/** Adds a book to library 
+/** Adds a book to library
  * @class AddBook
  * @extends {Component}
  */
 class AddBook extends Component {
   /** Creates an instance of AddBook.
-   * @param {any} props 
+   * @param {any} props
    * @memberof AddBook
    */
   constructor(props) {
@@ -45,14 +45,14 @@ class AddBook extends Component {
     this.props.getCategories();
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddBook
    */
   imageChange(event) {
@@ -62,7 +62,7 @@ class AddBook extends Component {
     this.handleImageUpload(event.target.files[0]);
   }
   /** @returns {*} void
-   * @param {any} image 
+   * @param {any} image
    * @memberof AddBook
    */
   handleImageUpload(image) {
@@ -75,7 +75,7 @@ class AddBook extends Component {
       });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddBook
    */
   handleSelectChange(event) {

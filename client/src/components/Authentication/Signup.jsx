@@ -92,7 +92,7 @@ class Signup extends Component {
       );
     }
   }
-  /** renders signup form 
+  /** renders signup form
      * @returns {*} signup component
      * @memberof Signup
      */

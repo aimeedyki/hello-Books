@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 export default (ComposedComponent) => {
-  /** higher other component checks the is authenticated status 
+  /** higher other component checks the is authenticated status
    * and redirects customer to landing page
    * @class Authentication
    * @extends {Component}
@@ -19,7 +19,7 @@ export default (ComposedComponent) => {
       }
     }
     /** @returns {*} void
-         * @param {any} nextProps 
+         * @param {any} nextProps
          * @memberof Authentication
          */
     componentWillUpdate(nextProps) {

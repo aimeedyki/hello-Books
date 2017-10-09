@@ -20,7 +20,7 @@ export default class Sidenav extends Component {
       });
     });
   }
-  /** displays side navigation on user page 
+  /** displays side navigation on user page
    * @returns {*} side nav
    * @memberof Sidenav
    */
