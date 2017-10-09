@@ -17,7 +17,6 @@ import ChangePassword from './ChangePassword.jsx';
 
 /**
  * component that allows a user to edit their profile
- * 
  * @class Editprofile
  * @extends {Component}
  */
@@ -41,7 +40,6 @@ class Editprofile extends Component {
 
   /**
    * displays usersdetails
-   * 
    * @memberof Editprofile
    * @returns {object} users details
    */
@@ -90,7 +88,6 @@ class Editprofile extends Component {
 
   /* eslint-disable class-methods-use-this */
   /**
-   * 
    * checks the level and sets the picture
    * @param {any} level 
    * @returns {object} picture
@@ -114,7 +111,6 @@ class Editprofile extends Component {
 
   /**
    * renders component
-   * 
    * @returns {*} component
    * @memberof Editprofile
    */
@@ -186,9 +182,7 @@ class Editprofile extends Component {
   }
 }
 
-/**
- * 
- * 
+/** 
  * @param {any} state 
  * @returns {object} userdetails
  */

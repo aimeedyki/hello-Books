@@ -10,7 +10,6 @@ import Table from '../Common/Table.jsx';
 /**
  * component that notifies the admin
  * of users activities
- * 
  * @class UserActivity
  * @extends {Component}
  */
@@ -27,7 +26,6 @@ class UserActivity extends Component {
 
   /**
    * fetches notification table
-   * 
    * @returns {*} void
    * @memberof UserActivity
    */
@@ -36,7 +34,6 @@ class UserActivity extends Component {
   }
 
   /**
-   * 
    * @returns {*} notification details
    * @param {any} nextProps 
    * @memberof UserActivity
@@ -59,8 +56,6 @@ class UserActivity extends Component {
     }
   }
   /**
-   * 
-   * 
    * @returns {*} component
    * @memberof UserActivity
    */
@@ -92,11 +87,10 @@ class UserActivity extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = state => (
   {
     notifications: state.userReducer.notifications,
-
   }
 );
 

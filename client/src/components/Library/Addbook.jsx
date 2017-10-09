@@ -70,7 +70,6 @@ class AddBook extends Component {
     this.handleImageUpload(event.target.files[0]);
   }
   /**
-   * 
    * @returns {*} void
    * @param {any} image 
    * @memberof AddBook
@@ -85,7 +84,6 @@ class AddBook extends Component {
       });
   }
   /**
-   * 
    * @returns {*} void
    * @param {any} event 
    * @memberof AddBook
@@ -95,8 +93,7 @@ class AddBook extends Component {
     this.setState({ categoryId: event.target.value });
   }
 
-  /**
-   * 
+  /** 
    * @returns {*} void
    * @param {any} prevProps 
    * @memberof AddBook
@@ -125,8 +122,6 @@ class AddBook extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {string} error message
    * @memberof AddBook
    */
@@ -141,8 +136,6 @@ class AddBook extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {*} adds book component
    * @memberof AddBook
    */

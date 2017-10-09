@@ -8,7 +8,6 @@ import { logoutUser } from '../../actions/authAction';
 
 /**
  * displays the top navigation of the user page
- * 
  * @class Topnav
  * @extends {Component}
  */
@@ -25,7 +24,6 @@ class Topnav extends Component {
 
   /**
    * Logs out user
-     * 
      * @param {any} event 
      * @memberof Topnav
      * @returns {*} void
@@ -72,7 +70,7 @@ class Topnav extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = state => (
   state
 );

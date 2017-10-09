@@ -10,8 +10,7 @@ import { modifyBook, getCategories, getaBook } from '../../actions/bookAction';
 import Button from '../Common/Button.jsx';
 
 /**
- * Edits a book
- * 
+ * Edits a book 
  * @class Editbook
  * @extends {Component}
  */
@@ -60,7 +59,6 @@ class Editbook extends Component {
   }
 
   /**
-   * 
    * @returns {*} void
    * @param {any} nextProps 
    * @memberof Editbook
@@ -75,7 +73,6 @@ class Editbook extends Component {
     }
   }
   /**
-   * 
    *  @returns {*} void
    * @param {any} prevProps 
    * @memberof Editbook
@@ -86,7 +83,6 @@ class Editbook extends Component {
     }
   }
   /**
-   * 
    * @returns {*} book details
    * @param {any} title 
    * @param {any} author 
@@ -103,7 +99,6 @@ class Editbook extends Component {
     });
   }
   /**
-   * 
    *  @returns {*} void
    * @param {any} event 
    * @memberof Editbook
@@ -113,7 +108,6 @@ class Editbook extends Component {
   }
 
   /**
-   * 
    *  @returns {*} void
    * @param {any} event 
    * @memberof Editbook
@@ -123,7 +117,6 @@ class Editbook extends Component {
     this.setState({ categoryId: event.target.value });
   }
   /**
-   * 
    * @returns {*} void
    * @param {any} event 
    * @memberof Editbook
@@ -140,8 +133,6 @@ class Editbook extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {string} error message
    * @memberof Editbook
    */
@@ -155,8 +146,7 @@ class Editbook extends Component {
     }
   }
 
-  /**
-   * 
+  /** 
    * @returns {string} book id
    * @param {any} pathName 
    * @memberof Editbook
@@ -168,8 +158,6 @@ class Editbook extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {*} component that edits a book
    * @memberof Editbook
    */
@@ -256,7 +244,7 @@ class Editbook extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = state => ({
   categories: state.bookReducer.categories,
   errorMessage: state.bookReducer.error,

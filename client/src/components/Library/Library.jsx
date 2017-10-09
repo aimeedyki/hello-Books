@@ -10,7 +10,6 @@ import Bookcategory from './Bookcategory.jsx';
 /**
  * Component that holds all the books
  * and the tab that displays the categories
- * 
  * @class Tab
  * @extends {Component}
  */
@@ -40,7 +39,6 @@ class Tab extends Component {
   }
 
   /** setting category id to display
-   * 
    * @returns {*} void
    * @param {any} id 
    * @param {any} category 
@@ -52,8 +50,6 @@ class Tab extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {*} library component
    * @memberof Tab
    */

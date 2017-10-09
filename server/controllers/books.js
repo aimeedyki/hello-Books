@@ -3,7 +3,6 @@ import { Book, Category } from '../models';
 export default {
   /**
    *  adds a book
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} book
@@ -25,12 +24,11 @@ export default {
         });
         res.status(201).send(book);
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
 
   /**
    *  modifies book
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} book
@@ -74,7 +72,6 @@ export default {
 
   /**
    * displays one book
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} book
@@ -94,7 +91,6 @@ export default {
 
   /**
    * deletes a book
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} book

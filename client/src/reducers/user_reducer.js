@@ -20,7 +20,6 @@ const initialState = {
 };
 /**
  * reducers for user components
- * 
  * @export
  * @param {any} [state=initialState] 
  * @param {any} action 

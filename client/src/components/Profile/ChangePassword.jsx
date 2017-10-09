@@ -85,8 +85,6 @@ class ChangePassword extends Component {
     }
   }
   /**
-   * 
-   * 
    * @returns {*} error message
    * @memberof ChangePassword
    */
@@ -100,8 +98,6 @@ class ChangePassword extends Component {
     }
   }
   /**
-   * 
-   * 
    * @returns {*} component
    * @memberof ChangePassword
    */
@@ -155,7 +151,7 @@ class ChangePassword extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
 

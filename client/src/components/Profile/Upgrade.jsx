@@ -32,7 +32,6 @@ class ChangeLevel extends Component {
 
   /**
    * gets user detail
-   * 
    * @returns {*} void
    * @memberof ChangeLevel
    */
@@ -40,7 +39,6 @@ class ChangeLevel extends Component {
     this.props.displayUserpage();
   }
   /**
-   * 
    *  @returns {*} void
    * @param {any} prevProps 
    * @memberof ChangeLevel
@@ -52,7 +50,6 @@ class ChangeLevel extends Component {
   }
   /**
    * sets the state of the level to the value of the select field
-   * 
    * @returns {*} void
    * @param {any} event 
    * @memberof ChangeLevel
@@ -63,7 +60,6 @@ class ChangeLevel extends Component {
   }
 
   /**
-   * 
    * @returns {*} void
    * @param {any} event 
    * @memberof ChangeLevel
@@ -86,9 +82,7 @@ class ChangeLevel extends Component {
     }
   }
 
-  /**
-   * 
-   * 
+  /** 
    * @returns {string} error message
    * @memberof ChangeLevel
    */
@@ -103,7 +97,6 @@ class ChangeLevel extends Component {
   }
   /**
    * renders the component to change level
-   * 
    * @returns {*} component
    * @memberof ChangeLevel
    */
@@ -152,10 +145,9 @@ class ChangeLevel extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
-
   return {
     user,
     errorMessage: state.userReducer.error

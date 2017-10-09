@@ -3,7 +3,6 @@ import { Category, Book } from '../models';
 export default {
   /**
    *  creates a category
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} category
@@ -20,7 +19,6 @@ export default {
 
   /**
    *  displays all categories
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} categories
@@ -37,7 +35,6 @@ export default {
 
   /**
    *  displays categories with the books in them
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} books

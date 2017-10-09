@@ -12,7 +12,6 @@ import Button from '../Common/Button.jsx';
 
 /**
  * sign up form
- * 
  * @class Signup
  * @extends {Component}
  */
@@ -95,7 +94,6 @@ class Signup extends Component {
 
   /**
    *   displays error message
-   * 
    * @returns {string} error message
    * @memberof Signup
    */
@@ -110,8 +108,7 @@ class Signup extends Component {
   }
 
   /**
-   * renders signup form
-   * 
+   * renders signup form 
    * @returns {*} signup component
    * @memberof Signup
    */

@@ -9,7 +9,6 @@ import generic from '../../assets/images/generic.jpg';
 
 /**
  * component that displays all books
- * 
  * @class Allbooks
  * @extends {Component}
  */
@@ -26,7 +25,6 @@ class Allbooks extends Component {
     };
   }
   /**
-  * 
   * @returns {*} void
   * @memberof Allbooks
   */
@@ -34,8 +32,6 @@ class Allbooks extends Component {
     this.props.getBooks();
   }
   /**
-   * 
-  * 
   * @returns {*} all the books in the library
   * @memberof Allbooks
   */
@@ -58,7 +54,7 @@ class Allbooks extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = state => ({
   books: state.bookReducer.books
 });

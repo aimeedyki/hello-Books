@@ -68,7 +68,6 @@ export default {
 
   /**
    * updates a users image
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} user

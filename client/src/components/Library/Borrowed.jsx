@@ -10,7 +10,6 @@ import Table from '../Common/Table.jsx';
 /**
  * Displays a users history of borrowed
  * books
- * 
  * @class Borrowed
  * @extends {Component}
  */
@@ -38,7 +37,6 @@ class Borrowed extends Component {
     this.props.getHistory(userId);
   }
   /**
-   * 
    * @returns {*} book details
    * @param {any} nextProps 
    * @memberof Borrowed
@@ -62,9 +60,7 @@ class Borrowed extends Component {
       });
     }
   }
-  /**
-   * 
-   * 
+  /** 
    * @returns {*} users' history
    * @memberof Borrowed
    */
@@ -98,7 +94,7 @@ class Borrowed extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
   return {

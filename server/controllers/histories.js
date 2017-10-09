@@ -3,7 +3,6 @@ import { Book, History, Notification, User } from '../models';
 export default {
 
   /**
-   * 
    *  user borrows a book and creates a history record
    * @param {any} req 
    * @param {any} res 
@@ -60,7 +59,6 @@ export default {
 
   /**
    * returns the book by updating the history with return date
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} book
@@ -94,7 +92,6 @@ export default {
 
   /**
    * displays user history
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} users' history

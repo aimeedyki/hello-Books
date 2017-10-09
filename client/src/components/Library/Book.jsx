@@ -11,7 +11,6 @@ import Button from '../Common/Button.jsx';
 
 /**
  * component that displays a single book
- * 
  * @class Book
  * @extends {Component}
  */
@@ -29,7 +28,6 @@ class Book extends Component {
   }
 
   /**
-   * 
    * @returns {*} void
    * @memberof Book
    */
@@ -91,8 +89,7 @@ class Book extends Component {
   }
 
   /**
-   *  display errors if they exist
-   * 
+   *  display errors if they exist 
    * @returns {string} error message
    * @memberof Book
    */
@@ -107,8 +104,6 @@ class Book extends Component {
   }
 
   /**
-   * 
-   * 
    * @returns {*} book to edit
    * @memberof Book
    */

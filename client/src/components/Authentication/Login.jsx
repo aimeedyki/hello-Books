@@ -9,8 +9,6 @@ import { signinUser, clearErrorMessage } from '../../actions/authAction';
 import Button from '../Common/Button.jsx';
 
 /**
- * 
- * 
  * @class Login
  * @extends {Component}
  */
@@ -71,7 +69,6 @@ class Login extends Component {
 
   /**
    * displays error
-   * 
    * @returns {string} error message
    * @memberof Login
    */
@@ -87,7 +84,6 @@ class Login extends Component {
 
   /**
    * renders login form component
-   * 
    * @returns {*} void
    * @memberof Login
    */

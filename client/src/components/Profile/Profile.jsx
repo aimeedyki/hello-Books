@@ -14,7 +14,6 @@ import admin from '../../assets/images/admin.jpg';
 
 /**
  * shows the users' profile
- * 
  * @class Profile
  * @extends {Component}
  */
@@ -45,7 +44,6 @@ class Profile extends Component {
   }
 
   /**
-   * 
    * @returns {*} userdetails
    * @memberof Profile
    */
@@ -54,7 +52,6 @@ class Profile extends Component {
   }
 
   /**
-   * 
    *  @returns {*} void
    * @param {any} image 
    * @memberof Profile
@@ -68,8 +65,7 @@ class Profile extends Component {
         });
       });
   }
-  /**
-   * 
+  /** 
    *  @returns {*} void
    * @param {any} event 
    * @memberof Profile
@@ -82,7 +78,6 @@ class Profile extends Component {
   }
 
   /**
-   * 
    *  @returns {*} void
    * @memberof Profile
    */
@@ -98,8 +93,6 @@ class Profile extends Component {
   }
   /* eslint-disable class-methods-use-this */
   /**
-   * 
-   * 
    * @param {any} level 
    * @returns {?*} level icon
    * @memberof Profile
@@ -121,7 +114,6 @@ class Profile extends Component {
 
 
   /**
-   * 
    * @returns {*} void
    * @memberof Profile
    */
@@ -130,7 +122,6 @@ class Profile extends Component {
   }
 
   /**
-   * 
    * @returns {*} void
    * @memberof Profile
    */
@@ -138,7 +129,6 @@ class Profile extends Component {
     this.props.history.push('/user/password');
   }
   /**
-   * 
    * @returns {*} void
    * @memberof Profile
    */
@@ -147,7 +137,6 @@ class Profile extends Component {
   }
   /**
    * renders profile component
-   * 
    * @returns {*} component
    * @memberof Profile
    */
@@ -216,7 +205,7 @@ class Profile extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
   return {

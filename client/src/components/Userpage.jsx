@@ -27,7 +27,6 @@ import admin from '../assets/images/admin.jpg';
 
 /**
  * component that rendrs the users page
- * 
  * @class Userpage
  * @extends {Component}
  */
@@ -64,7 +63,6 @@ class Userpage extends Component {
   /* eslint-disable class-methods-use-this */
   /**
    * sets icon according to a users level
-   * 
    * @param {any} level 
    * @returns {object} users level icon
    * @memberof Userpage
@@ -86,7 +84,6 @@ class Userpage extends Component {
   /* eslint-disable no-unused-expressions */
   /**
    * renders the user page
-   * 
    * @returns {*} users' page
    * @memberof Userpage
    */
@@ -121,7 +118,7 @@ class Userpage extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
   return {

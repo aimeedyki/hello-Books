@@ -7,13 +7,11 @@ export default (ComposedComponent) => {
   /**
    * higher other component checks the is authenticated status 
    * and redirects customer to landing page
-   * 
    * @class Authentication
    * @extends {Component}
    */
   class Authentication extends Component {
     /**
-     * 
      * @returns {*} void
      * @memberof Authentication
      */
@@ -24,7 +22,6 @@ export default (ComposedComponent) => {
     }
 
     /**
-     * 
      * @returns {*} void
      * @param {any} nextProps 
      * @memberof Authentication
@@ -36,8 +33,6 @@ export default (ComposedComponent) => {
     }
 
     /**
-     * 
-     * 
      * @returns {object} component
      * @memberof Authentication
      */

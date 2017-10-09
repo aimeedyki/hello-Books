@@ -7,7 +7,6 @@ import backpic from '../../assets/images/booksbw2.jpg';
 
 /**
  * side navigation on the user page
- * 
  * @export
  * @class Sidenav
  * @extends {Component}
@@ -15,7 +14,6 @@ import backpic from '../../assets/images/booksbw2.jpg';
 export default class Sidenav extends Component {
   /* eslint-disable class-methods-use-this */
   /** 
-   * 
    * @returns {*} void
    * @memberof Sidenav
    */
@@ -27,8 +25,7 @@ export default class Sidenav extends Component {
     });
   }
   /**
-   * displays side navigation on user page
-   * 
+   * displays side navigation on user page 
    * @returns {*} side nav 
    * @memberof Sidenav
    */

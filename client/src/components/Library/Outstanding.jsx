@@ -8,7 +8,6 @@ import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
 
 /**
  * displays books not returned
- * 
  * @class Outstanding
  * @extends {Component}
  */
@@ -29,8 +28,7 @@ class Outstanding extends Component {
   }
 
   /**
-   * fetches outstanding books
-   * 
+   * fetches outstanding books 
    * @memberof Outstanding
    * @returns {object} outstanding books
    */
@@ -41,7 +39,6 @@ class Outstanding extends Component {
 
   /**
    * returns a book
-   * 
    * @param {any} id 
    * @param {any} userId 
    * @memberof Outstanding
@@ -59,7 +56,6 @@ class Outstanding extends Component {
 
   /**
    * sets an array of books fetched when available
-   * 
    * @param {any} nextProps 
    * @memberof Outstanding
    * @returns {object} outstanding books
@@ -88,7 +84,6 @@ class Outstanding extends Component {
   }
   /**
    * renders outstanding books table
-   * 
    * @returns {*} component
    * @memberof Outstanding
    */
@@ -120,10 +115,9 @@ class Outstanding extends Component {
     );
   }
 }
-
+// function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.userReducer;
-
   return {
     notReturned: state.userReducer.notReturned,
     user

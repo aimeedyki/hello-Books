@@ -8,7 +8,6 @@ import { User } from '../models';
 const authController = {
 
   /**
-   * 
    * logs in a user
    * @param {any} req 
    * @param {any} res 
@@ -49,7 +48,6 @@ const authController = {
 
 
   /**
-   * 
    * changes user password
    * @param {any} req 
    * @param {any} res 
@@ -89,7 +87,6 @@ const authController = {
 
   /**
    * Changes a users level
-   * 
    * @param {any} req 
    * @param {any} res 
    * @returns {object} user
