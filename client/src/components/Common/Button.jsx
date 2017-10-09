@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 
-export default class Button extends Component {
-  render() {
-    return (
-      <button className="btn waves-effect waves-light indigo darken-2"
-        type={this.props.type}
-        name={this.props.name}>{this.props.label}
-        <i className="material-icons right">{this.props.icon}</i>
-      </button>
-    );
-  }
-}
+// button component ensures buttons are uniform
+const Button = props => (
+  <div>
+    <button className="btn waves-effect waves-light indigo darken-2"
+      type={props.type}
+      name={props.name}>{props.label}
+      <i className="material-icons right">{props.icon}</i>
+    </button>
+  </div>
+);
+
+
+export default Button;
+

@@ -1,5 +1,5 @@
-import React from "react";
-
+/* eslint-disable no-unused-vars */
+import React from 'react';
 
 const row = (heading, index, header) =>
   <tr key={`tr-${index}`}>
@@ -11,7 +11,7 @@ const row = (heading, index, header) =>
   </tr>;
 
 export default ({ data, header }) =>
-  <table >
+  <table className='striped responsive-table centered' >
     <thead>
       <tr>
         {header.map((heading, index) =>

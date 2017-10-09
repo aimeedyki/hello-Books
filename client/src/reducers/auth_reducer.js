@@ -5,9 +5,17 @@ import {
   UNAUTH_USER
 } from '../actions/types';
 
-const initialState = { error: '', message: '', authenticated: false, user: {} }
+const initialState = { error: '', message: '', authenticated: false, user: {} };
 
-export default function (state = initialState, action) {
+/**
+ * reducers for authentication components
+ * 
+ * @export
+ * @param {any} [state=initialState] 
+ * @param {any} action 
+ * @returns {*} state
+ */
+export default (state = initialState, action) => {
   switch (action.type) {
     case AUTH_USER:
       return {
@@ -35,5 +43,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-
-}
+};

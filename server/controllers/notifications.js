@@ -1,6 +1,4 @@
-import {Notification} from '../models';
-import {Book} from '../models';
-import {User} from '../models';
+import { Notification, Book, User } from '../models';
 
 export default {
   // displays notifications
@@ -19,9 +17,10 @@ export default {
         }
         ]
       })
-      .then(notifications =>{
-        const allNotifications = {notifications};
-        res.status(200).send(allNotifications)})
+      .then((notifications) => {
+        const allNotifications = { notifications };
+        res.status(200).send(allNotifications);
+      })
       .catch(error => res.status(400).send(error.message));
   },
 

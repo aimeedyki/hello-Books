@@ -15,10 +15,10 @@ require('dotenv').config();
 // Set up the express app
 const app = express();
 
-//sets port
+// sets port
 const port = process.env.PORT || 5000;
 
-//db.sequelize.sync({ force: true })
+// db.sequelize.sync({ force: true })
 
 // Log requests to the console.
 app.use(logger('dev'));
@@ -27,7 +27,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const publicPath = express.static(path.join(__dirname, '../client/public/'))
+const publicPath = express.static(path.join(__dirname, '../client/public/'));
 
 app.use('/', publicPath);
 
@@ -44,7 +44,7 @@ const swaggerDefinition = {
   basePath: '/api/v1',
 };
 
-const apiPath = path.join(__dirname, 'routes/*.js')
+const apiPath = path.join(__dirname, 'routes/*.js');
 
 // options for swagger jsdoc 
 const options = {
@@ -71,10 +71,10 @@ app.get('/swagger.json', (req, res) => {
 
 app.get('/api-docs', (req, res) => {
   res.sendFile(path.join(__dirname, 'api-docs/index.html'));
-})
+});
 
 // Require routes into the application.
-app.use(serverRoutes)
+app.use(serverRoutes);
 
 app.get('/me', (req, res) => {
   res.status(200).send('me');

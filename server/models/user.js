@@ -55,7 +55,8 @@ export default (sequelize, DataTypes) => {
       },
     },
     level: {
-      allownull: false, type: DataTypes.STRING,
+      allownull: false,
+      type: DataTypes.STRING,
       validate: {
         notEmpty: {
           args: true,
@@ -66,17 +67,14 @@ export default (sequelize, DataTypes) => {
     profilepic: DataTypes.STRING,
     max: DataTypes.INTEGER,
     borrowCount: DataTypes.INTEGER,
-  },
-
-    // hashes password
-    {
-      hooks: {
-        beforeCreate: (user) => {
-          const salt = bcrypt.genSaltSync();
-          user.password = bcrypt.hashSync(user.password, salt);
-        },
+  }, {
+    hooks: {
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync(user.password, salt);
       },
-    });
+    },
+  });
 
   // defines user associations
   User.associate = (models) => {

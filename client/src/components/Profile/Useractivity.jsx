@@ -1,63 +1,91 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { displayNotification } from '../../actions/userAction.js';
+import { displayNotification } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 
 
+/**
+ * component that notifies the admin
+ * of users activities
+ * 
+ * @class UserActivity
+ * @extends {Component}
+ */
 class UserActivity extends Component {
+  /**
+   * Creates an instance of UserActivity.
+   * @param {any} props 
+   * @memberof UserActivity
+   */
   constructor(props) {
     super(props);
-    this.data = []
-}
-
-  componentDidMount() {
-
-    this.props.displayNotification();
-
+    this.data = [];
   }
 
+  /**
+   * fetches notification table
+   * 
+   * @returns {*} void
+   * @memberof UserActivity
+   */
+  componentDidMount() {
+    this.props.displayNotification();
+  }
+
+  /**
+   * 
+   * @returns {*} notification details
+   * @param {any} nextProps 
+   * @memberof UserActivity
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.data = nextProps.notifications.map((notification) => {
-        let user = notification.user.username;
-        let book = notification.book.title;
-        let userAction = notification.action;
-        let activityDate = moment(notification.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+        const user = notification.user.username;
+        const book = notification.book.title;
+        const userAction = notification.action;
+        const dated = moment(notification.createdAt).format('MMMM Do YYYY');
 
         return ({
           username: user,
           title: book,
           action: userAction,
-          created: activityDate
-        })
+          created: dated
+        });
       });
     }
   }
+  /**
+   * 
+   * 
+   * @returns {*} component
+   * @memberof UserActivity
+   */
   render() {
-
     const header = [
       {
-        name: "USER",
-        prop: "username"
+        name: 'USER',
+        prop: 'username'
       },
       {
-        name: "BOOK",
-        prop: "title"
+        name: 'BOOK',
+        prop: 'title'
       },
       {
-        name: "ACTION",
-        prop: "action"
+        name: 'ACTION',
+        prop: 'action'
       },
       {
-        name: "DATE",
-        prop: "created"
+        name: 'DATE',
+        prop: 'created'
       }
     ];
     return (
-      <div className="row">
-        <div className="col s12 l6 offset-l3">
+      <div className='row'>
+        <div className='card col s12 l6 offset-l3'>
           <Table data={this.data} header={header} />
         </div>
       </div>
@@ -65,13 +93,12 @@ class UserActivity extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-
-  return {
+const mapStateToProps = state => (
+  {
     notifications: state.userReducer.notifications,
- 
-  };
-}
+
+  }
+);
 
 export default connect(mapStateToProps, {
   displayNotification

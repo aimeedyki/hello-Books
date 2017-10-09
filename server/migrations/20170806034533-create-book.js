@@ -1,7 +1,7 @@
 
 module.exports = {
-  up: (queryInterface, Sequelize) =>{
-    return queryInterface.createTable('Books', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Books', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -50,9 +50,7 @@ module.exports = {
           as: 'categoryId',
         },
       },
-    });
-  },
-  down: (queryInterface, Sequelize)=> {
-    return queryInterface.dropTable('Books');
-  }
+    }),
+  down: queryInterface =>
+    queryInterface.dropTable('Books')
 };

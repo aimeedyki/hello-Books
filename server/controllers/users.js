@@ -1,20 +1,20 @@
-import jwt from 'jsonwebtoken';
 import { User } from '../models';
-const secret = process.env.SECRET;
 import getUserToken from '../helpers/jwt';
 
+// const secret = process.env.SECRET;
+
 export default {
-  // creates a user
+
   signup: (req, res) => {
     let maxVal = 0;
     if (req.body.level === 'rookie') {
       maxVal += 3;
-    }
-    if (req.body.level === 'bookworm') {
+    } else if (req.body.level === 'bookworm') {
       maxVal += 5;
-    }
-    if (req.body.level === 'voracious') {
+    } else if (req.body.level === 'voracious') {
       maxVal += 10;
+    } else if (req.body.level === 'admin') {
+      maxVal += 15;
     }
 
     return User
@@ -28,27 +28,66 @@ export default {
         borrowCount: 0,
       })
 
-      .then(user => {
+      .then((user) => {
         const token = getUserToken(user);
         const userDetails = {
           username: user.username,
           email: user.email,
           level: user.level,
-          userId: user.id
-          };
+          userId: user.id,
+          max: user.max,
+          profilepic: user.profilepic
+        };
         res.status(201).send({ userDetails, token });
       })
 
-      .catch(error => {
-        return res.status(400).send(error.message);
-      })
+      .catch(error =>
+        res.status(422).json({
+          message: error.errors[0].message,
+          errorField: error.errors[0].path
+        })
+      );
   },
 
-  //displays user profile
+  // displays user profile
   profile: (req, res) => {
-    return User.findById(req.params.id)
-
-      .then(user => { return res.status(200).send(user); })
+    User.findById(req.params.id)
+      .then((user) => {
+        const userDetails = {
+          username: user.username,
+          email: user.email,
+          level: user.level,
+          userId: user.id,
+          max: user.max,
+          profilepic: user.profilepic
+        };
+        return res.status(200).send(userDetails);
+      })
       .catch(error => res.status(400).send(error));
+  },
+
+  /**
+   * updates a users image
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @returns {object} user
+   */
+  changeImage(req, res) {
+    return User
+      .findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then((user) => {
+        if (!user) {
+          return res.status(404).send({ message: 'User not found' });
+        }
+        user.update({
+          profilepic: req.body.profilepic
+        }, { where: { id: req.params.id } });
+        res.status(200).send({ user });
+      })
+      .catch(error => res.status(500).send(error.message));
   }
 };

@@ -1,6 +1,6 @@
 
 export default (sequelize, DataTypes) => {
-  //define notifications.js attributes
+  // define notifications.js attributes
   const Notification = sequelize.define('Notification', {
     userId: DataTypes.INTEGER,
     bookId: DataTypes.INTEGER,
@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
   });
 
   // Defines associations to book and user models
-  Notification.associate= (models) => {
+  Notification.associate = (models) => {
     Notification.belongsTo(models.Book, {
       as: 'book',
       foreignKey: 'bookId',

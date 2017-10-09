@@ -9,14 +9,28 @@ import {
   DELETE_BOOK,
   GET_ABOOK,
   BORROW_BOOK,
-  RETURN_BOOK
+  RETURN_BOOK,
+  CLEAR_ERROR
 } from '../actions/types';
 
-const initialState = { error: '', books: [], categories: [], bookCategory: {}, editedbook: {}, book: {} }
+const initialState = {
+  error: '',
+  books: [],
+  categories: [],
+  bookCategory: {},
+  editedbook: {},
+  book: {}
+};
 
-
+/**
+ * reducers for book components
+ * 
+ * @export
+ * @param {any} [state=initialState] 
+ * @param {any} action 
+ * @returns {*} state
+ */
 export default (state = initialState, action) => {
-
   switch (action.type) {
     case ADD_BOOK:
       return {
@@ -72,8 +86,12 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload
       };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: ''
+      };
     default:
       return state;
   }
-
-}   
+};
