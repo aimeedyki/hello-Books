@@ -25,7 +25,7 @@ class Bookcategory extends Component {
    * @returns {*} void
    * @memberof Bookcategory
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getBooksByCategory(this.props.categoryId);
   }
   /** renders the books in a category

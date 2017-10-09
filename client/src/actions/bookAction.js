@@ -191,13 +191,14 @@ export const borrowBook = (bookId, userId) => (
 );
 
 // action creator to return a book
-export const returnBook = (bookId, userId) => (
+export const returnBook = (historyId, userId) => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}/books`, { bookId })
+    axios.put(`${API_URL}/users/${userId}/books`, { historyId })
       .then(() => {
         dispatch({
           type: RETURN_BOOK
         });
+        return true;
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR);

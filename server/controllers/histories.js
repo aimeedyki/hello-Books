@@ -9,10 +9,12 @@ export default {
   borrow(req, res) {
     return Book.find({ where: { id: req.body.bookId } })
       .then((book) => {
+        console.log('the value of the book', book);
         if (!book) {
           return res.status(404).send({ error: 'Book does not exist' });
         }
-        if (book.quantity === 0) {
+        if (book.quantity <= 0) {
+          console.log('i got here season finale');
           return res.status(404)
             .send({ message: 'This book is out of stock!' });
         }
@@ -20,7 +22,10 @@ export default {
           where: { userId: req.params.userId, bookId: req.body.bookId }
         })
           .then((history) => {
+            console.log('history season 1', history);
+            console.log('You got here season 1');
             if (history && history.returned === false) {
+              console.log('You got here season 2');
               return res.status(403)
                 .send({ message: 'You have borrowed this book already' });
             }
@@ -61,26 +66,30 @@ export default {
      */
   modify(req, res) {
     const today = new Date();
-    return Book.find({ where: { id: req.body.bookId } })
-      .then((book) => {
-        Book.update({
-          quantity: (book.quantity + 1),
-        }, { where: { id: req.body.bookId } });
+    return History.find({ where: { id: req.body.historyId } })
+      .then((history) => {
         History.update({
           returnedDate: today,
           returned: true,
-        }, { where: { userId: req.params.userId, bookId: req.body.bookId }, });
-        User.find({ where: { id: req.params.userId } })
-          .then((user) => {
-            User.update({
-              borrowCount: (user.borrowCount - 1),
-            }, { where: { id: req.params.userId } });
-            Notification.create({
-              userId: req.params.userId,
-              bookId: req.body.bookId,
-              action: 'Returned',
-            });
-            res.status(200).send({ message: 'book has been returned' });
+        }, { where: { id: req.body.historyId } });
+        Book.find({ where: { id: history.bookId } })
+          .then((book) => {
+            console.log('dryyyyy', book);
+            Book.update({
+              quantity: (book.quantity + 1),
+            }, { where: { id: history.bookId } });
+            User.find({ where: { id: req.params.userId } })
+              .then((user) => {
+                User.update({
+                  borrowCount: (user.borrowCount - 1),
+                }, { where: { id: req.params.userId } });
+                Notification.create({
+                  userId: req.params.userId,
+                  bookId: history.bookId,
+                  action: 'Returned',
+                });
+                res.status(200).send({ message: 'book has been returned' });
+              });
           });
       })
       .catch(error => res.status(400).send(error.message));

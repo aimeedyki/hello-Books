@@ -240,7 +240,7 @@ describe('History', () => {
   it('should return 200 when a book is returned', (done) => {
     server.put('/api/v1/users/1/books').set('x-access-token', token)
       .send({
-        bookId: 1,
+        historyId: 1,
       })
       .end((err, res) => {
         assert.equal(res.status, 200);

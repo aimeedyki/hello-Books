@@ -30,6 +30,14 @@ class Outstanding extends Component {
     const { userId } = this.props.user;
     this.props.getOutstanding(userId);
   }
+  /** @returns {*} void 
+   * @memberof Outstanding
+   */
+  componentDidUpdate() {
+    const { userId } = this.props.user;
+    this.props.getOutstanding(userId);
+  }
+
   /** returns a book
    * @param {any} id
    * @param {any} userId
@@ -37,12 +45,17 @@ class Outstanding extends Component {
    * @returns {*} void
    */
   return(id, userId) {
+    console.log('helloworld');
     const sure = confirm('Return this book?'); // eslint-disable-line no-alert
     if (sure === true) {
       /* eslint-disable no-undef */
-      Materialize.toast('Book Returned!! Thank you!', 4000);
-      this.props.returnBook(id, userId);
-      window.location.reload();
+      this.props.returnBook(id, userId)
+        .then((res) => {
+          if (res) {
+            Materialize.toast('Book Returned!! Thank you!', 4000);
+            window.location.reload();
+          }
+        });
     }
   }
   /** sets an array of books fetched when available
@@ -53,21 +66,19 @@ class Outstanding extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       const { userId } = this.props.user;
-
       this.data = nextProps.notReturned.map((notReturnedItem) => {
         const bookTitle = notReturnedItem.book.title;
         const borrowed = moment(
           notReturnedItem.createdAt).format('MMMM Do YYYY');
         const expected = moment(
           notReturnedItem.expectedDate).format('MMMM Do YYYY');
-        const bookId = notReturnedItem.bookId;
-
+        const historyId = notReturnedItem.id;
         return ({
           title: bookTitle,
           borrowdate: borrowed,
           due: expected,
           return: <a className='link-cursor'
-            onClick={() => { this.return(bookId, userId); }}>RETURN</a>
+            onClick={() => { this.return(historyId, userId); }}>RETURN</a>
         });
       });
     }
