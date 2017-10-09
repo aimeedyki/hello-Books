@@ -1,14 +1,19 @@
-.background-set {
-  height: 750px;
-  background-color: #303f9f; }
-
-.front {
-  overflow: visible !important; }
-
-#pic {
-  margin-top: 7%; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+  font-family: 'Rubik', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important; }
+
+.home {
+  background: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important; }
+
+input-field input[type=text].invalid {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+  color: black; }
+
+.front-signup {
+  margin-top: 10%;
+  overflow: visible !important; }
 
 .tabs {
   overflow-x: hidden;
@@ -53,5 +58,54 @@ body {
 Navlink {
   color: white; }
 
-.level-icon {
-  margin-top: 25% !important; }
+.hello {
+  margin-top: 12% !important; }
+
+.background-set {
+  height: 850px;
+  background-color: #303f9f; }
+
+.front {
+  overflow: visible !important; }
+
+#pic {
+  margin-top: 7%; }
+
+.signin {
+  margin-top: 25%; }
+
+.profile {
+  margin-top: 5%; }
+
+.profile img {
+  margin-top: 10%; }
+
+c {
+  color: #455a64; }
+
+.levelLink {
+  margin-top: 2%;
+  margin-bottom: 10%; }
+
+.level {
+  margin: 2px; }
+
+.level-select {
+  margin-bottom: 10%;
+  margin-top: 10%; }
+
+.margin-fix {
+  margin-bottom: 10%;
+  margin-top: 10%; }
+
+.photo {
+  border: 4px solid black;
+  max-height: 200px !important;
+  max-width: 200px !important; }
+
+.details {
+  border: 1px solid black;
+  background-color: white; }
+
+.link-cursor {
+  cursor: pointer !important; }
