@@ -13,7 +13,7 @@ import Button from '../Common/Button.jsx';
  */
 class ChangePassword extends Component {
   /** Creates an instance of ChangePassword.
-   * @param {any} props 
+   * @param {any} props
    * @memberof ChangePassword
    */
   constructor(props) {
@@ -28,7 +28,6 @@ class ChangePassword extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
   }
-
   /** @returns {*} void
    * @memberof ChangePassword
    */
@@ -36,7 +35,7 @@ class ChangePassword extends Component {
     this.props.displayUserpage();
   }
   /** @returns {*} void
-   * @param {any} prevProps 
+   * @param {any} prevProps
    * @memberof ChangePassword
    */
   componentDidUpdate(prevProps) {
@@ -45,13 +44,12 @@ class ChangePassword extends Component {
     }
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof ChangePassword
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
   /** @returns {*} void
    * @param {any} event 
    * @memberof ChangePassword

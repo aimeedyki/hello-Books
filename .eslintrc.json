@@ -25,12 +25,7 @@
       "error",
       "multi-line"
     ],
-    "import/no-unresolved": [
-      2,
-      {
-        "commonjs": true
-      }
-    ],
+    "import/no-unresolved": "off",
     "no-shadow": [
       "error",
       {
