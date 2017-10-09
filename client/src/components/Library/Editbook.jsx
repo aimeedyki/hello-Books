@@ -9,13 +9,13 @@ import { modifyBook, getCategories, getaBook } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/** Edits a book 
+/** Edits a book
  * @class Editbook
  * @extends {Component}
  */
 class Editbook extends Component {
   /** Creates an instance of Editbook.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Editbook
    */
   constructor(props) {
@@ -53,7 +53,7 @@ class Editbook extends Component {
     this.props.getaBook(this.bookId);
   }
   /** @returns {*} void
-     * @param {any} nextProps 
+     * @param {any} nextProps
      * @memberof Editbook
      */
   componentWillReceiveProps(nextProps) {
@@ -66,7 +66,7 @@ class Editbook extends Component {
     }
   }
   /** @returns {*} void
-   * @param {any} prevProps 
+   * @param {any} prevProps
    * @memberof Editbook
    */
   componentDidUpdate(prevProps) {
@@ -75,12 +75,12 @@ class Editbook extends Component {
     }
   }
   /** @returns {*} book details
-   * @param {any} title 
-   * @param {any} author 
-   * @param {any} description 
-   * @param {any} quantity 
-   * @param {any} categoryId 
-   * @param {any} bookId 
+   * @param {any} title
+   * @param {any} author
+   * @param {any} description
+   * @param {any} quantity
+   * @param {any} categoryId
+   * @param {any} bookId
    * @memberof Editbook
    */
   setBookDetails(title, author, description, quantity, categoryId, bookId) {
@@ -97,7 +97,7 @@ class Editbook extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Editbook
    */
   handleSelectChange(event) {
@@ -131,7 +131,7 @@ class Editbook extends Component {
     }
   }
   /** @returns {string} book id
-   * @param {any} pathName 
+   * @param {any} pathName
    * @memberof Editbook
    */
   getBookId(pathName) {

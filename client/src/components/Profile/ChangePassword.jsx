@@ -51,7 +51,7 @@ class ChangePassword extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof ChangePassword
    */
   handleFormSubmit(event) {

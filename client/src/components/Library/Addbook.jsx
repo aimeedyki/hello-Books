@@ -84,7 +84,7 @@ class AddBook extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} prevProps 
+   * @param {any} prevProps
    * @memberof AddBook
    */
   componentDidUpdate(prevProps) {
@@ -95,7 +95,7 @@ class AddBook extends Component {
 
   /** submits a form and adds book to library
    * @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddBook
    */
   handleFormSubmit(event) {
