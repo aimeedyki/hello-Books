@@ -26,6 +26,7 @@
       "multi-line"
     ],
     "import/no-unresolved": "off",
+    "import/extensions": "off",
     "no-shadow": [
       "error",
       {
