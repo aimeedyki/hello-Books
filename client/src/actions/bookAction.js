@@ -54,40 +54,42 @@ export const imageUpload = image => (
 );
 
 // action creator to add a book
-export const addBook = ({ title, author, description, quantity, categoryId, image }) => (
-  dispatch => (
-    axios.post(`${API_URL}/books`,
-      { title, author, description, quantity, categoryId, image })
-      .then((response) => {
-        dispatch({
-          type: ADD_BOOK,
-          book: response.data.book
-        });
-        return true;
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
-      })
-  )
-);
+export const addBook =
+  ({ title, author, description, quantity, categoryId, image }) => (
+    dispatch => (
+      axios.post(`${API_URL}/books`,
+        { title, author, description, quantity, categoryId, image })
+        .then((response) => {
+          dispatch({
+            type: ADD_BOOK,
+            book: response.data.book
+          });
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(dispatch, error.response, BOOK_ERROR);
+        })
+    )
+  );
 
 // action creator to modify a book
-export const modifyBook = ({ title, author, description, quantity, categoryId, bookId }) => (
-  dispatch => (
-    axios.put(`${API_URL}/books/${bookId}`,
-      { title, author, description, quantity, categoryId })
-      .then((response) => {
-        dispatch({
-          type: MODIFY_BOOK,
-          book: response.data.book
-        });
-        return true;
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
-      })
-  )
-);
+export const modifyBook =
+  ({ title, author, description, quantity, categoryId, bookId }) => (
+    dispatch => (
+      axios.put(`${API_URL}/books/${bookId}`,
+        { title, author, description, quantity, categoryId })
+        .then((response) => {
+          dispatch({
+            type: MODIFY_BOOK,
+            book: response.data.book
+          });
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(dispatch, error.response, BOOK_ERROR);
+        })
+    )
+  );
 
 // action creator to add a new book category
 export const addNewCategory = ({ category }) => (

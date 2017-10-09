@@ -7,9 +7,7 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { changeLevel, displayUserpage } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
-/**
- * Change level component
- * 
+/** Change level component
  * @class ChangeLevel
  * @extends {Component}
  */
