@@ -26,7 +26,7 @@
       "multi-line"
     ],
     "import/no-unresolved": [
-      1,
+      2,
       {
         "commonjs": true
       }

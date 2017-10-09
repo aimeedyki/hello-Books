@@ -5,7 +5,6 @@ import moment from 'moment';
 import { returnBook } from '../../actions/bookAction';
 import { getOutstanding, displayUserpage } from '../../actions/userAction';
 import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
-
 /** displays books not returned
  * @class Outstanding
  * @extends {Component}
@@ -24,7 +23,6 @@ class Outstanding extends Component {
     };
     this.return = this.return.bind(this);
   }
-
   /** fetches outstanding books 
    * @memberof Outstanding
    * @returns {object} outstanding books
@@ -49,7 +47,6 @@ class Outstanding extends Component {
       window.location.reload();
     }
   }
-
   /** sets an array of books fetched when available
    * @param {any} nextProps 
    * @memberof Outstanding

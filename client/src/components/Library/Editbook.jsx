@@ -37,11 +37,10 @@ class Editbook extends Component {
     this.setBookDetails = this.setBookDetails.bind(this);
     this.getBookId = this.getBookId.bind(this);
   }
-
   /** gets the categories in the library
-   *  @returns {*} void
-   * @memberof Editbook
-   */
+     *  @returns {*} void
+     * @memberof Editbook
+     */
   componentWillMount() {
     this.props.getCategories();
   }
@@ -53,11 +52,10 @@ class Editbook extends Component {
     this.getBookId(this.props.location.pathname);
     this.props.getaBook(this.bookId);
   }
-
   /** @returns {*} void
-   * @param {any} nextProps 
-   * @memberof Editbook
-   */
+     * @param {any} nextProps 
+     * @memberof Editbook
+     */
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
       this.setBookDetails(nextProps.book.title,
@@ -98,7 +96,6 @@ class Editbook extends Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
   /** @returns {*} void
    * @param {any} event 
    * @memberof Editbook
@@ -121,7 +118,6 @@ class Editbook extends Component {
       }
     });
   }
-
   /** @returns {string} error message
    * @memberof Editbook
    */
@@ -134,7 +130,6 @@ class Editbook extends Component {
       );
     }
   }
-
   /** @returns {string} book id
    * @param {any} pathName 
    * @memberof Editbook
@@ -144,13 +139,11 @@ class Editbook extends Component {
     const id = stringArray[2];
     this.bookId = id;
   }
-
   /** @returns {*} component that edits a book
    * @memberof Editbook
    */
   render() {
     const { book } = this.props;
-
     return (
       <div className='row'>
         <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l3 '>
@@ -238,7 +231,6 @@ const mapStateToProps = state => ({
   book: state.bookReducer.book
 }
 );
-
 export default connect(mapStateToProps, {
   modifyBook,
   clearErrorMessage,

@@ -1,13 +1,11 @@
 import { Book, History, Notification, User } from '../models';
 
 export default {
-
-  /**
-   *  user borrows a book and creates a history record
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} history
-   */
+  /**  user borrows a book and creates a history record
+     * @param {any} req 
+     * @param {any} res 
+     * @returns {object} history
+     */
   borrow(req, res) {
     return Book.find({ where: { id: req.body.bookId } })
       .then((book) => {
@@ -56,13 +54,11 @@ export default {
       })
       .catch(error => res.status(400).send(error.message));
   },
-
-  /**
-   * returns the book by updating the history with return date
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} book
-   */
+  /** returns the book by updating the history with return date
+     * @param {any} req 
+     * @param {any} res 
+     * @returns {object} book
+     */
   modify(req, res) {
     const today = new Date();
     return Book.find({ where: { id: req.body.bookId } })
@@ -89,7 +85,6 @@ export default {
       })
       .catch(error => res.status(400).send(error.message));
   },
-
   /** displays user history
    * @param {any} req 
    * @param {any} res 
