@@ -30,7 +30,7 @@ class Outstanding extends Component {
     const { userId } = this.props.user;
     this.props.getOutstanding(userId);
   }
-  /** @returns {*} void 
+  /** @returns {*} void
    * @memberof Outstanding
    */
   componentDidUpdate() {

@@ -45,67 +45,66 @@ export default {
             });
             res.status(201).send(history);
           });
-      });
-  })
+      })
       .catch(error => res.status(400).send(error.message));
-},
-/** returns the book by updating the history with return date
+  },
+  /** returns the book by updating the history with return date
+     * @param {any} req
+     * @param {any} res
+     * @returns {object} book
+     */
+  modify(req, res) {
+    const today = new Date();
+    return History.find({ where: { id: req.body.historyId } })
+      .then((history) => {
+        History.update({
+          returnedDate: today,
+          returned: true,
+        }, { where: { id: req.body.historyId } });
+        Book.find({ where: { id: history.bookId } })
+          .then((book) => {
+            Book.update({
+              quantity: (book.quantity + 1),
+            }, { where: { id: history.bookId } });
+            User.find({ where: { id: req.params.userId } })
+              .then((user) => {
+                User.update({
+                  borrowCount: (user.borrowCount - 1),
+                }, { where: { id: req.params.userId } });
+                Notification.create({
+                  userId: req.params.userId,
+                  bookId: history.bookId,
+                  action: 'Returned',
+                });
+                res.status(200).send({ message: 'book has been returned' });
+              });
+          });
+      })
+      .catch(error => res.status(400).send(error.message));
+  },
+  /** displays user history
    * @param {any} req
    * @param {any} res
-   * @returns {object} book
+   * @returns {object} users' history
    */
-modify(req, res) {
-  const today = new Date();
-  return History.find({ where: { id: req.body.historyId } })
-    .then((history) => {
-      History.update({
-        returnedDate: today,
-        returned: true,
-      }, { where: { id: req.body.historyId } });
-      Book.find({ where: { id: history.bookId } })
-        .then((book) => {
-          Book.update({
-            quantity: (book.quantity + 1),
-          }, { where: { id: history.bookId } });
-          User.find({ where: { id: req.params.userId } })
-            .then((user) => {
-              User.update({
-                borrowCount: (user.borrowCount - 1),
-              }, { where: { id: req.params.userId } });
-              Notification.create({
-                userId: req.params.userId,
-                bookId: history.bookId,
-                action: 'Returned',
-              });
-              res.status(200).send({ message: 'book has been returned' });
-            });
-        });
-    })
-    .catch(error => res.status(400).send(error.message));
-},
-/** displays user history
- * @param {any} req
- * @param {any} res
- * @returns {object} users' history
- */
-list(req, res) {
-  const whereClause = { userId: req.params.userId };
-  if (req.query.returned === 'false') {
-    whereClause.returned = false;
-  }
-  return History
-    .findAll({
-      include: [{
-        model: Book,
-        as: 'book',
-        attributes: ['title'],
-      }],
-      where: whereClause
-    })
-    .then((histories) => {
-      const allHistories = { histories };
-      res.status(200).send(allHistories);
-    })
-    .catch(error => res.status(400).send(error));
-},
+  list(req, res) {
+    const whereClause = { userId: req.params.userId };
+    if (req.query.returned === 'false') {
+      whereClause.returned = false;
+    }
+    return History
+      .findAll({
+        include: [{
+          model: Book,
+          as: 'book',
+          attributes: ['title'],
+        }],
+        where: whereClause
+      })
+      .then((histories) => {
+        const allHistories = { histories };
+        res.status(200).send(allHistories);
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };
