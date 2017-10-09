@@ -9,14 +9,12 @@ import { deleteBook, borrowBook } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/**
- * component that displays a single book
+/** component that displays a single book
  * @class Book
  * @extends {Component}
  */
 class Book extends Component {
-  /**
-   * Creates an instance of Book.
+  /** Creates an instance of Book.
    * @param {any} props 
    * @memberof Book
    */
@@ -27,8 +25,7 @@ class Book extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof Book
    */
   componentDidMount() {
@@ -38,8 +35,7 @@ class Book extends Component {
     });
   }
 
-  /**
-   * calls function to display errors if they exist
+  /** calls function to display errors if they exist
    * @returns {*} void
    * @param {any} prevProps 
    * @memberof Book
@@ -50,8 +46,7 @@ class Book extends Component {
     }
   }
 
-  /**
-   *  method that allows a user to delete a book
+  /** method that allows a user to delete a book
    * @returns {*} void
    * @param {any} id 
    * @memberof Book
@@ -70,8 +65,7 @@ class Book extends Component {
     }
   }
 
-  /**
-   * method that allows a user to borrow a book
+  /** method that allows a user to borrow a book
    * @returns {*} void
    * @param {any} id 
    * @param {any} userId 
@@ -88,8 +82,7 @@ class Book extends Component {
     }
   }
 
-  /**
-   *  display errors if they exist 
+  /** display errors if they exist 
    * @returns {string} error message
    * @memberof Book
    */
@@ -103,8 +96,7 @@ class Book extends Component {
     }
   }
 
-  /**
-   * @returns {*} book to edit
+  /** @returns {*} book to edit
    * @memberof Book
    */
   render() {

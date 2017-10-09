@@ -30,16 +30,14 @@ class ChangeLevel extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /**
-   * gets user detail
+  /** gets user detail
    * @returns {*} void
    * @memberof ChangeLevel
    */
   componentWillMount() {
     this.props.displayUserpage();
   }
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} prevProps 
    * @memberof ChangeLevel
    */
@@ -48,8 +46,7 @@ class ChangeLevel extends Component {
       this.renderAlert();
     }
   }
-  /**
-   * sets the state of the level to the value of the select field
+  /** sets the state of the level to the value of the select field
    * @returns {*} void
    * @param {any} event 
    * @memberof ChangeLevel
@@ -59,8 +56,7 @@ class ChangeLevel extends Component {
     this.setState({ newLevel: event.target.value });
   }
 
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof ChangeLevel
    */
@@ -82,8 +78,7 @@ class ChangeLevel extends Component {
     }
   }
 
-  /** 
-   * @returns {string} error message
+  /** @returns {string} error message
    * @memberof ChangeLevel
    */
   renderAlert() {
@@ -95,8 +90,7 @@ class ChangeLevel extends Component {
       );
     }
   }
-  /**
-   * renders the component to change level
+  /** renders the component to change level
    * @returns {*} component
    * @memberof ChangeLevel
    */

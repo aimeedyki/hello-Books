@@ -15,14 +15,12 @@ import Button from '../Common/Button.jsx';
 import ChangePassword from './ChangePassword.jsx';
 
 
-/**
- * component that allows a user to edit their profile
+/** component that allows a user to edit their profile
  * @class Editprofile
  * @extends {Component}
  */
 class Editprofile extends Component {
-  /**
-   * Creates an instance of Editprofile.
+  /** Creates an instance of Editprofile.
    * @param {any} props 
    * @memberof Editprofile
    */
@@ -38,8 +36,7 @@ class Editprofile extends Component {
     this.setLevelIcon = this.setLevelIcon.bind(this);
   }
 
-  /**
-   * displays usersdetails
+  /** displays usersdetails
    * @memberof Editprofile
    * @returns {object} users details
    */
@@ -47,8 +44,7 @@ class Editprofile extends Component {
     this.props.displayUserpage();
   }
 
-  /**
-   * displays users details
+  /** displays users details
    * @returns {*} void
    * @memberof Editprofile
    */
@@ -61,8 +57,7 @@ class Editprofile extends Component {
       userId
     });
   }
-  /**
-   * checks when there is a change and sets it to state
+  /** checks when there is a change and sets it to state
    * @returns {*} void
    * @param {any} event 
    * @memberof Editprofile
@@ -71,8 +66,7 @@ class Editprofile extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * submits the form
+  /** submits the form
    * @returns {*} void
    * @param {any} event 
    * @memberof Editprofile
@@ -87,8 +81,7 @@ class Editprofile extends Component {
   }
 
   /* eslint-disable class-methods-use-this */
-  /**
-   * checks the level and sets the picture
+  /** checks the level and sets the picture
    * @param {any} level 
    * @returns {object} picture
    * @memberof Editprofile
@@ -109,8 +102,7 @@ class Editprofile extends Component {
   }
 
 
-  /**
-   * renders component
+  /** renders component
    * @returns {*} component
    * @memberof Editprofile
    */
@@ -182,8 +174,7 @@ class Editprofile extends Component {
   }
 }
 
-/** 
- * @param {any} state 
+/** @param {any} state 
  * @returns {object} userdetails
  */
 const mapStateToProps = (state) => {

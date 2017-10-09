@@ -7,15 +7,12 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { addBook, getCategories, imageUpload } from '../../actions/bookAction';
 import Button from '../Common/Button.jsx';
 
-/**
- * Adds a book to library
- * 
+/** Adds a book to library 
  * @class AddBook
  * @extends {Component}
  */
 class AddBook extends Component {
-  /**
-   * Creates an instance of AddBook.
+  /** Creates an instance of AddBook.
    * @param {any} props 
    * @memberof AddBook
    */
@@ -40,26 +37,21 @@ class AddBook extends Component {
     this.handleImageUpload = this.handleImageUpload.bind(this);
   }
 
-  /**
-   * gets the categories to be selected
+  /** gets the categories to be selected
    * @returns {*} void
    * @memberof AddBook
    */
   componentWillMount() {
     this.props.getCategories();
   }
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof AddBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof AddBook
    */
@@ -69,8 +61,7 @@ class AddBook extends Component {
     });
     this.handleImageUpload(event.target.files[0]);
   }
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} image 
    * @memberof AddBook
    */
@@ -83,8 +74,7 @@ class AddBook extends Component {
         });
       });
   }
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof AddBook
    */
@@ -93,8 +83,7 @@ class AddBook extends Component {
     this.setState({ categoryId: event.target.value });
   }
 
-  /** 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} prevProps 
    * @memberof AddBook
    */
@@ -104,8 +93,7 @@ class AddBook extends Component {
     }
   }
 
-  /**
-   * submits a form and adds book to library
+  /** submits a form and adds book to library
    * @returns {*} void
    * @param {any} event 
    * @memberof AddBook
@@ -121,8 +109,7 @@ class AddBook extends Component {
     });
   }
 
-  /**
-   * @returns {string} error message
+  /** @returns {string} error message
    * @memberof AddBook
    */
   renderAlert() {
@@ -135,8 +122,7 @@ class AddBook extends Component {
     }
   }
 
-  /**
-   * @returns {*} adds book component
+  /** @returns {*} adds book component
    * @memberof AddBook
    */
   render() {

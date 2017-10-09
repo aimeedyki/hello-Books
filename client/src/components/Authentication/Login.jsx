@@ -8,13 +8,11 @@ import { signinUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
 
-/**
- * @class Login
+/** @class Login
  * @extends {Component}
  */
 class Login extends Component {
-  /**
-   * Creates an instance of Login.
+  /** Creates an instance of Login.
    * @param {any} props 
    * @memberof Login
    */
@@ -28,8 +26,7 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  /**
-   * sets changed field to state
+  /** sets changed field to state
    * @returns {*} void
    * @param {any} event 
    * @memberof Login
@@ -38,8 +35,7 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * calls the function to display error if there is an error
+  /** calls the function to display error if there is an error
    * @returns {*} void
    * @param {any} prevProps 
    * @memberof Login
@@ -50,8 +46,7 @@ class Login extends Component {
     }
   }
 
-  /**
-   * submits the login form
+  /** submits the login form
    * @returns {*} void
    * @param {any} event 
    * @memberof Login
@@ -67,8 +62,7 @@ class Login extends Component {
     }).catch(error => res.status(500).send(error.message));
   }
 
-  /**
-   * displays error
+  /** displays error
    * @returns {string} error message
    * @memberof Login
    */
@@ -82,8 +76,7 @@ class Login extends Component {
     }
   }
 
-  /**
-   * renders login form component
+  /** renders login form component
    * @returns {*} void
    * @memberof Login
    */

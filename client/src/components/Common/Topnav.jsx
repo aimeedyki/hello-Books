@@ -6,14 +6,12 @@ import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authAction';
 
 
-/**
- * displays the top navigation of the user page
+/** displays the top navigation of the user page
  * @class Topnav
  * @extends {Component}
  */
 class Topnav extends Component {
-  /**
-     * Creates an instance of Topnav.
+  /** Creates an instance of Topnav.
      * @param {any} props 
      * @memberof Topnav
      */
@@ -22,8 +20,7 @@ class Topnav extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  /**
-   * Logs out user
+  /** Logs out user
      * @param {any} event 
      * @memberof Topnav
      * @returns {*} void
@@ -32,8 +29,7 @@ class Topnav extends Component {
     event.preventDefault();
     this.props.logoutUser();
   }
-  /**
-   * @returns {object} element
+  /** @returns {object} element
    * @memberof Topnav
    */
   render() {

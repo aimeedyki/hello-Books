@@ -8,15 +8,12 @@ import { addNewCategory } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/**
- * adds a new category to the library
- * 
+/** adds a new category to the library
  * @class AddCategory
  * @extends {Component}
  */
 class AddCategory extends Component {
-  /**
-   * Creates an instance of AddCategory.
+  /** Creates an instance of AddCategory.
    * @param {any} props 
    * @memberof AddCategory
    */
@@ -30,9 +27,7 @@ class AddCategory extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof AddCategory
    */
@@ -40,9 +35,7 @@ class AddCategory extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} prevProps 
    * @memberof AddCategory
    */
@@ -52,9 +45,7 @@ class AddCategory extends Component {
     }
   }
 
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof AddCategory
    */
@@ -69,10 +60,7 @@ class AddCategory extends Component {
     });
   }
 
-  /**
-   * 
-   * 
-   * @returns {string} error message
+  /** @returns {string} error message
    * @memberof AddCategory
    */
   renderAlert() {
@@ -85,10 +73,7 @@ class AddCategory extends Component {
     }
   }
 
-  /**
-   * 
-   * 
-   * @returns {*} add category component
+  /** @returns {*} add category component
    * @memberof AddCategory
    */
   render() {

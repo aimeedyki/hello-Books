@@ -6,14 +6,12 @@ import { getBooksByCategory } from '../../actions/bookAction';
 import Book from '../Library/Book.jsx';
 import generic from '../../assets/images/generic.jpg';
 
-/**
- * displays books by their categories
+/** displays books by their categories
  * @class Bookcategory
  * @extends {Component}
  */
 class Bookcategory extends Component {
-  /**
-   * Creates an instance of Bookcategory.
+  /** Creates an instance of Bookcategory.
   * @param {any} props 
    * @memberof Bookcategory
   */
@@ -23,16 +21,14 @@ class Bookcategory extends Component {
       books: {},
     };
   }
-  /**
-   * gets the books in a category
+  /** gets the books in a category
    * @returns {*} void
    * @memberof Bookcategory
    */
   componentWillMount() {
     this.props.getBooksByCategory(this.props.categoryId);
   }
-  /**
-   * renders the books in a category 
+  /** renders the books in a category 
    * @returns {*} category component
    * @memberof Bookcategory
    */

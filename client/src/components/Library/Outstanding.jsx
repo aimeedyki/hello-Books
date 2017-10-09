@@ -6,14 +6,12 @@ import { returnBook } from '../../actions/bookAction';
 import { getOutstanding, displayUserpage } from '../../actions/userAction';
 import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
 
-/**
- * displays books not returned
+/** displays books not returned
  * @class Outstanding
  * @extends {Component}
  */
 class Outstanding extends Component {
-  /**
-     * Creates an instance of Outstanding.
+  /** Creates an instance of Outstanding.
      * @param {any} props 
      * @memberof Outstanding
      */
@@ -27,8 +25,7 @@ class Outstanding extends Component {
     this.return = this.return.bind(this);
   }
 
-  /**
-   * fetches outstanding books 
+  /** fetches outstanding books 
    * @memberof Outstanding
    * @returns {object} outstanding books
    */
@@ -37,8 +34,7 @@ class Outstanding extends Component {
     this.props.getOutstanding(userId);
   }
 
-  /**
-   * returns a book
+  /** returns a book
    * @param {any} id 
    * @param {any} userId 
    * @memberof Outstanding
@@ -54,8 +50,7 @@ class Outstanding extends Component {
     }
   }
 
-  /**
-   * sets an array of books fetched when available
+  /** sets an array of books fetched when available
    * @param {any} nextProps 
    * @memberof Outstanding
    * @returns {object} outstanding books
@@ -82,8 +77,7 @@ class Outstanding extends Component {
       });
     }
   }
-  /**
-   * renders outstanding books table
+  /** renders outstanding books table
    * @returns {*} component
    * @memberof Outstanding
    */

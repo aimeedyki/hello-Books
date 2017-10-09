@@ -12,14 +12,12 @@ import bookworm from '../../assets/images/bookworm.png';
 import voracious from '../../assets/images/voracious.jpg';
 import admin from '../../assets/images/admin.jpg';
 
-/**
- * shows the users' profile
+/** shows the users' profile
  * @class Profile
  * @extends {Component}
  */
 class Profile extends Component {
-  /**
-   * Creates an instance of Profile.
+  /** Creates an instance of Profile.
    * @param {any} props 
    * @memberof Profile
    */
@@ -43,16 +41,14 @@ class Profile extends Component {
     this.uploadPic = this.uploadPic.bind(this);
   }
 
-  /**
-   * @returns {*} userdetails
+  /** @returns {*} userdetails
    * @memberof Profile
    */
   componentWillMount() {
     this.props.displayUserpage();
   }
 
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} image 
    * @memberof Profile
    */
@@ -65,8 +61,7 @@ class Profile extends Component {
         });
       });
   }
-  /** 
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof Profile
    */
@@ -77,8 +72,7 @@ class Profile extends Component {
     this.handleImageUpload(event.target.files[0]);
   }
 
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @memberof Profile
    */
   uploadPic() {
@@ -92,8 +86,7 @@ class Profile extends Component {
       });
   }
   /* eslint-disable class-methods-use-this */
-  /**
-   * @param {any} level 
+  /** @param {any} level 
    * @returns {?*} level icon
    * @memberof Profile
    */
@@ -113,30 +106,26 @@ class Profile extends Component {
   }
 
 
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof Profile
    */
   handleEdit() {
     this.props.history.push('/user/edit-profile');
   }
 
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof Profile
    */
   handlePassword() {
     this.props.history.push('/user/password');
   }
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof Profile
    */
   handleLevel() {
     this.props.history.push('/user/new-level');
   }
-  /**
-   * renders profile component
+  /** renders profile component
    * @returns {*} component
    * @memberof Profile
    */

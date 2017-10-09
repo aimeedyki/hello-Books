@@ -5,16 +5,14 @@ import { NavLink, Link } from 'react-router-dom';
 import backpic from '../../assets/images/booksbw2.jpg';
 
 
-/**
- * side navigation on the user page
+/** side navigation on the user page
  * @export
  * @class Sidenav
  * @extends {Component}
  */
 export default class Sidenav extends Component {
   /* eslint-disable class-methods-use-this */
-  /** 
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof Sidenav
    */
   componentDidMount() {
@@ -24,8 +22,7 @@ export default class Sidenav extends Component {
       });
     });
   }
-  /**
-   * displays side navigation on user page 
+  /** displays side navigation on user page 
    * @returns {*} side nav 
    * @memberof Sidenav
    */

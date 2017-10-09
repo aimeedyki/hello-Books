@@ -25,14 +25,12 @@ import voracious from '../assets/images/voracious.jpg';
 import admin from '../assets/images/admin.jpg';
 
 
-/**
- * component that rendrs the users page
+/** component that rendrs the users page
  * @class Userpage
  * @extends {Component}
  */
 class Userpage extends Component {
-  /**
-     * Creates an instance of Userpage.
+  /** Creates an instance of Userpage.
      * @param {any} props 
      * @memberof Userpage
      */
@@ -50,8 +48,7 @@ class Userpage extends Component {
     this.setLevelIcon = this.setLevelIcon.bind(this);
   }
 
-  /**
-   * displays user details
+  /** displays user details
    * @returns {*} void
    * @memberof Userpage
    */
@@ -61,8 +58,7 @@ class Userpage extends Component {
   }
 
   /* eslint-disable class-methods-use-this */
-  /**
-   * sets icon according to a users level
+  /** sets icon according to a users level
    * @param {any} level 
    * @returns {object} users level icon
    * @memberof Userpage
@@ -82,8 +78,7 @@ class Userpage extends Component {
     }
   }
   /* eslint-disable no-unused-expressions */
-  /**
-   * renders the user page
+  /** renders the user page
    * @returns {*} users' page
    * @memberof Userpage
    */

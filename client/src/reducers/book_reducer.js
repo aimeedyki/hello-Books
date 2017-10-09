@@ -22,8 +22,7 @@ const initialState = {
   book: {}
 };
 
-/**
- * reducers for book components
+/** reducers for book components
  * @export
  * @param {any} [state=initialState] 
  * @param {any} action 

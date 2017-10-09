@@ -7,8 +7,7 @@ import {
 
 const initialState = { error: '', message: '', authenticated: false, user: {} };
 
-/**
- * reducers for authentication component
+/** reducers for authentication component
  * @export
  * @param {any} [state=initialState] 
  * @param {any} action 

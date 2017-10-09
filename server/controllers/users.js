@@ -66,8 +66,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
-  /**
-   * updates a users image
+  /** updates a users image
    * @param {any} req 
    * @param {any} res 
    * @returns {object} user

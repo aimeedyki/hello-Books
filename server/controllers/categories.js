@@ -1,8 +1,7 @@
 import { Category, Book } from '../models';
 
 export default {
-  /**
-   *  creates a category
+  /** creates a category
    * @param {any} req 
    * @param {any} res 
    * @returns {object} category
@@ -17,8 +16,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
-  /**
-   *  displays all categories
+  /** displays all categories
    * @param {any} req 
    * @param {any} res 
    * @returns {object} categories
@@ -33,8 +31,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
-  /**
-   *  displays categories with the books in them
+  /** displays categories with the books in them
    * @param {any} req 
    * @param {any} res 
    * @returns {object} books

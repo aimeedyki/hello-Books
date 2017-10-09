@@ -18,8 +18,7 @@ const initialState = {
   notifications: [],
   userDetails: {}
 };
-/**
- * reducers for user components
+/** reducers for user components
  * @export
  * @param {any} [state=initialState] 
  * @param {any} action 

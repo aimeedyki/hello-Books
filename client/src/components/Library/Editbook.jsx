@@ -9,14 +9,12 @@ import { modifyBook, getCategories, getaBook } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/**
- * Edits a book 
+/** Edits a book 
  * @class Editbook
  * @extends {Component}
  */
 class Editbook extends Component {
-  /**
-   * Creates an instance of Editbook.
+  /** Creates an instance of Editbook.
    * @param {any} props 
    * @memberof Editbook
    */
@@ -40,16 +38,14 @@ class Editbook extends Component {
     this.getBookId = this.getBookId.bind(this);
   }
 
-  /**
-   * gets the categories in the library
+  /** gets the categories in the library
    *  @returns {*} void
    * @memberof Editbook
    */
   componentWillMount() {
     this.props.getCategories();
   }
-  /**
-   * gets the book to be edited
+  /** gets the book to be edited
    * @returns {*} void
    * @memberof Editbook
    */
@@ -58,8 +54,7 @@ class Editbook extends Component {
     this.props.getaBook(this.bookId);
   }
 
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} nextProps 
    * @memberof Editbook
    */
@@ -72,8 +67,7 @@ class Editbook extends Component {
         nextProps.book.categoryId, this.bookId);
     }
   }
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} prevProps 
    * @memberof Editbook
    */
@@ -82,8 +76,7 @@ class Editbook extends Component {
       this.renderAlert();
     }
   }
-  /**
-   * @returns {*} book details
+  /** @returns {*} book details
    * @param {any} title 
    * @param {any} author 
    * @param {any} description 
@@ -98,8 +91,7 @@ class Editbook extends Component {
     }, () => {
     });
   }
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof Editbook
    */
@@ -107,8 +99,7 @@ class Editbook extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   *  @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof Editbook
    */
@@ -116,8 +107,7 @@ class Editbook extends Component {
     event.preventDefault();
     this.setState({ categoryId: event.target.value });
   }
-  /**
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof Editbook
    */
@@ -132,8 +122,7 @@ class Editbook extends Component {
     });
   }
 
-  /**
-   * @returns {string} error message
+  /** @returns {string} error message
    * @memberof Editbook
    */
   renderAlert() {
@@ -146,8 +135,7 @@ class Editbook extends Component {
     }
   }
 
-  /** 
-   * @returns {string} book id
+  /** @returns {string} book id
    * @param {any} pathName 
    * @memberof Editbook
    */
@@ -157,8 +145,7 @@ class Editbook extends Component {
     this.bookId = id;
   }
 
-  /**
-   * @returns {*} component that edits a book
+  /** @returns {*} component that edits a book
    * @memberof Editbook
    */
   render() {

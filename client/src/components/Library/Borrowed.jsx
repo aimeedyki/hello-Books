@@ -7,15 +7,13 @@ import moment from 'moment';
 import { getHistory, displayUserpage } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 
-/**
- * Displays a users history of borrowed
+/** Displays a users history of borrowed
  * books
  * @class Borrowed
  * @extends {Component}
  */
 class Borrowed extends Component {
-  /**
-   * Creates an instance of Borrowed.
+  /** Creates an instance of Borrowed.
    * @param {any} props 
    * @memberof Borrowed
    */
@@ -27,8 +25,7 @@ class Borrowed extends Component {
       userId: ''
     };
   }
-  /**
-   * gets the history of a user
+  /** gets the history of a user
    * @returns {*} void
    * @memberof Borrowed
    */
@@ -36,8 +33,7 @@ class Borrowed extends Component {
     const { userId } = this.props.user;
     this.props.getHistory(userId);
   }
-  /**
-   * @returns {*} book details
+  /** @returns {*} book details
    * @param {any} nextProps 
    * @memberof Borrowed
    */
@@ -60,8 +56,7 @@ class Borrowed extends Component {
       });
     }
   }
-  /** 
-   * @returns {*} users' history
+  /** @returns {*} users' history
    * @memberof Borrowed
    */
   render() {

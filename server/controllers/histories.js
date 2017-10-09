@@ -90,8 +90,7 @@ export default {
       .catch(error => res.status(400).send(error.message));
   },
 
-  /**
-   * displays user history
+  /** displays user history
    * @param {any} req 
    * @param {any} res 
    * @returns {object} users' history

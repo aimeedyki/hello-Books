@@ -7,8 +7,7 @@ import { User } from '../models';
 // Authorizes a User log in with token
 const authController = {
 
-  /**
-   * logs in a user
+  /** logs in a user
    * @param {any} req 
    * @param {any} res 
    * @returns {*} object
@@ -47,8 +46,7 @@ const authController = {
   },
 
 
-  /**
-   * changes user password
+  /**  changes user password
    * @param {any} req 
    * @param {any} res 
    * @returns {object} user
@@ -85,8 +83,7 @@ const authController = {
   },
 
 
-  /**
-   * Changes a users level
+  /** Changes a users level
    * @param {any} req 
    * @param {any} res 
    * @returns {object} user

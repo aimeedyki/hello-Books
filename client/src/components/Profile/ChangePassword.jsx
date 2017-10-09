@@ -7,15 +7,12 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { passwordChange, displayUserpage } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
-/**
- * component to change password
- * 
+/** component to change password
  * @class ChangePassword
  * @extends {Component}
  */
 class ChangePassword extends Component {
-  /**
-   * Creates an instance of ChangePassword.
+  /** Creates an instance of ChangePassword.
    * @param {any} props 
    * @memberof ChangePassword
    */
@@ -32,17 +29,13 @@ class ChangePassword extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @memberof ChangePassword
    */
   componentWillMount() {
     this.props.displayUserpage();
   }
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} prevProps 
    * @memberof ChangePassword
    */
@@ -51,9 +44,7 @@ class ChangePassword extends Component {
       this.renderAlert();
     }
   }
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof ChangePassword
    */
@@ -61,9 +52,7 @@ class ChangePassword extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * 
-   * @returns {*} void
+  /** @returns {*} void
    * @param {any} event 
    * @memberof ChangePassword
    */
@@ -84,8 +73,7 @@ class ChangePassword extends Component {
       Materialize.toast('Passwords do not match', 4000);
     }
   }
-  /**
-   * @returns {*} error message
+  /** @returns {*} error message
    * @memberof ChangePassword
    */
   renderAlert() {
@@ -97,8 +85,7 @@ class ChangePassword extends Component {
       );
     }
   }
-  /**
-   * @returns {*} component
+  /** @returns {*} component
    * @memberof ChangePassword
    */
   render() {

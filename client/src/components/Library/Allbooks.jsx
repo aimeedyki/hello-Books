@@ -7,14 +7,12 @@ import Book from '../Library/Book.jsx';
 import generic from '../../assets/images/generic.jpg';
 
 
-/**
- * component that displays all books
+/** component that displays all books
  * @class Allbooks
  * @extends {Component}
  */
 class Allbooks extends Component {
-  /**
- * Creates an instance of Allbooks.
+  /** Creates an instance of Allbooks.
  * @param {any} props 
  * @memberof Allbooks
  */
@@ -24,15 +22,13 @@ class Allbooks extends Component {
       books: {},
     };
   }
-  /**
-  * @returns {*} void
+  /** @returns {*} void
   * @memberof Allbooks
   */
   componentWillMount() {
     this.props.getBooks();
   }
-  /**
-  * @returns {*} all the books in the library
+  /** @returns {*} all the books in the library
   * @memberof Allbooks
   */
   render() {

@@ -7,15 +7,13 @@ import { displayNotification } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 
 
-/**
- * component that notifies the admin
+/** component that notifies the admin
  * of users activities
  * @class UserActivity
  * @extends {Component}
  */
 class UserActivity extends Component {
-  /**
-   * Creates an instance of UserActivity.
+  /** Creates an instance of UserActivity.
    * @param {any} props 
    * @memberof UserActivity
    */
@@ -24,8 +22,7 @@ class UserActivity extends Component {
     this.data = [];
   }
 
-  /**
-   * fetches notification table
+  /** fetches notification table
    * @returns {*} void
    * @memberof UserActivity
    */
@@ -33,8 +30,7 @@ class UserActivity extends Component {
     this.props.displayNotification();
   }
 
-  /**
-   * @returns {*} notification details
+  /** @returns {*} notification details
    * @param {any} nextProps 
    * @memberof UserActivity
    */
@@ -55,8 +51,7 @@ class UserActivity extends Component {
       });
     }
   }
-  /**
-   * @returns {*} component
+  /** @returns {*} component
    * @memberof UserActivity
    */
   render() {

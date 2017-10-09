@@ -10,14 +10,12 @@ import { signupUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
 
-/**
- * sign up form
+/** sign up form
  * @class Signup
  * @extends {Component}
  */
 class Signup extends Component {
-  /**
-   * Creates an instance of Signup.
+  /** Creates an instance of Signup.
    * @param {any} props 
    * @memberof Signup
    */
@@ -38,8 +36,7 @@ class Signup extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /**
-   *  sets the state to the value of the field
+  /** sets the state to the value of the field
    * @returns {*} void
    * @param {any} event 
    * @memberof Signup
@@ -48,8 +45,7 @@ class Signup extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
-   * sets the state of the level to the value of the select field
+  /** sets the state of the level to the value of the select field
    * @returns {*} void
    * @param {any} event 
    * @memberof Signup
@@ -59,8 +55,7 @@ class Signup extends Component {
     this.setState({ level: event.target.value });
   }
 
-  /**
-   * starts the method that displays error messages
+  /** starts the method that displays error messages
    * @returns {*} void
    * @param {any} prevProps 
    * @memberof Signup
@@ -71,8 +66,7 @@ class Signup extends Component {
     }
   }
 
-  /**
-    * signs up a user when form is submitted
+  /** signs up a user when form is submitted
     * @returns {*} void
     * @param {any} event 
     * @memberof Signup
@@ -92,8 +86,7 @@ class Signup extends Component {
     }
   }
 
-  /**
-   *   displays error message
+  /** displays error message
    * @returns {string} error message
    * @memberof Signup
    */
@@ -107,8 +100,7 @@ class Signup extends Component {
     }
   }
 
-  /**
-   * renders signup form 
+  /** renders signup form 
    * @returns {*} signup component
    * @memberof Signup
    */

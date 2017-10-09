@@ -7,15 +7,13 @@ import { getCategories, getBooksByCategory } from '../../actions/bookAction';
 import Allbooks from './Allbooks.jsx';
 import Bookcategory from './Bookcategory.jsx';
 
-/**
- * Component that holds all the books
+/** Component that holds all the books
  * and the tab that displays the categories
  * @class Tab
  * @extends {Component}
  */
 class Tab extends Component {
-  /**
-   * Creates an instance of Tab.
+  /** Creates an instance of Tab.
    * @param {any} props 
    * @memberof Tab
    */
@@ -28,8 +26,7 @@ class Tab extends Component {
     };
   }
 
-  /**
-   * calls methods that gets all categories
+  /** calls methods that gets all categories
    * @returns {*} void
    * @memberof Tab
    */
@@ -49,8 +46,7 @@ class Tab extends Component {
     });
   }
 
-  /**
-   * @returns {*} library component
+  /** @returns {*} library component
    * @memberof Tab
    */
   render() {
