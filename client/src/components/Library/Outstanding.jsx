@@ -1,7 +1,6 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux';
 import moment from 'moment';
-
 import { returnBook } from '../../actions/bookAction';
 import { getOutstanding, displayUserpage } from '../../actions/userAction';
 import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
@@ -11,7 +10,7 @@ import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
  */
 class Outstanding extends Component {
   /** Creates an instance of Outstanding.
-     * @param {any} props 
+     * @param {any} props
      * @memberof Outstanding
      */
   constructor(props) {
@@ -31,10 +30,9 @@ class Outstanding extends Component {
     const { userId } = this.props.user;
     this.props.getOutstanding(userId);
   }
-
   /** returns a book
-   * @param {any} id 
-   * @param {any} userId 
+   * @param {any} id
+   * @param {any} userId
    * @memberof Outstanding
    * @returns {*} void
    */
@@ -114,7 +112,6 @@ const mapStateToProps = (state) => {
     user
   };
 };
-
 export default connect(mapStateToProps, {
   getOutstanding, displayUserpage, returnBook
 })(Outstanding);

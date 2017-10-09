@@ -90,7 +90,7 @@ class Editbook extends Component {
     });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Editbook
    */
   handleChange(event) {
@@ -105,7 +105,7 @@ class Editbook extends Component {
     this.setState({ categoryId: event.target.value });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Editbook
    */
   handleFormSubmit(event) {

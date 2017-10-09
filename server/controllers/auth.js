@@ -6,12 +6,11 @@ import { User } from '../models';
 
 // Authorizes a User log in with token
 const authController = {
-
   /** logs in a user
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {*} object
-   */
+    * @param {any} req 
+    * @param {any} res 
+    * @returns {*} object
+    */
   login(req, res) {
     return User
       .findOne({
@@ -23,7 +22,6 @@ const authController = {
           return res.status(404)
             .send({ message: 'Username does not exist. Please confirm' });
         }
-
         // compares password received to stored hash password
         const passkey = bcrypt.compareSync(req.body.password, user.password);
         if (passkey) {
@@ -44,13 +42,11 @@ const authController = {
       .catch(error =>
         res.status(500).send(error));
   },
-
-
   /**  changes user password
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} user
-   */
+    * @param {any} req
+    * @param {any} res
+    * @returns {object} user
+    */
   change(req, res) {
     return User
       .findOne({
@@ -81,13 +77,11 @@ const authController = {
       })
       .catch(error => res.status(400).send(error.message));
   },
-
-
   /** Changes a users level
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} user
-   */
+     * @param {any} req 
+     * @param {any} res 
+     * @returns {object} user
+     */
   changeLevel(req, res) {
     let maxVal;
     if (req.body.newLevel === 'rookie') {
@@ -119,6 +113,4 @@ const authController = {
       .catch(error => res.status(500).send(error.message));
   }
 };
-
 export default authController;
-

@@ -2,8 +2,8 @@ import { Book, Category } from '../models';
 
 export default {
   /** adds a book
-   * @param {any} req 
-   * @param {any} res 
+   * @param {any} req
+   * @param {any} res
    * @returns {object} book
    */
   addBook(req, res) {
@@ -25,10 +25,9 @@ export default {
       })
       .catch(error => res.status(500).send(error.message));
   },
-
   /** modifies book
-   * @param {any} req 
-   * @param {any} res 
+   * @param {any} req
+   * @param {any} res
    * @returns {object} book
    */
   modify(req, res) {
@@ -50,7 +49,6 @@ export default {
       })
       .catch(error => res.status(400).send(error.message));
   },
-
   // displays all books
   list(req, res) {
     return Book
@@ -67,12 +65,11 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
-
   /** displays one book
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} book
-   */
+     * @param {any} req
+     * @param {any} res
+     * @returns {object} book
+     */
   viewBook(req, res) {
     return Book.findById(req.params.id)
       .then((book) => {
@@ -85,10 +82,9 @@ export default {
       })
       .catch(error => res.status(400).send(error.message));
   },
-
   /** deletes a book
-   * @param {any} req 
-   * @param {any} res 
+   * @param {any} req
+   * @param {any} res
    * @returns {object} book
    */
   remove(req, res) {
