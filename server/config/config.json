@@ -1,4 +1,3 @@
-
 {
   "development": {
     "username": "admin1",
@@ -9,7 +8,7 @@
     "dialect": "postgresql"
   },
   "test": {
-    "username": "postgres",
+    "username": "",
     "password": "",
     "database": "travis",
     "host": "127.0.0.1",
@@ -17,11 +16,11 @@
     "logging": false
   },
   "production": {
-   "username": "gdbqliph",
+    "username": "gdbqliph",
     "password": "AWcLyH8kbPJDv3Q5-CpGwqYk9R0F-YWl",
     "database": "gdbqliph",
     "host": "babar.elephantsql.com",
-     "port": "5432",
+    "port": "5432",
     "dialect": "postgresql"
   }
 }

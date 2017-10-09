@@ -30,10 +30,10 @@ before_script:
   - psql -c 'create database travis;' -U postgres
   - NODE_ENV=test npm run test:db
 script:
-  - npm test
+  - npm run cover
 after_success:
-  - npm run coverage #this line generates the report
-  - codeclimate-test-reporter < coverage/lcov.info #this line sends report to codeclimate
-  - coveralls < coverage/lcov.info #this line sends report to coveralls
+  - npm install -g codeclimate-test-reporter
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - codeclimate-test-reporter < lcov.info
 
  

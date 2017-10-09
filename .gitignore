@@ -1,3 +1,5 @@
 /node_modules
 /public
 /client/public
+/coverage
+/.nyc_output
