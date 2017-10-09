@@ -13,7 +13,7 @@ import generic from '../../assets/images/generic.jpg';
  */
 class Allbooks extends Component {
   /** Creates an instance of Allbooks.
- * @param {any} props 
+ * @param {any} props
  * @memberof Allbooks
  */
   constructor(props) {

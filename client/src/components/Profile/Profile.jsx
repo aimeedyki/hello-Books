@@ -18,7 +18,7 @@ import admin from '../../assets/images/admin.jpg';
  */
 class Profile extends Component {
   /** Creates an instance of Profile.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Profile
    */
   constructor(props) {
@@ -49,7 +49,7 @@ class Profile extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} image 
+   * @param {any} image
    * @memberof Profile
    */
   handleImageUpload(image) {
@@ -62,7 +62,7 @@ class Profile extends Component {
       });
   }
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Profile
    */
   imageChange(event) {
@@ -86,7 +86,7 @@ class Profile extends Component {
       });
   }
   /* eslint-disable class-methods-use-this */
-  /** @param {any} level 
+  /** @param {any} level
    * @returns {?*} level icon
    * @memberof Profile
    */

@@ -22,7 +22,7 @@ class Outstanding extends Component {
     };
     this.return = this.return.bind(this);
   }
-  /** fetches outstanding books 
+  /** fetches outstanding books
    * @memberof Outstanding
    * @returns {object} outstanding books
    */

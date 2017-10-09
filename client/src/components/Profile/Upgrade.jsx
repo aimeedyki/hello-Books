@@ -16,7 +16,7 @@ import Button from '../Common/Button.jsx';
 class ChangeLevel extends Component {
   /**
    * Creates an instance of ChangeLevel.
-   * @param {any} props 
+   * @param {any} props
    * @memberof ChangeLevel
    */
   constructor(props) {
@@ -38,7 +38,7 @@ class ChangeLevel extends Component {
     this.props.displayUserpage();
   }
   /** @returns {*} void
-   * @param {any} prevProps 
+   * @param {any} prevProps
    * @memberof ChangeLevel
    */
   componentDidUpdate(prevProps) {
@@ -48,7 +48,7 @@ class ChangeLevel extends Component {
   }
   /** sets the state of the level to the value of the select field
    * @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof ChangeLevel
    */
   handleSelectChange(event) {
@@ -57,7 +57,7 @@ class ChangeLevel extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof ChangeLevel
    */
   handleFormSubmit(event) {

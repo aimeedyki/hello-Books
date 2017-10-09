@@ -31,7 +31,7 @@ import admin from '../assets/images/admin.jpg';
  */
 class Userpage extends Component {
   /** Creates an instance of Userpage.
-     * @param {any} props 
+     * @param {any} props
      * @memberof Userpage
      */
   constructor(props) {

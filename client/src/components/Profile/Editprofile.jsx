@@ -21,7 +21,7 @@ import ChangePassword from './ChangePassword.jsx';
  */
 class Editprofile extends Component {
   /** Creates an instance of Editprofile.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Editprofile
    */
   constructor(props) {
@@ -59,7 +59,7 @@ class Editprofile extends Component {
   }
   /** checks when there is a change and sets it to state
    * @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Editprofile
    */
   handleChange(event) {
@@ -68,7 +68,7 @@ class Editprofile extends Component {
 
   /** submits the form
    * @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof Editprofile
    */
   handleFormSubmit(event) {
@@ -82,7 +82,7 @@ class Editprofile extends Component {
 
   /* eslint-disable class-methods-use-this */
   /** checks the level and sets the picture
-   * @param {any} level 
+   * @param {any} level
    * @returns {object} picture
    * @memberof Editprofile
    */
@@ -174,7 +174,7 @@ class Editprofile extends Component {
   }
 }
 
-/** @param {any} state 
+/** @param {any} state
  * @returns {object} userdetails
  */
 const mapStateToProps = (state) => {

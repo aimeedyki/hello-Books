@@ -14,7 +14,7 @@ import Table from '../Common/Table.jsx';
  */
 class UserActivity extends Component {
   /** Creates an instance of UserActivity.
-   * @param {any} props 
+   * @param {any} props
    * @memberof UserActivity
    */
   constructor(props) {
@@ -31,7 +31,7 @@ class UserActivity extends Component {
   }
 
   /** @returns {*} notification details
-   * @param {any} nextProps 
+   * @param {any} nextProps
    * @memberof UserActivity
    */
   componentWillReceiveProps(nextProps) {
