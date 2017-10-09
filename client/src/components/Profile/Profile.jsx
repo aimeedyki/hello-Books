@@ -138,10 +138,9 @@ class Profile extends Component {
       (profileImage = this.setLevelIcon(level)) : profileImage = profilepic;
     return (
       <div className='row'>
-        <div className='card col s8 m6 l4 offset-s2 offset-m3 offset-l5'
-          className='profile grey'>
-          <div className=''>
-            <div className='center black-text'>
+        <div className='card l6 offset-l4'>
+          <div className='col s8 offset-s2'>
+            <div className='center white-text'>
               <img className='circle photo'
                 src={profileImage} alt='profile photo' />
               <div className='row margin-fix'>
@@ -167,7 +166,7 @@ class Profile extends Component {
                 </div>
               </div>
               <div className=' row file-field input-field'>
-                <div className='col l5 btn black'>
+                <div className='col l5 btn white indigo-text text-darken-2'>
                   <span>Change photo</span>
                   <input type='file' onChange={this.imageChange}
                     name='imageFile' />
