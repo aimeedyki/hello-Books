@@ -46,7 +46,7 @@ class Outstanding extends Component {
     }
   }
   /** sets an array of books fetched when available
-   * @param {any} nextProps 
+   * @param {any} nextProps
    * @memberof Outstanding
    * @returns {object} outstanding books
    */

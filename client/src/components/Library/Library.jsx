@@ -14,7 +14,7 @@ import Bookcategory from './Bookcategory.jsx';
  */
 class Tab extends Component {
   /** Creates an instance of Tab.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Tab
    */
   constructor(props) {
@@ -34,13 +34,12 @@ class Tab extends Component {
     this.props.getCategories();
     this.props.displayUserpage();
   }
-
   /** setting category id to display
-   * @returns {*} void
-   * @param {any} id 
-   * @param {any} category 
-   * @memberof Tab
-   */
+     * @returns {*} void
+     * @param {any} id
+     * @param {any} category
+     * @memberof Tab
+     */
   handleClick(id, category) {
     this.setState({ id, bookcategory: category }, () => {
     });

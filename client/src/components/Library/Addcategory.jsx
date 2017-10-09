@@ -14,7 +14,7 @@ import Button from '../Common/Button.jsx';
  */
 class AddCategory extends Component {
   /** Creates an instance of AddCategory.
-   * @param {any} props 
+   * @param {any} props
    * @memberof AddCategory
    */
   constructor(props) {
@@ -28,7 +28,7 @@ class AddCategory extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddCategory
    */
   handleChange(event) {
@@ -36,7 +36,7 @@ class AddCategory extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} prevProps 
+   * @param {any} prevProps
    * @memberof AddCategory
    */
   componentDidUpdate(prevProps) {
@@ -46,7 +46,7 @@ class AddCategory extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} event 
+   * @param {any} event
    * @memberof AddCategory
    */
   handleFormSubmit(event) {

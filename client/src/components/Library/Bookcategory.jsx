@@ -12,7 +12,7 @@ import generic from '../../assets/images/generic.jpg';
  */
 class Bookcategory extends Component {
   /** Creates an instance of Bookcategory.
-  * @param {any} props 
+  * @param {any} props
    * @memberof Bookcategory
   */
   constructor(props) {
@@ -28,7 +28,7 @@ class Bookcategory extends Component {
   componentWillMount() {
     this.props.getBooksByCategory(this.props.categoryId);
   }
-  /** renders the books in a category 
+  /** renders the books in a category
    * @returns {*} category component
    * @memberof Bookcategory
    */

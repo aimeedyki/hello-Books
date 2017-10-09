@@ -15,7 +15,7 @@ import Button from '../Common/Button.jsx';
  */
 class Book extends Component {
   /** Creates an instance of Book.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Book
    */
   constructor(props) {
@@ -34,23 +34,21 @@ class Book extends Component {
       userId
     });
   }
-
   /** calls function to display errors if they exist
-   * @returns {*} void
-   * @param {any} prevProps 
-   * @memberof Book
-   */
+     * @returns {*} void
+     * @param {any} prevProps
+     * @memberof Book
+     */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
       this.renderAlert();
     }
   }
-
   /** method that allows a user to delete a book
-   * @returns {*} void
-   * @param {any} id 
-   * @memberof Book
-   */
+     * @returns {*} void
+     * @param {any} id
+     * @memberof Book
+     */
   handleClick(id) {
     /* eslint-disable no-alert */
     const shouldDelete = confirm('Are you sure you want to delete this book');
@@ -67,8 +65,8 @@ class Book extends Component {
 
   /** method that allows a user to borrow a book
    * @returns {*} void
-   * @param {any} id 
-   * @param {any} userId 
+   * @param {any} id
+   * @param {any} userId
    * @memberof Book
    */
   borrow(id, userId) {
@@ -81,8 +79,7 @@ class Book extends Component {
       }).catch(error => res.status(500).send(error.message));
     }
   }
-
-  /** display errors if they exist 
+  /** display errors if they exist
    * @returns {string} error message
    * @memberof Book
    */

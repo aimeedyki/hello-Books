@@ -14,7 +14,7 @@ import Table from '../Common/Table.jsx';
  */
 class Borrowed extends Component {
   /** Creates an instance of Borrowed.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Borrowed
    */
   constructor(props) {
@@ -34,7 +34,7 @@ class Borrowed extends Component {
     this.props.getHistory(userId);
   }
   /** @returns {*} book details
-   * @param {any} nextProps 
+   * @param {any} nextProps
    * @memberof Borrowed
    */
   componentWillReceiveProps(nextProps) {
