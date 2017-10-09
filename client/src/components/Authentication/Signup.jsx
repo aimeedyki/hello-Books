@@ -15,7 +15,7 @@ import Button from '../Common/Button.jsx';
  */
 class Signup extends Component {
   /** Creates an instance of Signup.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Signup
    */
   constructor(props) {

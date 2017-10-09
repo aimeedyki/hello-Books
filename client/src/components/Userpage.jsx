@@ -59,7 +59,7 @@ class Userpage extends Component {
 
   /* eslint-disable class-methods-use-this */
   /** sets icon according to a users level
-   * @param {any} level 
+   * @param {any} level
    * @returns {object} users level icon
    * @memberof Userpage
    */

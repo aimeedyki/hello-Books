@@ -2,8 +2,8 @@ import { Category, Book } from '../models';
 
 export default {
   /** creates a category
-   * @param {any} req 
-   * @param {any} res 
+   * @param {any} req
+   * @param {any} res
    * @returns {object} category
    */
   addCategory(req, res) {

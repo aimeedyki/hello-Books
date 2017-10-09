@@ -21,11 +21,10 @@ const initialState = {
   editedbook: {},
   book: {}
 };
-
 /** reducers for book components
  * @export
- * @param {any} [state=initialState] 
- * @param {any} action 
+ * @param {any} [state=initialState]
+ * @param {any} action
  * @returns {*} state
  */
 export default (state = initialState, action) => {

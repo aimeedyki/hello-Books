@@ -137,7 +137,7 @@ const app = express();
 *   history:
 *     properties:
 *       userId:
-*         type: integer  
+*         type: integer
 *       x-access-token:
 *         type: string
 */
@@ -257,8 +257,7 @@ app.get('/api/v1/users/:id',
  *   post:
  *     tags:
  *       - Books
- *     description: creates a book category 
- *                  and can only be accessed by admin users
+ *     description: creates a book category
  *     produces:
  *       - application/json
  *     parameters:

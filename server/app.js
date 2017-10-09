@@ -46,7 +46,7 @@ const swaggerDefinition = {
 
 const apiPath = path.join(__dirname, 'routes/*.js');
 
-// options for swagger jsdoc 
+// options for swagger jsdoc
 const options = {
   swaggerDefinition, // swagger definition
   apis: [apiPath], // path where API specification are written
