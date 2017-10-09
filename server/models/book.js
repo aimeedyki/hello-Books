@@ -1,23 +1,29 @@
 
-export default (sequelize, DataTypes) =>{
+export default (sequelize, DataTypes) => {
   // defines attributes for book model
   const Book = sequelize.define('Book', {
-    id:  { allownull: false, type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title:{ allowNull: {
-      args: false,
-      msg: 'Please enter book title',
+    id: {
+      allownull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    unique: {
-      args: true,
-      msg: 'This Book already exists',
-    },
-    type: DataTypes.STRING,
-    validate:{
-      notEmpty:{
-        args: true,
-        msg: 'Please enter book title'
+    title: {
+      allowNull: {
+        args: false,
+        msg: 'Please enter book title',
       },
-    },
+      unique: {
+        args: true,
+        msg: 'This Book already exists',
+      },
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Please enter book title'
+        },
+      },
     },
     author: {
       allowNull: {
@@ -25,8 +31,8 @@ export default (sequelize, DataTypes) =>{
         msg: 'Please enter an author',
       },
       type: DataTypes.STRING,
-      validate:{
-        notEmpty:{
+      validate: {
+        notEmpty: {
           args: true,
           msg: 'Please enter an author'
         },
@@ -38,8 +44,8 @@ export default (sequelize, DataTypes) =>{
         msg: 'Please enter a description',
       },
       type: DataTypes.STRING,
-      validate:{
-        notEmpty:{
+      validate: {
+        notEmpty: {
           args: true,
           msg: 'Please enter a description'
         },
@@ -56,23 +62,24 @@ export default (sequelize, DataTypes) =>{
         msg: 'Please enter quantity',
       },
       type: DataTypes.INTEGER,
-      validate:{
-        notEmpty:{
+      validate: {
+        notEmpty: {
           args: true,
           msg: 'Please enter quantity'
         },
       },
     },
-    categoryId: {allownull: false, type: DataTypes.INTEGER,},
-  }, {paranoid: true,})
+    categoryId: { allownull: false, type: DataTypes.INTEGER, },
+  }, { paranoid: true, });
 
   // defines associations to category and history models
-  Book.associate= (models) => {
+  Book.associate = (models) => {
     Book.belongsTo(models.Category, {
+      as: 'category',
       foreignKey: 'categoryId',
     });
-    Book.hasMany(models.History, {foreignKey: 'id'});
-    Book.hasMany(models.Notification, {foreignKey: 'id'});
+    Book.hasMany(models.History, { foreignKey: 'id' });
+    Book.hasMany(models.Notification, { foreignKey: 'id' });
   };
 
   return Book;

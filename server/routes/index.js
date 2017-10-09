@@ -1,3 +1,4 @@
+import express from 'express';
 import usersController from '../controllers/users';
 import booksController from '../controllers/books';
 import historiesController from '../controllers/histories';
@@ -5,12 +6,8 @@ import categoriesController from '../controllers/categories';
 import authController from '../controllers/auth';
 import authentication from '../middleware/authentication';
 import notificationsController from '../controllers/notifications';
-import express from 'express';
-const app = express();
 
-app.get('/', (req, res) => res.status(200).send({
-  message: 'Welcome to booksville',
-}));
+const app = express();
 
 /**
  * @swagger
@@ -42,7 +39,7 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: string 
  *       password:
  *         type: string   
- */ 
+ */
 
 /**
  * @swagger
@@ -55,7 +52,7 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: string  
  *       x-access-token:
  *         type: string
- */ 
+ */
 
 /**
  * @swagger
@@ -66,16 +63,16 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: integer  
  *       x-access-token:
  *         type: string
- */  
+ */
 
- /**
- * @swagger
- * definition:
- *   display:
- *     properties:
- *       x-access-token:
- *         type: string
- */  
+/**
+* @swagger
+* definition:
+*   display:
+*     properties:
+*       x-access-token:
+*         type: string
+*/
 
 /**
  * @swagger
@@ -119,7 +116,7 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: integer
  *       x-access-token:
  *         type: string
- */ 
+ */
 
 /**
  * @swagger
@@ -132,18 +129,18 @@ app.get('/', (req, res) => res.status(200).send({
  *         type: integer  
  *       x-access-token:
  *         type: string
- */  
- 
- /**
- * @swagger
- * definition:
- *   history:
- *     properties:
- *       userId:
- *         type: integer  
- *       x-access-token:
- *         type: string
- */ 
+ */
+
+/**
+* @swagger
+* definition:
+*   history:
+*     properties:
+*       userId:
+*         type: integer
+*       x-access-token:
+*         type: string
+*/
 
 /**
  * @swagger
@@ -164,7 +161,7 @@ app.get('/', (req, res) => res.status(200).send({
  *     responses:
  *       201:
  *         description: Successfully created
- */  
+ */
 
 // route for registration
 app.post('/api/v1/users/signup', usersController.signup);
@@ -188,7 +185,7 @@ app.post('/api/v1/users/signup', usersController.signup);
  *     responses:
  *       200:
  *         description: User logged in
- */ 
+ */
 
 // route for login
 app.post('/api/v1/users/signin', authController.login);
@@ -207,16 +204,28 @@ app.post('/api/v1/users/signin', authController.login);
  *         description: User object
  *         in: body
  *         required: true
+ *       - name: Authorization
+ *         description: an authorization header
+ *         in: body
+ *         required: true
  *         schema:
  *           $ref: '#/definitions/Change'
  *     responses:
  *       200:
  *         description: Password updated!!
- */ 
+ */
 
 // route to change password
-app.put('/api/v1/users/:id', authController.change);
+app.put('/api/v1/users/:id', authentication.verifyUser, authController.change);
 
+
+// route to change level
+app.put('/api/v1/users/:id/level',
+  authentication.verifyUser, authController.changeLevel);
+
+// route to change profile picture
+app.put('/api/v1/users/:id/image',
+  authentication.verifyUser, usersController.changeImage);
 /**
  * @swagger
  * /users/:id:
@@ -236,10 +245,11 @@ app.put('/api/v1/users/:id', authController.change);
  *     responses:
  *       200:
  *         description: Profile displayed
- */ 
+ */
 
-//route to display user profile
-app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile);
+// route to display user profile
+app.get('/api/v1/users/:id',
+  authentication.verifyUser, usersController.profile);
 
 /**
  * @swagger
@@ -247,7 +257,7 @@ app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile)
  *   post:
  *     tags:
  *       - Books
- *     description: creates a book category and can only be accessed by admin users
+ *     description: creates a book category
  *     produces:
  *       - application/json
  *     parameters:
@@ -260,10 +270,11 @@ app.get('/api/v1/users/:id', authentication.verifyUser, usersController.profile)
  *     responses:
  *       200:
  *         description: Category created
- */ 
+ */
 
 // route for creating a category
-app.post('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.addCategory);
+app.post('/api/v1/category', authentication.verifyUser,
+  authentication.verifyAdmin, categoriesController.addCategory);
 
 /**
  * @swagger
@@ -284,9 +295,10 @@ app.post('/api/v1/category', authentication.verifyUser, authentication.verifyAdm
  *     responses:
  *       200:
  *         description: Available categories are displayed
- */ 
+ */
 // route for displaying all categories
-app.get('/api/v1/category', authentication.verifyUser, authentication.verifyAdmin, categoriesController.list);
+app.get('/api/v1/category',
+  authentication.verifyUser, categoriesController.list);
 
 
 /**
@@ -308,9 +320,10 @@ app.get('/api/v1/category', authentication.verifyUser, authentication.verifyAdmi
  *     responses:
  *       200:
  *         description: Available books in this are displayed
- */ 
-//route for displaying all the books by categories
-app.get('/api/v1/category/:id', authentication.verifyUser, categoriesController.display);
+ */
+// route for displaying all the books by categories
+app.get('/api/v1/category/:id',
+  authentication.verifyUser, categoriesController.display);
 
 /**
  * @swagger
@@ -331,10 +344,11 @@ app.get('/api/v1/category/:id', authentication.verifyUser, categoriesController.
  *     responses:
  *       201:
  *         description: Successfully created
- */ 
+ */
 
 // route for adding a book
-app.post('/api/v1/books', authentication.verifyUser, authentication.verifyAdmin, booksController.addBook );
+app.post('/api/v1/books', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.addBook);
 
 /**
  * @swagger
@@ -355,10 +369,11 @@ app.post('/api/v1/books', authentication.verifyUser, authentication.verifyAdmin,
  *     responses:
  *       200:
  *         description: Successfully updated
- */ 
+ */
 
 // route for modifying book information
-app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.modify);
+app.put('/api/v1/books/:id', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.modify);
 
 /**
  * @swagger
@@ -379,10 +394,16 @@ app.put('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdm
  *     responses:
  *       200:
  *         description: Successfully updated
- */ 
+ */
 
 // route for deleting a book
-app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verifyAdmin, booksController.remove)
+app.delete('/api/v1/books/:id', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.remove);
+
+// route for getting a books detail
+app.get('/api/v1/books/:id',
+  authentication.verifyUser, booksController.viewBook);
+
 /**
  * @swagger
  * /books:
@@ -402,7 +423,7 @@ app.delete('/api/v1/books/:id', authentication.verifyUser, authentication.verify
  *     responses:
  *       200:
  *         description: Available books are displayed
- */ 
+ */
 // displays allbooks in the library
 app.get('/api/v1/books', authentication.verifyUser, booksController.list);
 
@@ -428,7 +449,8 @@ app.get('/api/v1/books', authentication.verifyUser, booksController.list);
  */
 
 // borrows a book and saves to history of a user
-app.post('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.borrow);
+app.post('/api/v1/users/:userId/books',
+  authentication.verifyUser, historiesController.borrow);
 
 /**
  * @swagger
@@ -450,8 +472,9 @@ app.post('/api/v1/users/:userId/books', authentication.verifyUser, historiesCont
  *       200:
  *         description: book returned
  */
-//returns a book to the library
-app.put('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.modify);
+// returns a book to the library
+app.put('/api/v1/users/:userId/books',
+  authentication.verifyUser, historiesController.modify);
 
 /**
  * @swagger
@@ -473,8 +496,9 @@ app.put('/api/v1/users/:userId/books', authentication.verifyUser, historiesContr
  *       200:
  *         description: book returned
  */
-//displays history
-app.get('/api/v1/users/:userId/books', authentication.verifyUser, historiesController.list);
+// displays history
+app.get('/api/v1/users/:userId/books',
+  authentication.verifyUser, historiesController.list);
 
 /**
 * @swagger
@@ -496,8 +520,9 @@ app.get('/api/v1/users/:userId/books', authentication.verifyUser, historiesContr
 *       200:
 *         description: books not returned displayed
 */
-//displays the books user has not returned
-app.get('/api/v1/users/:userId/books?returned=false', authentication.verifyUser, historiesController.list);
+// displays the books user has not returned
+app.get('/api/v1/users/:userId/books?returned=false',
+  authentication.verifyUser, historiesController.list);
 
 /**
 * @swagger
@@ -519,11 +544,8 @@ app.get('/api/v1/users/:userId/books?returned=false', authentication.verifyUser,
 *       200:
 *         description: notifications displayed
 */
-//displays notifications
-app.get('/api/v1/notifications', authentication.verifyUser, authentication.verifyAdmin, notificationsController.list);
-
-app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to booksville',
-}));
+// displays notifications
+app.get('/api/v1/notifications', authentication.verifyUser,
+  authentication.verifyAdmin, notificationsController.list);
 
 export default app;

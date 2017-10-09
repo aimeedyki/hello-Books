@@ -1,21 +1,43 @@
-import { AUTH_USER,  
-    UNAUTH_USER,
-    AUTH_ERROR,
-    PROTECTED_TEST } from '../actions/types';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  CLEAR_ERROR,
+  UNAUTH_USER
+} from '../actions/types';
 
-const INITIAL_STATE = { error: '', message: '', content: '', authenticated: false}
+const initialState = { error: '', message: '', authenticated: false, user: {} };
+/** reducers for authentication component
+ * @export
+ * @param {any} [state=initialState]
+ * @param {any} action
+ * @returns {*} state
+ */
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case AUTH_USER:
+      return {
+        ...state,
+        user: action.user,
+        authenticated: true
+      };
+    case UNAUTH_USER:
+      return {
+        ...state,
+        user: {},
+        authenticated: false
+      };
+    case AUTH_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: ''
+      };
 
-export default function (state = INITIAL_STATE, action) {  
-switch(action.type) {
-case AUTH_USER:
- return { ...state, error: '', message: '', authenticated: true };
-case UNAUTH_USER:
- return { ...state, authenticated: false };
-case AUTH_ERROR:
- return { ...state, error: action.payload };
-case PROTECTED_TEST:
- return { ...state, content: action.payload };
-}
-
-return state;
-}
+    default:
+      return state;
+  }
+};

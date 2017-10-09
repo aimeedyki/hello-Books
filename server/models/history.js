@@ -1,6 +1,6 @@
 
-export default (sequelize, DataTypes)=> {
-  //Defines History attributes
+export default (sequelize, DataTypes) => {
+  // Defines History attributes
   const History = sequelize.define('History', {
     expectedDate: DataTypes.DATE,
     returnedDate: DataTypes.DATE,
@@ -13,10 +13,10 @@ export default (sequelize, DataTypes)=> {
         msg: 'Please enter bookId',
       },
     }
-  })
+  });
 
   // Defines associations to book and user models
-  History.associate= (models) => {
+  History.associate = (models) => {
     History.belongsTo(models.Book, {
       as: 'book',
       foreignKey: 'bookId',
