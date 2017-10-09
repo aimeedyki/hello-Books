@@ -4,7 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'eval',
-
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   entry: [
     'webpack-hot-middleware/client',
     './client/src/index.jsx'

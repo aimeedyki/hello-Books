@@ -18,20 +18,18 @@ export default (ComposedComponent) => {
         this.props.history.push('/');
       }
     }
-
     /** @returns {*} void
-     * @param {any} nextProps 
-     * @memberof Authentication
-     */
+         * @param {any} nextProps 
+         * @memberof Authentication
+         */
     componentWillUpdate(nextProps) {
       if (nextProps.authenticated === false) {
         this.props.history.push('/');
       }
     }
-
     /** @returns {object} component
-     * @memberof Authentication
-     */
+         * @memberof Authentication
+         */
     render() {
       return <ComposedComponent {...this.props} />;
     }

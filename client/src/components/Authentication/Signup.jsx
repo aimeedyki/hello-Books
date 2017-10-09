@@ -9,7 +9,6 @@ import 'materialize-css';
 import { signupUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
-
 /** sign up form
  * @class Signup
  * @extends {Component}
@@ -28,49 +27,44 @@ class Signup extends Component {
       password: '',
       confirmpassword: '',
       level: '',
-
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
   }
-
   /** sets the state to the value of the field
-   * @returns {*} void
-   * @param {any} event 
-   * @memberof Signup
-   */
+     * @returns {*} void
+     * @param {any} event
+     * @memberof Signup
+     */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
   /** sets the state of the level to the value of the select field
-   * @returns {*} void
-   * @param {any} event 
-   * @memberof Signup
-   */
+     * @returns {*} void
+     * @param {any} event
+     * @memberof Signup
+     */
   handleSelectChange(event) {
     event.preventDefault();
     this.setState({ level: event.target.value });
   }
-
   /** starts the method that displays error messages
-   * @returns {*} void
-   * @param {any} prevProps 
-   * @memberof Signup
-   */
+     * @returns {*} void
+     * @param {any} prevProps
+     * @memberof Signup
+     */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
       this.renderAlert();
     }
   }
-
   /** signs up a user when form is submitted
-    * @returns {*} void
-    * @param {any} event 
-    * @memberof Signup
-    */
+      * @returns {*} void
+      * @param {any} event
+      * @memberof Signup
+      */
   handleFormSubmit(event) {
     event.preventDefault();
     if (this.state.password === this.state.confirmpassword) {
@@ -85,11 +79,10 @@ class Signup extends Component {
       Materialize.toast('Passwords do not match', 4000);
     }
   }
-
   /** displays error message
-   * @returns {string} error message
-   * @memberof Signup
-   */
+     * @returns {string} error message
+     * @memberof Signup
+     */
   renderAlert() {
     if (this.props.errorMessage) {
       return (
@@ -99,11 +92,10 @@ class Signup extends Component {
       );
     }
   }
-
   /** renders signup form 
-   * @returns {*} signup component
-   * @memberof Signup
-   */
+     * @returns {*} signup component
+     * @memberof Signup
+     */
   render() {
     return (
       <div className='row' >

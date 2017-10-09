@@ -7,13 +7,12 @@ import { connect } from 'react-redux';
 import { signinUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
-
 /** @class Login
  * @extends {Component}
  */
 class Login extends Component {
   /** Creates an instance of Login.
-   * @param {any} props 
+   * @param {any} props
    * @memberof Login
    */
   constructor(props) {
@@ -25,32 +24,29 @@ class Login extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
   /** sets changed field to state
-   * @returns {*} void
-   * @param {any} event 
-   * @memberof Login
-   */
+     * @returns {*} void
+     * @param {any} event
+     * @memberof Login
+     */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
   /** calls the function to display error if there is an error
-   * @returns {*} void
-   * @param {any} prevProps 
-   * @memberof Login
-   */
+     * @returns {*} void
+     * @param {any} prevProps 
+     * @memberof Login
+     */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
       this.renderAlert();
     }
   }
-
   /** submits the login form
-   * @returns {*} void
-   * @param {any} event 
-   * @memberof Login
-   */
+     * @returns {*} void
+     * @param {any} event
+     * @memberof Login
+     */
   handleFormSubmit(event) {
     event.preventDefault();
     this.props.signinUser(this.state).then((res) => {
@@ -61,11 +57,10 @@ class Login extends Component {
       }
     }).catch(error => res.status(500).send(error.message));
   }
-
   /** displays error
-   * @returns {string} error message
-   * @memberof Login
-   */
+     * @returns {string} error message
+     * @memberof Login
+     */
   renderAlert() {
     if (this.props.errorMessage) {
       return (
@@ -75,11 +70,10 @@ class Login extends Component {
       );
     }
   }
-
   /** renders login form component
-   * @returns {*} void
-   * @memberof Login
-   */
+     * @returns {*} void
+     * @memberof Login
+     */
   render() {
     return (
       <div className="row">
@@ -126,14 +120,12 @@ class Login extends Component {
     );
   }
 }
-
 Login.PropTypes = {
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   signinUser: PropTypes.func,
   clearErrorMessage: PropTypes.func
 };
-
 const mapStateToProps = state => ({
   errorMessage: state.auth.error
 });

@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import backpic from '../../assets/images/booksbw2.jpg';
-
-
 /** side navigation on the user page
  * @export
  * @class Sidenav
@@ -23,7 +21,7 @@ export default class Sidenav extends Component {
     });
   }
   /** displays side navigation on user page 
-   * @returns {*} side nav 
+   * @returns {*} side nav
    * @memberof Sidenav
    */
   render() {
