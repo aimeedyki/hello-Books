@@ -8,7 +8,7 @@
     "server": "node server.js",
     "client": "node start-client.js",
     "start:dev": "nodemon server/app.js --exec babel-node server/app.js",
-    "start": "babel-node app.js",
+    "start": "babel-node server/app.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "start2": "node ./client/src/app.js",
     "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
