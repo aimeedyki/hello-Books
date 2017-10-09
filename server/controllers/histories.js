@@ -2,8 +2,8 @@ import { Book, History, Notification, User } from '../models';
 
 export default {
   /**  user borrows a book and creates a history record
-     * @param {any} req 
-     * @param {any} res 
+     * @param {any} req
+     * @param {any} res
      * @returns {object} history
      */
   borrow(req, res) {
@@ -55,8 +55,8 @@ export default {
       .catch(error => res.status(400).send(error.message));
   },
   /** returns the book by updating the history with return date
-     * @param {any} req 
-     * @param {any} res 
+     * @param {any} req
+     * @param {any} res
      * @returns {object} book
      */
   modify(req, res) {
@@ -86,8 +86,8 @@ export default {
       .catch(error => res.status(400).send(error.message));
   },
   /** displays user history
-   * @param {any} req 
-   * @param {any} res 
+   * @param {any} req
+   * @param {any} res
    * @returns {object} users' history
    */
   list(req, res) {
@@ -110,5 +110,4 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
-
 };

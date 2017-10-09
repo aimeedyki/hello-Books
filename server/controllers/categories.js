@@ -15,12 +15,11 @@ export default {
       .then(categories => res.status(201).send(categories))
       .catch(error => res.status(400).send(error));
   },
-
   /** displays all categories
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} categories
-   */
+    * @param {any} req
+    * @param {any} res
+    * @returns {object} categories
+    */
   list(req, res) {
     return Category
       .all()
@@ -30,12 +29,11 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
-
   /** displays categories with the books in them
-   * @param {any} req 
-   * @param {any} res 
-   * @returns {object} books
-   */
+     * @param {any} req
+     * @param {any} res
+     * @returns {object} books
+     */
   display(req, res) {
     return Category
       .findById(req.params.id, {
