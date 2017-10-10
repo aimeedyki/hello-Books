@@ -183,6 +183,7 @@ export const borrowBook = (bookId, userId) => (
         dispatch({
           type: BORROW_BOOK
         });
+        return true;
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR);

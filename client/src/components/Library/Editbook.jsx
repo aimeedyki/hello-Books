@@ -36,6 +36,7 @@ class Editbook extends Component {
     this.renderAlert = this.renderAlert.bind(this);
     this.setBookDetails = this.setBookDetails.bind(this);
     this.getBookId = this.getBookId.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
   /** gets the categories in the library
      *  @returns {*} void
@@ -139,6 +140,12 @@ class Editbook extends Component {
     const id = stringArray[2];
     this.bookId = id;
   }
+  /** @returns {*} void
+   * @memberof Editbook
+   */
+  onCancel() {
+    this.props.history.push('/user');
+  }
   /** @returns {*} component that edits a book
    * @memberof Editbook
    */
@@ -146,74 +153,91 @@ class Editbook extends Component {
     const { book } = this.props;
     return (
       <div className='row'>
-        <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l3 '>
+        <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l4'>
           <div className='card row'>
-            <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
-              <h5 className='center indigo-text text-darken-2'>EDIT BOOK</h5>
-              <form onSubmit={this.handleFormSubmit}>
-                <div className='row'>
+            <div className='margin-fix col s10 m8 l8 offset-s1 offset-l2'>
+              <h5 className='center indigo-text text-darken-2'>
+                <b>Edit Book</b></h5>
+              <form onSubmit={this.handleFormSubmit} >
+                <div className='row edit-form'>
                   <div className='input-field col s12'>
-                    <input placeholder='Title' name='title'
-                      type='text' className='validate'
-                      onChange={this.handleChange}
+                    <div className='col s3'>
+                      <p>Title</p>
+                    </div>
+                    <div className='col s9'>
+                      <input name='title'
+                        type='text' className='validate'
+                        onChange={this.handleChange}
 
-                      value={this.state.title}
-                      required
-                    />
-                    <label>Title</label>
+                        value={this.state.title}
+                        required
+                      />
+                    </div>
                   </div>
                   <div className='input-field col s12'>
-                    <input placeholder='Author' name='author'
-                      type='text' className='validate'
-                      onChange={this.handleChange}
+                    <div className='col s3'>
+                      <p>Author</p>
+                    </div>
+                    <div className='col s9'>
+                      <input name='author'
+                        type='text' className='validate'
+                        onChange={this.handleChange}
 
-                      value={this.state.author}
-                      required
-                    />
-                    <label>Author</label>
+                        value={this.state.author}
+                        required
+                      />
+                    </div>
                   </div>
                   <div className='input-field col s12'>
-                    <input placeholder='Description' name='description'
-                      type='text' className='validate'
-                      onChange={this.handleChange}
+                    <div className='col s3'>
+                      <p>Description</p>
+                    </div>
+                    <div className='col s9'>
+                      <input name='description'
+                        type='text' className='validate'
+                        onChange={this.handleChange}
 
-                      value={this.state.description}
-                      required
-                    />
-                    <label>Description</label>
+                        value={this.state.description}
+                        required
+                      />
+                    </div>
                   </div>
                   <div className='input-field col s12'>
-                    <input placeholder='Quantity' name='quantity'
-                      type='text' className='validate'
+                    <div className='col s3'>
+                      <p>Quantity</p>
+                    </div>
+                    <div className='col s9'>
+                      <input name='quantity'
+                        type='text' className='validate'
 
-                      onChange={this.handleChange}
-                      value={this.state.quantity}
-                      required
-                    />
-                    <label>Quantity</label>
+                        onChange={this.handleChange}
+                        value={this.state.quantity}
+                        required
+                      />
+                    </div>
                   </div>
-                  <select ref='category' id='category'
-                    className='browser-default indigo-text text-darken-2'
-                    onChange={this.handleSelectChange}
-                    value={this.state.value}
-                    required>
-                    {this.props.categories.map(category => (
-                      (
-                        <option key={category.id} value={category.id}>
-                          {category.category}</option>
+                  <div className='col s3'>
+                    <p>Category</p>
+                  </div>
+                  <div className='col s9'>
+                    <select ref='category' id='category'
+                      className='browser-default indigo-text text-darken-2'
+                      onChange={this.handleSelectChange}
+                      value={this.state.value}
+                      required>
+                      {this.props.categories.map(category => (
+                        (
+                          <option key={category.id} value={category.id}>
+                            {category.category}</option>
+                        )
                       )
-                    )
-                    )}
-                  </select>
-                  <label>Change level</label>
+                      )}
+                    </select>
+                  </div>
                 </div>
                 <div className='row'>
-                  <div className='col s5 m4 l4 offset-l2 offset-m2'>
+                  <div className='center'>
                     <Button type='submit' name='action' label='SAVE CHANGES' />
-                  </div>
-                  <div className='col s5 m4 l4'>
-                    <Button type='reset' icon='cancel'
-                      name='action' label='CANCEL' />
                   </div>
                 </div>
               </form>

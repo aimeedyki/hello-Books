@@ -47,7 +47,7 @@ export default class Sidenav extends Component {
               <a><img className='circle'
                 src={this.props.levelIcon} alt='level icon' /></a>
               <a><span className='col s10 white-text name'>
-                @{this.props.username}</span></a>
+                Hello {this.props.username}!</span></a>
               <Link to='/user/profile'><span><i
                 className="col s2 material-icons">
                 settings</i></span></Link>

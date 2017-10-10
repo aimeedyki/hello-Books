@@ -39,7 +39,6 @@ class Profile extends Component {
     this.imageChange = this.imageChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.uploadPic = this.uploadPic.bind(this);
-    this.changePhoto = this.changePhoto.bind(this);
   }
 
   /** @returns {*} userdetails
@@ -149,22 +148,24 @@ class Profile extends Component {
           </div>
           <div className='row margin-fix'>
             <div className='col s12'>
-              <div className='col s6 details'><h6>Level</h6></div>
+              <div className='col s6 details-left'><h6>Level</h6></div>
               <div className='col s6 details'><p><c>{level}</c></p></div>
             </div>
             <div className='col s12'>
-              <div className='col s6 details'><h6>Email</h6></div>
+              <div className='col s6 details-left'><h6>Email</h6></div>
               <div className='col s6 details'><p><c>{email}</c></p></div>
             </div>
-            <div className='col s6 details'><h6>Maximum books allowed</h6></div>
-            <div className='col s6 details-right'><p><c>{max}</c></p></div>
-            <div className='col s6 details'><h6>Maximum returns days</h6></div>
-            <div className='col s6 details-right'><p><c>{max}</c></p></div>
+            <div className='col s6 details-left'>
+              <h6>Maximum books allowed</h6></div>
+            <div className='col s6 details'><p><c>{max}</c></p></div>
+            <div className='col s6 details-left'>
+              <h6>Maximum returns days</h6></div>
+            <div className='col s6 details'><p><c>{max}</c></p></div>
           </div>
           <div className='row'>
             <div className='col s9'>
               <div className=' row file-field input-field'>
-                <div className='col l5 btn indigo darken-2'>
+                <div className='col l8 btn indigo darken-2'>
                   <span>Change photo</span>
                   <input type='file' onChange={this.imageChange}
                     name='imageFile' />

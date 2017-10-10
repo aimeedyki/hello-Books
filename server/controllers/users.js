@@ -41,10 +41,10 @@ export default {
         res.status(201).send({ userDetails, token });
       })
 
-      .catch(() =>
-        res.status(422).json({
-          // message: error.errors[0].message,
-          // errorField: error.errors[0].path
+      .catch(error =>
+        res.status(422).status({
+          message: error.errors[0].message,
+          errorField: error.errors[0].path
         })
       );
   },
