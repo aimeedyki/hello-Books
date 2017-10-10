@@ -164,7 +164,7 @@ class Signup extends Component {
                 </div>
                 <p className='center indigo-text text-darken-2'>
                   Already registered? Please login
-                  <Link to='/login'>here</Link></p>
+                  <Link to='/login'> here</Link></p>
               </form>
             </div>
           </div>

@@ -39,6 +39,7 @@ class Profile extends Component {
     this.imageChange = this.imageChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.uploadPic = this.uploadPic.bind(this);
+    this.changePhoto = this.changePhoto.bind(this);
   }
 
   /** @returns {*} userdetails
@@ -138,55 +139,53 @@ class Profile extends Component {
       (profileImage = this.setLevelIcon(level)) : profileImage = profilepic;
     return (
       <div className='row'>
-        <div className='card l6 offset-l4'>
-          <div className='col s8 offset-s2'>
-            <div className='center white-text'>
+        <div className='card center col l4 offset-l5'>
+          <div className='indigo darken-2'>
+            <div className='user'>
               <img className='circle photo'
                 src={profileImage} alt='profile photo' />
-              <div className='row margin-fix'>
-                <div className='col s6 details'>
-                  <div><h6>Username</h6></div>
-                  <div><p><c>{username}</c></p></div>
-                </div>
-                <div className='col s6 details'>
-                  <div><h6>Level</h6></div>
-                  <div><p><c>{level}</c></p></div>
-                </div>
-                <div className='col s12 center details'>
-                  <div><h6>Email</h6></div>
-                  <div><p><c>{email}</c></p></div>
-                </div>
-                <div className='col s6 details'>
-                  <div><h6>Maximum books allowed</h6></div>
-                  <div><p><c>{max}</c></p></div>
-                </div>
-                <div className='col s6 details'>
-                  <div><h6>Maximum returns days</h6></div>
-                  <div><p><c>{max}</c></p></div>
-                </div>
-              </div>
+              <h5 >{username}</h5>
+            </div>
+          </div>
+          <div className='row margin-fix'>
+            <div className='col s12'>
+              <div className='col s6 details'><h6>Level</h6></div>
+              <div className='col s6 details'><p><c>{level}</c></p></div>
+            </div>
+            <div className='col s12'>
+              <div className='col s6 details'><h6>Email</h6></div>
+              <div className='col s6 details'><p><c>{email}</c></p></div>
+            </div>
+            <div className='col s6 details'><h6>Maximum books allowed</h6></div>
+            <div className='col s6 details-right'><p><c>{max}</c></p></div>
+            <div className='col s6 details'><h6>Maximum returns days</h6></div>
+            <div className='col s6 details-right'><p><c>{max}</c></p></div>
+          </div>
+          <div className='row'>
+            <div className='col s9'>
               <div className=' row file-field input-field'>
-                <div className='col l5 btn white indigo-text text-darken-2'>
+                <div className='col l5 btn indigo darken-2'>
                   <span>Change photo</span>
                   <input type='file' onChange={this.imageChange}
                     name='imageFile' />
                 </div>
-                <div className='col l5 file-path-wrapper'>
+                <div className='col l4 file-path-wrapper'>
                   <input className='file-path validate' type='text' />
                 </div>
-                <a onClick={this.uploadPic}
-                  className='btn-floating btn-large waves-effect waves-light'
-                  className=' black'>
-                  <i className='material-icons left'>save</i></a>
-
-              </div>
-              <div>
-                <a onClick={this.handlePassword}>Change password?</a>
-              </div>
-              <div className='levelLink'>
-                <a onClick={this.handleLevel}>Want a new Level?</a>
               </div>
             </div>
+            <div className='col s3'>
+              <a onClick={this.uploadPic}
+                className='btn-floating btn-large waves-effect waves-light'
+                className=' black'>
+                <i className='material-icons medium left'>send</i></a>
+            </div>
+          </div>
+          <div>
+            <a onClick={this.handlePassword}>Change password?</a>
+          </div>
+          <div className='levelLink'>
+            <a onClick={this.handleLevel}>Want a new Level?</a>
           </div>
         </div>
       </div>
