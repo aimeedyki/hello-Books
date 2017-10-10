@@ -18,6 +18,7 @@ import Addcategory from './Library/Addcategory.jsx';
 import Useractivity from './Profile/Useractivity.jsx';
 import Editbook from './Library/Editbook.jsx';
 import Upgrade from './Profile/Upgrade.jsx';
+import Picture from './Profile/Picture.jsx';
 
 import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
@@ -107,6 +108,7 @@ class Userpage extends Component {
             <Route path='/user/:id/edit-book' component={Editbook} />
             <Route path='/user/category' component={Addcategory} />
             <Route path='/user/new-level' component={Upgrade} />
+            <Route path='user/change-photo' component={Picture} />
           </Switch>
         </div>
       </div>

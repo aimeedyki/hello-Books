@@ -89,8 +89,7 @@ class ChangePassword extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='col s10 m8 l4 offset-s1 offset-m2 offset-l5'
-          className='card profile'>
+        <div className='card profile col s10 l4 offset-s1 offset-l5'>
           <form onSubmit={this.handleFormSubmit}>
             <div className='row'>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
