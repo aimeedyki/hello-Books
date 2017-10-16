@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import { logoutUser } from '../../actions/authAction';
 
-
 /** displays the top navigation of the user page
  * @class Topnav
  * @extends {Component}
@@ -37,19 +36,20 @@ class Topnav extends Component {
       <div className='row'>
         <div className="col s12 navbar-fixed white">
           <nav>
-            <div className="nav-wrapper white">
+            <div className="nav-wrapper white user-logo">
               <a href="#!"
-                className="brand-logo left col l3 offset-l2"
-                className=" indigo-text text-darken-2">
+                className="brand-logo left col l3 offset-l2">
                 <b>Booksville</b></a>
               <ul className="right">
-                <li>
+                {/* <li>
                   <h5 className='indigo-text text-darken-2 hello'>
                     Hello {this.props.username}!</h5>
-                  <div className="row valign-wrapper">
+                </li> */}
+                <li>
+                  <div className="row valign-wrapper level-icon">
                     <div className='col s4 m5 l5'>
                       <img className='circle level-icon responsive-img'
-                        src={this.props.levelicon} />
+                        src={this.props.levelIcon} />
                     </div>
                   </div>
                 </li>

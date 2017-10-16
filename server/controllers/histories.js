@@ -97,6 +97,7 @@ export default {
           model: Book,
           as: 'book',
           attributes: ['title'],
+          paranoid: false
         }],
         where: whereClause
       })

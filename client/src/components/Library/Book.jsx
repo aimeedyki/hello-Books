@@ -75,6 +75,7 @@ class Book extends Component {
       this.props.borrowBook(id, userId).then((res) => {
         if (res) {
           Materialize.toast('Thank you for borrowing!!', 4000);
+          window.location.reload();
         }
       }).catch(error => res.status(500).send(error.message));
     }

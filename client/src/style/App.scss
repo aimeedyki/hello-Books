@@ -124,22 +124,34 @@ c{
   margin-bottom: 10%;
   margin-top: 10%;
 }
-
+.level-icon{
+  margin-top: 10%;
+}
+.level-icon img{
+  margin-top: 10%;
+  max-height: 40px !important;
+  max-width: 40px !important;
+}
+.user-logo a{
+  color: #303f9f;
+}
 .photo{
-  border: 4px solid #303f9f;
+  border: 4px solid white;
   max-height: 200px !important;
   max-width: 200px !important;
   margin-top: 8%;
 }
 
-// .details{
-//  text-align: right;
-// }
+.details-left{
+  margin-top: 2%;
+}
 
-// .details-right{
-//   text-align: left;
-//  }
+.edit-form p{
+  color: #303f9f;
+}
  
 .link-cursor{
   cursor: pointer !important;
 }
+
+

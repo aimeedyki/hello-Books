@@ -35,14 +35,18 @@ class Bookcategory extends Component {
   render() {
     return (
       <div className='row'>
-        {this.props.books.map(book => (
-          <div key={book.id}>
-            <Book image={generic} title={book.title}
-              author={book.author} category={book.category}
-              description={book.description} status={book.status}
-              id={book.id} quantity={book.quantity} />
-          </div>
-        )
+        {this.props.books.map((book) => {
+          let image = book.image;
+          if (image === '' || image === null) { image = generic; }
+          return (
+            <div key={book.id}>
+              <Book image={image} title={book.title}
+                author={book.author} category={book.category}
+                description={book.description} status={book.status}
+                id={book.id} quantity={book.quantity} />
+            </div>
+          );
+        }
         )}
       </div>
     );
