@@ -114,7 +114,7 @@ class Editprofile extends Component {
         <div className='card col s10 m8 l6 offset-s1 offset-m2 offset-l4'
           className='profile'>
           <div className="center">
-            <h5 className='indigo-text text-darken-2'>PROFILE SETTINGS</h5>
+            <h5 className='indigo-text text-darken-2'>Profile Settings</h5>
             <img className="circle" src='' alt="profile photo" />
           </div>
           <form>

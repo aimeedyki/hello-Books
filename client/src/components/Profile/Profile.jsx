@@ -82,6 +82,7 @@ class Profile extends Component {
         if (res) {
           /* eslint-disable no-undef */
           Materialize.toast('Profile picture changed successfully!!', 4000);
+          window.location.reload();
         }
       });
   }

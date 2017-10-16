@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, withRouter, } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { displayUserpage } from '../../actions/userAction';
+import { getCategories } from '../../actions/bookAction';
 
 import backpic from '../../assets/images/booksbw2.jpg';
 /** side navigation on the user page
@@ -8,8 +11,16 @@ import backpic from '../../assets/images/booksbw2.jpg';
  * @class Sidenav
  * @extends {Component}
  */
-export default class Sidenav extends Component {
+class Sidenav extends Component {
   /* eslint-disable class-methods-use-this */
+  /** calls methods that gets all categories
+ * @returns {*} void
+ * @memberof Tab
+ */
+  componentWillMount() {
+    this.props.getCategories();
+    this.props.displayUserpage();
+  }
   /** @returns {*} void
    * @memberof Sidenav
    */
@@ -62,10 +73,42 @@ export default class Sidenav extends Component {
           <li><NavLink to='/user/notreturned' className='white-text'>
             OUTSTANDING</NavLink></li>
           {adminLinks}
+          {/* <div className='white'>
+            <h5 className='center indigo-text text-darken-2'>Categories</h5>
+            <ul className='center'>
+              <li >
+                <a className='indigo-text text-darken-2' href='#all'>
+                  ALL</a></li>
+              {this.props.categories.map(category => (
+                (
+                  <li key={category.id}>
+                    <a className='indigo-text text-darken-2' onClick={() => {
+                      this.handleClick(category.id, category.category);
+                    }} href={`#${category.category}`}>
+                      {category.category}</a></li>)
+              )
+              )}
+            </ul>
+          </div> */}
         </ul>
-        <a href='#' data-activates='slide-out' className='button-collapse'>
+        <a href='#' data-activates='slide-out'
+          className='button-collapse fixed'>
           <i className='material-icons'>menu</i></a>
       </div>
     );
   }
 }
+
+// function to connect the state from the store to the props of the component
+const mapStateToProps = (state) => {
+  const { user } = state.userReducer;
+  return {
+    categories: state.bookReducer.categories,
+    user
+  };
+};
+
+// connects the state from the store to the props of the component
+export default connect(mapStateToProps, {
+  getCategories, displayUserpage
+})(withRouter(Sidenav));
