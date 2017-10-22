@@ -16,10 +16,6 @@ const app = express();
  *     properties:
  *       email:
  *         type: string
- *       firstname:
- *         type: string
- *       lastname:
- *         type: string
  *       username:
  *         type: string 
  *       password:
@@ -152,8 +148,20 @@ const app = express();
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: User
- *         description: User object
+ *       - name: email
+ *         description: users' email
+ *         in: body
+ *         required: true
+ *       - name: username
+ *         description: users' username
+ *         in: body
+ *         required: true
+ *       - name: levelId
+ *         description: input either 1,2, or 3
+ *         in: body
+ *         required: true
+ *       - name: password
+ *         description: users' password. should be up to 8 characters
  *         in: body
  *         required: true
  *         schema:
@@ -206,7 +214,7 @@ app.post('/api/v1/users/signin', authController.login);
  *         required: true
  *       - name: Authorization
  *         description: an authorization header
- *         in: body
+ *         in: header
  *         required: true
  *         schema:
  *           $ref: '#/definitions/Change'
@@ -218,6 +226,9 @@ app.post('/api/v1/users/signin', authController.login);
 // route to change password
 app.put('/api/v1/users/:id', authentication.verifyUser, authController.change);
 
+// route to get a level
+app.get('/api/v1/users/:id/level',
+  authentication.verifyUser, usersController.getLevel);
 
 // route to change level
 app.put('/api/v1/users/:id/level',
@@ -425,7 +436,7 @@ app.get('/api/v1/books/:id',
  *         description: Available books are displayed
  */
 // displays allbooks in the library
-app.get('/api/v1/books', authentication.verifyUser, booksController.list);
+app.get('/api/v1/books/', authentication.verifyUser, booksController.list);
 
 /**
  * @swagger

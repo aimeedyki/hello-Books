@@ -11,7 +11,12 @@ module.exports = {
     'webpack-hot-middleware/client',
     './client/src/index.jsx'
   ],
-
+  node: {
+    dns: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
   output: {
     path: path.join(__dirname, 'client/public/js'),
     filename: 'bundle.js',

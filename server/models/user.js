@@ -54,9 +54,9 @@ export default (sequelize, DataTypes) => {
 
       },
     },
-    level: {
+    levelId: {
       allownull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: {
           args: true,
@@ -64,16 +64,17 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
+    admin: DataTypes.BOOLEAN,
     profilepic: DataTypes.STRING,
-    max: DataTypes.INTEGER,
     borrowCount: DataTypes.INTEGER,
   }, {
-    hooks: {
+    hooks:
+    {
       beforeCreate: (user) => {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
-      },
-    },
+      }
+    }
   });
 
   // defines user associations
@@ -85,6 +86,10 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Notification, {
       foreignKey: 'id',
       as: 'Notifications',
+    });
+    User.belongsTo(models.Level, {
+      as: 'level',
+      foreignKey: 'levelId',
     });
   };
   return User;

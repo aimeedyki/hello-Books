@@ -1,66 +1,136 @@
 import { Book, Category } from '../models';
+import paginate from '../middleware/book';
 
 export default {
-  /** adds a book
-   * @param {any} req
-   * @param {any} res
+  /** @description adds a book
+   * @param {any} req HTTP request object
+   * @param {any} res HTTP response object
    * @returns {object} book
    */
   addBook(req, res) {
-    return Book.find({ where: { title: req.body.title } })
-      .then((book) => {
-        if (book) {
-          return res.status(409)
-            .send({ message: 'Book already exists in this Library' });
-        }
-        Book.create({
-          title: req.body.title,
-          author: req.body.author,
-          image: req.body.image,
-          description: req.body.description,
-          quantity: req.body.quantity,
-          categoryId: req.body.categoryId,
-        });
-        res.status(201).send(book);
+    const title = req.body.title || null;
+    const author = req.body.author || null;
+    const description = req.body.description || null;
+    const quantity = req.body.quantity || null;
+    const categoryId = req.body.categoryId || null;
+    const image = req.body.image || null;
+
+    if (title === null) {
+      return res.status(400).send({
+        message: 'Please enter book title'
+      });
+    }
+    if (author === null) {
+      return res.status(400).send({
+        message: 'Please enter author'
+      });
+    }
+    if (description === null) {
+      return res.status(400).send({
+        message: 'Please enter a description'
+      });
+    }
+    if (quantity === null) {
+      return res.status(400).send({
+        message: 'Please enter quantity'
+      });
+    }
+    if (categoryId === null) {
+      return res.status(400).send({
+        message: 'Please enter category'
+      });
+    }
+    Category.findOne({
+      where: {
+        id: categoryId
+      }
+    }).then((foundCategory) => {
+      if (!foundCategory) {
+        return res.status(404)
+          .send({ message: 'Category does not exist' });
+      }
+      Book.findOne({
+        where: {
+          $and: [{
+            title
+          }, { author }] }
       })
+        .then((book) => {
+          if (book) {
+            return res.status(409)
+              .send({ message: 'Book already exists in this Library' });
+          }
+          Book.create({
+            title,
+            author,
+            image,
+            description,
+            quantity,
+            categoryId,
+          }).then((createdBook) => {
+            res.status(201).send({ createdBook });
+          })
+            .catch(error => res.status(500).send(error.message));
+        })
+        .catch(error => res.status(500).send(error.message));
+    })
       .catch(error => res.status(500).send(error.message));
   },
-  /** modifies book
-   * @param {any} req
-   * @param {any} res
+  /** @description modifies book
+   * @param {any} req HTTP request object
+   * @param {any} res HTTP response object
    * @returns {object} book
    */
   modify(req, res) {
-    return Book.findById(req.params.id)
+    const bookId = parseInt(req.params.id, 10);
+    if (isNaN(bookId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid bookId'
+      });
+    }
+    Book.findById(bookId)
       .then((book) => {
         if (!book) {
           return res.status(404)
             .send({ message: 'Book does not exist in this Library' });
         }
-        Book.update({
+        book.update({
           title: req.body.title,
           image: req.body.image,
           description: req.body.description,
           quantity: req.body.quantity,
           categoryId: req.body.categoryId,
           author: req.body.author,
-        }, { where: { id: req.params.id }, returning: true, plain: true });
-        res.status(200).send(book);
+        })
+          .then((updatedBook) => {
+            res.status(200).send({ updatedBook });
+          })
+          .catch(error => res.status(500).send(error.message));
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
-  // displays all books
+
+  /** @description displays all books
+   * @param {any} req HTTP request object
+   * @param {any} res HTTP response object
+   * @returns {object} books
+   */
   list(req, res) {
-    return Book
-      .all({
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 8;
+    Book
+      .findAndCountAll({
         include: [{
           model: Category,
           as: 'category',
-          attributes: ['category'],
-        }]
+          attributes: ['name'],
+        }],
+        limit,
+        offset
       })
       .then((books) => {
-        const allBooks = { books };
+        const allBooks = {
+          books: books.rows, pagination: paginate(offset, limit, books) };
         res.status(200).send(allBooks);
       })
       .catch(error => res.status(400).send(error));
@@ -71,7 +141,19 @@ export default {
      * @returns {object} book
      */
   viewBook(req, res) {
-    return Book.findById(req.params.id)
+    const bookId = parseInt(req.params.id, 10);
+    if (isNaN(bookId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid bookId'
+      });
+    }
+    Book.findById(bookId, {
+      include: [{
+        model: Category,
+        as: 'category',
+        attributes: ['name'],
+      }]
+    })
       .then((book) => {
         if (!book) {
           return res.status(404)
@@ -88,12 +170,13 @@ export default {
    * @returns {object} book
    */
   remove(req, res) {
-    return Book
-      .find({
-        where: {
-          id: req.params.id,
-        },
-      })
+    const bookId = parseInt(req.params.id, 10);
+    if (isNaN(bookId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid bookId'
+      });
+    }
+    Book.findById(bookId)
       .then((book) => {
         if (!book) {
           return res.status(404).send({
@@ -104,8 +187,8 @@ export default {
           .destroy()
           .then(() => res.status(200)
             .send({ message: 'Book has been deleted', }))
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(500).send(error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
 };

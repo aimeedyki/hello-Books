@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const secret = process.env.SECRET || 'princess';
+const secret = process.env.SECRET;
 
 const authentication = {
   verifyUser: (req, res, next) => {
@@ -20,7 +20,7 @@ const authentication = {
   },
 
   verifyAdmin: (req, res, next) => {
-    if (req.decoded && req.decoded.level === 'admin') return next();
+    if (req.decoded && req.decoded.admin === true) return next();
     return res.status(401).send({ message: 'you are not an admin' });
   }
 };

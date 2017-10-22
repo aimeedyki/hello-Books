@@ -111,12 +111,10 @@ class Editbook extends Component {
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    this.props.modifyBook(this.state).then((res) => {
-      if (res) {
-        /* eslint-disable no-undef */
-        Materialize.toast('Book information has been modified!', 4000);
-        this.props.history.push('/user');
-      }
+    this.props.modifyBook(this.state).then(() => {
+      /* eslint-disable no-undef */
+      this.props.history.push('/user');
+      window.location.reload();
     });
   }
   /** @returns {string} error message
@@ -228,7 +226,7 @@ class Editbook extends Component {
                       {this.props.categories.map(category => (
                         (
                           <option key={category.id} value={category.id}>
-                            {category.category}</option>
+                            {category.name}</option>
                         )
                       )
                       )}

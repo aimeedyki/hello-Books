@@ -13,10 +13,6 @@ export default (sequelize, DataTypes) => {
         args: false,
         msg: 'Please enter book title',
       },
-      unique: {
-        args: true,
-        msg: 'This Book already exists',
-      },
       type: DataTypes.STRING,
       validate: {
         notEmpty: {

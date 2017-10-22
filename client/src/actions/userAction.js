@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 import {
   GET_USER,
   GET_HISTORY,
@@ -8,9 +9,13 @@ import {
   CHANGE_LEVEL,
   USER_ERROR,
   CHANGE_IMAGE,
-  DISPLAY_USER
+  DISPLAY_USER,
+  GET_LEVEL,
 } from './types';
-import { errorHandler } from './authAction';
+import { errorHandler,
+  clearErrorMessage,
+  setCurrentUser,
+  setAuthorizationToken } from './authAction';
 
 const API_URL = 'http://localhost:5000/api/v1';
 
@@ -95,6 +100,26 @@ export const passwordChange = (userId, oldPassword, newPassword) => (
         dispatch({
           type: CHANGE_PASSWORD,
         });
+        /* eslint-disable no-undef */
+        Materialize.toast('Password changed successfully!!', 4000);
+        window.location.reload();
+      })
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 4000, '', () => {
+          clearErrorMessage();
+        });
+      })
+  )
+);
+
+export const getUserLevel = id => (
+  dispatch => (
+    axios.get(`${API_URL}/users/${id}/level`)
+      .then((response) => {
+        dispatch({
+          type: GET_LEVEL,
+          payload: response.data.level
+        });
         return true;
       })
       .catch((error) => {
@@ -103,17 +128,34 @@ export const passwordChange = (userId, oldPassword, newPassword) => (
   )
 );
 
-export const changeLevel = (userId, newLevel) => (
+export const getUserUpdate = id => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}/level`, { newLevel })
+    axios.get(`${API_URL}/users/${id}`)
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        setAuthorizationToken(response.data.token);
+        dispatch(setCurrentUser(jwt.decode(response.data.token)));
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response.data, USER_ERROR);
+      })
+  )
+);
+
+export const changeLevel = (userId, levelId) => (
+  dispatch => (
+    axios.put(`${API_URL}/users/${userId}/level`, { levelId })
       .then(() => {
         dispatch({
           type: CHANGE_LEVEL,
         });
-        return true;
+        /* eslint-disable no-undef */
+        Materialize.toast('Level changed successfully!!', 4000);
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response.data, USER_ERROR);
+        Materialize.toast(error.response.data.message, 4000, '', () => {
+          clearErrorMessage();
+        });
       })
   )
 );
@@ -125,10 +167,13 @@ export const changePic = (userId, profilepic) => (
         dispatch({
           type: CHANGE_IMAGE,
         });
+        /* eslint-disable no-undef */
+        Materialize.toast('Profile picture changed successfully!!', 4000);
         return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response.data, USER_ERROR);
+        console.log(error.response);
+        errorHandler(dispatch, error.response, USER_ERROR);
       })
   )
 );

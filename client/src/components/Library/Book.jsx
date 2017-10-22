@@ -100,7 +100,7 @@ class Book extends Component {
   render() {
     // path to edit a book page
     const editPath = `/user/${this.props.id}/edit-book`;
-    const { userId, level } = this.props.user;
+    const { userId, admin } = this.props.user;
     let status;
     let adminButtons;
 
@@ -111,12 +111,12 @@ class Book extends Component {
       (status = 'UNAVAILABLE');
 
     // conditionally render buttons depending on user level
-    (level === 'admin') ? adminButtons = (
+    (admin) ? adminButtons = (
       <ul>
-        <li><Link to={editPath} className='btn-floating indigo darken-2'>
+        <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>
         <li><a onClick={() => { this.handleClick(this.props.id); }}
-          className='btn-floating indigo darken-2'>
+          className='btn-floating deleteColor'>
           <i className='material-icons'>delete</i></a></li>
       </ul>
     ) : adminButtons = '';
@@ -129,19 +129,19 @@ class Book extends Component {
             src={this.props.image} alt='book image' />
         </div>
         <div className='card-content'>
-          <span className='card-title activator grey-text text-darken-4'>
+          <span className='card-title activator indigo-text text-darken-2'>
             <i className='material-icons left'>
               more_vert</i>{this.props.title}</span>
         </div>
         <div className='card-reveal'>
-          <span className='card-title grey-text text-darken-4'>
+          <span className='card-title indigo-text text-darken-2'>
             {this.props.title}<i className='material-icons right'>
               close</i></span>
-          <h5>By {this.props.author}</h5>
+          <h6>By {this.props.author}</h6>
           <h6>{this.props.category}</h6>
           <p>{this.props.description}</p>
           <p>{status}</p>
-          <div className='fixed-action-btn'>
+          <div className='fixed-action-btn book-buttons'>
             <a onClick={() => { this.borrow(this.props.id, userId); }}
               className='btn-floating btn-large indigo darken-2'>RENT</a>
             {adminButtons}
@@ -154,7 +154,7 @@ class Book extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     user,
     errorMessage: state.bookReducer.error
@@ -163,5 +163,5 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  deleteBook, borrowBook, displayUserpage, clearErrorMessage
+  deleteBook, borrowBook, clearErrorMessage
 })(Book);

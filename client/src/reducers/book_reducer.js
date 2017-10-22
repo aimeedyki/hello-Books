@@ -10,7 +10,8 @@ import {
   GET_ABOOK,
   BORROW_BOOK,
   RETURN_BOOK,
-  CLEAR_ERROR
+  CLEAR_ERROR,
+  GET_PAGINATION
 } from '../actions/types';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   categories: [],
   bookCategory: {},
   editedbook: {},
-  book: {}
+  book: {},
+  pagination: {}
 };
 /** reducers for book components
  * @export
@@ -87,6 +89,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: ''
+      };
+    case GET_PAGINATION:
+      return {
+        ...state,
+        pagination: action.payload
       };
     default:
       return state;

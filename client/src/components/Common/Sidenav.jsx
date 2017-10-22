@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import { NavLink, Link, withRouter, } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { displayUserpage } from '../../actions/userAction';
 import { getCategories } from '../../actions/bookAction';
 
+import BookCategory from '../Library/Bookcategory.jsx';
 import backpic from '../../assets/images/booksbw2.jpg';
+
 /** side navigation on the user page
  * @export
  * @class Sidenav
@@ -19,7 +20,6 @@ class Sidenav extends Component {
  */
   componentWillMount() {
     this.props.getCategories();
-    this.props.displayUserpage();
   }
   /** @returns {*} void
    * @memberof Sidenav
@@ -39,14 +39,15 @@ class Sidenav extends Component {
     let adminLinks;
     /* eslint-disable no-unused-expressions */
     // conditionally render navigation links depending on user level
-    (this.props.level === 'admin') ? adminLinks = (
+    (this.props.user.admin === true) ? adminLinks = (
       <ul>
         <li><NavLink to='/user/notifications' className='white-text'>
-          NOTIFICATIONS</NavLink></li>
+          Notifications</NavLink></li>
         <li><NavLink to='/user/category' className='white-text'>
-          NEW CATEGORY</NavLink></li>
+          New Category</NavLink></li>
       </ul>
     ) : adminLinks = '';
+
     return (
       <div>
         <ul id='slide-out' className='side-nav fixed indigo darken-2'>
@@ -56,7 +57,7 @@ class Sidenav extends Component {
                 <img src={backpic} alt='background' />
               </div>
               <a><img className='circle'
-                src={this.props.levelIcon} alt='level icon' /></a>
+                src={this.props.profileImage} alt='level icon' /></a>
               <a><span className='col s10 white-text name'>
                 Hello {this.props.username}!</span></a>
               <Link to='/user/profile'><span><i
@@ -67,29 +68,25 @@ class Sidenav extends Component {
             </div>
           </li>
           <li><NavLink to='/user' className='white-text active'>
-            LIBRARY</NavLink></li>
+            Library</NavLink></li>
           <li><NavLink to='/user/history' className='white-text'>
-            HISTORY</NavLink></li>
+            History</NavLink></li>
           <li><NavLink to='/user/notreturned' className='white-text'>
-            OUTSTANDING</NavLink></li>
+            Outstanding</NavLink></li>
           {adminLinks}
-          {/* <div className='white'>
-            <h5 className='center indigo-text text-darken-2'>Categories</h5>
-            <ul className='center'>
-              <li >
-                <a className='indigo-text text-darken-2' href='#all'>
-                  ALL</a></li>
+          <div className='white cat'>
+            <h5 className='cat-head indigo-text text-darken-2'>Categories</h5>
+            <ul>
               {this.props.categories.map(category => (
                 (
                   <li key={category.id}>
-                    <a className='indigo-text text-darken-2' onClick={() => {
-                      this.handleClick(category.id, category.category);
-                    }} href={`#${category.category}`}>
-                      {category.category}</a></li>)
+                    <NavLink to={`/user/${category.id}/category`}
+                      className='indigo-text text-darken-2'>
+                      {category.name}</NavLink></li>)
               )
               )}
             </ul>
-          </div> */}
+          </div>
         </ul>
         <a href='#' data-activates='slide-out'
           className='button-collapse fixed'>
@@ -101,7 +98,7 @@ class Sidenav extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     categories: state.bookReducer.categories,
     user
@@ -110,5 +107,5 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  getCategories, displayUserpage
+  getCategories
 })(withRouter(Sidenav));

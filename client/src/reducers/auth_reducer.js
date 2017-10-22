@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case AUTH_USER:
       return {
         ...state,
-        user: action.user,
+        user: action.payload,
         authenticated: true
       };
     case UNAUTH_USER:

@@ -49,13 +49,11 @@ class Login extends Component {
      */
   handleFormSubmit(event) {
     event.preventDefault();
-    this.props.signinUser(this.state).then((res) => {
-      if (res) {
-        /* eslint-disable no-undef */
-        Materialize.toast('Welcome back to Booksville!!', 5000);
+    this.props
+      .signinUser(this.state)
+      .then(() => {
         this.props.history.push('/user');
-      }
-    }).catch(error => res.status(500).send(error.message));
+      });
   }
   /** displays error
      * @returns {string} error message
@@ -64,6 +62,7 @@ class Login extends Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return (
+        /* eslint-disable no-undef */
         Materialize.toast(this.props.errorMessage, 4000, '', () => {
           this.props.clearErrorMessage();
         })
@@ -80,8 +79,8 @@ class Login extends Component {
         <div className='col s12 m10 l8 offset-m1 offset-l1'>
           <div className='card front row signin'>
             <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
-              <h5 className='center indigo-text text-darken-2'>
-                Welcome back! Login to continue</h5>
+              <h4 className='center greeting indigo-text text-darken-2'>
+                Welcome back! Login to continue</h4>
               <form onSubmit={this.handleFormSubmit}>
                 <div className="row">
                   <div className='input-field col s12'>

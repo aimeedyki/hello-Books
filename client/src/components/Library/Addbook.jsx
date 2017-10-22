@@ -128,11 +128,11 @@ class AddBook extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l3 '>
+        <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l4 '>
           <div className='card row'>
             <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
-              <h5 className='center indigo-text text-darken-2'>
-                ADD A NEW BOOK</h5>
+              <h5 className='center greeting indigo-text text-darken-2'><b>
+                Add A New Book</b></h5>
               <form onSubmit={this.handleFormSubmit}>
                 <div className='row'>
                   <div className='input-field col s12'>
@@ -176,7 +176,7 @@ class AddBook extends Component {
                       Select a category</option>
                     {this.props.categories.map(category => (
                       <option key={category.id} value={category.id}>
-                        {category.category}</option>
+                        {category.name}</option>
                     ))}
                   </select>
                   <div className="file-field input-field">
@@ -196,7 +196,7 @@ class AddBook extends Component {
                   </div>
                 </div>
                 <div className='row'>
-                  <div className='col s12 m4 l4 offset-l4 offset-m4'>
+                  <div className='center'>
                     <Button type='submit' name='action' label='Add book' />
                   </div>
                 </div>

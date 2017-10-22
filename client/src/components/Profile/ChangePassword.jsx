@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { clearErrorMessage } from '../../actions/authAction';
-import { passwordChange, displayUserpage } from '../../actions/userAction';
+import { passwordChange, } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
 /** component to change password
@@ -27,12 +27,6 @@ class ChangePassword extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
-  }
-  /** @returns {*} void
-   * @memberof ChangePassword
-   */
-  componentWillMount() {
-    this.props.displayUserpage();
   }
   /** @returns {*} void
    * @param {any} prevProps
@@ -59,30 +53,13 @@ class ChangePassword extends Component {
     const { userId } = this.props.user;
     if (this.state.newPassword === this.state.confirmNewPassword) {
       this.props.passwordChange(userId, this.state.oldPassword,
-        this.state.newPassword)
-        .then((res) => {
-          if (res) {
-            /* eslint-disable no-undef */
-            Materialize.toast('Password changed successfully!!', 4000);
-            this.props.history.push('/user');
-          }
-        });
+        this.state.newPassword);
     } else {
+      /* eslint-disable no-undef */
       Materialize.toast('Passwords do not match', 4000);
     }
   }
-  /** @returns {*} error message
-   * @memberof ChangePassword
-   */
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
-      );
-    }
-  }
+
   /** @returns {*} component
    * @memberof ChangePassword
    */
@@ -93,8 +70,8 @@ class ChangePassword extends Component {
           <form onSubmit={this.handleFormSubmit}>
             <div className='row'>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
-                <h5 className='indigo-text text-darken-2 center'>
-                  Change password</h5>
+                <h5 className='indigo-text text-darken-2 greeting center'><b>
+                  Change password</b></h5>
                 <div className='input-field col s12'>
                   <input name='oldPassword' type='password' className='validate'
                     onChange={this.handleChange}
@@ -137,8 +114,7 @@ class ChangePassword extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
-
+  const { user } = state.auth;
   return {
     user,
     errorMessage: state.userReducer.error
@@ -146,5 +122,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  passwordChange, displayUserpage, clearErrorMessage
+  passwordChange, clearErrorMessage
 })(withRouter(ChangePassword));

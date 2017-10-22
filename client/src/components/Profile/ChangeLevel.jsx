@@ -28,13 +28,6 @@ class ChangeLevel extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
 
-  /** gets user detail
-   * @returns {*} void
-   * @memberof ChangeLevel
-   */
-  componentWillMount() {
-    this.props.displayUserpage();
-  }
   /** @returns {*} void
    * @param {any} prevProps
    * @memberof ChangeLevel
@@ -60,17 +53,14 @@ class ChangeLevel extends Component {
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    const { userId, level } = this.props.user;
-    if (this.state.newLevel !== level) {
-      this.props.changeLevel(userId, this.state.newLevel).then((res) => {
-        if (res) {
-          this.props.displayUserpage();
-          /* eslint-disable no-undef */
-          Materialize.toast('Level changed successfully!!', 4000);
-          this.props.history.push('/user');
-        }
+    const { userId, levelId } = this.props.user;
+    const newLevel = parseInt(this.state.newLevel, 10);
+    if (newLevel !== levelId) {
+      this.props.changeLevel(userId, newLevel).then(() => {
+        this.props.history.push('/user');
       });
     } else {
+      /* eslint-disable no-undef */
       Materialize.toast('You can not change to a current level!',
         4000);
     }
@@ -95,15 +85,13 @@ class ChangeLevel extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='card col s10 m8 l4 offset-s1 offset-m2 offset-l5'
-          className='profile'>
+        <div className='card col s10 m8 l4 offset-s1 offset-m2 offset-l5'>
           <form onSubmit={this.handleFormSubmit}>
-            <div className='row'>
+            <div className='row profile'>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'
                 className='level'>
-                <h5 className='indigo-text text-darken-2 center'
-                  className='margin-fix'>
-                  Change Level</h5>
+                <h5 className='greeting indigo-text text-darken-2 center'><b>
+                  Change Level</b></h5>
                 <div >
                   <p className='center blue-text text-darken-2'>
                     please select a new level</p>
@@ -112,17 +100,17 @@ class ChangeLevel extends Component {
                 </div>
                 <div className='level-select'>
                   <label>Membership Level</label>
-                  <select ref='level' id='level'
+                  <select ref='levelId' id='level'
                     className='browser-default indigo-text text-darken-2'
                     onChange={this.handleSelectChange}
                     value={this.state.value}
                     required>
                     <option defaultValue='' selected disabled>
                       Select a level</option>
-                    <option value='rookie'>Rookie</option>
-                    <option value='bookworm'>
+                    <option value='1'>Rookie</option>
+                    <option value='2'>
                       Bookworm  N2000/month</option>
-                    <option value='voracious' >Voracious  N5000/month</option>
+                    <option value='3' >Voracious  N5000/month</option>
                   </select>
                 </div>
                 <div className='center margin-fix'>
@@ -139,7 +127,7 @@ class ChangeLevel extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     user,
     errorMessage: state.userReducer.error
