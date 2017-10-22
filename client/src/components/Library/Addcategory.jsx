@@ -20,7 +20,7 @@ class AddCategory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: '',
+      name: '',
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -36,28 +36,16 @@ class AddCategory extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} prevProps
-   * @memberof AddCategory
-   */
-  componentDidUpdate(prevProps) {
-    if (prevProps.errorMessage !== this.props.errorMessage) {
-      this.renderAlert();
-    }
-  }
-
-  /** @returns {*} void
    * @param {any} event
    * @memberof AddCategory
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    this.props.addNewCategory(this.state).then((res) => {
-      if (res) {
-        /* eslint-disable no-undef */
-        Materialize.toast('Category added Successfully!', 4000);
-        this.props.history.push('/user');
-      }
-    });
+    if (this.props.addNewCategory(this.state)) {
+      /* eslint-disable no-undef */
+      Materialize.toast('Category added Successfully!', 4000);
+      this.props.history.push('/user');
+    }
   }
 
   /** @returns {string} error message
@@ -79,24 +67,24 @@ class AddCategory extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='col s10 m8 l4 offset-s1 offset-m2 offset-l4 '>
-          <div className='card row'>
+        <div className='col s10 m8 l4 offset-s1 offset-m2 offset-l5 '>
+          <div className='card row catCard'>
             <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
-              <h5 className='center indigo-text text-darken-2'>
-                ADD A NEW CATEGORY</h5>
+              <h5 className='center greeting indigo-text text-darken-2'>
+                Add A New Category</h5>
               <form onSubmit={this.handleFormSubmit}>
                 <div className='row'>
                   <div className='input-field col s12'>
-                    <input name='category' type='text' className='validate'
+                    <input name='name' type='text' className='validate'
                       onChange={this.handleChange}
-                      value={this.state.category}
+                      value={this.state.name}
                       required
                     />
                     <label>Category title</label>
                   </div>
                 </div>
                 <div className='row'>
-                  <div className='col s12 m4 l4 offset-l2 offset-m4'>
+                  <div className='center'>
                     <Button type='submit' name='action' label='Add Category' />
                   </div>
                 </div>

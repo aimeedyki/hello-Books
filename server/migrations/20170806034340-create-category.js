@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      category: {
+      name: {
         allowNull: false,
         targetKey: true,
         type: Sequelize.STRING

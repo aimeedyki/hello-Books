@@ -11,10 +11,10 @@
     "start": "babel-node server/app.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "start2": "node ./client/src/app.js",
-    "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
+    "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "test:db": "sequelize db:migrate --env test",
     "coverage": "istanbul cover _mocha",
-    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly mocha --compilers js:babel-register test/*.js"
+    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly mocha --compilers js:babel-register test/*.js"
   },
   "repository": {
     "type": "git",

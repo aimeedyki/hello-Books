@@ -18,8 +18,8 @@ const Home = props => (
         <nav role="navigation" className="home">
           <div className="nav-wrapper white">
             <a id="logo-container"
-              className="brand-logo indigo-text text-darken-2">
-              <b>Booksville</b></a>
+              className="brand-logo booksville indigo-text text-darken-2"><h4>
+                <b>Booksville</b></h4></a>
             <ul className="right">
               <li><a className="indigo-text text-darken-2">About us</a></li>
             </ul>

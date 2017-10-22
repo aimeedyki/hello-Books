@@ -13,12 +13,14 @@ import {
   BORROW_BOOK,
   RETURN_BOOK,
   CLOUDINARY_URL,
-  CLOUDINARY_PRESET
+  CLOUDINARY_PRESET,
+  GET_PAGINATION
 } from './types';
-import { errorHandler } from './authAction';
+import { errorHandler, clearErrorMessage } from './authAction';
 
 const API_URL = 'http://localhost:5000/api/v1';
 
+/* eslint-disable no-undef */
 // action to set the book categories to the redux store
 export const setCategories = categories => ({
   type: GET_CATEGORIES,
@@ -41,6 +43,12 @@ export const setaBook = book => ({
 export const setBookCategory = category => ({
   type: GET_BOOKS_BYCATEGORIES,
   payload: category
+});
+
+// action to set pagination
+export const setPagination = pagination => ({
+  type: GET_PAGINATION,
+  payload: pagination
 });
 
 // action to upload an image to cloudinary
@@ -79,6 +87,7 @@ export const modifyBook =
       axios.put(`${API_URL}/books/${bookId}`,
         { title, author, description, quantity, categoryId })
         .then((response) => {
+          Materialize.toast('Book information has been modified!', 4000);
           dispatch({
             type: MODIFY_BOOK,
             book: response.data.book
@@ -92,9 +101,9 @@ export const modifyBook =
   );
 
 // action creator to add a new book category
-export const addNewCategory = ({ category }) => (
+export const addNewCategory = ({ name }) => (
   dispatch => (
-    axios.post(`${API_URL}/category`, { category })
+    axios.post(`${API_URL}/category`, { name })
       .then((response) => {
         dispatch({
           type: ADD_CATEGORY,
@@ -103,7 +112,9 @@ export const addNewCategory = ({ category }) => (
         return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
+        Materialize.toast(error.response.data.message, 4000, '', () => {
+          clearErrorMessage();
+        });
       })
   )
 );
@@ -122,11 +133,12 @@ export const getCategories = () => (
 );
 
 // action creator to get all books in a library
-export const getBooks = () => (
+export const getBooks = (limit, offset) => (
   dispatch => (
-    axios.get(`${API_URL}/books`)
+    axios.get(`${API_URL}/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch(setBooks(response.data.books));
+        dispatch(setPagination(response.data.pagination));
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR);
@@ -186,7 +198,9 @@ export const borrowBook = (bookId, userId) => (
         return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
+        Materialize.toast(error.response.data.message, 4000, '', () => {
+          clearErrorMessage();
+        });
       })
   )
 );
@@ -196,13 +210,15 @@ export const returnBook = (historyId, userId) => (
   dispatch => (
     axios.put(`${API_URL}/users/${userId}/books`, { historyId })
       .then(() => {
+        Materialize.toast('Book Returned!! Thank you!', 4000);
         dispatch({
           type: RETURN_BOOK
         });
-        return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
+        Materialize.toast(error.response.data.message, 4000, '', () => {
+          clearErrorMessage();
+        });
       })
   )
 );

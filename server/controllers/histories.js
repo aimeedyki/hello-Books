@@ -1,51 +1,76 @@
-import { Book, History, Notification, User } from '../models';
+import { Book, History, Notification, User, Level } from '../models';
 
 export default {
   /**  user borrows a book and creates a history record
-     * @param {any} req
-     * @param {any} res
+     * @param {any} req HTTP request object
+     * @param {any} res HTTP response object
      * @returns {object} history
      */
   borrow(req, res) {
-    return Book.find({ where: { id: req.body.bookId } })
+    const bookId = parseInt(req.body.bookId, 10);
+    const userId = parseInt(req.params.userId, 10);
+    if (isNaN(bookId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid book Id'
+      });
+    }
+    if (isNaN(userId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid user Id'
+      });
+    }
+    Book.findById(bookId)
       .then((book) => {
         if (!book) {
-          return res.status(404).send({ error: 'Book does not exist' });
+          return res.status(404).send({ message: 'Book does not exist' });
         }
         if (book.quantity <= 0) {
           return res.status(404)
             .send({ message: 'This book is out of stock!' });
         }
-        User.find({ where: { id: req.params.userId } })
+        User.findById(userId, {
+          include: [{
+            model: Level,
+            as: 'level',
+            attributes: ['type', 'maxBooks', 'maxDays'],
+          }]
+        })
           .then((user) => {
-            if (user.borrowCount === user.max) {
+            if (!user) {
+              return res.status(404)
+                .send({ message: 'Please register to borrow' });
+            }
+            if (user.borrowCount === user.level.maxBooks) {
               return res.status(400)
                 .send({ message: 'Please return a book to borrow again' });
             }
-            User.update({
-              borrowCount: (user.borrowCount + 1),
-            }, { where: { id: req.params.userId } })
-              .then((history) => {
-                History.create({
-                  expectedDate: new Date(Date.now() +
-                    (user.max * 24 * 60 * 60 * 1000)),
-                  returned: false,
-                  userId: req.params.userId,
-                  bookId: req.body.bookId,
-                }, { returning: true, plain: true });
-                Book.update({
-                  quantity: (book.quantity - 1),
-                }, { where: { id: req.body.bookId } });
-                Notification.create({
-                  userId: req.params.userId,
-                  bookId: req.body.bookId,
-                  action: 'Borrowed',
-                });
-                res.status(201).send(history);
-              });
-          });
+            user.update({
+              borrowCount: (user.borrowCount + 1)
+            });
+            const expectedDate = new Date(Date.now() +
+                (user.level.maxDays * 24 * 60 * 60 * 1000));
+            History.create({
+              expectedDate,
+              returned: false,
+              userId,
+              bookId,
+            });
+            book.update({
+              quantity: (book.quantity - 1)
+            });
+            Notification.create({
+              userId,
+              bookId,
+              action: 'Borrowed',
+            })
+              .then((notification) => {
+                res.status(201).send({ notification });
+              })
+              .catch(error => res.status(500).send(error.message));
+          })
+          .catch(error => res.status(500).send(error.message));
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
   /** returns the book by updating the history with return date
      * @param {any} req
@@ -53,33 +78,59 @@ export default {
      * @returns {object} book
      */
   modify(req, res) {
+    const historyId = parseInt(req.body.historyId, 10);
+    const userId = parseInt(req.params.userId, 10);
     const today = new Date();
-    return History.find({ where: { id: req.body.historyId } })
+    if (isNaN(historyId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid history Id'
+      });
+    }
+    if (isNaN(userId)) {
+      return res.status(400).send({
+        message: 'Please enter a valid user Id'
+      });
+    }
+    History.findById(historyId)
       .then((history) => {
-        History.update({
+        if (!history) {
+          return res.status(404)
+            .send({ message: 'This borrowed record does not exist' });
+        }
+        history.update({
           returnedDate: today,
           returned: true,
-        }, { where: { id: req.body.historyId } });
-        Book.find({ where: { id: history.bookId } })
+        });
+        Book.findById(history.bookId)
           .then((book) => {
-            Book.update({
-              quantity: (book.quantity + 1),
-            }, { where: { id: history.bookId } });
-            User.find({ where: { id: req.params.userId } })
+            if (!book) {
+              return res.status(404)
+                .send({ message: 'This book does not exist' });
+            }
+            book.update({
+              quantity: (book.quantity + 1)
+            });
+            User.findById(userId)
               .then((user) => {
-                User.update({
+                user.update({
                   borrowCount: (user.borrowCount - 1),
-                }, { where: { id: req.params.userId } });
+                });
                 Notification.create({
-                  userId: req.params.userId,
+                  userId,
                   bookId: history.bookId,
                   action: 'Returned',
-                });
-                res.status(200).send({ message: 'book has been returned' });
-              });
-          });
+                }).then((notification) => {
+                  res.status(200)
+                    .send(
+                      { notification });
+                })
+                  .catch(error => res.status(500).send(error.message));
+              })
+              .catch(error => res.status(500).send(error.message));
+          })
+          .catch(error => res.status(500).send(error.message));
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
   /** displays user history
    * @param {any} req

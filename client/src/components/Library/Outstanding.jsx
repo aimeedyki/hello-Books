@@ -2,7 +2,7 @@ import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { returnBook } from '../../actions/bookAction';
-import { getOutstanding, displayUserpage } from '../../actions/userAction';
+import { getOutstanding } from '../../actions/userAction';
 import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
 /** displays books not returned
  * @class Outstanding
@@ -30,13 +30,6 @@ class Outstanding extends Component {
     const { userId } = this.props.user;
     this.props.getOutstanding(userId);
   }
-  /** @returns {*} void
-   * @memberof Outstanding
-   */
-  componentDidUpdate() {
-    const { userId } = this.props.user;
-    this.props.getOutstanding(userId);
-  }
 
   /** returns a book
    * @param {any} id
@@ -49,11 +42,8 @@ class Outstanding extends Component {
     if (sure === true) {
       /* eslint-disable no-undef */
       this.props.returnBook(id, userId)
-        .then((res) => {
-          if (res) {
-            Materialize.toast('Book Returned!! Thank you!', 4000);
-            window.location.reload();
-          }
+        .then(() => {
+          window.location.reload();
         });
     }
   }
@@ -116,12 +106,12 @@ class Outstanding extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     notReturned: state.userReducer.notReturned,
     user
   };
 };
 export default connect(mapStateToProps, {
-  getOutstanding, displayUserpage, returnBook
+  getOutstanding, returnBook
 })(Outstanding);

@@ -2,7 +2,7 @@
 export default (sequelize, DataTypes) => {
   // defines category attribute
   const Category = sequelize.define('Category', {
-    category: {
+    name: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,

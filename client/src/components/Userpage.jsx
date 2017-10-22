@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 
-import { displayUserpage, displayUser } from '../actions/userAction';
+// import { displayUserpage, displayUser } from '../actions/userAction';
 
 import Topnav from './Common/Topnav.jsx';
 import Sidenav from './Common/Sidenav.jsx';
@@ -17,20 +17,22 @@ import Addbook from './Library/Addbook.jsx';
 import Addcategory from './Library/Addcategory.jsx';
 import Useractivity from './Profile/Useractivity.jsx';
 import Editbook from './Library/Editbook.jsx';
-import Upgrade from './Profile/Upgrade.jsx';
+import ChangeLevel from './Profile/ChangeLevel.jsx';
+import Bookcategory from './Library/Bookcategory';
 
 import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
 import voracious from '../assets/images/voracious.jpg';
-import admin from '../assets/images/admin.jpg';
+import adminImage from '../assets/images/admin.jpg';
+import noPicture from '../assets/images/profile.jpeg';
 
 
-/** component that rendrs the users page
+/** @description component that renders the users page
  * @class Userpage
  * @extends {Component}
  */
 class Userpage extends Component {
-  /** Creates an instance of Userpage.
+  /** @description Creates an instance of Userpage.
      * @param {any} props
      * @memberof Userpage
      */
@@ -48,50 +50,44 @@ class Userpage extends Component {
     this.setLevelIcon = this.setLevelIcon.bind(this);
   }
 
-  /** displays user details
-   * @returns {*} void
-   * @memberof Userpage
-   */
-  componentDidMount() {
-    const { userId } = this.props.user;
-    this.props.displayUserpage(userId);
-  }
-
   /* eslint-disable class-methods-use-this */
-  /** sets icon according to a users level
-   * @param {any} level
+  /** @description sets icon according to a users level
+   * @param {number} levelId
+   * @param {boolean} adminStatus
    * @returns {object} users level icon
    * @memberof Userpage
    */
-  setLevelIcon(level) {
-    switch (level) {
-      case 'rookie':
+  setLevelIcon(levelId, adminStatus) {
+    if (adminStatus) {
+      return adminImage;
+    }
+    switch (levelId) {
+      case 1:
         return rookie;
-      case 'bookworm':
+      case 2:
         return bookworm;
-      case 'voracious':
+      case 3:
         return voracious;
-      case 'admin':
-        return admin;
       default:
         return rookie;
     }
   }
   /* eslint-disable no-unused-expressions */
-  /** renders the user page
+  /** @description renders the user page
    * @returns {*} users' page
    * @memberof Userpage
    */
   render() {
-    const { levelicon } = this.state;
-    const { username, level, email, profilepic } = this.props.user;
+    // const { levelicon } = this.state;
+    const { username, levelId, email, profilepic, admin } = this.props.user;
     let profileImage;
     profilepic === '' || profilepic === null ?
-      (profileImage = this.setLevelIcon(level)) : (profileImage = profilepic);
+      (profileImage = noPicture) : (profileImage = profilepic);
     return (
       <div>
-        <Topnav username={username} levelIcon={this.setLevelIcon(level)} />
-        <Sidenav level={level} levelIcon={profileImage}
+        <Topnav username={username}
+          levelIcon={this.setLevelIcon(levelId, admin)} />
+        <Sidenav profileImage={profileImage}
           username={username} email={email} />
         <div>
           <Switch>
@@ -106,7 +102,8 @@ class Userpage extends Component {
             <Route path='/user/books' component={Addbook} />
             <Route path='/user/:id/edit-book' component={Editbook} />
             <Route path='/user/category' component={Addcategory} />
-            <Route path='/user/new-level' component={Upgrade} />
+            <Route path='/user/new-level' component={ChangeLevel} />
+            <Route path='/user/:categories' component={Bookcategory}/>
           </Switch>
         </div>
       </div>
@@ -115,12 +112,11 @@ class Userpage extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     user,
   };
 };
 
 export default connect(mapStateToProps, {
-  displayUserpage, displayUser
 })(Userpage);

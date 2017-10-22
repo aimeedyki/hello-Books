@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { displayUserpage } from '../../actions/userAction';
 import { getCategories, getBooksByCategory } from '../../actions/bookAction';
 import Allbooks from './Allbooks.jsx';
 import Bookcategory from './Bookcategory.jsx';
@@ -22,7 +21,7 @@ class Tab extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       bookcategory: '',
-      id: ''
+      id: '',
     };
   }
 
@@ -32,7 +31,6 @@ class Tab extends Component {
    */
   componentWillMount() {
     this.props.getCategories();
-    this.props.displayUserpage();
   }
   /** setting category id to display
      * @returns {*} void
@@ -49,11 +47,11 @@ class Tab extends Component {
    * @memberof Tab
    */
   render() {
-    const { level } = this.props.user;
+    const { admin } = this.props.user;
     // displays add book button only for admin users
     let addBookButton;
     /* eslint-disable no-unused-expressions */
-    (level === 'admin') ? addBookButton = (
+    (admin === true) ? addBookButton = (
       <div className='fixed-action-btn'>
         <Link to='/user/books'
           className='btn-floating btn-large indigo darken-2'>
@@ -66,27 +64,12 @@ class Tab extends Component {
 
     return (
       <div className='row'>
-        <div className='card col s12 l10 m12 offset-l2'>
+        <h4 className='cat-name center'>All Books</h4>
+        <div className='col s12 l10 m12 offset-l2'>
           <div className='row indigo-text text-darken-2'>
-            <div className='col s12'>
-              <ul className='tabs center'>
-                <li className='tab'><a href='#all'>ALL BOOKS</a></li>
-                {this.props.categories.map(category => (
-                  (
-                    <li className='tab' key={category.id}><a onClick={() => {
-                      this.handleClick(category.id, category.category);
-                    }} href={`#${category.category}`}>
-                      {category.category}</a></li>)
-                )
-                )}
-              </ul>
-            </div>
-            <div className='col s12'>
-              <div id='all'>
+            <div className='card col s12'>
+              <div>
                 <Allbooks />
-              </div>
-              <div id={this.state.bookcategory}>
-                {Bookcategorycomponent}
               </div>
               {addBookButton}
             </div>
@@ -99,7 +82,7 @@ class Tab extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     categories: state.bookReducer.categories,
     user
@@ -108,5 +91,5 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  getCategories, displayUserpage
+  getCategories
 })(withRouter(Tab));

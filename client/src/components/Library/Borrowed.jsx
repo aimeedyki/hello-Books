@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 
-import { getHistory, displayUserpage } from '../../actions/userAction';
+import { getHistory } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 
 /** Displays a users history of borrowed
@@ -91,7 +91,7 @@ class Borrowed extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.userReducer;
+  const { user } = state.auth;
   return {
     histories: state.userReducer.histories,
     user
@@ -99,5 +99,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  getHistory, displayUserpage
+  getHistory
 })(Borrowed);

@@ -40,7 +40,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'API that manages the processes for a library',
   },
-  host: 'localhost:8000',
+  host: 'localhost:5000',
   basePath: '/api/v1',
 };
 

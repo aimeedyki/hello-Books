@@ -3,3 +3,6 @@
 /client/public
 /coverage
 /.nyc_output
+/client/src/.DS_Store
+/server/migrations/.DS_Store
+/.env

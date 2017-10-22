@@ -1,17 +1,54 @@
 //default fonts
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 body{
-  font-family: 'Rubik', sans-serif,
-  -apple-system,
-	BlinkMacSystemFont,
-	"Segoe UI",
+  font-family: 'Montserrat', sans-serif,
 	Roboto,
 	Oxygen-Sans,
 	Ubuntu,
 	Cantarell,
 	"Helvetica Neue",
-	sans-serif !important;
+  sans-serif !important;
+  font-weight: light;
+}
+.deleteColor{
+  background-color: #4e75dc;
+}
+.editColor{
+  background-color: #a6c2fa;
+}
+.book-buttons a:hover{
+  background-color: #303f9f !important;
+}
+.brand-logo{
+  font-family:'Eczar', serif;
+}
+.cat-head{
+  font-family:'Eczar', serif;
+  padding-top: 5%;
+}
+.cat{
+  overflow: auto;
+  max-height: 300px;
+  margin-top: 15%;
+}
+.cat h5{
+  margin-left: 10%;
+}
+.greeting{
+  font-family:'Eczar', serif;
+  margin-top: 10%;
+}
+.cat-name{
+  font-family:'Eczar', serif;
+  color: #303f9f;
 }
 
+.nav-wrapper ul{
+  margin-right: 3%;
+}
+.booksville{
+  margin-left: 3%;
+}
 .home{
   background:none !important;
    -webkit-box-shadow: none !important; 
@@ -22,7 +59,9 @@ input-field input[type=text].invalid {
   box-shadow: 0 1px 0 0 #000;
   color: black;
 }
-
+.catCard{
+  margin-top: 10%;
+}
 .front-signup{
   margin-top: 10%;
   overflow: visible !important;
@@ -127,18 +166,25 @@ c{
 .level-icon{
   margin-top: 10%;
 }
+.profile-level-icon p{
+  margin-left: 20%;
+}
 .level-icon img{
   margin-top: 10%;
   max-height: 40px !important;
   max-width: 40px !important;
+}
+.profile-level-icon img{
+  max-height: 30px !important;
+  max-width: 30px !important;
 }
 .user-logo a{
   color: #303f9f;
 }
 .photo{
   border: 4px solid white;
-  max-height: 200px !important;
-  max-width: 200px !important;
+  height: 200px !important;
+  width: 200px !important;
   margin-top: 8%;
 }
 
@@ -154,4 +200,18 @@ c{
   cursor: pointer !important;
 }
 
+.pagination li.active {
+  background-color: #303f9f;
+}
 
+.pagination li:hover {
+  background-color: #303f9f;
+}
+
+.pagination li a {
+  color: #303f9f;
+}
+
+.pagination li a:hover {
+  color: white!important;
+}
