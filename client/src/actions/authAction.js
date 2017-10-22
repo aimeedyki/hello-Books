@@ -13,7 +13,7 @@ const API_URL = 'http://localhost:5000/api/v1';
 
 /**
  * @description decodes the token
- * @param {string} token 
+ * @param {string} token
  * @return {string} decoded user details
  */
 export const setAuthorizationToken = (token) => {

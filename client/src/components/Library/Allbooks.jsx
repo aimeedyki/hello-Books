@@ -36,7 +36,7 @@ class Allbooks extends Component {
 
   /** @description displays pagination
    * @returns {*} void
-   * @param {any} nextProps 
+   * @param {any} nextProps
    * @memberof Allbooks
    */
   componentWillReceiveProps(nextProps) {
@@ -46,7 +46,7 @@ class Allbooks extends Component {
   }
   /** @description creates an array of page numbers
    * @returns {*} void
-   * @param {any} pageCount 
+   * @param {any} pageCount
    * @memberof Allbooks
    */
   getPages(pageCount) {
@@ -60,11 +60,10 @@ class Allbooks extends Component {
     });
   }
   /**
-   * 
    * @returns {*} void
-   * @param {any} limit 
-   * @param {any} page 
-   * @memberof Tab
+   * @param {any} limit
+   * @param {any} page
+   * @memberof Allbooks
    */
   getNewPage(limit, page) {
     if (page === 1) {

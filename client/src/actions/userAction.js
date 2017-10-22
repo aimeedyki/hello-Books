@@ -172,7 +172,6 @@ export const changePic = (userId, profilepic) => (
         return true;
       })
       .catch((error) => {
-        console.log(error.response);
         errorHandler(dispatch, error.response, USER_ERROR);
       })
   )
