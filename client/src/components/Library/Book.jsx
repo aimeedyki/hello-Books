@@ -2,12 +2,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import alert from 'sweetalert';
 
 import { displayUserpage } from '../../actions/userAction';
 import { clearErrorMessage } from '../../actions/authAction';
-import { deleteBook, borrowBook } from '../../actions/bookAction';
+import { deleteBook, borrowBook, getBooks } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
+import Confirm from '../Common/Confirm.jsx';
 
 /** component that displays a single book
  * @class Book
@@ -23,6 +25,7 @@ class Book extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.borrow = this.borrow.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   /** @returns {*} void
@@ -49,20 +52,27 @@ class Book extends Component {
      * @param {any} id
      * @memberof Book
      */
-  handleClick(id) {
-    /* eslint-disable no-alert */
-    const shouldDelete = confirm('Are you sure you want to delete this book');
-    if (shouldDelete === true) {
-      /* eslint-disable no-undef */
-      this.props.deleteBook(id).then((res) => {
-        if (res) {
-          Materialize.toast('Book has been deleted!', 4000);
-          window.location.reload();
+  handleClick() {
+    alert({
+      title: 'Delete?',
+      text: 'Are you sure that you want to delete this book?',
+      icon: 'warning',
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteBook(this.props.id, this.refresh);
+          alert('Deleted!', 'Book has been deleted!', 'success');
         }
-      }).catch(error => res.status(500).send(error.message));
-    }
+      });
   }
 
+  /** @description refreshes book page
+   * @returns {*} void
+   * @memberof Book
+   */
+  refresh() {
+    this.props.getBooks(8, 0);
+  }
   /** method that allows a user to borrow a book
    * @returns {*} void
    * @param {any} id
@@ -70,15 +80,18 @@ class Book extends Component {
    * @memberof Book
    */
   borrow(id, userId) {
-    const shouldBorrow = confirm('Are you sure you want to Borrow this book');
-    if (shouldBorrow === true) {
-      this.props.borrowBook(id, userId).then((res) => {
-        if (res) {
-          Materialize.toast('Thank you for borrowing!!', 4000);
-          window.location.reload();
+    alert({
+      title: 'Rent Book?',
+      text: 'Are you sure you want to Borrow this book?',
+      icon: 'warning',
+      dangerMode: true,
+    })
+      .then((willBorrow) => {
+        if (willBorrow) {
+          this.props.borrowBook(id, userId, this.refresh);
+          alert('Borrowed!', 'Book has been borrowed!', 'success');
         }
-      }).catch(error => res.status(500).send(error.message));
-    }
+      });
   }
   /** display errors if they exist
    * @returns {string} error message
@@ -115,9 +128,10 @@ class Book extends Component {
       <ul>
         <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>
-        <li><a onClick={() => { this.handleClick(this.props.id); }}
+        <li><a onClick={this.handleClick}
           className='btn-floating deleteColor'>
-          <i className='material-icons'>delete</i></a></li>
+          <i className='material-icons'>delete</i></a>
+        </li>
       </ul>
     ) : adminButtons = '';
 
@@ -163,5 +177,5 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  deleteBook, borrowBook, clearErrorMessage
+  deleteBook, borrowBook, clearErrorMessage, getBooks
 })(Book);

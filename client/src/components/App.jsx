@@ -6,18 +6,17 @@ import Requireauth from './Authentication/Requireauth.jsx';
 import Home from './Home.jsx';
 import Userpage from './Userpage.jsx';
 import Notfound from './Notfound.jsx';
-import Addbook from './Library/Addbook.jsx';
+import Confirm from './Common/Confirm.jsx';
 
 const App = props => (
   <div>
     <Switch>
       <Route path='/user' component={Requireauth(Userpage)} />
-      <Route path='/books/add' component={Addbook} />
-      <Route path='/' component={Home} />
-      <Route path="*" component={Notfound} />
+      <Route exact path='/' component={Home} />
+      <Route component={Notfound} />
     </Switch>
+    <Confirm />
   </div>
-
 );
 
 export default App;

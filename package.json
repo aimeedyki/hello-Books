@@ -13,8 +13,8 @@
     "start2": "node ./client/src/app.js",
     "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "test:db": "sequelize db:migrate --env test",
-    "coverage": "istanbul cover _mocha",
-    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly mocha --compilers js:babel-register test/*.js"
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run cover | coveralls",
+    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly _mocha --compilers js:babel-register test/*.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "classname": "0.0.0",
+    "coveralls": "^3.0.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.27.0",
     "dotenv": "^4.0.0",
@@ -94,6 +95,7 @@
     "superagent": "^3.6.1",
     "supertest": "^3.0.0",
     "swagger-jsdoc": "^1.9.7",
+    "sweetalert": "^2.0.8",
     "url-loader": "^0.5.9",
     "validator": "^8.2.0",
     "webpack": "^2.5.1",

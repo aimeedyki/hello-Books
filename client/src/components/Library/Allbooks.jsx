@@ -61,22 +61,48 @@ class Allbooks extends Component {
   }
   /**
    * @returns {*} void
-   * @param {any} limit
+   * @param {any} event
    * @param {any} page
    * @memberof Allbooks
    */
-  getNewPage(limit, page) {
-    if (page === 1) {
-      this.setState({
-        offset: 0
-      });
-    } else {
-      const pageOffset = limit * (page - 1);
-      this.setState({
-        offset: pageOffset
-      });
-    }
-    this.props.getBooks(this.state.limit, this.state.offset);
+  getNewPage(event, page) {
+    event.preventDefault();
+    const pageOffset = this.state.limit * (page - 1);
+    this.setState({
+      offset: (page === 1) ? 0 : pageOffset
+    }, () => {
+      this.props.getBooks(this.state.limit, this.state.offset);
+    });
+  }
+  /**
+   * @returns {*} void
+   * @param {any} event
+   * @param {any} currentPage
+   * @memberof Allbooks
+   */
+  getNextPage(event, currentPage) {
+    event.preventDefault();
+    const pageOffset = this.state.limit * (currentPage);
+    this.setState({
+      offset: pageOffset
+    }, () => {
+      this.props.getBooks(this.state.limit, this.state.offset);
+    });
+  }
+  /**
+   * @returns {*} void
+   * @param {any} event
+   * @param {any} currentPage
+   * @memberof Allbooks
+   */
+  getPreviousPage(event, currentPage) {
+    event.preventDefault();
+    const pageOffset = this.state.limit * (currentPage - 2);
+    this.setState({
+      offset: pageOffset
+    }, () => {
+      this.props.getBooks(this.state.limit, this.state.offset);
+    });
   }
   /** @returns {*} all the books in the library
   * @memberof Allbooks
@@ -98,17 +124,21 @@ class Allbooks extends Component {
         })}
         <div className='center'>
           <ul className='pagination'>
-            <li className='disabled'><a href='#!'><i className='material-icons'>
+            <li className='disabled'>
+              <a onClick={event =>
+                this.getPreviousPage(event, this.props.pagination.page)}>
+                <i className='material-icons'>
               chevron_left</i></a></li>
             {this.state.pages.map(page => (
               <li className={this.state.pageClass}>
-                <a>
+                <a onClick={event => this.getNewPage(event, page)}>
                   {page}</a></li>
             )
-            )
-            }
-            <li className='waves-effect'><a href='#!'>
-              <i className='material-icons'>
+            )}
+            <li className='waves-effect'>
+              <a onClick={event =>
+                this.getNextPage(event, this.props.pagination.page)}>
+                <i className='material-icons'>
               chevron_right</i></a></li>
           </ul>
         </div>

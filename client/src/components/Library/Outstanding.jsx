@@ -1,6 +1,8 @@
 import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
 import { connect } from 'react-redux';
 import moment from 'moment';
+import alert from 'sweetalert';
+
 import { returnBook } from '../../actions/bookAction';
 import { getOutstanding } from '../../actions/userAction';
 import Table from '../Common/Table.jsx'; // eslint-disable-line no-unused-vars
@@ -21,6 +23,7 @@ class Outstanding extends Component {
       userId: ''
     };
     this.return = this.return.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
   /** fetches outstanding books
    * @memberof Outstanding
@@ -31,6 +34,13 @@ class Outstanding extends Component {
     this.props.getOutstanding(userId);
   }
 
+  /** @description refreshes book page
+   * @returns {*} void
+   * @memberof Book
+   */
+  refresh() {
+    this.props.getOutstanding(this.props.user.userId);
+  }
   /** returns a book
    * @param {any} id
    * @param {any} userId
@@ -38,14 +48,18 @@ class Outstanding extends Component {
    * @returns {*} void
    */
   return(id, userId) {
-    const sure = confirm('Return this book?'); // eslint-disable-line no-alert
-    if (sure === true) {
-      /* eslint-disable no-undef */
-      this.props.returnBook(id, userId)
-        .then(() => {
-          window.location.reload();
-        });
-    }
+    alert({
+      title: 'Return this book?',
+      text: 'Are you sure that you want to return this book?',
+      icon: 'warning',
+      dangerMode: true,
+    })
+      .then((willReturn) => {
+        if (willReturn) {
+          this.props.returnBook(id, userId, this.refresh);
+          alert('Returned!', 'Book has been Returned!', 'success');
+        }
+      });
   }
   /** sets an array of books fetched when available
    * @param {any} nextProps

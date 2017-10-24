@@ -173,10 +173,11 @@ export const getBooksByCategory = id => (
 );
 
 // action creator to delete a book
-export const deleteBook = id => (
+export const deleteBook = (id, refresh) => (
   dispatch => (
     axios.delete(`${API_URL}/books/${id}`)
       .then(() => {
+        refresh();
         dispatch({
           type: DELETE_BOOK
         });
@@ -188,10 +189,11 @@ export const deleteBook = id => (
 );
 
 // action creator to borrow a book
-export const borrowBook = (bookId, userId) => (
+export const borrowBook = (bookId, userId, refresh) => (
   dispatch => (
     axios.post(`${API_URL}/users/${userId}/books`, { bookId })
       .then(() => {
+        refresh();
         dispatch({
           type: BORROW_BOOK
         });
@@ -206,11 +208,11 @@ export const borrowBook = (bookId, userId) => (
 );
 
 // action creator to return a book
-export const returnBook = (historyId, userId) => (
+export const returnBook = (historyId, userId, refresh) => (
   dispatch => (
     axios.put(`${API_URL}/users/${userId}/books`, { historyId })
       .then(() => {
-        Materialize.toast('Book Returned!! Thank you!', 4000);
+        refresh();
         dispatch({
           type: RETURN_BOOK
         });
