@@ -17,13 +17,13 @@ const app = express();
  *       email:
  *         type: string
  *       username:
- *         type: string 
+ *         type: string
  *       password:
  *         type: string
  *       level:
  *         type: string
  *       profilepic:
- *         type: string   
+ *         type: string
  */
 
 /**
@@ -32,9 +32,9 @@ const app = express();
  *   Login:
  *     properties:
  *       username:
- *         type: string 
+ *         type: string
  *       password:
- *         type: string   
+ *         type: string
  */
 
 /**
@@ -43,9 +43,9 @@ const app = express();
  *   Change:
  *     properties:
  *       oldPassword:
- *         type: string 
+ *         type: string
  *       newPassword:
- *         type: string  
+ *         type: string
  *       x-access-token:
  *         type: string
  */
@@ -56,7 +56,7 @@ const app = express();
  *   displayId:
  *     properties:
  *       id:
- *         type: integer  
+ *         type: integer
  *       x-access-token:
  *         type: string
  */
@@ -82,7 +82,7 @@ const app = express();
  *       image:
  *         type: string
  *       description:
- *         type: string 
+ *         type: string
  *       quantity:
  *         type: integer
  *       categoryId:
@@ -103,7 +103,7 @@ const app = express();
  *       image:
  *         type: string
  *       description:
- *         type: string 
+ *         type: string
  *       quantity:
  *         type: integer
  *       categoryId:
@@ -120,9 +120,9 @@ const app = express();
  *   borrow:
  *     properties:
  *       bookId:
- *         type: integer  
+ *         type: integer
  *       userId:
- *         type: integer  
+ *         type: integer
  *       x-access-token:
  *         type: string
  */
