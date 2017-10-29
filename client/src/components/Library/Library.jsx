@@ -67,7 +67,7 @@ class Tab extends Component {
         <h4 className='cat-name center'>All Books</h4>
         <div className='col s12 l10 m12 offset-l2'>
           <div className='row indigo-text text-darken-2'>
-            <div className='card col s12'>
+            <div className='col s12'>
               <div>
                 <Allbooks />
               </div>

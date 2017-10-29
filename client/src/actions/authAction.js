@@ -46,18 +46,12 @@ export const logoutUser = () => (
 );
 
 export const errorHandler = (dispatch, error, type) => {
-  if (error.status === 403 || error.status === 400) {
+  if (error.status === 403) {
     dispatch({
       type,
       payload: error.data.message
-
     });
     logoutUser();
-  } else if (error.status === 404 || error.status === 422) {
-    dispatch({
-      type,
-      payload: error.data.message
-    });
   } else {
     dispatch({
       type,
@@ -74,7 +68,9 @@ export const signupUser = ({ email, username, password, levelId }) => (
         localStorage.setItem('token', response.data.token);
         dispatch(setCurrentUser(jwt.decode(response.data.token)));
         /* eslint-disable no-undef */
-        Materialize.toast('Signup successful! Welcome to Booksville', 5000);
+        Materialize.toast('Signup successful! Welcome to Booksville',
+          5000, 'indigo darken-2');
+        return true;
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -89,9 +85,10 @@ export const signinUser = ({ username, password }) => (
         localStorage.setItem('token', response.data.token);
         setAuthorizationToken(response.data.token);
         /* eslint-disable no-undef */
-        Materialize.toast('Welcome back to Booksville!!', 5000);
+        Materialize.toast('Welcome back to Booksville!!',
+          5000, 'indigo darken-2');
         dispatch(setCurrentUser(jwt.decode(response.data.token)));
-        // return true;
+        return true;
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR);

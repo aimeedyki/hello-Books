@@ -12,12 +12,15 @@ import {
   DISPLAY_USER,
   GET_LEVEL,
 } from './types';
-import { errorHandler,
+import {
+  errorHandler,
   clearErrorMessage,
   setCurrentUser,
-  setAuthorizationToken } from './authAction';
+  setAuthorizationToken
+} from './authAction';
 
-const API_URL = 'http://localhost:5000/api/v1';
+const API_URL = process.env.API_URL;
+
 
 // displays user details on userpage
 export const displayUserpage = () => {
@@ -48,13 +51,14 @@ export const displayUser = userId => (
 );
 
 // gets the history of a user
-export const getHistory = userId => (
+export const getHistory = (userId, limit, offset) => (
   dispatch => (
-    axios.get(`${API_URL}/users/${userId}/books`)
+    axios
+      .get(`${API_URL}/users/${userId}/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_HISTORY,
-          payload: response.data.histories
+          payload: response.data
         });
       })
       .catch((error) => {
@@ -63,13 +67,14 @@ export const getHistory = userId => (
   )
 );
 
-export const getOutstanding = userId => (
+export const getOutstanding = (userId, limit, offset) => (
   dispatch => (
-    axios.get(`${API_URL}/users/${userId}/books?returned=false`)
+    axios.get(`${API_URL}/users/${userId}/books?returned=false&offset=${offset}
+    &limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_OUTSTANDING,
-          payload: response.data.histories
+          payload: response.data
         });
       })
       .catch((error) => {
@@ -101,13 +106,15 @@ export const passwordChange = (userId, oldPassword, newPassword) => (
           type: CHANGE_PASSWORD,
         });
         /* eslint-disable no-undef */
-        Materialize.toast('Password changed successfully!!', 4000);
-        window.location.reload();
+        Materialize.toast('Password changed successfully!!',
+          4000, 'indigo darken-2');
+        return true;
       })
       .catch((error) => {
-        Materialize.toast(error.response.data.message, 4000, '', () => {
-          clearErrorMessage();
-        });
+        Materialize.toast(error.response.data.message, 4000,
+          'indigo darken-2', () => {
+            clearErrorMessage();
+          });
       })
   )
 );
@@ -150,12 +157,15 @@ export const changeLevel = (userId, levelId) => (
           type: CHANGE_LEVEL,
         });
         /* eslint-disable no-undef */
-        Materialize.toast('Level changed successfully!!', 4000);
+        Materialize.toast('Level changed successfully!!',
+          4000, 'indigo darken-2');
+        return true;
       })
       .catch((error) => {
-        Materialize.toast(error.response.data.message, 4000, '', () => {
-          clearErrorMessage();
-        });
+        Materialize.toast(error.response.data.message, 4000,
+          'indigo darken-2', () => {
+            clearErrorMessage();
+          });
       })
   )
 );
@@ -168,7 +178,8 @@ export const changePic = (userId, profilepic) => (
           type: CHANGE_IMAGE,
         });
         /* eslint-disable no-undef */
-        Materialize.toast('Profile picture changed successfully!!', 4000);
+        Materialize.toast('Profile picture changed successfully!!',
+          4000, 'indigo darken-2');
         return true;
       })
       .catch((error) => {

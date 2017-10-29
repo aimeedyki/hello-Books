@@ -227,16 +227,22 @@ app.post('/api/v1/users/signin', authController.login);
 app.put('/api/v1/users/:id', authentication.verifyUser, authController.change);
 
 // route to get a level
-app.get('/api/v1/users/:id/level',
-  authentication.verifyUser, usersController.getLevel);
+app.get(
+  '/api/v1/users/:id/level',
+  authentication.verifyUser, usersController.getLevel
+);
 
 // route to change level
-app.put('/api/v1/users/:id/level',
-  authentication.verifyUser, authController.changeLevel);
+app.put(
+  '/api/v1/users/:id/level',
+  authentication.verifyUser, authController.changeLevel
+);
 
 // route to change profile picture
-app.put('/api/v1/users/:id/image',
-  authentication.verifyUser, usersController.changeImage);
+app.put(
+  '/api/v1/users/:id/image',
+  authentication.verifyUser, usersController.changeImage
+);
 /**
  * @swagger
  * /users/:id:
@@ -259,8 +265,10 @@ app.put('/api/v1/users/:id/image',
  */
 
 // route to display user profile
-app.get('/api/v1/users/:id',
-  authentication.verifyUser, usersController.profile);
+app.get(
+  '/api/v1/users/:id',
+  authentication.verifyUser, usersController.profile
+);
 
 /**
  * @swagger
@@ -284,8 +292,10 @@ app.get('/api/v1/users/:id',
  */
 
 // route for creating a category
-app.post('/api/v1/category', authentication.verifyUser,
-  authentication.verifyAdmin, categoriesController.addCategory);
+app.post(
+  '/api/v1/category', authentication.verifyUser,
+  authentication.verifyAdmin, categoriesController.addCategory
+);
 
 /**
  * @swagger
@@ -308,8 +318,10 @@ app.post('/api/v1/category', authentication.verifyUser,
  *         description: Available categories are displayed
  */
 // route for displaying all categories
-app.get('/api/v1/category',
-  authentication.verifyUser, categoriesController.list);
+app.get(
+  '/api/v1/category', authentication.verifyUser,
+  categoriesController.list
+);
 
 
 /**
@@ -333,8 +345,10 @@ app.get('/api/v1/category',
  *         description: Available books in this are displayed
  */
 // route for displaying all the books by categories
-app.get('/api/v1/category/:id',
-  authentication.verifyUser, categoriesController.display);
+app.get(
+  '/api/v1/:id/category/', authentication.verifyUser,
+  categoriesController.display
+);
 
 /**
  * @swagger
@@ -358,8 +372,10 @@ app.get('/api/v1/category/:id',
  */
 
 // route for adding a book
-app.post('/api/v1/books', authentication.verifyUser,
-  authentication.verifyAdmin, booksController.addBook);
+app.post(
+  '/api/v1/books', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.addBook
+);
 
 /**
  * @swagger
@@ -383,8 +399,10 @@ app.post('/api/v1/books', authentication.verifyUser,
  */
 
 // route for modifying book information
-app.put('/api/v1/books/:id', authentication.verifyUser,
-  authentication.verifyAdmin, booksController.modify);
+app.put(
+  '/api/v1/books/:id', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.modify
+);
 
 /**
  * @swagger
@@ -408,12 +426,16 @@ app.put('/api/v1/books/:id', authentication.verifyUser,
  */
 
 // route for deleting a book
-app.delete('/api/v1/books/:id', authentication.verifyUser,
-  authentication.verifyAdmin, booksController.remove);
+app.delete(
+  '/api/v1/books/:id', authentication.verifyUser,
+  authentication.verifyAdmin, booksController.remove
+);
 
 // route for getting a books detail
-app.get('/api/v1/books/:id',
-  authentication.verifyUser, booksController.viewBook);
+app.get(
+  '/api/v1/books/:id',
+  authentication.verifyUser, booksController.viewBook
+);
 
 /**
  * @swagger
@@ -484,8 +506,10 @@ app.post('/api/v1/users/:userId/books',
  *         description: book returned
  */
 // returns a book to the library
-app.put('/api/v1/users/:userId/books',
-  authentication.verifyUser, historiesController.modify);
+app.put(
+  '/api/v1/users/:userId/books',
+  authentication.verifyUser, historiesController.modify
+);
 
 /**
  * @swagger
@@ -508,8 +532,10 @@ app.put('/api/v1/users/:userId/books',
  *         description: book returned
  */
 // displays history
-app.get('/api/v1/users/:userId/books',
-  authentication.verifyUser, historiesController.list);
+app.get(
+  '/api/v1/users/:userId/books',
+  authentication.verifyUser, historiesController.list
+);
 
 /**
 * @swagger
@@ -532,8 +558,10 @@ app.get('/api/v1/users/:userId/books',
 *         description: books not returned displayed
 */
 // displays the books user has not returned
-app.get('/api/v1/users/:userId/books?returned=false',
-  authentication.verifyUser, historiesController.list);
+app.get(
+  '/api/v1/users/:userId/books?returned=false',
+  authentication.verifyUser, historiesController.list
+);
 
 /**
 * @swagger
@@ -556,7 +584,9 @@ app.get('/api/v1/users/:userId/books?returned=false',
 *         description: notifications displayed
 */
 // displays notifications
-app.get('/api/v1/notifications', authentication.verifyUser,
-  authentication.verifyAdmin, notificationsController.list);
+app.get(
+  '/api/v1/notifications', authentication.verifyUser,
+  authentication.verifyAdmin, notificationsController.list
+);
 
 export default app;

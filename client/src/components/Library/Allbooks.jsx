@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getBooks, setPagination } from '../../actions/bookAction';
+import { getBooks } from '../../actions/bookAction';
 import Book from '../Library/Book.jsx';
+import Loader from '../Common/Loader.jsx';
+import Pagination from '../Common/Pagination';
 import generic from '../../assets/images/generic.jpg';
 
 
@@ -19,31 +21,32 @@ class Allbooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: {},
       limit: 8,
       offset: 0,
       pages: []
     };
     this.getPages = this.getPages.bind(this);
+    this.getPagination = this.getPagination.bind(this);
     this.getNewPage = this.getNewPage.bind(this);
+    this.getNextPage = this.getNextPage.bind(this);
+    this.getPreviousPage = this.getPreviousPage.bind(this);
   }
   /** @returns {*} void
   * @memberof Allbooks
   */
   componentWillMount() {
-    this.props.getBooks(this.state.limit, this.state.offset);
+    this.props.getBooks(this.state.limit,
+      this.state.offset, this.getPagination);
   }
 
-  /** @description displays pagination
+  /**
    * @returns {*} void
-   * @param {any} nextProps
    * @memberof Allbooks
    */
-  componentWillReceiveProps(nextProps) {
-    if (this.props.pagination.pageCount !== nextProps.pagination.pageCount) {
-      this.getPages(nextProps.pagination.pageCount);
-    }
+  getPagination() {
+    this.getPages(this.props.pagination.pageCount);
   }
+
   /** @description creates an array of page numbers
    * @returns {*} void
    * @param {any} pageCount
@@ -82,12 +85,14 @@ class Allbooks extends Component {
    */
   getNextPage(event, currentPage) {
     event.preventDefault();
-    const pageOffset = this.state.limit * (currentPage);
-    this.setState({
-      offset: pageOffset
-    }, () => {
-      this.props.getBooks(this.state.limit, this.state.offset);
-    });
+    if (currentPage !== this.props.pagination.pageCount) {
+      const pageOffset = this.state.limit * (currentPage);
+      this.setState({
+        offset: pageOffset
+      }, () => {
+        this.props.getBooks(this.state.limit, this.state.offset);
+      });
+    }
   }
   /**
    * @returns {*} void
@@ -97,17 +102,20 @@ class Allbooks extends Component {
    */
   getPreviousPage(event, currentPage) {
     event.preventDefault();
-    const pageOffset = this.state.limit * (currentPage - 2);
-    this.setState({
-      offset: pageOffset
-    }, () => {
-      this.props.getBooks(this.state.limit, this.state.offset);
-    });
+    if (currentPage !== 1) {
+      const pageOffset = this.state.limit * (currentPage - 2);
+      this.setState({
+        offset: pageOffset
+      }, () => {
+        this.props.getBooks(this.state.limit, this.state.offset);
+      });
+    }
   }
   /** @returns {*} all the books in the library
   * @memberof Allbooks
   */
   render() {
+    if (!this.props.books) { return <Loader />; }
     return (
       <div className='row'>
         {this.props.books.map((book) => {
@@ -122,25 +130,15 @@ class Allbooks extends Component {
             </div>
           );
         })}
-        <div className='center'>
-          <ul className='pagination'>
-            <li className='disabled'>
-              <a onClick={event =>
-                this.getPreviousPage(event, this.props.pagination.page)}>
-                <i className='material-icons'>
-              chevron_left</i></a></li>
-            {this.state.pages.map(page => (
-              <li className={this.state.pageClass}>
-                <a onClick={event => this.getNewPage(event, page)}>
-                  {page}</a></li>
-            )
-            )}
-            <li className='waves-effect'>
-              <a onClick={event =>
-                this.getNextPage(event, this.props.pagination.page)}>
-                <i className='material-icons'>
-              chevron_right</i></a></li>
-          </ul>
+        <div className='col s12 center'>
+          <Pagination
+            previousPage={this.getPreviousPage}
+            pages={this.state.pages}
+            totalPages={this.props.pagination.pageCount}
+            currentPage={this.props.pagination.page}
+            pageClass={this.state.pageClass}
+            newPage={this.getNewPage}
+            nextPage={this.getNextPage} />
         </div>
       </div>
     );
@@ -148,10 +146,10 @@ class Allbooks extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = state => ({
-  books: state.bookReducer.books,
-  pagination: state.bookReducer.pagination
+  books: state.bookReducer.books.books,
+  pagination: state.bookReducer.books.pagination
 });
 
 export default connect(mapStateToProps, {
-  getBooks, setPagination
+  getBooks
 })(Allbooks);

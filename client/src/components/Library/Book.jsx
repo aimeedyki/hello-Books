@@ -9,7 +9,6 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { deleteBook, borrowBook, getBooks } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
-import Confirm from '../Common/Confirm.jsx';
 
 /** component that displays a single book
  * @class Book
@@ -24,7 +23,6 @@ class Book extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.borrow = this.borrow.bind(this);
-    this.renderAlert = this.renderAlert.bind(this);
     this.refresh = this.refresh.bind(this);
   }
 
@@ -36,16 +34,6 @@ class Book extends Component {
     this.setState({
       userId
     });
-  }
-  /** calls function to display errors if they exist
-     * @returns {*} void
-     * @param {any} prevProps
-     * @memberof Book
-     */
-  componentDidUpdate(prevProps) {
-    if (prevProps.errorMessage !== this.props.errorMessage) {
-      this.renderAlert();
-    }
   }
   /** method that allows a user to delete a book
      * @returns {*} void
@@ -60,8 +48,14 @@ class Book extends Component {
     })
       .then((willDelete) => {
         if (willDelete) {
-          this.props.deleteBook(this.props.id, this.refresh);
-          alert('Deleted!', 'Book has been deleted!', 'success');
+          this.props.deleteBook(this.props.id, this.refresh)
+            .then((res) => {
+              if (res) {
+                alert('Deleted!', 'Book has been deleted!', 'success');
+              } else {
+                alert('Oops!', this.props.errorMessage, 'error');
+              }
+            });
         }
       });
   }
@@ -88,23 +82,16 @@ class Book extends Component {
     })
       .then((willBorrow) => {
         if (willBorrow) {
-          this.props.borrowBook(id, userId, this.refresh);
-          alert('Borrowed!', 'Book has been borrowed!', 'success');
+          this.props.borrowBook(id, userId, this.refresh)
+            .then((res) => {
+              if (res) {
+                alert('Borrowed!', 'Book has been borrowed!', 'success');
+              } else {
+                alert('Oops!', this.props.errorMessage, 'error');
+              }
+            });
         }
       });
-  }
-  /** display errors if they exist
-   * @returns {string} error message
-   * @memberof Book
-   */
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
-      );
-    }
   }
 
   /** @returns {*} book to edit
@@ -120,8 +107,8 @@ class Book extends Component {
     /* eslint-disable no-unused-expressions */
     // display available copies based on quantity
     (this.props.quantity > 1) ?
-      (status = `${this.props.quantity} COPIES AVAILABLE`) :
-      (status = 'UNAVAILABLE');
+      (status = `${this.props.quantity} Copies available`) :
+      (status = 'Unavailable');
 
     // conditionally render buttons depending on user level
     (admin) ? adminButtons = (
@@ -142,7 +129,7 @@ class Book extends Component {
           <img className='activator responsive-img'
             src={this.props.image} alt='book image' />
         </div>
-        <div className='card-content'>
+        <div id='card-book' className='card-content'>
           <span className='card-title activator indigo-text text-darken-2'>
             <i className='material-icons left'>
               more_vert</i>{this.props.title}</span>
@@ -151,9 +138,9 @@ class Book extends Component {
           <span className='card-title indigo-text text-darken-2'>
             {this.props.title}<i className='material-icons right'>
               close</i></span>
-          <h6>By {this.props.author}</h6>
+          <h6><c>By {this.props.author}</c></h6>
           <h6>{this.props.category}</h6>
-          <p>{this.props.description}</p>
+          <p><c>{this.props.description}</c></p>
           <p>{status}</p>
           <div className='fixed-action-btn book-buttons'>
             <a onClick={() => { this.borrow(this.props.id, userId); }}

@@ -1,4 +1,5 @@
 import { Book, History, Notification, User, Level } from '../models';
+import paginate from '../middleware/book';
 
 export default {
   /**  user borrows a book and creates a history record
@@ -48,7 +49,7 @@ export default {
               borrowCount: (user.borrowCount + 1)
             });
             const expectedDate = new Date(Date.now() +
-                (user.level.maxDays * 24 * 60 * 60 * 1000));
+              (user.level.maxDays * 24 * 60 * 60 * 1000));
             History.create({
               expectedDate,
               returned: false,
@@ -121,8 +122,7 @@ export default {
                   action: 'Returned',
                 }).then((notification) => {
                   res.status(200)
-                    .send(
-                      { notification });
+                    .send({ notification });
                 })
                   .catch(error => res.status(500).send(error.message));
               })
@@ -139,23 +139,31 @@ export default {
    */
   list(req, res) {
     const whereClause = { userId: req.params.userId };
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 10;
     if (req.query.returned === 'false') {
       whereClause.returned = false;
     }
     return History
-      .findAll({
+      .findAndCountAll({
         include: [{
           model: Book,
           as: 'book',
           attributes: ['title'],
           paranoid: false
         }],
-        where: whereClause
+        where: whereClause,
+        order: [['updatedAt', 'DESC']],
+        limit,
+        offset
       })
       .then((histories) => {
-        const allHistories = { histories };
+        const allHistories = {
+          histories: histories.rows,
+          pagination: paginate(offset, limit, histories)
+        };
         res.status(200).send(allHistories);
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
 };

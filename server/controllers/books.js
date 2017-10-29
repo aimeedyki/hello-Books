@@ -1,4 +1,4 @@
-import { Book, Category } from '../models';
+import { Book, Category, History } from '../models';
 import paginate from '../middleware/book';
 
 export default {
@@ -11,7 +11,7 @@ export default {
     const title = req.body.title || null;
     const author = req.body.author || null;
     const description = req.body.description || null;
-    const quantity = req.body.quantity || null;
+    const quantity = parseInt(req.body.quantity, 10) || null;
     const categoryId = req.body.categoryId || null;
     const image = req.body.image || null;
 
@@ -30,9 +30,9 @@ export default {
         message: 'Please enter a description'
       });
     }
-    if (quantity === null) {
+    if (isNaN(quantity)) {
       return res.status(400).send({
-        message: 'Please enter quantity'
+        message: 'Please enter a valid quantity'
       });
     }
     if (categoryId === null) {
@@ -53,7 +53,8 @@ export default {
         where: {
           $and: [{
             title
-          }, { author }] }
+          }, { author }]
+        }
       })
         .then((book) => {
           if (book) {
@@ -125,15 +126,17 @@ export default {
           as: 'category',
           attributes: ['name'],
         }],
+        order: [['title', 'ASC']],
         limit,
         offset
       })
       .then((books) => {
         const allBooks = {
-          books: books.rows, pagination: paginate(offset, limit, books) };
+          books: books.rows, pagination: paginate(offset, limit, books)
+        };
         res.status(200).send(allBooks);
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
   /** displays one book
      * @param {any} req
@@ -162,7 +165,7 @@ export default {
         const thisBook = { book };
         res.status(200).send(thisBook);
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
   /** deletes a book
    * @param {any} req
@@ -183,10 +186,26 @@ export default {
             message: 'Book Not Found',
           });
         }
-        return book
-          .destroy()
-          .then(() => res.status(200)
-            .send({ message: 'Book has been deleted', }))
+        History.findOne({
+          where: {
+            $and: [{
+              bookId
+            }, { returned: false }]
+          }
+        })
+          .then((history) => {
+            if (history) {
+              return res.status(409).send({
+                message: `A copy of this book has been rented out.
+                Please wait for all copies to come back before you delete it`
+              });
+            }
+            book
+              .destroy()
+              .then(() => res.status(200)
+                .send({ message: 'Book has been deleted', }))
+              .catch(error => res.status(500).send(error));
+          })
           .catch(error => res.status(500).send(error));
       })
       .catch(error => res.status(500).send(error));

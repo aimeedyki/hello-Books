@@ -6,7 +6,6 @@ import Requireauth from './Authentication/Requireauth.jsx';
 import Home from './Home.jsx';
 import Userpage from './Userpage.jsx';
 import Notfound from './Notfound.jsx';
-import Confirm from './Common/Confirm.jsx';
 
 const App = props => (
   <div>
@@ -15,7 +14,6 @@ const App = props => (
       <Route exact path='/' component={Home} />
       <Route component={Notfound} />
     </Switch>
-    <Confirm />
   </div>
 );
 
