@@ -29,7 +29,7 @@ describe('User', () => {
 
   it('should return 400 signup form is empty', (done) => {
     server.post('/api/v1/users/signup')
-      .send({ })
+      .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -78,7 +78,7 @@ describe('User', () => {
 
   it('should return 400 login form is empty', (done) => {
     server.post('/api/v1/users/signin')
-      .send({ })
+      .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -100,7 +100,7 @@ describe('User', () => {
 
   it('should return 400 password change form is empty', (done) => {
     server.put('/api/v1/users/1').set('x-access-token', token)
-      .send({ })
+      .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -121,7 +121,7 @@ describe('User', () => {
 
   it('should return 400 when level change form is empty', (done) => {
     server.put('/api/v1/users/1/level').set('x-access-token', token)
-      .send({ })
+      .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -142,7 +142,7 @@ describe('User', () => {
 
   it('should return 400 picture change form is empty', (done) => {
     server.put('/api/v1/users/1/image').set('x-access-token', token)
-      .send({ })
+      .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -190,7 +190,7 @@ describe('Category', () => {
     });
   it('should return 200 when displaying books by categories in the library',
     (done) => {
-      server.get('/api/v1/category/1').set('x-access-token', adminToken)
+      server.get('/api/v1/1/category').set('x-access-token', adminToken)
         .end((err, res) => {
           assert.equal(res.status, 200);
           assert.isNotNull(res.body.category);
@@ -208,7 +208,7 @@ describe('Book', () => {
         description: 'a tale about a jungle boy',
         image: 'assd.jpg',
         quantity: '10',
-        categoryId: ' 1',
+        categoryId: '1',
       })
       .end((err, res) => {
         assert.equal(res.status, 201);
@@ -224,23 +224,7 @@ describe('Book', () => {
         description: 'a tale about a jungle boy',
         image: 'assd.jpg',
         quantity: '10',
-        categoryId: ' 1',
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 201);
-        assert.isNotNull(res.body.Book);
-        done();
-      });
-  });
-  it('should return 201 when a book is added', (done) => {
-    server.post('/api/v1/books').set('x-access-token', adminToken)
-      .send({
-        title: 'change is now',
-        author: 'howie mandel',
-        description: 'a tale about changey',
-        image: 'assd.jpg',
-        quantity: '0',
-        categoryId: ' 1',
+        categoryId: '1',
       })
       .end((err, res) => {
         assert.equal(res.status, 201);

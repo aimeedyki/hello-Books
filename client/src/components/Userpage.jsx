@@ -19,6 +19,7 @@ import Useractivity from './Profile/Useractivity.jsx';
 import Editbook from './Library/Editbook.jsx';
 import ChangeLevel from './Profile/ChangeLevel.jsx';
 import Bookcategory from './Library/Bookcategory';
+import Notfound from './Notfound';
 
 import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
@@ -103,7 +104,8 @@ class Userpage extends Component {
             <Route path='/user/:id/edit-book' component={Editbook} />
             <Route path='/user/category' component={Addcategory} />
             <Route path='/user/new-level' component={ChangeLevel} />
-            <Route path='/user/:categories' component={Bookcategory}/>
+            <Route path='/user/:categories' component={Bookcategory} />
+            <Route component={Notfound} />
           </Switch>
         </div>
       </div>

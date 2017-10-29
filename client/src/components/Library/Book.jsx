@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import alert from 'sweetalert';
 
 import { displayUserpage } from '../../actions/userAction';
 import { clearErrorMessage } from '../../actions/authAction';
-import { deleteBook, borrowBook } from '../../actions/bookAction';
+import { deleteBook, borrowBook, getBooks } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
@@ -22,7 +23,7 @@ class Book extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.borrow = this.borrow.bind(this);
-    this.renderAlert = this.renderAlert.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   /** @returns {*} void
@@ -34,35 +35,38 @@ class Book extends Component {
       userId
     });
   }
-  /** calls function to display errors if they exist
-     * @returns {*} void
-     * @param {any} prevProps
-     * @memberof Book
-     */
-  componentDidUpdate(prevProps) {
-    if (prevProps.errorMessage !== this.props.errorMessage) {
-      this.renderAlert();
-    }
-  }
   /** method that allows a user to delete a book
      * @returns {*} void
      * @param {any} id
      * @memberof Book
      */
-  handleClick(id) {
-    /* eslint-disable no-alert */
-    const shouldDelete = confirm('Are you sure you want to delete this book');
-    if (shouldDelete === true) {
-      /* eslint-disable no-undef */
-      this.props.deleteBook(id).then((res) => {
-        if (res) {
-          Materialize.toast('Book has been deleted!', 4000);
-          window.location.reload();
+  handleClick() {
+    alert({
+      title: 'Delete?',
+      text: 'Are you sure that you want to delete this book?',
+      icon: 'warning',
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteBook(this.props.id, this.refresh)
+            .then((res) => {
+              if (res) {
+                alert('Deleted!', 'Book has been deleted!', 'success');
+              } else {
+                alert('Oops!', this.props.errorMessage, 'error');
+              }
+            });
         }
-      }).catch(error => res.status(500).send(error.message));
-    }
+      });
   }
 
+  /** @description refreshes book page
+   * @returns {*} void
+   * @memberof Book
+   */
+  refresh() {
+    this.props.getBooks(8, 0);
+  }
   /** method that allows a user to borrow a book
    * @returns {*} void
    * @param {any} id
@@ -70,28 +74,24 @@ class Book extends Component {
    * @memberof Book
    */
   borrow(id, userId) {
-    const shouldBorrow = confirm('Are you sure you want to Borrow this book');
-    if (shouldBorrow === true) {
-      this.props.borrowBook(id, userId).then((res) => {
-        if (res) {
-          Materialize.toast('Thank you for borrowing!!', 4000);
-          window.location.reload();
+    alert({
+      title: 'Rent Book?',
+      text: 'Are you sure you want to Borrow this book?',
+      icon: 'warning',
+      dangerMode: true,
+    })
+      .then((willBorrow) => {
+        if (willBorrow) {
+          this.props.borrowBook(id, userId, this.refresh)
+            .then((res) => {
+              if (res) {
+                alert('Borrowed!', 'Book has been borrowed!', 'success');
+              } else {
+                alert('Oops!', this.props.errorMessage, 'error');
+              }
+            });
         }
-      }).catch(error => res.status(500).send(error.message));
-    }
-  }
-  /** display errors if they exist
-   * @returns {string} error message
-   * @memberof Book
-   */
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
-      );
-    }
+      });
   }
 
   /** @returns {*} book to edit
@@ -107,17 +107,18 @@ class Book extends Component {
     /* eslint-disable no-unused-expressions */
     // display available copies based on quantity
     (this.props.quantity > 1) ?
-      (status = `${this.props.quantity} COPIES AVAILABLE`) :
-      (status = 'UNAVAILABLE');
+      (status = `${this.props.quantity} Copies available`) :
+      (status = 'Unavailable');
 
     // conditionally render buttons depending on user level
     (admin) ? adminButtons = (
       <ul>
         <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>
-        <li><a onClick={() => { this.handleClick(this.props.id); }}
+        <li><a onClick={this.handleClick}
           className='btn-floating deleteColor'>
-          <i className='material-icons'>delete</i></a></li>
+          <i className='material-icons'>delete</i></a>
+        </li>
       </ul>
     ) : adminButtons = '';
 
@@ -128,7 +129,7 @@ class Book extends Component {
           <img className='activator responsive-img'
             src={this.props.image} alt='book image' />
         </div>
-        <div className='card-content'>
+        <div id='card-book' className='card-content'>
           <span className='card-title activator indigo-text text-darken-2'>
             <i className='material-icons left'>
               more_vert</i>{this.props.title}</span>
@@ -137,9 +138,9 @@ class Book extends Component {
           <span className='card-title indigo-text text-darken-2'>
             {this.props.title}<i className='material-icons right'>
               close</i></span>
-          <h6>By {this.props.author}</h6>
+          <h6><c>By {this.props.author}</c></h6>
           <h6>{this.props.category}</h6>
-          <p>{this.props.description}</p>
+          <p><c>{this.props.description}</c></p>
           <p>{status}</p>
           <div className='fixed-action-btn book-buttons'>
             <a onClick={() => { this.borrow(this.props.id, userId); }}
@@ -163,5 +164,5 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  deleteBook, borrowBook, clearErrorMessage
+  deleteBook, borrowBook, clearErrorMessage, getBooks
 })(Book);

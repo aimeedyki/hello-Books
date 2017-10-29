@@ -70,12 +70,14 @@ class Signup extends Component {
     event.preventDefault();
     if (this.state.password === this.state.confirmpassword) {
       this.props.signupUser(this.state)
-        .then(() => {
-          this.props.history.push('/user');
+        .then((res) => {
+          if (res) {
+            this.props.history.push('/user');
+          }
         });
     } else {
       /* eslint-disable no-undef */
-      Materialize.toast('Passwords do not match', 4000);
+      Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
   /** displays error message

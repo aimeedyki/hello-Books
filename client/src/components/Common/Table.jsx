@@ -11,7 +11,7 @@ const row = (heading, index, header) =>
   </tr>;
 
 export default ({ data, header }) =>
-  <table className='striped responsive-table centered' >
+  <table className='striped responsive-table centered table' >
     <thead>
       <tr>
         {header.map((heading, index) =>

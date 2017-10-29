@@ -80,7 +80,8 @@ class Sidenav extends Component {
               {this.props.categories.map(category => (
                 (
                   <li key={category.id}>
-                    <NavLink to={`/user/${category.id}/category`}
+                    <NavLink
+                      to={`/user/${category.id}/${category.name}/category`}
                       className='indigo-text text-darken-2'>
                       {category.name}</NavLink></li>)
               )

@@ -51,8 +51,10 @@ class Login extends Component {
     event.preventDefault();
     this.props
       .signinUser(this.state)
-      .then(() => {
-        this.props.history.push('/user');
+      .then((res) => {
+        if (res) {
+          this.props.history.push('/user');
+        }
       });
   }
   /** displays error
@@ -63,9 +65,10 @@ class Login extends Component {
     if (this.props.errorMessage) {
       return (
         /* eslint-disable no-undef */
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
+        Materialize.toast(this.props.errorMessage, 4000,
+          'indigo darken-2', () => {
+            this.props.clearErrorMessage();
+          })
       );
     }
   }

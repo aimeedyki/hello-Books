@@ -56,7 +56,7 @@ class ChangePassword extends Component {
         this.state.newPassword);
     } else {
       /* eslint-disable no-undef */
-      Materialize.toast('Passwords do not match', 4000);
+      Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
 

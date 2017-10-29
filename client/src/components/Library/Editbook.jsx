@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { clearErrorMessage } from '../../actions/authAction';
-import { modifyBook, getCategories, getaBook } from '../../actions/bookAction';
+import { modifyBook,
+  getCategories, getaBook, imageUpload } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
@@ -26,10 +26,13 @@ class Editbook extends Component {
       description: '',
       quantity: '',
       categoryId: '',
+      image: '',
       bookId: '',
       categories: []
     };
     this.bookId = '';
+    this.imageChange = this.imageChange.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -63,7 +66,8 @@ class Editbook extends Component {
         nextProps.book.author,
         nextProps.book.description,
         nextProps.book.quantity,
-        nextProps.book.categoryId, this.bookId);
+        nextProps.book.categoryId,
+        nextProps.book.image, this.bookId);
     }
   }
   /** @returns {*} void
@@ -76,19 +80,44 @@ class Editbook extends Component {
     }
   }
   /** @returns {*} book details
-   * @param {any} title
-   * @param {any} author
-   * @param {any} description
-   * @param {any} quantity
-   * @param {any} categoryId
-   * @param {any} bookId
+   * @param {any} title 
+   * @param {any} author 
+   * @param {any} description 
+   * @param {any} quantity 
+   * @param {any} categoryId 
+   * @param {any} image 
+   * @param {any} bookId 
    * @memberof Editbook
    */
-  setBookDetails(title, author, description, quantity, categoryId, bookId) {
+  setBookDetails(title,
+    author, description, quantity, categoryId, image, bookId) {
     this.setState({
-      title, author, description, quantity, categoryId, bookId
+      title, author, description, quantity, categoryId, image, bookId
     }, () => {
     });
+  }
+  /** @returns {*} void
+   * @param {any} event
+   * @memberof AddBook
+   */
+  imageChange(event) {
+    this.setState({
+      imageFile: event.target.files[0],
+    });
+    this.handleImageUpload(event.target.files[0]);
+  }
+  /** @returns {*} void
+   * @param {any} image
+   * @memberof AddBook
+   */
+  handleImageUpload(image) {
+    this.props.imageUpload(image)
+      .end((error, response) => {
+        this.setState({
+          image: response.body.secure_url,
+          imageFile: null,
+        });
+      });
   }
   /** @returns {*} void
    * @param {any} event
@@ -123,9 +152,10 @@ class Editbook extends Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
+        Materialize.toast(this.props.errorMessage, 4000,
+          'indigo darken-2', () => {
+            this.props.clearErrorMessage();
+          })
       );
     }
   }
@@ -232,6 +262,21 @@ class Editbook extends Component {
                       )}
                     </select>
                   </div>
+                  <div className="file-field input-field">
+                    <div className="btn indigo darken-2">
+                      <span>Book image</span>
+                      <input type="file"
+                        onChange={this.imageChange} name="imageFile" />
+                    </div>
+                    <div className="file-path-wrapper">
+                      <input className="file-path validate" type="text" />
+                    </div>
+                  </div>
+                  <div className="image-container">
+                    {this.state.image &&
+                      <img src={this.state.image} alt="book Image" />
+                    }
+                  </div>
                 </div>
                 <div className='row'>
                   <div className='center'>
@@ -257,5 +302,6 @@ export default connect(mapStateToProps, {
   modifyBook,
   clearErrorMessage,
   getCategories,
-  getaBook
+  getaBook,
+  imageUpload
 })(withRouter(Editbook));

@@ -103,7 +103,7 @@ class AddBook extends Component {
     this.props.addBook(this.state).then((res) => {
       if (res) {
         /* eslint-disable no-undef */
-        Materialize.toast('Book added Successfully!', 4000);
+        Materialize.toast('Book added Successfully!', 4000, 'indigo darken-2');
         this.props.history.push('/user');
       }
     });
@@ -115,9 +115,10 @@ class AddBook extends Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
+        Materialize.toast(this.props.errorMessage, 4000,
+          'indigo darken-2', () => {
+            this.props.clearErrorMessage();
+          })
       );
     }
   }

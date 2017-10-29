@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { changePic,
+import {
+  changePic,
   getUserLevel,
-  getUserUpdate } from '../../actions/userAction';
+  getUserUpdate
+} from '../../actions/userAction';
 
 import { imageUpload } from '../../actions/bookAction';
 
@@ -139,9 +141,12 @@ class Profile extends Component {
     if (this.props.errorMessage) {
       return (
         /* eslint-disable no-undef */
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
+        Materialize.toast(
+          this.props.errorMessage, 4000,
+          'indigo darken-2', () => {
+            this.props.clearErrorMessage();
+          }
+        )
       );
     }
   }
@@ -158,8 +163,7 @@ class Profile extends Component {
     /* eslint-disable no-unused-expressions */
     profilepic === '' || profilepic === null ?
       (profileImage = noPicture) : (profileImage = profilepic);
-    // (profilepic === '' || profilepic === null) ?
-    //   (profileImage = this.setLevelIcon(level)) : profileImage = profilepic;
+
     return (
       <div className='row'>
         <div className='card center col l4 offset-l5'>

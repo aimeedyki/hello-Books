@@ -61,8 +61,10 @@ class ChangeLevel extends Component {
       });
     } else {
       /* eslint-disable no-undef */
-      Materialize.toast('You can not change to a current level!',
-        4000);
+      Materialize.toast(
+        'You can not change to a current level! Please choose another level',
+        4000, 'indigo darken-2'
+      );
     }
   }
 
@@ -72,9 +74,11 @@ class ChangeLevel extends Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return (
-        Materialize.toast(this.props.errorMessage, 4000, '', () => {
-          this.props.clearErrorMessage();
-        })
+        Materialize.toast(
+          this.props.errorMessage, 4000, 'indigo darken-2', () => {
+            this.props.clearErrorMessage();
+          }
+        )
       );
     }
   }

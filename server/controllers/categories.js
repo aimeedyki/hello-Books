@@ -1,4 +1,5 @@
 import { Category, Book } from '../models';
+import paginate from '../middleware/book';
 
 export default {
   /** @description creates a category
@@ -55,19 +56,49 @@ export default {
         message: 'Please enter a valid category'
       });
     }
-    Category.findById(categoryId, {
-      include: [{
-        model: Book,
-        as: 'books',
-      }],
-    })
-      .then((category) => {
-        if (!category) {
-          return res.status(404).send({ message: 'Category does not exist' });
-        }
-        const bookCategory = { category };
-        res.status(200).send(bookCategory);
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 8;
+    Book
+      .findAndCountAll({
+        where: {
+          categoryId
+        },
+        include: [{
+          model: Category,
+          as: 'category',
+          attributes: ['name'],
+        }],
+        order: [['title', 'ASC']],
+        limit,
+        offset
       })
-      .catch(error => res.status(500).send(error.message));
-  },
+      .then((books) => {
+        const categoryBooks = {
+          books: books.rows, pagination: paginate(offset, limit, books)
+        };
+        res.status(200).send(categoryBooks);
+      })
+      .catch(error => res.status(400).send(error));
+  }
+
+  // const categoryId = parseInt(req.params.id, 10);
+  // if (isNaN(categoryId)) {
+  //   return res.status(400).send({
+  //     message: 'Please enter a valid category'
+  //   });
+  // }
+  // Category.findById(categoryId, {
+  //   include: [{
+  //     model: Book,
+  //     as: 'books',
+  //   }],
+  // })
+  //   .then((category) => {
+  //     if (!category) {
+  //       return res.status(404).send({ message: 'Category does not exist' });
+  //     }
+  //     const bookCategory = { category };
+  //     res.status(200).send(bookCategory);
+  //   })
+  //   .catch(error => res.status(500).send(error.message));
 };
