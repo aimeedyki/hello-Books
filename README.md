@@ -1,7 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/github/aimeedyki/hello-Books/badge.svg?branch=develop)](https://coveralls.io/github/aimeedyki/hello-Books?branch=develop)
-[![Issue Count](https://codeclimate.com/github/aimeedyki/hello-Books/badges/issue_count.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
-[![Test Coverage](https://codeclimate.com/github/aimeedyki/hello-Books/badges/coverage.svg)](https://codeclimate.com/github/codeclimate/codeclimate/coverage)
-[![Code Climate](https://codeclimate.com/github/aimeedyki/hello-Books/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Coverage Status](https://coveralls.io/repos/github/aimeedyki/hello-Books/badge.svg)](https://coveralls.io/github/aimeedyki/hello-Books)
+[![Maintainability](https://api.codeclimate.com/v1/badges/11b962b098e7cc3914cf/maintainability)](https://codeclimate.com/github/aimeedyki/hello-Books/maintainability)
 [![Build Status](https://travis-ci.org/aimeedyki/hello-Books.svg?branch=develop)](https://travis-ci.org/aimeedyki/hello-Books)
 
 # Hello Books [https://hello-books-amarachi.herokuapp.com](https://hello-books-amarachi.herokuapp.com)
@@ -51,14 +49,13 @@ Written in Javascript es6 syntax and nodejs, with the following:
 
 ## Contributing
 
-To contribute make a comment on our issue page. If issue has not been raised yet, feel free to raise an issue and a comment will give you the go ahead to contribute. 
-
 To contribute:
 >- Clone the repository.
 >- Install dependencies
 >- Create a new branch for included feature(s)
 >- Raise a pull request.
 
+While raising a pull request be descriptive enough about your contributions so that I and other contributors will understand what you've done.
 
 ## Author
 
