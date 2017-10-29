@@ -50,7 +50,8 @@ class Outstanding extends Component {
    * @memberof Book
    */
   refresh() {
-    this.props.getOutstanding(this.props.user.userId);
+    this.props.getOutstanding(this.props.user.userId, this.state.limit,
+      this.state.offset);
   }
   /** returns a book
    * @param {any} id
@@ -224,6 +225,7 @@ const mapStateToProps = (state) => {
   return {
     notReturned: state.userReducer.notReturned.histories,
     pagination: state.userReducer.notReturned.pagination,
+    errorMessage: state.bookReducer.error,
     user
   };
 };

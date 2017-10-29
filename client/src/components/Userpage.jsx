@@ -59,7 +59,7 @@ class Userpage extends Component {
    * @memberof Userpage
    */
   setLevelIcon(levelId, adminStatus) {
-    if (adminStatus) {
+    if (adminStatus === true) {
       return adminImage;
     }
     switch (levelId) {
@@ -105,7 +105,7 @@ class Userpage extends Component {
             <Route path='/user/category' component={Addcategory} />
             <Route path='/user/new-level' component={ChangeLevel} />
             <Route path='/user/:categories' component={Bookcategory} />
-            <Route component={Notfound} />
+            {/* <Route component={Notfound} /> */}
           </Switch>
         </div>
       </div>

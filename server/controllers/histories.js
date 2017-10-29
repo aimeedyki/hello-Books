@@ -98,16 +98,16 @@ export default {
           return res.status(404)
             .send({ message: 'This borrowed record does not exist' });
         }
+        if (history.returned === true) {
+          return res.status(409)
+            .send({ message: 'This book has been returned' });
+        }
         history.update({
           returnedDate: today,
           returned: true,
         });
         Book.findById(history.bookId)
           .then((book) => {
-            if (!book) {
-              return res.status(404)
-                .send({ message: 'This book does not exist' });
-            }
             book.update({
               quantity: (book.quantity + 1)
             });

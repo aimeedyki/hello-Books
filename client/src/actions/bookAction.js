@@ -17,7 +17,7 @@ import {
 } from './types';
 import { errorHandler } from './authAction';
 
-const API_URL = process.env.API_URL;
+// const API_URL = process.env.API_URL;
 
 /* eslint-disable no-undef */
 // action to set the book categories to the redux store
@@ -58,7 +58,7 @@ export const imageUpload = image => (
 export const addBook =
   ({ title, author, description, quantity, categoryId, image }) => (
     dispatch => (
-      axios.post(`${API_URL}/books`,
+      axios.post('/api/v1/books',
         { title, author, description, quantity, categoryId, image })
         .then((response) => {
           dispatch({
@@ -77,7 +77,7 @@ export const addBook =
 export const modifyBook =
   ({ title, author, description, quantity, categoryId, bookId }) => (
     dispatch => (
-      axios.put(`${API_URL}/books/${bookId}`,
+      axios.put(`/api/v1/${bookId}`,
         { title, author, description, quantity, categoryId })
         .then((response) => {
           Materialize.toast('Book information has been modified!',
@@ -97,7 +97,7 @@ export const modifyBook =
 // action creator to add a new book category
 export const addNewCategory = ({ name }) => (
   dispatch => (
-    axios.post(`${API_URL}/category`, { name })
+    axios.post('/api/v1/category', { name })
       .then((response) => {
         dispatch({
           type: ADD_CATEGORY,
@@ -115,7 +115,7 @@ export const addNewCategory = ({ name }) => (
 // action creator to get all categories
 export const getCategories = () => (
   dispatch => (
-    axios.get(`${API_URL}/category`)
+    axios.get('/api/v1/category')
       .then((response) => {
         dispatch(setCategories(response.data.categories));
       })
@@ -128,7 +128,7 @@ export const getCategories = () => (
 // action creator to get all books in a library
 export const getBooks = (limit, offset, paginationFunction) => (
   dispatch => (
-    axios.get(`${API_URL}/books?offset=${offset}&limit=${limit}`)
+    axios.get(`/api/v1/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch(setBooks(response.data));
         paginationFunction();
@@ -142,7 +142,7 @@ export const getBooks = (limit, offset, paginationFunction) => (
 // action creator to get a single book
 export const getaBook = id => (
   dispatch => (
-    axios.get(`${API_URL}/books/${id}`)
+    axios.get(`/api/v1/books/${id}`)
       .then((response) => {
         dispatch(setaBook(response.data.book));
       })
@@ -155,7 +155,8 @@ export const getaBook = id => (
 // action creator to get the books in a category
 export const getBooksByCategory = (id, limit, offset, paginationFunction) => (
   dispatch => (
-    axios.get(`${API_URL}/${id}/category?offset=${offset}&limit=${limit}`)
+    axios.get(`/api/v1/${id}/category?offset=${offset}
+    &limit=${limit}`)
       .then((response) => {
         dispatch(setBookCategory(response.data));
         paginationFunction();
@@ -169,7 +170,7 @@ export const getBooksByCategory = (id, limit, offset, paginationFunction) => (
 // action creator to delete a book
 export const deleteBook = (id, refresh) => (
   dispatch => (
-    axios.delete(`${API_URL}/books/${id}`)
+    axios.delete(`/api/v1/books/${id}`)
       .then(() => {
         refresh();
         dispatch({
@@ -186,7 +187,8 @@ export const deleteBook = (id, refresh) => (
 // action creator to borrow a book
 export const borrowBook = (bookId, userId, refresh) => (
   dispatch => (
-    axios.post(`${API_URL}/users/${userId}/books`, { bookId })
+    axios.post(`/api/v1/users/${userId}/books`,
+      { bookId })
       .then(() => {
         refresh();
         dispatch({
@@ -203,7 +205,8 @@ export const borrowBook = (bookId, userId, refresh) => (
 // action creator to return a book
 export const returnBook = (historyId, userId, refresh) => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}/books`, { historyId })
+    axios.put(`/api/v1/users/${userId}/books`,
+      { historyId })
       .then(() => {
         refresh();
         dispatch({

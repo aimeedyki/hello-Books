@@ -19,8 +19,6 @@ import {
   setAuthorizationToken
 } from './authAction';
 
-const API_URL = process.env.API_URL;
-
 
 // displays user details on userpage
 export const displayUserpage = () => {
@@ -37,7 +35,7 @@ export const displayUserpage = () => {
 // displays user details on userpage
 export const displayUser = userId => (
   dispatch => (
-    axios.get(`${API_URL}/users/${userId}`)
+    axios.get(`/api/v1/users/${userId}`)
       .then((response) => {
         dispatch({
           type: DISPLAY_USER,
@@ -54,7 +52,7 @@ export const displayUser = userId => (
 export const getHistory = (userId, limit, offset) => (
   dispatch => (
     axios
-      .get(`${API_URL}/users/${userId}/books?offset=${offset}&limit=${limit}`)
+      .get(`/api/v1/users/${userId}/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_HISTORY,
@@ -69,8 +67,8 @@ export const getHistory = (userId, limit, offset) => (
 
 export const getOutstanding = (userId, limit, offset) => (
   dispatch => (
-    axios.get(`${API_URL}/users/${userId}/books?returned=false&offset=${offset}
-    &limit=${limit}`)
+    axios.get(`/api/v1/users/
+    ${userId}/books?returned=false&offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_OUTSTANDING,
@@ -85,7 +83,7 @@ export const getOutstanding = (userId, limit, offset) => (
 
 export const displayNotification = () => (
   dispatch => (
-    axios.get(`${API_URL}/notifications`)
+    axios.get('/api/v1/notifications')
       .then((response) => {
         dispatch({
           type: DISPLAY_NOTIFICATION,
@@ -100,7 +98,8 @@ export const displayNotification = () => (
 
 export const passwordChange = (userId, oldPassword, newPassword) => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}`, { oldPassword, newPassword })
+    axios.put(`/api/v1/users/${userId}`,
+      { oldPassword, newPassword })
       .then(() => {
         dispatch({
           type: CHANGE_PASSWORD,
@@ -121,7 +120,7 @@ export const passwordChange = (userId, oldPassword, newPassword) => (
 
 export const getUserLevel = id => (
   dispatch => (
-    axios.get(`${API_URL}/users/${id}/level`)
+    axios.get(`/api/v1/users/${id}/level`)
       .then((response) => {
         dispatch({
           type: GET_LEVEL,
@@ -137,7 +136,7 @@ export const getUserLevel = id => (
 
 export const getUserUpdate = id => (
   dispatch => (
-    axios.get(`${API_URL}/users/${id}`)
+    axios.get(`/api/v1/users/${id}`)
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         setAuthorizationToken(response.data.token);
@@ -151,7 +150,7 @@ export const getUserUpdate = id => (
 
 export const changeLevel = (userId, levelId) => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}/level`, { levelId })
+    axios.put(`/api/v1/users/${userId}/level`, { levelId })
       .then(() => {
         dispatch({
           type: CHANGE_LEVEL,
@@ -172,7 +171,7 @@ export const changeLevel = (userId, levelId) => (
 
 export const changePic = (userId, profilepic) => (
   dispatch => (
-    axios.put(`${API_URL}/users/${userId}/image`, { profilepic })
+    axios.put(`api/v1/users/${userId}/image`, { profilepic })
       .then(() => {
         dispatch({
           type: CHANGE_IMAGE,

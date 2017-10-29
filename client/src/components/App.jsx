@@ -11,7 +11,7 @@ const App = props => (
   <div>
     <Switch>
       <Route path='/user' component={Requireauth(Userpage)} />
-      <Route exact path='/' component={Home} />
+      <Route path='/' component={Home} />
       <Route component={Notfound} />
     </Switch>
   </div>
