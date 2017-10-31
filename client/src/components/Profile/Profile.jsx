@@ -217,6 +217,11 @@ class Profile extends Component {
                 <i className='material-icons medium left link-cursor'>
                   send</i></a>
             </div>
+            <div className="image-container">
+              {this.state.image &&
+                <img src={this.state.image} alt="book Image" />
+              }
+            </div>
           </div>
           <div className='link-cursor'>
             <a onClick={this.handlePassword}>Change password?</a>

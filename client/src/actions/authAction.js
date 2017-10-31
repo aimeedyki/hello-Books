@@ -9,7 +9,7 @@ import {
   UNAUTH_USER,
 } from './types';
 
-const API_URL = 'http://localhost:5000/api/v1';
+// const API_URL = process.env.API_URL;
 
 /**
  * @description decodes the token
@@ -62,8 +62,7 @@ export const errorHandler = (dispatch, error, type) => {
 
 export const signupUser = ({ email, username, password, levelId }) => (
   dispatch => (
-    axios.post(`${API_URL}/users/signup`,
-      { email, username, password, levelId })
+    axios.post('/api/v1/users/signup', { email, username, password, levelId })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         dispatch(setCurrentUser(jwt.decode(response.data.token)));
@@ -80,7 +79,7 @@ export const signupUser = ({ email, username, password, levelId }) => (
 
 export const signinUser = ({ username, password }) => (
   dispatch => (
-    axios.post(`${API_URL}/users/signin`, { username, password })
+    axios.post('/api/v1/users/signin', { username, password })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         setAuthorizationToken(response.data.token);

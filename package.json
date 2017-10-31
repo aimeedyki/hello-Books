@@ -10,6 +10,8 @@
     "start:dev": "nodemon server/app.js --exec babel-node server/app.js",
     "start": "babel-node server/app.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
+    "dev:build": "webpack --config ./webpack.prod.config.js --progress --colors",
+    "heroku-postbuild": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "start2": "node ./client/src/app.js",
     "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "test:db": "sequelize db:migrate --env test",

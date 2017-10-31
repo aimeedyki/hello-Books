@@ -14,7 +14,7 @@ const Pagination = props => (
           <i className='material-icons'>
             chevron_left</i></a></li>
       {props.pages.map(page => (
-        <li
+        <li key={page}
           className={page === props.currentPage &&
             'active'
           }>

@@ -111,7 +111,7 @@ class Book extends Component {
       (status = 'Unavailable');
 
     // conditionally render buttons depending on user level
-    (admin) ? adminButtons = (
+    (admin === true) ? adminButtons = (
       <ul>
         <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>

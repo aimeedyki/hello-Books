@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { getCategories } from '../../actions/bookAction';
 
 import BookCategory from '../Library/Bookcategory.jsx';
-import backpic from '../../assets/images/booksbw2.jpg';
 
 /** side navigation on the user page
  * @export
@@ -47,6 +46,7 @@ class Sidenav extends Component {
           New Category</NavLink></li>
       </ul>
     ) : adminLinks = '';
+    const cloud = 'http://res.cloudinary.com/ddxsazo2k/image/upload';
 
     return (
       <div>
@@ -54,7 +54,8 @@ class Sidenav extends Component {
           <li>
             <div className='row user-view'>
               <div className='background'>
-                <img src={backpic} alt='background' />
+                <img src={`${cloud}/v1509441598/booksbw2_emnjkv.jpg`}
+                  alt='background' />
               </div>
               <a><img className='circle'
                 src={this.props.profileImage} alt='level icon' /></a>

@@ -2,10 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
-};
-
 module.exports = {
   devtool: 'eval',
   resolve: {
@@ -29,7 +25,6 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin(GLOBALS),
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin({
       filename: '../css/style.css',

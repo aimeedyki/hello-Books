@@ -21,8 +21,9 @@ const port = process.env.PORT || 5000;
 // db.sequelize.sync({ force: true })
 
 // Log requests to the console.
-app.use(logger('dev'));
-
+if (process.env.NODE_ENV === 'development') {
+  app.use(logger('dev'));
+}
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,6 +57,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 const indexFile = path.join(__dirname, 'index.html');
 
+
 const compiler = webpack(webpackConfig);
 app.use(webpackMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -63,6 +65,7 @@ app.use(webpackMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler));
+
 // route for swagger.json
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -74,11 +77,8 @@ app.get('/api-docs', (req, res) => {
 });
 
 // Require routes into the application.
-app.use(serverRoutes);
+app.use('/api/v1', serverRoutes);
 
-app.get('/me', (req, res) => {
-  res.status(200).send('me');
-});
 
 app.get('/*', (req, res) => {
   res.sendFile(indexFile);

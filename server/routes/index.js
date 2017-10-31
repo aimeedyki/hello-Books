@@ -172,7 +172,7 @@ const app = express();
  */
 
 // route for registration
-app.post('/api/v1/users/signup', usersController.signup);
+app.post('/users/signup', usersController.signup);
 
 /**
  * @swagger
@@ -196,7 +196,7 @@ app.post('/api/v1/users/signup', usersController.signup);
  */
 
 // route for login
-app.post('/api/v1/users/signin', authController.login);
+app.post('/users/signin', authController.login);
 
 /**
  * @swagger
@@ -224,23 +224,23 @@ app.post('/api/v1/users/signin', authController.login);
  */
 
 // route to change password
-app.put('/api/v1/users/:id', authentication.verifyUser, authController.change);
+app.put('/users/:id', authentication.verifyUser, authController.change);
 
 // route to get a level
 app.get(
-  '/api/v1/users/:id/level',
+  '/users/:id/level',
   authentication.verifyUser, usersController.getLevel
 );
 
 // route to change level
 app.put(
-  '/api/v1/users/:id/level',
+  '/users/:id/level',
   authentication.verifyUser, authController.changeLevel
 );
 
 // route to change profile picture
 app.put(
-  '/api/v1/users/:id/image',
+  '/users/:id/image',
   authentication.verifyUser, usersController.changeImage
 );
 /**
@@ -266,7 +266,7 @@ app.put(
 
 // route to display user profile
 app.get(
-  '/api/v1/users/:id',
+  '/users/:id',
   authentication.verifyUser, usersController.profile
 );
 
@@ -293,7 +293,7 @@ app.get(
 
 // route for creating a category
 app.post(
-  '/api/v1/category', authentication.verifyUser,
+  '/category', authentication.verifyUser,
   authentication.verifyAdmin, categoriesController.addCategory
 );
 
@@ -319,7 +319,7 @@ app.post(
  */
 // route for displaying all categories
 app.get(
-  '/api/v1/category', authentication.verifyUser,
+  '/category', authentication.verifyUser,
   categoriesController.list
 );
 
@@ -346,7 +346,7 @@ app.get(
  */
 // route for displaying all the books by categories
 app.get(
-  '/api/v1/:id/category/', authentication.verifyUser,
+  '/:id/category/', authentication.verifyUser,
   categoriesController.display
 );
 
@@ -373,7 +373,7 @@ app.get(
 
 // route for adding a book
 app.post(
-  '/api/v1/books', authentication.verifyUser,
+  '/books', authentication.verifyUser,
   authentication.verifyAdmin, booksController.addBook
 );
 
@@ -400,7 +400,7 @@ app.post(
 
 // route for modifying book information
 app.put(
-  '/api/v1/books/:id', authentication.verifyUser,
+  '/books/:id', authentication.verifyUser,
   authentication.verifyAdmin, booksController.modify
 );
 
@@ -427,13 +427,13 @@ app.put(
 
 // route for deleting a book
 app.delete(
-  '/api/v1/books/:id', authentication.verifyUser,
+  '/books/:id', authentication.verifyUser,
   authentication.verifyAdmin, booksController.remove
 );
 
 // route for getting a books detail
 app.get(
-  '/api/v1/books/:id',
+  '/books/:id',
   authentication.verifyUser, booksController.viewBook
 );
 
@@ -458,7 +458,7 @@ app.get(
  *         description: Available books are displayed
  */
 // displays allbooks in the library
-app.get('/api/v1/books/', authentication.verifyUser, booksController.list);
+app.get('/books/', authentication.verifyUser, booksController.list);
 
 /**
  * @swagger
@@ -482,7 +482,7 @@ app.get('/api/v1/books/', authentication.verifyUser, booksController.list);
  */
 
 // borrows a book and saves to history of a user
-app.post('/api/v1/users/:userId/books',
+app.post('/users/:userId/books',
   authentication.verifyUser, historiesController.borrow);
 
 /**
@@ -507,7 +507,7 @@ app.post('/api/v1/users/:userId/books',
  */
 // returns a book to the library
 app.put(
-  '/api/v1/users/:userId/books',
+  '/users/:userId/books',
   authentication.verifyUser, historiesController.modify
 );
 
@@ -533,7 +533,7 @@ app.put(
  */
 // displays history
 app.get(
-  '/api/v1/users/:userId/books',
+  '/users/:userId/books',
   authentication.verifyUser, historiesController.list
 );
 
@@ -559,7 +559,7 @@ app.get(
 */
 // displays the books user has not returned
 app.get(
-  '/api/v1/users/:userId/books?returned=false',
+  '/users/:userId/books?returned=false',
   authentication.verifyUser, historiesController.list
 );
 
@@ -585,7 +585,7 @@ app.get(
 */
 // displays notifications
 app.get(
-  '/api/v1/notifications', authentication.verifyUser,
+  '/notifications', authentication.verifyUser,
   authentication.verifyAdmin, notificationsController.list
 );
 

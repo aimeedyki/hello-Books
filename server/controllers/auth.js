@@ -39,7 +39,7 @@ const authController = {
           const token = getUserToken(foundUser);
           return res.status(200).send({ message: 'welcome', token });
         }
-        return res.status(422)
+        return res.status(403)
           .send({ message: 'username or password is incorrect' });
       })
       .catch(error =>
@@ -88,7 +88,7 @@ const authController = {
         }, { where: { id: req.params.id } });
         res.status(200).send({ message: 'password updated' });
       })
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => res.status(500).send(error.message));
   },
   /** Changes a users level
     * @param {any} req HTTP request object
