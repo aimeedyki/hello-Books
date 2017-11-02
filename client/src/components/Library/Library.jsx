@@ -53,7 +53,7 @@ class Tab extends Component {
     /* eslint-disable no-unused-expressions */
     (admin === true) ? addBookButton = (
       <div className='fixed-action-btn'>
-        <Link to='/user/books'
+        <Link to='/user/add-book'
           className='btn-floating btn-large indigo darken-2'>
           <i className='large material-icons'>add</i></Link>
       </div>) : addBookButton = '';

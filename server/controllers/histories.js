@@ -65,7 +65,9 @@ export default {
               action: 'Borrowed',
             })
               .then((notification) => {
-                res.status(201).send({ notification });
+                res.status(201).send({
+                  message: 'Book borrowed!', notification
+                });
               })
               .catch(error => res.status(500).send(error.message));
           })
@@ -122,7 +124,7 @@ export default {
                   action: 'Returned',
                 }).then((notification) => {
                   res.status(200)
-                    .send({ notification });
+                    .send({ message: 'Book returned!', notification });
                 })
                   .catch(error => res.status(500).send(error.message));
               })
@@ -159,6 +161,7 @@ export default {
       })
       .then((histories) => {
         const allHistories = {
+          message: 'Success!',
           histories: histories.rows,
           pagination: paginate(offset, limit, histories)
         };
