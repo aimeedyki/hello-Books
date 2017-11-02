@@ -123,7 +123,7 @@ const authController = {
               username: user.username,
               level: user.levelId
             };
-            res.status(200).send({ userDetails });
+            res.status(200).send({ message: 'Level changed', userDetails });
           })
           .catch(error => res.status(500).send(error.message));
       })

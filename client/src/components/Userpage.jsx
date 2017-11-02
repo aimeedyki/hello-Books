@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 
-// import { displayUserpage, displayUser } from '../actions/userAction';
-
+import AdminAuth from './Authentication/AdminAuth';
 import Topnav from './Common/Topnav.jsx';
 import Sidenav from './Common/Sidenav.jsx';
 import Library from './Library/Library.jsx';
@@ -79,8 +77,8 @@ class Userpage extends Component {
    * @memberof Userpage
    */
   render() {
-    // const { levelicon } = this.state;
     const { username, levelId, email, profilepic, admin } = this.props.user;
+    const { authenticated } = this.props.authenticated;
     let profileImage;
     profilepic === '' || profilepic === null ?
       (profileImage = noPicture) : (profileImage = profilepic);
@@ -94,18 +92,18 @@ class Userpage extends Component {
           <Switch>
             <Route exact path={this.props.match.path} component={Library} />
             <Route path='/user/notreturned' component={Outstanding} />
-            <Route path='/user/new' component={Addbook} />
+            <Route path='/user/add-book' component={AdminAuth(Addbook)} />
             <Route path='/user/password' component={ChangePassword} />
             <Route exact path='/user/profile' component={Profile} />
             <Route path='/user/edit-profile' component={Editprofile} />
             <Route path='/user/history' component={Borrowed} />
-            <Route path='/user/notifications' component={Useractivity} />
-            <Route path='/user/books' component={Addbook} />
-            <Route path='/user/:id/edit-book' component={Editbook} />
-            <Route path='/user/category' component={Addcategory} />
+            <Route path='/user/notifications'
+              component={AdminAuth(Useractivity)} />
+            <Route path='/user/:id/edit-book' component={AdminAuth(Editbook)} />
+            <Route path='/user/category' component={AdminAuth(Addcategory)} />
             <Route path='/user/new-level' component={ChangeLevel} />
             <Route path='/user/:categories' component={Bookcategory} />
-            {/* <Route component={Notfound} /> */}
+            <Route path='/user/*' component={Notfound} />
           </Switch>
         </div>
       </div>
@@ -114,9 +112,10 @@ class Userpage extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user, authenticated } = state.auth;
   return {
     user,
+    authenticated
   };
 };
 

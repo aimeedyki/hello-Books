@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { setAuthorizationToken } from '../../actions/authAction';
 
 export default (ComposedComponent) => {
   /** higher other component checks the is authenticated status
@@ -14,8 +15,10 @@ export default (ComposedComponent) => {
      * @memberof Authentication
      */
     componentWillMount() {
-      if (this.props.authenticated === false) {
+      if (this.props.authenticated === false || (!this.props.user)) {
         this.props.history.push('/');
+        localStorage.clear();
+        setAuthorizationToken('');
       }
     }
     /** @returns {*} void
@@ -23,8 +26,10 @@ export default (ComposedComponent) => {
          * @memberof Authentication
          */
     componentWillUpdate(nextProps) {
-      if (nextProps.authenticated === false) {
+      if (nextProps.authenticated === false || (!this.props.user)) {
         this.props.history.push('/');
+        localStorage.clear();
+        setAuthorizationToken('');
       }
     }
     /** @returns {object} component
@@ -35,9 +40,13 @@ export default (ComposedComponent) => {
     }
   }
 
-  const mapStateToProps = state => ({
-    authenticated: state.auth.authenticated
-  });
+  const mapStateToProps = (state) => {
+    const { user, authenticated } = state.auth;
+    return {
+      user,
+      authenticated
+    };
+  };
 
   return connect(mapStateToProps)(withRouter(Authentication));
 };

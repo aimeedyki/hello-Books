@@ -25,7 +25,8 @@ export default {
       Category.create({
         name
       })
-        .then(categories => res.status(201).send(categories))
+        .then(categories => res.status(201)
+          .send({ message: 'Categories added!', categories }))
         .catch(error => res.status(500).send(error));
     })
       .catch(error => res.status(500).send(error));
@@ -39,7 +40,7 @@ export default {
     return Category
       .all()
       .then((categories) => {
-        const allCategories = { categories };
+        const allCategories = { message: 'success', categories };
         res.status(200).send(allCategories);
       })
       .catch(error => res.status(500).send(error));
@@ -74,7 +75,9 @@ export default {
       })
       .then((books) => {
         const categoryBooks = {
-          books: books.rows, pagination: paginate(offset, limit, books)
+          message: 'Success!',
+          books: books.rows,
+          pagination: paginate(offset, limit, books)
         };
         res.status(200).send(categoryBooks);
       })

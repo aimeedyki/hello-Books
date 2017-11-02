@@ -64,7 +64,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookCategory: action.payload,
-
       };
     case DELETE_BOOK:
       return {

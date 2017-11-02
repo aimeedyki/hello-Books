@@ -102,7 +102,7 @@ export default {
       .then((user) => {
         if (user) {
           const token = getUserToken(user);
-          return res.status(200).send({ token });
+          return res.status(200).send({ message: 'Success!', token });
         }
         return res.status(404).json({
           message: 'User not found',
@@ -158,7 +158,7 @@ export default {
         user.update({
           profilepic
         });
-        res.status(200).send({ user });
+        res.status(200).send({ message: 'Success!', user });
       })
       .catch(error => res.status(500).send(error.message));
   }

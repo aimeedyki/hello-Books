@@ -16,7 +16,7 @@
     "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "test:db": "sequelize db:migrate --env test",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run cover | coveralls",
-    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly _mocha --compilers js:babel-register test/*.js"
+    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly _mocha --compilers js:babel-register test/*.js --timeout 70000"
   },
   "repository": {
     "type": "git",

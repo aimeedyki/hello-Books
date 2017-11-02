@@ -11,7 +11,7 @@ export default {
     const title = req.body.title || null;
     const author = req.body.author || null;
     const description = req.body.description || null;
-    const quantity = parseInt(req.body.quantity, 10) || null;
+    const quantity = parseInt(req.body.quantity, 10);
     const categoryId = req.body.categoryId || null;
     const image = req.body.image || null;
 
@@ -69,7 +69,7 @@ export default {
             quantity,
             categoryId,
           }).then((createdBook) => {
-            res.status(201).send({ createdBook });
+            res.status(201).send({ message: 'Book added!', createdBook });
           })
             .catch(error => res.status(500).send(error.message));
         })
@@ -104,7 +104,7 @@ export default {
           author: req.body.author,
         })
           .then((updatedBook) => {
-            res.status(200).send({ updatedBook });
+            res.status(200).send({ message: 'Book Modified!', updatedBook });
           })
           .catch(error => res.status(500).send(error.message));
       })
@@ -162,7 +162,7 @@ export default {
           return res.status(404)
             .send({ message: 'Book does not exist in this Library' });
         }
-        const thisBook = { book };
+        const thisBook = { message: 'Success!', book };
         res.status(200).send(thisBook);
       })
       .catch(error => res.status(500).send(error.message));
