@@ -10,11 +10,6 @@ const secret = process.env.SECRET;
 const token = user =>
   jwt.sign({
     userId: user.id,
-    admin: user.admin,
-    username: user.username,
-    levelId: user.levelId,
-    profilepic: user.profilepic,
-    email: user.email,
-    borrowCount: user.borrowCount
+    admin: user.admin
   }, secret, { expiresIn: '10h' });
 export default token;

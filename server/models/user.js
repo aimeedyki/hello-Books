@@ -64,12 +64,17 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    admin: DataTypes.BOOLEAN,
-    profilepic: DataTypes.STRING,
-    borrowCount: DataTypes.INTEGER,
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    profilePic: DataTypes.STRING,
+    borrowCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
   }, {
-    hooks:
-    {
+    hooks: {
       beforeCreate: (user) => {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);

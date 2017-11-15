@@ -6,6 +6,7 @@ export default (sequelize, DataTypes) => {
     returnedDate: DataTypes.DATE,
     returned: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
+    userLevel: DataTypes.STRING,
     bookId: {
       type: DataTypes.INTEGER,
       allowNull: {
