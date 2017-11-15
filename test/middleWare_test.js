@@ -10,10 +10,10 @@ let token2 = '';
 
 describe('Authentication', () => {
   it('should return 403 if token is not a token', (done) => {
-    server.put('/api/v1/users/1').set('x-access-token', '')
+    server.put('/api/v1/user/password').set('x-access-token', '')
       .send({
-        oldPassword: 'bookiiii',
-        newPassword: 'journies',
+        newPassword: 'bookiiii',
+        confirmNewPassword: 'journies',
       })
       .end((err, res) => {
         assert.equal(res.status, 403);
