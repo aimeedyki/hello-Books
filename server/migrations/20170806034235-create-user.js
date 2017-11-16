@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      profilepic: {
+      profilePic: {
         type: Sequelize.STRING
       },
       admin: {

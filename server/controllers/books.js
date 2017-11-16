@@ -1,122 +1,118 @@
 import { Book, Category, History } from '../models';
 import paginate from '../middleware/book';
+import addBookValidation from '../helpers/addBookValidation';
+import editBookValidation from '../helpers/editBookValidation';
 
 export default {
   /** @description adds a book
-   * @param {any} req HTTP request object
-   * @param {any} res HTTP response object
-   * @returns {object} book
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
+   * @returns {object} created book
    */
   addBook(req, res) {
-    const title = req.body.title || null;
-    const author = req.body.author || null;
-    const description = req.body.description || null;
-    const quantity = parseInt(req.body.quantity, 10);
-    const categoryId = req.body.categoryId || null;
-    const image = req.body.image || null;
-
-    if (title === null) {
-      return res.status(400).send({
-        message: 'Please enter book title'
-      });
-    }
-    if (author === null) {
-      return res.status(400).send({
-        message: 'Please enter author'
-      });
-    }
-    if (description === null) {
-      return res.status(400).send({
-        message: 'Please enter a description'
-      });
-    }
-    if (isNaN(quantity)) {
-      return res.status(400).send({
-        message: 'Please enter a valid quantity'
-      });
-    }
-    if (categoryId === null) {
-      return res.status(400).send({
-        message: 'Please enter category'
-      });
-    }
-    Category.findOne({
-      where: {
-        id: categoryId
-      }
-    }).then((foundCategory) => {
-      if (!foundCategory) {
-        return res.status(404)
-          .send({ message: 'Category does not exist' });
-      }
-      Book.findOne({
+    if (addBookValidation(req.body).isValid) {
+      const title = req.body.title;
+      const author = req.body.author;
+      const description = req.body.description;
+      const quantity = parseInt(req.body.quantity, 10);
+      const categoryId = parseInt(req.body.categoryId, 10);
+      const image = req.body.image;
+      Category.findOne({
         where: {
-          $and: [{
-            title
-          }, { author }]
+          id: categoryId
         }
-      })
-        .then((book) => {
-          if (book) {
-            return res.status(409)
-              .send({ message: 'Book already exists in this Library' });
-          }
-          Book.create({
-            title,
-            author,
-            image,
-            description,
-            quantity,
-            categoryId,
-          }).then((createdBook) => {
-            res.status(201).send({ message: 'Book added!', createdBook });
-          })
-            .catch(error => res.status(500).send(error.message));
-        })
-        .catch(error => res.status(500).send(error.message));
-    })
-      .catch(error => res.status(500).send(error.message));
-  },
-  /** @description modifies book
-   * @param {any} req HTTP request object
-   * @param {any} res HTTP response object
-   * @returns {object} book
-   */
-  modify(req, res) {
-    const bookId = parseInt(req.params.id, 10);
-    if (isNaN(bookId)) {
-      return res.status(400).send({
-        message: 'Please enter a valid bookId'
-      });
-    }
-    Book.findById(bookId)
-      .then((book) => {
-        if (!book) {
+      }).then((foundCategory) => {
+        if (!foundCategory) {
           return res.status(404)
-            .send({ message: 'Book does not exist in this Library' });
+            .send({ message: 'Category does not exist' });
         }
-        book.update({
-          title: req.body.title,
-          image: req.body.image,
-          description: req.body.description,
-          quantity: req.body.quantity,
-          categoryId: req.body.categoryId,
-          author: req.body.author,
+        Book.findOne({
+          where: {
+            $and: [{
+              title
+            }, { author }]
+          }
         })
-          .then((updatedBook) => {
-            res.status(200).send({ message: 'Book Modified!', updatedBook });
+          .then((book) => {
+            if (book) {
+              return res.status(409)
+                .send({ message: 'Book already exists in this Library' });
+            }
+            Book.create({
+              title,
+              author,
+              image,
+              description,
+              quantity,
+              categoryId,
+            }).then((createdBook) => {
+              createdBook.getCategory()
+                .then((category) => {
+                  const newBook = {
+                    id: createdBook.id,
+                    title: createdBook.title,
+                    author: createdBook.author,
+                    category: category.name,
+                    image: createdBook.image,
+                    description: createdBook.description,
+                    quantity: createdBook.quantity,
+                    createdAt: createdBook.createdAt
+                  };
+                  res.status(201).send({ message: 'Book added!', newBook });
+                })
+                .catch(error => res.status(500).send(error.message));
+            })
+              .catch(error => res.status(500).send(error.message));
           })
           .catch(error => res.status(500).send(error.message));
       })
-      .catch(error => res.status(500).send(error.message));
+        .catch(error => res.status(500).send(error.message));
+    }
+    if (addBookValidation(req.body).message) {
+      res.status(400).send({ message: addBookValidation(req.body).message });
+    }
+  },
+
+  /** @description modifies book
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
+   * @returns {object} book
+   */
+  modifyBook(req, res) {
+    if (editBookValidation(req).isValid) {
+      const bookId = parseInt(req.params.id, 10);
+      Book.findById(bookId)
+        .then((book) => {
+          if (!book) {
+            return res.status(404)
+              .send({ message: 'Book does not exist in this Library' });
+          }
+          book.update({
+            title: req.body.title || book.title,
+            image: req.body.image || book.image,
+            description: req.body.description || book.description,
+            quantity: req.body.quantity || book.quantity,
+            categoryId: req.body.categoryId || book.categoryId,
+            author: req.body.author || book.author,
+          })
+            .then((updatedBook) => {
+              res.status(200).send({ message: 'Book Modified!', updatedBook });
+            })
+            .catch(error => res.status(500).send(error.message));
+        })
+        .catch(error => res.status(500).send(error.message));
+    }
+    if (editBookValidation(req).message) {
+      res.status(400).send({ message: editBookValidation(req).message });
+    }
   },
 
   /** @description displays all books
-   * @param {any} req HTTP request object
-   * @param {any} res HTTP response object
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
    * @returns {object} books
    */
-  list(req, res) {
+  listBooks(req, res) {
     const offset = req.query.offset || 0;
     const limit = req.query.limit || 8;
     Book
@@ -125,6 +121,7 @@ export default {
           model: Category,
           as: 'category',
           attributes: ['name'],
+          paranoid: false
         }],
         order: [['title', 'ASC']],
         limit,
@@ -139,8 +136,8 @@ export default {
       .catch(error => res.status(500).send(error));
   },
   /** displays one book
-     * @param {any} req
-     * @param {any} res
+     * @param {object} req HTTP request object
+     * @param {object} res  HTTP response object
      * @returns {object} book
      */
   viewBook(req, res) {
@@ -168,11 +165,11 @@ export default {
       .catch(error => res.status(500).send(error.message));
   },
   /** deletes a book
-   * @param {any} req
-   * @param {any} res
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
    * @returns {object} book
    */
-  remove(req, res) {
+  deleteBook(req, res) {
     const bookId = parseInt(req.params.id, 10);
     if (isNaN(bookId)) {
       return res.status(400).send({
