@@ -5,3 +5,16 @@ engines:
       languages:
         javascript:
           mass_threshold: 500
+checks:
+  method-lines:
+    config:
+      threshold: 60
+  complex-logic:
+    config:
+      threshold: 8
+  method-complexity:
+    config:
+      threshold: 8
+  return-statements:
+    config:
+      threshold: 8

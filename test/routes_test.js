@@ -27,9 +27,49 @@ describe('User', () => {
       });
   });
 
-  it('should return 400 signup form is empty', (done) => {
+  it('should return 400 email is null', (done) => {
     server.post('/api/v1/users/signup')
-      .send({})
+      .send({
+        username: faker.internet.userName(),
+        password: 'bookiiii',
+        levelId: 1,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 400 when username  is null', (done) => {
+    server.post('/api/v1/users/signup')
+      .send({
+        email: faker.internet.email(),
+        password: 'bookiiii',
+        levelId: 1,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 400 when password is null', (done) => {
+    server.post('/api/v1/users/signup')
+      .send({
+        email: faker.internet.email(),
+        username: faker.internet.userName(),
+        levelId: 1,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 400 when level is null', (done) => {
+    server.post('/api/v1/users/signup')
+      .send({
+        email: faker.internet.email(),
+        username: faker.internet.userName(),
+        password: 'bookiiii',
+      })
       .end((err, res) => {
         assert.equal(res.status, 400);
         done();
@@ -160,10 +200,10 @@ describe('User', () => {
       });
   });
   it('should return 200 when password change is successful', (done) => {
-    server.put('/api/v1/users/1').set('x-access-token', token)
+    server.put('/api/v1/user/password').set('x-access-token', token)
       .send({
-        oldPassword: 'bookiiii',
-        newPassword: 'journies',
+        newPassword: 'password',
+        confirmNewPassword: 'password',
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -173,7 +213,7 @@ describe('User', () => {
   });
 
   it('should return 400 password change form is empty', (done) => {
-    server.put('/api/v1/users/1').set('x-access-token', token)
+    server.put('/api/v1/user/password').set('x-access-token', token)
       .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
@@ -181,61 +221,22 @@ describe('User', () => {
       });
   });
 
-  it('should return 404 when user does not exist', (done) => {
-    server.put('/api/v1/users/100').set('x-access-token', token)
+  it('should return 400 if passwords do not match', (done) => {
+    server.put('/api/v1/user/password').set('x-access-token', token)
       .send({
-        oldPassword: 'bookiiii',
-        newPassword: 'journies',
+        newPassword: 'bookiii3',
+        confirmNewPassword: 'journies',
       })
       .end((err, res) => {
-        assert.equal(res.status, 404);
+        assert.equal(res.status, 400);
         done();
       });
   });
 
-  it('should return 401 if old password is wrong', (done) => {
-    server.put('/api/v1/users/1').set('x-access-token', token)
-      .send({
-        oldPassword: 'bookiii3',
-        newPassword: 'journies',
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 401);
-        done();
-      });
-  });
-  it('should return 409 when user does not exist', (done) => {
-    server.put('/api/v1/users/100').set('x-access-token', token)
-      .send({
-        oldPassword: 'bookiiii',
-        newPassword: 'journies',
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 404);
-        done();
-      });
-  });
-  it('should return 200 when getting user levels', (done) => {
-    server.get('/api/v1/users/1/level').set('x-access-token', token)
-      .end((err, res) => {
-        assert.equal(res.status, 200);
-        assert.isNotNull(res.body.userDetails);
-        done();
-      });
-  });
-  it('should return 404 if level does not exist when getting user levels',
-    (done) => {
-      server.get('/api/v1/users/10/level').set('x-access-token', token)
-        .end((err, res) => {
-          assert.equal(res.status, 404);
-          assert.isNotNull(res.body.userDetails);
-          done();
-        });
-    });
   it('should return 200 when level change is successful', (done) => {
-    server.put('/api/v1/users/1/level').set('x-access-token', token)
+    server.put('/api/v1/user/level').set('x-access-token', token)
       .send({
-        levelId: 2
+        newLevelId: 2
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -245,7 +246,7 @@ describe('User', () => {
   });
 
   it('should return 400 when level change form is empty', (done) => {
-    server.put('/api/v1/users/1/level').set('x-access-token', token)
+    server.put('/api/v1/user/level').set('x-access-token', token)
       .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
@@ -254,9 +255,9 @@ describe('User', () => {
   });
 
   it('should return 200 when picture update is successful', (done) => {
-    server.put('/api/v1/users/1/image').set('x-access-token', token)
+    server.put('/api/v1/user/profile-image').set('x-access-token', token)
       .send({
-        profilepic: 'reg.jpg'
+        profilePic: 'reg.jpg'
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -266,7 +267,7 @@ describe('User', () => {
   });
 
   it('should return 400 picture change form is empty', (done) => {
-    server.put('/api/v1/users/1/image').set('x-access-token', token)
+    server.put('/api/v1/user/profile-image').set('x-access-token', token)
       .send({})
       .end((err, res) => {
         assert.equal(res.status, 400);
@@ -274,7 +275,7 @@ describe('User', () => {
       });
   });
   it('should return 404 if user to change image does not exist', (done) => {
-    server.put('/api/v1/users/100/image').set('x-access-token', token)
+    server.put('/api/v1/users/profile-image').set('x-access-token', token)
       .send({
         profilepic: 'reg.jpg'
       })
@@ -285,22 +286,13 @@ describe('User', () => {
   });
 
   it('should return 200 when displaying a users profile', (done) => {
-    server.get('/api/v1/users/1').set('x-access-token', token)
+    server.get('/api/v1/user/profile').set('x-access-token', token)
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.isNotNull(res.body.User);
         done();
       });
   });
-  it('should return 404 if a user is not found when displaying a users profile',
-    (done) => {
-      server.get('/api/v1/users/100').set('x-access-token', token)
-        .end((err, res) => {
-          assert.equal(res.status, 404);
-          assert.isNotNull(res.body.User);
-          done();
-        });
-    });
 });
 
 describe('Category', () => {
@@ -308,6 +300,17 @@ describe('Category', () => {
     server.post('/api/v1/category').set('x-access-token', adminToken)
       .send({
         name: 'EDUCATIONAL'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 201);
+        assert.isNotNull(res.body.category);
+        done();
+      });
+  });
+  it('should return 201 when a category is added', (done) => {
+    server.post('/api/v1/category').set('x-access-token', adminToken)
+      .send({
+        name: 'ROMANCE'
       })
       .end((err, res) => {
         assert.equal(res.status, 201);
@@ -351,9 +354,97 @@ describe('Category', () => {
           done();
         });
     });
-  it('should return 400 when categoryId is not valid',
+  it('should return 400 when categoryId to display is not valid',
     (done) => {
       server.get('/api/v1/jhjnjn/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 400);
+          done();
+        });
+    });
+  it('should return 404 when categoryId to display is not found',
+    (done) => {
+      server.get('/api/v1/567/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 404);
+          done();
+        });
+    });
+  it('should return 200 when a category is modified', (done) => {
+    server.put('/api/v1/1/category').set('x-access-token', adminToken)
+      .send({
+        name: 'Thriller'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        done();
+      });
+  });
+  it('should return 200 when a category name field is null', (done) => {
+    server.put('/api/v1/1/category').set('x-access-token', adminToken)
+      .send({})
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        done();
+      });
+  });
+  it('should return 400 when categoryId to modify is not valid',
+    (done) => {
+      server.put('/api/v1/jhjnjn/category').set('x-access-token', adminToken)
+        .send({
+          name: 'Thriller'
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 400);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 404 when category to modify is not found',
+    (done) => {
+      server.put('/api/v1/404/category').set('x-access-token', adminToken)
+        .send({
+          name: 'Thriller'
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 404);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 409 when category to modify to already exists',
+    (done) => {
+      server.put('/api/v1/2/category').set('x-access-token', adminToken)
+        .send({
+          name: 'Thriller'
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 409);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 200 when category is deleted',
+    (done) => {
+      server.delete('/api/v1/2/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 200);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 404 when category to delete is not found',
+    (done) => {
+      server.delete('/api/v1/404/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 404);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 400 when categoryId to delete is not valid',
+    (done) => {
+      server.delete('/api/v1/jhjnjn/category').set('x-access-token', adminToken)
         .end((err, res) => {
           assert.equal(res.status, 400);
           assert.isNotNull(res.body.category);
@@ -379,6 +470,24 @@ describe('Book', () => {
         done();
       });
   });
+  it('should return 409 when category to delete has books in it',
+    (done) => {
+      server.delete('/api/v1/1/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 409);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
+  it('should return 200 when displaying books in a category with books',
+    (done) => {
+      server.get('/api/v1/1/category').set('x-access-token', adminToken)
+        .end((err, res) => {
+          assert.equal(res.status, 200);
+          assert.isNotNull(res.body.category);
+          done();
+        });
+    });
   it('should return 201 when a book is added', (done) => {
     server.post('/api/v1/books').set('x-access-token', adminToken)
       .send({
@@ -387,6 +496,22 @@ describe('Book', () => {
         description: 'a tale about a jungle boy',
         image: 'assd.jpg',
         quantity: '10',
+        categoryId: '1',
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 201);
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+  it('should return 201 when a book is added', (done) => {
+    server.post('/api/v1/books').set('x-access-token', adminToken)
+      .send({
+        title: 'howie it',
+        author: 'howie mandel',
+        description: 'a tale about a jungle boy',
+        image: 'assd.jpg',
+        quantity: '0',
         categoryId: '1',
       })
       .end((err, res) => {
@@ -432,6 +557,39 @@ describe('Book', () => {
         image: 'assd.jpg',
         quantity: '10',
         categoryId: ' 1',
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+
+  it('should return 400 when quantity is not valid', (done) => {
+    server.post('/api/v1/books').set('x-access-token', adminToken)
+      .send({
+        title: 'howie made it',
+        author: 'howie mandel',
+        description: 'a tale about a jungle boy',
+        image: 'assd.jpg',
+        quantity: 'slmsklas',
+        categoryId: ' 1',
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+  it('should return 400 when categoryId field is not valid', (done) => {
+    server.post('/api/v1/books').set('x-access-token', adminToken)
+      .send({
+        title: 'howie made it',
+        author: 'howie mandel',
+        description: 'a tale about a jungle boy',
+        image: 'assd.jpg',
+        quantity: '10',
+        categoryId: 'jhjhkh',
       })
       .end((err, res) => {
         assert.equal(res.status, 400);
@@ -504,11 +662,7 @@ describe('Book', () => {
     server.put('/api/v1/books/1').set('x-access-token', adminToken)
       .send({
         title: 'Midnight wail',
-        author: 'James Hardy',
-        description: 'a tale about family',
-        image: 'assd.jpg',
-        quantity: '10',
-        categoryId: 1,
+        author: 'James Hardy'
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -516,18 +670,45 @@ describe('Book', () => {
         done();
       });
   });
+  it('should return 400 when quantity is not valid', (done) => {
+    server.put('/api/v1/books/1').set('x-access-token', adminToken)
+      .send({
+        quantity: 'dfgcgh'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
+  it('should return 400 when categoryId is not valid', (done) => {
+    server.put('/api/v1/books/1').set('x-access-token', adminToken)
+      .send({
+        categoryId: 'dfgcgh'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.Book);
+        done();
+      });
+  });
   it('should return 404 if book to be modified is not found', (done) => {
     server.put('/api/v1/books/106').set('x-access-token', adminToken)
       .send({
-        title: 'Midnight xxxyyy',
-        author: 'James Hardy',
-        description: 'a tale about family',
-        image: 'assd.jpg',
-        quantity: '10',
-        categoryId: 1,
+        title: 'Midnight xxxyyy'
       })
       .end((err, res) => {
         assert.equal(res.status, 404);
+        done();
+      });
+  });
+  it('should return 400 when there are no changes to modify', (done) => {
+    server.put('/api/v1/books/1').set('x-access-token', adminToken)
+      .send({
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body.Book);
         done();
       });
   });
@@ -583,7 +764,7 @@ describe('Book', () => {
 
 describe('History', () => {
   it('should return 201 when a book is borrowed', (done) => {
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
+    server.post('/api/v1/user/borrow-book').set('x-access-token', token)
       .send({
         bookId: 1,
       })
@@ -594,7 +775,7 @@ describe('History', () => {
       });
   });
   it('should return 400 if bookId is not valid', (done) => {
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
+    server.post('/api/v1/user/borrow-book').set('x-access-token', token)
       .send({
         bookId: 'gjk',
       })
@@ -603,18 +784,8 @@ describe('History', () => {
         done();
       });
   });
-  it('should return 400 if userId is not valid', (done) => {
-    server.post('/api/v1/users/gfyh/books').set('x-access-token', token)
-      .send({
-        bookId: 1,
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 400);
-        done();
-      });
-  });
   it('should return 404 if book to be borrowed does not exist', (done) => {
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
+    server.post('/api/v1/user/borrow-book').set('x-access-token', token)
       .send({
         bookId: 200,
       })
@@ -624,18 +795,7 @@ describe('History', () => {
       });
   });
   it('should return 404 if book to be borrowed\'s quantity is zero', (done) => {
-    server.post('/api/v1/users/1/books').set('x-access-token', token)
-      .send({
-        bookId: 3,
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 404);
-        done();
-      });
-  });
-
-  it('should return 404 if user is not registered', (done) => {
-    server.post('/api/v1/users/17/books').set('x-access-token', token)
+    server.post('/api/v1/user/borrow-book').set('x-access-token', token)
       .send({
         bookId: 3,
       })
@@ -646,7 +806,7 @@ describe('History', () => {
   });
 
   it('should return 200 when a book is returned', (done) => {
-    server.put('/api/v1/users/1/books').set('x-access-token', token)
+    server.put('/api/v1/user/return-book').set('x-access-token', token)
       .send({
         historyId: 1,
       })
@@ -657,7 +817,7 @@ describe('History', () => {
       });
   });
   it('should return 400 when a historyId is not valid', (done) => {
-    server.put('/api/v1/users/1/books').set('x-access-token', token)
+    server.put('/api/v1/user/return-book').set('x-access-token', token)
       .send({
         historyId: 'hbjjbj',
       })
@@ -666,19 +826,10 @@ describe('History', () => {
         done();
       });
   });
-  it('should return 400 if userId is not valid', (done) => {
-    server.put('/api/v1/users/gfyh/books').set('x-access-token', token)
-      .send({
-        historyId: 1,
-      })
-      .end((err, res) => {
-        assert.equal(res.status, 400);
-        done();
-      });
-  });
+
   it('should return 404 when a book to be returned has not been borrowed',
     (done) => {
-      server.put('/api/v1/users/1/books').set('x-access-token', token)
+      server.put('/api/v1/user/return-book').set('x-access-token', token)
         .send({
           historyId: 10,
         })
@@ -688,9 +839,21 @@ describe('History', () => {
           done();
         });
     });
+  it('should return 409 when a book to be returned has been returned',
+    (done) => {
+      server.put('/api/v1/user/return-book').set('x-access-token', token)
+        .send({
+          historyId: 1,
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 409);
+          assert.isNotNull(res.body.notification);
+          done();
+        });
+    });
   it('should return 200 when displaying all books a user has borrowed',
     (done) => {
-      server.get('/api/v1/users/1/books').set('x-access-token', token)
+      server.get('/api/v1/user/books').set('x-access-token', token)
         .end((err, res) => {
           assert.equal(res.status, 200);
           assert.isNotNull(res.body.history);
@@ -699,7 +862,7 @@ describe('History', () => {
     });
   it('should return 200 when displaying paginated history',
     (done) => {
-      server.get('/api/v1/users/1/books?offset=0&limit=2')
+      server.get('/api/v1/user/books?offset=0&limit=2')
         .set('x-access-token', token)
         .end((err, res) => {
           assert.equal(res.status, 200);
@@ -709,7 +872,7 @@ describe('History', () => {
     });
   it('should return 200 when displaying all books a user has not returned',
     (done) => {
-      server.get('/api/v1/users/1/books?returned=false')
+      server.get('/api/v1/user/books?returned=false')
         .set('x-access-token', token)
         .end((err, res) => {
           assert.equal(res.status, 200);
@@ -718,7 +881,7 @@ describe('History', () => {
     });
   it('should return 200 when displaying paginated not returned books',
     (done) => {
-      server.get('/api/v1/users/1/books?returned=false&offset=0&limit=1')
+      server.get('/api/v1/user/books?returned=false&offset=0&limit=1')
         .set('x-access-token', token)
         .end((err, res) => {
           assert.equal(res.status, 200);

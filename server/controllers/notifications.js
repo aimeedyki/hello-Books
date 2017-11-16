@@ -1,8 +1,12 @@
 import { Notification, Book, User } from '../models';
 
 export default {
-  // displays notifications
-  list(req, res) {
+  /** displays admin notifications
+     * @param {object} req HTTP request object
+     * @param {object} res HTTP response object
+     * @returns {object} admin notififications
+     */
+  displayNotification(req, res) {
     return Notification
       .findAll({
         include: [{

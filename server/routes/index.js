@@ -224,23 +224,18 @@ app.post('/users/signin', authController.login);
  */
 
 // route to change password
-app.put('/users/:id', authentication.verifyUser, authController.change);
-
-// route to get a level
-app.get(
-  '/users/:id/level',
-  authentication.verifyUser, usersController.getLevel
-);
+app.put('/user/password',
+  authentication.verifyUser, authController.changePassword);
 
 // route to change level
 app.put(
-  '/users/:id/level',
+  '/user/level',
   authentication.verifyUser, authController.changeLevel
 );
 
 // route to change profile picture
 app.put(
-  '/users/:id/image',
+  '/user/profile-image',
   authentication.verifyUser, usersController.changeImage
 );
 /**
@@ -266,7 +261,7 @@ app.put(
 
 // route to display user profile
 app.get(
-  '/users/:id',
+  '/user/profile',
   authentication.verifyUser, usersController.profile
 );
 
@@ -320,7 +315,7 @@ app.post(
 // route for displaying all categories
 app.get(
   '/category', authentication.verifyUser,
-  categoriesController.list
+  categoriesController.listCategories
 );
 
 
@@ -347,9 +342,20 @@ app.get(
 // route for displaying all the books by categories
 app.get(
   '/:id/category/', authentication.verifyUser,
-  categoriesController.display
+  categoriesController.displayCategory
 );
 
+// route for modifying category
+app.put(
+  '/:id/category/', authentication.verifyUser,
+  categoriesController.editCategory
+);
+
+// route for deleting a category
+app.delete(
+  '/:id/category/', authentication.verifyUser,
+  categoriesController.deleteCategory
+);
 /**
  * @swagger
  * /books:
@@ -401,7 +407,7 @@ app.post(
 // route for modifying book information
 app.put(
   '/books/:id', authentication.verifyUser,
-  authentication.verifyAdmin, booksController.modify
+  authentication.verifyAdmin, booksController.modifyBook
 );
 
 /**
@@ -428,7 +434,7 @@ app.put(
 // route for deleting a book
 app.delete(
   '/books/:id', authentication.verifyUser,
-  authentication.verifyAdmin, booksController.remove
+  authentication.verifyAdmin, booksController.deleteBook
 );
 
 // route for getting a books detail
@@ -458,7 +464,7 @@ app.get(
  *         description: Available books are displayed
  */
 // displays allbooks in the library
-app.get('/books/', authentication.verifyUser, booksController.list);
+app.get('/books/', authentication.verifyUser, booksController.listBooks);
 
 /**
  * @swagger
@@ -482,7 +488,7 @@ app.get('/books/', authentication.verifyUser, booksController.list);
  */
 
 // borrows a book and saves to history of a user
-app.post('/users/:userId/books',
+app.post('/user/borrow-book',
   authentication.verifyUser, historiesController.borrow);
 
 /**
@@ -507,8 +513,8 @@ app.post('/users/:userId/books',
  */
 // returns a book to the library
 app.put(
-  '/users/:userId/books',
-  authentication.verifyUser, historiesController.modify
+  '/user/return-book',
+  authentication.verifyUser, historiesController.returnBook
 );
 
 /**
@@ -533,34 +539,8 @@ app.put(
  */
 // displays history
 app.get(
-  '/users/:userId/books',
-  authentication.verifyUser, historiesController.list
-);
-
-/**
-* @swagger
-* /users/:userId/books?returned=false:
-*   get:
-*     tags:
-*       - Borrow
-*     description: displays the books a user has not yet returned
-*     produces:
-*       - application/json
-*     parameters:
-*       - name: User
-*         description: borrow details
-*         in: body
-*         required: true
-*         schema:
-*           $ref: '#/definitions/history'
-*     responses:
-*       200:
-*         description: books not returned displayed
-*/
-// displays the books user has not returned
-app.get(
-  '/users/:userId/books?returned=false',
-  authentication.verifyUser, historiesController.list
+  '/user/books',
+  authentication.verifyUser, historiesController.displayHistory
 );
 
 /**
@@ -586,7 +566,7 @@ app.get(
 // displays notifications
 app.get(
   '/notifications', authentication.verifyUser,
-  authentication.verifyAdmin, notificationsController.list
+  authentication.verifyAdmin, notificationsController.displayNotification
 );
 
 export default app;

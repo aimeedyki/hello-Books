@@ -9,13 +9,15 @@ export default (sequelize, DataTypes) => {
         msg: 'Please enter a category',
       },
     },
-  });
+  },
+  { paranoid: true }
+  );
 
   // defines associations for category
   Category.associate = (models) => {
     Category.hasMany(models.Book, {
       foreignKey: 'categoryId',
-      as: 'books',
+      as: 'books'
     });
   };
   return Category;
