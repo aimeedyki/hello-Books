@@ -7,14 +7,14 @@ import Allbooks from './Allbooks.jsx';
 import Bookcategory from './Bookcategory.jsx';
 
 /** Component that holds all the books
- * and the tab that displays the categories
- * @class Tab
+ * and the Library that displays the categories
+ * @class Library
  * @extends {Component}
  */
-class Tab extends Component {
-  /** Creates an instance of Tab.
-   * @param {any} props
-   * @memberof Tab
+class Library extends Component {
+  /** Creates an instance of Library.
+   * @param {*} props
+   * @memberof Library
    */
   constructor(props) {
     super(props);
@@ -26,17 +26,17 @@ class Tab extends Component {
   }
 
   /** calls methods that gets all categories
-   * @returns {*} void
-   * @memberof Tab
+   * @returns {*} null
+   * @memberof Library
    */
   componentWillMount() {
     this.props.getCategories();
   }
   /** setting category id to display
-     * @returns {*} void
-     * @param {any} id
-     * @param {any} category
-     * @memberof Tab
+     * @returns {*} null
+     * @param {number} id
+     * @param {string} category
+     * @memberof Library
      */
   handleClick(id, category) {
     this.setState({ id, bookcategory: category }, () => {
@@ -44,7 +44,7 @@ class Tab extends Component {
   }
 
   /** @returns {*} library component
-   * @memberof Tab
+   * @memberof Library
    */
   render() {
     const { admin } = this.props.user;
@@ -52,22 +52,18 @@ class Tab extends Component {
     let addBookButton;
     /* eslint-disable no-unused-expressions */
     (admin === true) ? addBookButton = (
-      <div className='fixed-action-btn'>
-        <Link to='/user/add-book'
-          className='btn-floating btn-large indigo darken-2'>
-          <i className='large material-icons'>add</i></Link>
+      <div className="fixed-action-btn">
+        <Link to="/user/add-book"
+          className="btn-floating btn-large indigo darken-2">
+          <i className="large material-icons">add</i></Link>
       </div>) : addBookButton = '';
-    // renders books in the category selected
-    let Bookcategorycomponent;
-    (this.state.id === '') ? Bookcategorycomponent = '' :
-      (Bookcategorycomponent = <Bookcategory categoryId={this.state.id} />);
 
     return (
-      <div className='row'>
-        <h4 className='cat-name center'>All Books</h4>
-        <div className='col s12 l10 m12 offset-l2'>
-          <div className='row indigo-text text-darken-2'>
-            <div className='col s12'>
+      <div className="row">
+        <h4 className="cat-name center">All Books</h4>
+        <div className="col s12 l10 m12 offset-l2">
+          <div className="row indigo-text text-darken-2">
+            <div className="col s12">
               <div>
                 <Allbooks />
               </div>
@@ -82,9 +78,10 @@ class Tab extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { categories } = state.bookReducer;
   return {
-    categories: state.bookReducer.categories,
+    categories,
     user
   };
 };
@@ -92,4 +89,4 @@ const mapStateToProps = (state) => {
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
   getCategories
-})(withRouter(Tab));
+})(withRouter(Library));

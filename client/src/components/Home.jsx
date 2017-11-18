@@ -7,9 +7,10 @@ import Login from './Authentication/Login.jsx';
 import Signup from './Authentication/Signup.jsx';
 
 const cloud = 'http://res.cloudinary.com/ddxsazo2k/image/upload/';
+
 // landing page
 const Home = props => (
-  <div className='row background-set'>
+  <div className="row background-set">
 
     {/* navbar for home page */}
     <div className="row logo">
@@ -35,9 +36,9 @@ const Home = props => (
       {/* routing for the signup login and about pages */}
       <div className="col s12 l6 m6 offset-m1 offset-l1">
         <Switch>
-          <Route exact path='/signup' component={Signup} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
-          <Route exact path='/' component={Login} />
+          <Route exact path="/" component={Login} />
           {/* <Route exact path="/about" component={About} /> */}
         </Switch>
       </div>

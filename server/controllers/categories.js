@@ -88,7 +88,10 @@ export default {
           .then((books) => {
             if (books.rows.length < 1) {
               return res.status(200)
-                .send({ message: 'Sorry there are no books in this category' });
+                .send({
+                  message: 'Sorry there are no books in this category',
+                  books: books.rows
+                });
             }
             const categoryBooks = {
               message: 'Success!',

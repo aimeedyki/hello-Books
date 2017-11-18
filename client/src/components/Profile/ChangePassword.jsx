@@ -13,23 +13,21 @@ import Button from '../Common/Button.jsx';
  */
 class ChangePassword extends Component {
   /** Creates an instance of ChangePassword.
-   * @param {any} props
+   * @param {*} props
    * @memberof ChangePassword
    */
   constructor(props) {
     super(props);
     this.state = {
-      oldPassword: '',
       confirmNewPassword: '',
       newPassword: '',
       userId: ''
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.renderAlert = this.renderAlert.bind(this);
   }
-  /** @returns {*} void
-   * @param {any} prevProps
+  /** @returns {*} null
+   * @param {*} prevProps
    * @memberof ChangePassword
    */
   componentDidUpdate(prevProps) {
@@ -37,25 +35,33 @@ class ChangePassword extends Component {
       this.renderAlert();
     }
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @param {any} event
    * @memberof ChangePassword
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof ChangePassword
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    const { userId } = this.props.user;
     if (this.state.newPassword === this.state.confirmNewPassword) {
-      this.props.passwordChange(userId, this.state.oldPassword,
-        this.state.newPassword);
+      this.props.passwordChange(this.state.newPassword,
+        this.state.confirmNewPassword)
+        .then((response) => {
+          if (response) {
+            this.props.history.push('/user');
+          }
+        }).catch((error) => {
+          if (error) {
+            /* eslint-disable no-undef */
+            Materialize.toast(error.message, 4000, 'indigo darken-2');
+          }
+        });
     } else {
-      /* eslint-disable no-undef */
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
@@ -72,15 +78,6 @@ class ChangePassword extends Component {
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
                 <h5 className='indigo-text text-darken-2 greeting center'><b>
                   Change password</b></h5>
-                <div className='input-field col s12'>
-                  <input name='oldPassword' type='password' className='validate'
-                    onChange={this.handleChange}
-
-                    value={this.state.oldPassword}
-                    required
-                  />
-                  <label>Old password</label>
-                </div>
                 <div className='input-field col s12'>
                   <input name='newPassword' type='password' className='validate'
                     onChange={this.handleChange}
@@ -108,16 +105,17 @@ class ChangePassword extends Component {
             </div>
           </form>
         </div>
-      </div>
+      </div >
     );
   }
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { error } = state.userReducer;
   return {
     user,
-    errorMessage: state.userReducer.error
+    errorMessage: error
   };
 };
 

@@ -35,7 +35,7 @@ export default (ComposedComponent) => {
   }
 
   const mapStateToProps = (state) => {
-    const { user } = state.auth;
+    const { user } = state.authReducer;
     return {
       admin: user.admin,
     };

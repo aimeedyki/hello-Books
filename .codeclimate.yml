@@ -17,4 +17,4 @@ checks:
       threshold: 8
   return-statements:
     config:
-      threshold: 8
+      threshold: 12

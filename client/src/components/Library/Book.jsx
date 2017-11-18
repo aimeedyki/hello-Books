@@ -21,7 +21,7 @@ class Book extends Component {
    */
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.borrow = this.borrow.bind(this);
     this.refresh = this.refresh.bind(this);
   }
@@ -30,17 +30,14 @@ class Book extends Component {
    * @memberof Book
    */
   componentDidMount() {
-    const { userId, level } = this.props;
-    this.setState({
-      userId
-    });
+    const { level } = this.props;
   }
   /** method that allows a user to delete a book
      * @returns {*} void
-     * @param {any} id
+     * @param {number} id
      * @memberof Book
      */
-  handleClick() {
+  handleDelete() {
     alert({
       title: 'Delete?',
       text: 'Are you sure that you want to delete this book?',
@@ -65,15 +62,14 @@ class Book extends Component {
    * @memberof Book
    */
   refresh() {
-    this.props.getBooks(8, 0);
+    this.props.getBooks(8, 0, this.props.getPagination);
   }
   /** method that allows a user to borrow a book
    * @returns {*} void
    * @param {any} id
-   * @param {any} userId
    * @memberof Book
    */
-  borrow(id, userId) {
+  borrow(id) {
     alert({
       title: 'Rent Book?',
       text: 'Are you sure you want to Borrow this book?',
@@ -82,7 +78,7 @@ class Book extends Component {
     })
       .then((willBorrow) => {
         if (willBorrow) {
-          this.props.borrowBook(id, userId, this.refresh)
+          this.props.borrowBook(id, this.refresh)
             .then((res) => {
               if (res) {
                 alert('Borrowed!', 'Book has been borrowed!', 'success');
@@ -100,7 +96,7 @@ class Book extends Component {
   render() {
     // path to edit a book page
     const editPath = `/user/${this.props.id}/edit-book`;
-    const { userId, admin } = this.props.user;
+    const { admin } = this.props.user;
     let status;
     let adminButtons;
 
@@ -115,7 +111,7 @@ class Book extends Component {
       <ul>
         <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>
-        <li><a onClick={this.handleClick}
+        <li><a onClick={this.handleDelete}
           className='btn-floating deleteColor'>
           <i className='material-icons'>delete</i></a>
         </li>
@@ -130,20 +126,23 @@ class Book extends Component {
             src={this.props.image} alt='book image' />
         </div>
         <div id='card-book' className='card-content'>
-          <span className='card-title activator indigo-text text-darken-2'>
-            <i className='material-icons left'>
-              more_vert</i>{this.props.title}</span>
+          <span
+            className='card-title activator center indigo-text text-darken-2'>
+            <i className='material-icons right'>
+              more_vert</i>{this.props.title}
+          </span>
         </div>
         <div className='card-reveal'>
           <span className='card-title indigo-text text-darken-2'>
             {this.props.title}<i className='material-icons right'>
-              close</i></span>
+              close</i>
+          </span>
           <h6><c>By {this.props.author}</c></h6>
           <h6>{this.props.category}</h6>
           <p><c>{this.props.description}</c></p>
           <p>{status}</p>
           <div className='fixed-action-btn book-buttons'>
-            <a onClick={() => { this.borrow(this.props.id, userId); }}
+            <a onClick={() => { this.borrow(this.props.id); }}
               className='btn-floating btn-large indigo darken-2'>RENT</a>
             {adminButtons}
           </div>
@@ -155,10 +154,11 @@ class Book extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { error } = state.bookReducer;
   return {
     user,
-    errorMessage: state.bookReducer.error
+    errorMessage: error
   };
 };
 

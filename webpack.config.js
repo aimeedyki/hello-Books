@@ -20,7 +20,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'client/public/js'),
     filename: 'bundle.js',
-    publicPath: path.join(__dirname, '/client/public')
+    publicPath: path.join(__dirname, '/client/public/')
   },
 
   plugins: [

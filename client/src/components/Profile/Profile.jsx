@@ -24,16 +24,12 @@ import noPicture from '../../assets/images/profile.jpeg';
  */
 class Profile extends Component {
   /** Creates an instance of Profile.
-   * @param {any} props
+   * @param {*} props
    * @memberof Profile
    */
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      email: '',
-      userId: '',
-      level: '',
       levelicon: '',
       profilepic: '',
       imageFile: null,
@@ -47,13 +43,6 @@ class Profile extends Component {
     this.uploadPic = this.uploadPic.bind(this);
   }
 
-  /** gets the users level details
-     *  @returns {*} void
-     * @memberof Profile
-     */
-  componentWillMount() {
-    this.props.getUserLevel(this.props.user.levelId);
-  }
   /** calls the function to display error if there is an error
      * @returns {*} void
      * @param {any} prevProps
@@ -99,35 +88,35 @@ class Profile extends Component {
       });
   }
   /* eslint-disable class-methods-use-this */
-  /** @param {any} levelId
-   * @returns {?*} level icon
+  /** @param {string} level
+   * @returns {*} level icon
    * @memberof Profile
    */
-  setLevelIcon(levelId) {
-    switch (levelId) {
-      case 1:
+  setLevelIcon(level) {
+    switch (level) {
+      case 'rookie':
         return rookie;
-      case 2:
+      case 'bookworm':
         return bookworm;
-      case 3:
+      case 'voracious':
         return voracious;
       default:
         return rookie;
     }
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @memberof Profile
    */
   handleEdit() {
     this.props.history.push('/user/edit-profile');
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @memberof Profile
    */
   handlePassword() {
     this.props.history.push('/user/password');
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @memberof Profile
    */
   handleLevel() {
@@ -156,13 +145,20 @@ class Profile extends Component {
    */
   render() {
     const { levelicon } = this.state;
-    const { username,
-      levelId, email, borrowCount, profilepic } = this.props.user;
-    const { type, maxDays, maxBooks } = this.props.level;
+    const {
+      username,
+      level,
+      levelId,
+      email,
+      borrowCount,
+      profilePic,
+      maxDays,
+      maxBooks }
+      = this.props.user;
     let profileImage;
     /* eslint-disable no-unused-expressions */
-    profilepic === '' || profilepic === null ?
-      (profileImage = noPicture) : (profileImage = profilepic);
+    profilePic === '' || profilePic === null ?
+      (profileImage = noPicture) : (profileImage = profilePic);
 
     return (
       <div className='row'>
@@ -178,9 +174,9 @@ class Profile extends Component {
             <div className='col s12'>
               <div className='col s6 details-left'><h6>Level</h6></div>
               <div className="row col s6 valign-wrapper profile-level-icon">
-                <p><c>{type}</c></p>
+                <p><c>{level}</c></p>
                 <img className='circle responsive-img'
-                  src={this.setLevelIcon(levelId)} />
+                  src={this.setLevelIcon(level)} />
               </div>
             </div>
             <div className='col s12'>
@@ -236,10 +232,9 @@ class Profile extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
   return {
-    user,
-    level: state.userReducer.level
+    user
   };
 };
 

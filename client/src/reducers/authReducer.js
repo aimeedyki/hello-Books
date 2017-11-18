@@ -5,7 +5,7 @@ import {
   UNAUTH_USER
 } from '../actions/types';
 
-const initialState = { error: '', message: '', authenticated: false, user: {} };
+const initialState = { error: '', message: '', authenticated: '', user: {} };
 /** reducers for authentication component
  * @export
  * @param {any} [state=initialState]

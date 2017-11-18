@@ -15,7 +15,7 @@ export default (ComposedComponent) => {
      * @memberof Authentication
      */
     componentWillMount() {
-      if (this.props.authenticated === false || (!this.props.user)) {
+      if (this.props.authenticated === false) {
         this.props.history.push('/');
         localStorage.clear();
         setAuthorizationToken('');
@@ -26,7 +26,7 @@ export default (ComposedComponent) => {
          * @memberof Authentication
          */
     componentWillUpdate(nextProps) {
-      if (nextProps.authenticated === false || (!this.props.user)) {
+      if (nextProps.authenticated === false) {
         this.props.history.push('/');
         localStorage.clear();
         setAuthorizationToken('');
@@ -41,7 +41,7 @@ export default (ComposedComponent) => {
   }
 
   const mapStateToProps = (state) => {
-    const { user, authenticated } = state.auth;
+    const { user, authenticated } = state.authReducer;
     return {
       user,
       authenticated

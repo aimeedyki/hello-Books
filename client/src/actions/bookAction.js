@@ -13,7 +13,8 @@ import {
   BORROW_BOOK,
   RETURN_BOOK,
   CLOUDINARY_URL,
-  CLOUDINARY_PRESET
+  CLOUDINARY_PRESET,
+  SEARCH_BOOKS
 } from './types';
 import { errorHandler } from './authAction';
 
@@ -75,10 +76,10 @@ export const addBook =
 
 // action creator to modify a book
 export const modifyBook =
-  ({ title, author, description, quantity, categoryId, bookId }) => (
+  ({ title, author, description, quantity, categoryId, bookId, image }) => (
     dispatch => (
-      axios.put(`/api/v1/${bookId}`,
-        { title, author, description, quantity, categoryId })
+      axios.put(`/api/v1/books/${bookId}`,
+        { title, author, description, quantity, categoryId, image })
         .then((response) => {
           Materialize.toast('Book information has been modified!',
             4000, 'indigo darken-2');
@@ -185,9 +186,9 @@ export const deleteBook = (id, refresh) => (
 );
 
 // action creator to borrow a book
-export const borrowBook = (bookId, userId, refresh) => (
+export const borrowBook = (bookId, refresh) => (
   dispatch => (
-    axios.post(`/api/v1/users/${userId}/books`,
+    axios.post('/api/v1/user/borrow-book',
       { bookId })
       .then(() => {
         refresh();
@@ -203,15 +204,43 @@ export const borrowBook = (bookId, userId, refresh) => (
 );
 
 // action creator to return a book
-export const returnBook = (historyId, userId, refresh) => (
+export const returnBook = (historyId, refresh) => (
   dispatch => (
-    axios.put(`/api/v1/users/${userId}/books`,
+    axios.put('/api/v1/user/return-book',
       { historyId })
       .then(() => {
         refresh();
         dispatch({
           type: RETURN_BOOK
         });
+        return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR);
+      })
+  )
+);
+
+// action creator to search a book
+export const searchBooks = term => (
+  dispatch => (
+    axios.get(`/api/v1/search?term=${term}`)
+      .then((response) => {
+        dispatch(setBooks(response.data.foundBooks));
+        return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR);
+      })
+  )
+);
+
+// action creator to search a book category
+export const searchCategory = (term, categoryId) => (
+  dispatch => (
+    axios.get(`/api/v1/search?term=${term}&category=${categoryId}`)
+      .then((response) => {
+        dispatch(setBooks(response.data.foundBooks));
         return true;
       })
       .catch((error) => {

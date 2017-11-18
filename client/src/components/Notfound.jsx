@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // displays the not found page
 const NotFoundPage = props => (
-  <div className='center'>
+  <div className="center">
     <h1>404 - Page Not Found</h1>
     <p>I'm sorry, the page you were looking for cannot be found!</p>
   </div>

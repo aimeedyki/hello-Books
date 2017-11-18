@@ -13,7 +13,7 @@ import Button from '../Common/Button.jsx';
  */
 class AddBook extends Component {
   /** Creates an instance of AddBook.
-   * @param {any} props
+   * @param {*} props
    * @memberof AddBook
    */
   constructor(props) {
@@ -38,21 +38,21 @@ class AddBook extends Component {
   }
 
   /** gets the categories to be selected
-   * @returns {*} void
+   * @returns {*} null
    * @memberof AddBook
    */
   componentWillMount() {
     this.props.getCategories();
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof AddBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof AddBook
    */
   imageChange(event) {
@@ -61,8 +61,8 @@ class AddBook extends Component {
     });
     this.handleImageUpload(event.target.files[0]);
   }
-  /** @returns {*} void
-   * @param {any} image
+  /** @returns {*} null
+   * @param {*} image
    * @memberof AddBook
    */
   handleImageUpload(image) {
@@ -74,8 +74,8 @@ class AddBook extends Component {
         });
       });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof AddBook
    */
   handleSelectChange(event) {
@@ -83,7 +83,7 @@ class AddBook extends Component {
     this.setState({ categoryId: event.target.value });
   }
 
-  /** @returns {*} void
+  /** @returns {*} null
    * @param {any} prevProps
    * @memberof AddBook
    */
@@ -94,8 +94,8 @@ class AddBook extends Component {
   }
 
   /** submits a form and adds book to library
-   * @returns {*} void
-   * @param {any} event
+   * @returns {*} null
+   * @param {*} event
    * @memberof AddBook
    */
   handleFormSubmit(event) {
@@ -106,7 +106,13 @@ class AddBook extends Component {
         Materialize.toast('Book added Successfully!', 4000, 'indigo darken-2');
         this.props.history.push('/user');
       }
-    });
+    })
+      .catch((error) => {
+        if (error) {
+          /* eslint-disable no-undef */
+          Materialize.toast(error.message, 4000, 'indigo darken-2');
+        }
+      });
   }
 
   /** @returns {string} error message
@@ -161,7 +167,7 @@ class AddBook extends Component {
                     <label>Description</label>
                   </div>
                   <div className='input-field col s12'>
-                    <input name='quantity' type='text' className='validate'
+                    <input name='quantity' type='number' className='validate'
                       onChange={this.handleChange}
                       value={this.state.quantity}
                       required

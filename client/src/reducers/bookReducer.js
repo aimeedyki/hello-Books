@@ -3,10 +3,8 @@ import {
   ADD_BOOK,
   ADD_CATEGORY,
   GET_CATEGORIES,
-  MODIFY_BOOK,
   GET_BOOKS,
   GET_BOOKS_BYCATEGORIES,
-  DELETE_BOOK,
   GET_ABOOK,
   BORROW_BOOK,
   RETURN_BOOK,
@@ -25,8 +23,8 @@ const initialState = {
 };
 /** reducers for book components
  * @export
- * @param {any} [state=initialState]
- * @param {any} action
+ * @param {*} [state=initialState]
+ * @param {*} action
  * @returns {*} state
  */
 export default (state = initialState, action) => {
@@ -51,10 +49,6 @@ export default (state = initialState, action) => {
         ...state,
         categories: action.payload,
       };
-    case MODIFY_BOOK:
-      return {
-        ...state
-      };
     case GET_BOOKS:
       return {
         ...state,
@@ -64,10 +58,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookCategory: action.payload,
-      };
-    case DELETE_BOOK:
-      return {
-        ...state,
       };
     case GET_ABOOK:
       return {

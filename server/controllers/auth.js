@@ -40,10 +40,11 @@ const authController = {
             const token = getUserToken(foundUser);
             const user = {
               username: foundUser.username,
-              profilepic: foundUser.profilepic,
+              profilePic: foundUser.profilePic,
               email: foundUser.email,
               borrowCount: foundUser.borrowCount,
               admin: foundUser.admin,
+              levelId: foundUser.levelId,
               level: foundUser.level.type,
               maxBooks: foundUser.level.maxBooks,
               maxDays: foundUser.level.maxDays
