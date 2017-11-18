@@ -16,7 +16,8 @@ import {
   errorHandler,
   clearErrorMessage,
   setCurrentUser,
-  setAuthorizationToken
+  setAuthorizationToken,
+  getUser
 } from './authAction';
 
 
@@ -31,22 +32,6 @@ export const displayUserpage = () => {
     });
   };
 };
-
-// displays user details on userpage
-export const displayUser = userId => (
-  dispatch => (
-    axios.get(`/api/v1/users/${userId}`)
-      .then((response) => {
-        dispatch({
-          type: DISPLAY_USER,
-          payload: response.data
-        });
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, USER_ERROR);
-      })
-  )
-);
 
 // gets the history of a user
 export const getHistory = (userId, limit, offset) => (
@@ -65,15 +50,16 @@ export const getHistory = (userId, limit, offset) => (
   )
 );
 
-export const getOutstanding = (userId, limit, offset) => (
+export const getOutstanding = (limit, offset) => (
   dispatch => (
-    axios.get(`/api/v1/users/
-    ${userId}/books?returned=false&offset=${offset}&limit=${limit}`)
+    axios
+      .get(`/api/v1/user/books?returned=false&offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_OUTSTANDING,
           payload: response.data
         });
+        return true;
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, USER_ERROR);
@@ -96,15 +82,14 @@ export const displayNotification = () => (
   )
 );
 
-export const passwordChange = (userId, oldPassword, newPassword) => (
+export const passwordChange = (newPassword, confirmNewPassword) => (
   dispatch => (
-    axios.put(`/api/v1/users/${userId}`,
-      { oldPassword, newPassword })
+    axios.put('/api/v1/user/password',
+      { newPassword, confirmNewPassword })
       .then(() => {
         dispatch({
           type: CHANGE_PASSWORD,
         });
-        /* eslint-disable no-undef */
         Materialize.toast('Password changed successfully!!',
           4000, 'indigo darken-2');
         return true;
@@ -118,43 +103,11 @@ export const passwordChange = (userId, oldPassword, newPassword) => (
   )
 );
 
-export const getUserLevel = id => (
+export const changeLevel = newLevelId => (
   dispatch => (
-    axios.get(`/api/v1/users/${id}/level`)
-      .then((response) => {
-        dispatch({
-          type: GET_LEVEL,
-          payload: response.data.level
-        });
-        return true;
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response.data, USER_ERROR);
-      })
-  )
-);
-
-export const getUserUpdate = id => (
-  dispatch => (
-    axios.get(`/api/v1/users/${id}`)
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        setAuthorizationToken(response.data.token);
-        dispatch(setCurrentUser(jwt.decode(response.data.token)));
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response.data, USER_ERROR);
-      })
-  )
-);
-
-export const changeLevel = (userId, levelId) => (
-  dispatch => (
-    axios.put(`/api/v1/users/${userId}/level`, { levelId })
+    axios.put('/api/v1/user/level', { newLevelId })
       .then(() => {
-        dispatch({
-          type: CHANGE_LEVEL,
-        });
+        dispatch(getUser());
         /* eslint-disable no-undef */
         Materialize.toast('Level changed successfully!!',
           4000, 'indigo darken-2');

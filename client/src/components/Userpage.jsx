@@ -4,7 +4,7 @@ import { Switch, Route, Router } from 'react-router-dom';
 
 import AdminAuth from './Authentication/AdminAuth';
 import Topnav from './Common/Topnav.jsx';
-import Sidenav from './Common/Sidenav.jsx';
+import SideNav from './Common/SideNav.jsx';
 import Library from './Library/Library.jsx';
 import Borrowed from './Library/Borrowed.jsx';
 import Outstanding from './Library/Outstanding.jsx';
@@ -17,7 +17,7 @@ import Useractivity from './Profile/Useractivity.jsx';
 import Editbook from './Library/Editbook.jsx';
 import ChangeLevel from './Profile/ChangeLevel.jsx';
 import Bookcategory from './Library/Bookcategory';
-import Notfound from './Notfound';
+import NotFound from './NotFound';
 
 import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
@@ -42,8 +42,7 @@ class Userpage extends Component {
       email: '',
       userId: '',
       level: '',
-      levelicon: '',
-      profilepic: ''
+      profilePic: ''
     };
     this.userId = '';
     this.setLevelIcon = this.setLevelIcon.bind(this);
@@ -61,11 +60,11 @@ class Userpage extends Component {
       return adminImage;
     }
     switch (levelId) {
-      case 1:
+      case 'rookie':
         return rookie;
-      case 2:
+      case 'bookworm':
         return bookworm;
-      case 3:
+      case 'voracious':
         return voracious;
       default:
         return rookie;
@@ -77,33 +76,36 @@ class Userpage extends Component {
    * @memberof Userpage
    */
   render() {
-    const { username, levelId, email, profilepic, admin } = this.props.user;
+    const { username, level, email, profilePic, admin } = this.props.user;
     const { authenticated } = this.props.authenticated;
     let profileImage;
-    profilepic === '' || profilepic === null ?
-      (profileImage = noPicture) : (profileImage = profilepic);
+    profilePic === '' || profilePic === null ?
+      (profileImage = noPicture) : (profileImage = profilePic);
     return (
       <div>
         <Topnav username={username}
-          levelIcon={this.setLevelIcon(levelId, admin)} />
-        <Sidenav profileImage={profileImage}
-          username={username} email={email} />
+          levelIcon={this.setLevelIcon(level, admin)}
+        />
+        <SideNav profileImage={profileImage}
+          username={username} email={email}
+        />
         <div>
           <Switch>
             <Route exact path={this.props.match.path} component={Library} />
-            <Route path='/user/notreturned' component={Outstanding} />
-            <Route path='/user/add-book' component={AdminAuth(Addbook)} />
-            <Route path='/user/password' component={ChangePassword} />
-            <Route exact path='/user/profile' component={Profile} />
-            <Route path='/user/edit-profile' component={Editprofile} />
-            <Route path='/user/history' component={Borrowed} />
-            <Route path='/user/notifications'
-              component={AdminAuth(Useractivity)} />
-            <Route path='/user/:id/edit-book' component={AdminAuth(Editbook)} />
-            <Route path='/user/category' component={AdminAuth(Addcategory)} />
-            <Route path='/user/new-level' component={ChangeLevel} />
-            <Route path='/user/:categories' component={Bookcategory} />
-            <Route path='/user/*' component={Notfound} />
+            <Route path="/user/notreturned" component={Outstanding} />
+            <Route path="/user/add-book" component={AdminAuth(Addbook)} />
+            <Route path="/user/password" component={ChangePassword} />
+            <Route exact path="/user/profile" component={Profile} />
+            <Route path="/user/edit-profile" component={Editprofile} />
+            <Route path="/user/history" component={Borrowed} />
+            <Route path="/user/notifications"
+              component={AdminAuth(Useractivity)}
+            />
+            <Route path="/user/:id/edit-book" component={AdminAuth(Editbook)} />
+            <Route path="/user/category" component={AdminAuth(Addcategory)} />
+            <Route path="/user/new-level" component={ChangeLevel} />
+            <Route path="/user/:categories" component={Bookcategory} />
+            <Route path="/user/*" component={NotFound} />
           </Switch>
         </div>
       </div>
@@ -112,7 +114,7 @@ class Userpage extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user, authenticated } = state.auth;
+  const { user, authenticated } = state.authReducer;
   return {
     user,
     authenticated

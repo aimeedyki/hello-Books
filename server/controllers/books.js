@@ -128,6 +128,10 @@ export default {
         offset
       })
       .then((books) => {
+        if (books.rows.length < 1) {
+          return res.status(200)
+            .send({ message: 'Sorry, there are no books available' });
+        }
         const allBooks = {
           books: books.rows, pagination: paginate(offset, limit, books)
         };
@@ -207,4 +211,53 @@ export default {
       })
       .catch(error => res.status(500).send(error));
   },
+
+  searchBooks(req, res) {
+    const searchQuery = req.query.term || null;
+    const category = req.query.category || null;
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 8;
+    const whereClause = {
+      $or: [{
+        title:
+        { $iLike: `%${searchQuery}%` }
+      }, {
+        author:
+        { $iLike: `%${searchQuery}%` }
+      }]
+    };
+    if (category) {
+      whereClause.$and = [{ categoryId: category }];
+    }
+    if (searchQuery === null) {
+      return res.status(400)
+        .send({ message: 'Please enter your search term' });
+    }
+    if (searchQuery.length > 0) {
+      Book
+        .findAndCountAll({
+          where: whereClause,
+          include: [{
+            model: Category,
+            as: 'category',
+            attributes: ['name'],
+            paranoid: false
+          }],
+          limit,
+          offset
+        })
+        .then((books) => {
+          const foundBooks = {
+            books: books.rows, pagination: paginate(offset, limit, books)
+          };
+          if (books.rows.length === 0) {
+            return res.status(404)
+              .send({ message: 'Sorry no books match your search term' });
+          }
+          return res.status(200).send({ message: 'Success', foundBooks });
+        })
+        .catch(error => res.status(500).send(error.message));
+    }
+  }
+
 };

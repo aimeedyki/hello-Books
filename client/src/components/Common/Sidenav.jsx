@@ -8,31 +8,31 @@ import BookCategory from '../Library/Bookcategory.jsx';
 
 /** side navigation on the user page
  * @export
- * @class Sidenav
+ * @class SideNav
  * @extends {Component}
  */
-class Sidenav extends Component {
+class SideNav extends Component {
   /* eslint-disable class-methods-use-this */
   /** calls methods that gets all categories
- * @returns {*} void
- * @memberof Tab
+ * @returns {*} null
+ * @memberof SideNav
  */
   componentWillMount() {
     this.props.getCategories();
   }
   /** @returns {*} void
-   * @memberof Sidenav
+   * @memberof SideNav
    */
   componentDidMount() {
-    window.$(document).ready(() => {
-      window.$('.button-collapse').sideNav({
+    $(document).ready(() => {
+      $('.button-collapse').sideNav({
         menuWidth: 200,
       });
     });
   }
   /** displays side navigation on user page
    * @returns {*} side nav
-   * @memberof Sidenav
+   * @memberof SideNav
    */
   render() {
     let adminLinks;
@@ -40,9 +40,9 @@ class Sidenav extends Component {
     // conditionally render navigation links depending on user level
     (this.props.user.admin === true) ? adminLinks = (
       <ul>
-        <li><NavLink to='/user/notifications' className='white-text'>
+        <li><NavLink to="/user/notifications" className="white-text">
           Notifications</NavLink></li>
-        <li><NavLink to='/user/category' className='white-text'>
+        <li><NavLink to="/user/category" className="white-text">
           New Category</NavLink></li>
       </ul>
     ) : adminLinks = '';
@@ -50,49 +50,49 @@ class Sidenav extends Component {
 
     return (
       <div>
-        <ul id='slide-out' className='side-nav fixed indigo darken-2'>
+        <ul id="slide-out" className="side-nav fixed indigo darken-2">
           <li>
-            <div className='row user-view'>
-              <div className='background'>
+            <div className="row user-view">
+              <div className="background">
                 <img src={`${cloud}/v1509441598/booksbw2_emnjkv.jpg`}
-                  alt='background' />
+                  alt="background" />
               </div>
-              <a><img className='circle'
-                src={this.props.profileImage} alt='level icon' /></a>
-              <a><span className='col s10 white-text name'>
+              <a><img className="circle"
+                src={this.props.profileImage} alt="level icon" /></a>
+              <a><span className="col s10 white-text name">
                 Hello {this.props.username}!</span></a>
-              <Link to='/user/profile'><span><i
+              <Link to="/user/profile"><span><i
                 className="col s2 material-icons">
                 settings</i></span></Link>
-              <a><span className='white-text email'>
+              <a><span className="white-text email">
                 {this.props.email}</span></a>
             </div>
           </li>
-          <li><NavLink to='/user' className='white-text active'>
+          <li><NavLink to="/user" className="white-text active">
             Library</NavLink></li>
-          <li><NavLink to='/user/history' className='white-text'>
+          <li><NavLink to="/user/history" className="white-text">
             History</NavLink></li>
-          <li><NavLink to='/user/notreturned' className='white-text'>
+          <li><NavLink to="/user/notreturned" className="white-text">
             Outstanding</NavLink></li>
           {adminLinks}
-          <div className='white cat'>
-            <h5 className='cat-head indigo-text text-darken-2'>Categories</h5>
+          <div className="white cat">
+            <h5 className="cat-head indigo-text text-darken-2">Categories</h5>
             <ul>
               {this.props.categories.map(category => (
                 (
                   <li key={category.id}>
                     <NavLink
                       to={`/user/${category.id}/${category.name}/category`}
-                      className='indigo-text text-darken-2'>
+                      className="indigo-text text-darken-2">
                       {category.name}</NavLink></li>)
               )
               )}
             </ul>
           </div>
         </ul>
-        <a href='#' data-activates='slide-out'
-          className='button-collapse fixed'>
-          <i className='material-icons'>menu</i></a>
+        <a href="#" data-activates="slide-out"
+          className="button-collapse fixed">
+          <i className="material-icons">menu</i></a>
       </div>
     );
   }
@@ -100,9 +100,10 @@ class Sidenav extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { categories } = state.bookReducer;
   return {
-    categories: state.bookReducer.categories,
+    categories,
     user
   };
 };
@@ -110,4 +111,4 @@ const mapStateToProps = (state) => {
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
   getCategories
-})(withRouter(Sidenav));
+})(withRouter(SideNav));

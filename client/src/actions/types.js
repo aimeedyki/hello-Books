@@ -26,4 +26,6 @@ export const AUTH_USER = 'auth_user',
   DISPLAY_USER = 'display_user',
   SET_USER = 'set_user',
   GET_LEVEL = 'get_level',
-  GET_PAGINATION = 'get_pagination';
+  GET_PAGINATION = 'get_pagination',
+  SEARCH_BOOKS = 'search_books';
+

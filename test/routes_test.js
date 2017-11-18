@@ -735,6 +735,31 @@ describe('Book', () => {
         done();
       });
   });
+  it('should return 200 when searching all books', (done) => {
+    server.get('/api/v1/search?term=jam').set('x-access-token', token)
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isNotNull(res.body);
+        done();
+      });
+  });
+  it('should return 400 when search parameter is null', (done) => {
+    server.get('/api/v1/search?term=').set('x-access-token', token)
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        assert.isNotNull(res.body);
+        done();
+      });
+  });
+  it('should return 404 when no books match search criteria', (done) => {
+    server.get('/api/v1/search?term=xyz').set('x-access-token', token)
+      .end((err, res) => {
+        assert.equal(res.status, 404);
+        assert.isNotNull(res.body);
+        done();
+      });
+  });
+
   it('should return 200 when getting a single book', (done) => {
     server.get('/api/v1/books/1').set('x-access-token', token)
       .end((err, res) => {

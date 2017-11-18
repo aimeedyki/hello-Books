@@ -129,7 +129,7 @@ Login.PropTypes = {
   clearErrorMessage: PropTypes.func
 };
 const mapStateToProps = state => ({
-  errorMessage: state.auth.error
+  errorMessage: state.authReducer.error
 });
 
 export default connect(mapStateToProps, {

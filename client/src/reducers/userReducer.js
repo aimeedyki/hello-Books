@@ -40,8 +40,6 @@ export default (state = initialState, action) => {
       return { ...state, notifications: action.payload };
     case CHANGE_PASSWORD:
       return { ...state };
-    case CHANGE_LEVEL:
-      return { ...state };
     case DISPLAY_USER:
       return { ...state, userDetails: action.payload };
     case GET_LEVEL:

@@ -443,6 +443,11 @@ app.get(
   authentication.verifyUser, booksController.viewBook
 );
 
+// route for getting a books detail
+app.get(
+  '/search',
+  authentication.verifyUser, booksController.searchBooks
+);
 /**
  * @swagger
  * /books:

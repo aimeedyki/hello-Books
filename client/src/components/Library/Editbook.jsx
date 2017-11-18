@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { clearErrorMessage } from '../../actions/authAction';
-import { modifyBook,
-  getCategories, getaBook, imageUpload } from '../../actions/bookAction';
+import {
+  modifyBook,
+  getCategories, getaBook, imageUpload
+} from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
@@ -15,7 +17,7 @@ import Button from '../Common/Button.jsx';
  */
 class Editbook extends Component {
   /** Creates an instance of Editbook.
-   * @param {any} props
+   * @param {*} props
    * @memberof Editbook
    */
   constructor(props) {
@@ -42,27 +44,28 @@ class Editbook extends Component {
     this.onCancel = this.onCancel.bind(this);
   }
   /** gets the categories in the library
-     *  @returns {*} void
+     *  @returns {*} null
      * @memberof Editbook
      */
   componentWillMount() {
     this.props.getCategories();
   }
   /** gets the book to be edited
-   * @returns {*} void
+   * @returns {*} null
    * @memberof Editbook
    */
   componentDidMount() {
     this.getBookId(this.props.location.pathname);
     this.props.getaBook(this.bookId);
   }
-  /** @returns {*} void
-     * @param {any} nextProps
+  /** @returns {*} null
+     * @param {*} nextProps
      * @memberof Editbook
      */
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
-      this.setBookDetails(nextProps.book.title,
+      this.setBookDetails(
+        nextProps.book.title,
         nextProps.book.author,
         nextProps.book.description,
         nextProps.book.quantity,
@@ -71,7 +74,7 @@ class Editbook extends Component {
     }
   }
   /** @returns {*} void
-   * @param {any} prevProps
+   * @param {*} prevProps
    * @memberof Editbook
    */
   componentDidUpdate(prevProps) {
@@ -80,13 +83,13 @@ class Editbook extends Component {
     }
   }
   /** @returns {*} book details
-   * @param {any} title 
-   * @param {any} author 
-   * @param {any} description 
-   * @param {any} quantity 
-   * @param {any} categoryId 
-   * @param {any} image 
-   * @param {any} bookId 
+   * @param {string} title
+   * @param {string} author
+   * @param {string} description
+   * @param {number} quantity
+   * @param {number} categoryId
+   * @param {string} image
+   * @param {string} bookId
    * @memberof Editbook
    */
   setBookDetails(title,
@@ -96,8 +99,8 @@ class Editbook extends Component {
     }, () => {
     });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof AddBook
    */
   imageChange(event) {
@@ -106,8 +109,8 @@ class Editbook extends Component {
     });
     this.handleImageUpload(event.target.files[0]);
   }
-  /** @returns {*} void
-   * @param {any} image
+  /** @returns {*} null
+   * @param {file} image
    * @memberof AddBook
    */
   handleImageUpload(image) {
@@ -119,14 +122,14 @@ class Editbook extends Component {
         });
       });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof Editbook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @param {any} event
    * @memberof Editbook
    */
@@ -134,17 +137,25 @@ class Editbook extends Component {
     event.preventDefault();
     this.setState({ categoryId: event.target.value });
   }
-  /** @returns {*} void
-   * @param {any} event
+  /** @returns {*} null
+   * @param {*} event
    * @memberof Editbook
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    this.props.modifyBook(this.state).then(() => {
-      /* eslint-disable no-undef */
-      this.props.history.push('/user');
-      window.location.reload();
-    });
+    this.props.modifyBook(this.state)
+      .then((response) => {
+        if (response) {
+          /* eslint-disable no-undef */
+          this.props.history.push('/user');
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          /* eslint-disable no-undef */
+          Materialize.toast(error.message, 4000, 'indigo darken-2');
+        }
+      });
   }
   /** @returns {string} error message
    * @memberof Editbook
@@ -180,21 +191,21 @@ class Editbook extends Component {
   render() {
     const { book } = this.props;
     return (
-      <div className='row'>
-        <div className='col s10 m8 l6 offset-s1 offset-m2 offset-l4'>
-          <div className='card row'>
-            <div className='margin-fix col s10 m8 l8 offset-s1 offset-l2'>
-              <h5 className='center indigo-text text-darken-2'>
+      <div className="row">
+        <div className="col s10 m8 l6 offset-s1 offset-m2 offset-l4">
+          <div className="card row">
+            <div className="margin-fix col s10 m8 l8 offset-s1 offset-l2">
+              <h5 className="center indigo-text text-darken-2">
                 <b>Edit Book</b></h5>
               <form onSubmit={this.handleFormSubmit} >
-                <div className='row edit-form'>
-                  <div className='input-field col s12'>
-                    <div className='col s3'>
+                <div className="row edit-form">
+                  <div className="input-field col s12">
+                    <div className="col s3">
                       <p>Title</p>
                     </div>
-                    <div className='col s9'>
-                      <input name='title'
-                        type='text' className='validate'
+                    <div className="col s9">
+                      <input name="title"
+                        type="text" className="validate"
                         onChange={this.handleChange}
 
                         value={this.state.title}
@@ -202,13 +213,13 @@ class Editbook extends Component {
                       />
                     </div>
                   </div>
-                  <div className='input-field col s12'>
-                    <div className='col s3'>
+                  <div className="input-field col s12">
+                    <div className="col s3">
                       <p>Author</p>
                     </div>
-                    <div className='col s9'>
-                      <input name='author'
-                        type='text' className='validate'
+                    <div className="col s9">
+                      <input name="author"
+                        type="text" className="validate"
                         onChange={this.handleChange}
 
                         value={this.state.author}
@@ -216,13 +227,13 @@ class Editbook extends Component {
                       />
                     </div>
                   </div>
-                  <div className='input-field col s12'>
-                    <div className='col s3'>
+                  <div className="input-field col s12">
+                    <div className="col s3">
                       <p>Description</p>
                     </div>
-                    <div className='col s9'>
-                      <input name='description'
-                        type='text' className='validate'
+                    <div className="col s9">
+                      <input name="description"
+                        type="text" className="validate"
                         onChange={this.handleChange}
 
                         value={this.state.description}
@@ -230,26 +241,25 @@ class Editbook extends Component {
                       />
                     </div>
                   </div>
-                  <div className='input-field col s12'>
-                    <div className='col s3'>
+                  <div className="input-field col s12">
+                    <div className="col s3">
                       <p>Quantity</p>
                     </div>
-                    <div className='col s9'>
-                      <input name='quantity'
-                        type='text' className='validate'
-
+                    <div className="col s9">
+                      <input name="quantity"
+                        type="text" className="validate"
                         onChange={this.handleChange}
                         value={this.state.quantity}
                         required
                       />
                     </div>
                   </div>
-                  <div className='col s3'>
+                  <div className="col s3">
                     <p>Category</p>
                   </div>
-                  <div className='col s9'>
-                    <select ref='category' id='category'
-                      className='browser-default indigo-text text-darken-2'
+                  <div className="col s9">
+                    <select ref="category" id="category"
+                      className="browser-default indigo-text text-darken-2"
                       onChange={this.handleSelectChange}
                       value={this.state.value}
                       required>
@@ -261,26 +271,28 @@ class Editbook extends Component {
                       )
                       )}
                     </select>
-                  </div>
-                  <div className="file-field input-field">
-                    <div className="btn indigo darken-2">
-                      <span>Book image</span>
-                      <input type="file"
-                        onChange={this.imageChange} name="imageFile" />
+                    <div className="file-field input-field">
+                      <div className="btn indigo darken-2 margin-fix">
+                        <span>Book image</span>
+                        <input type="file"
+                          onChange={this.imageChange}
+                          name="imageFile" className="margin-fix"
+                        />
+                      </div>
+                      <div className="file-path-wrapper input-fix">
+                        <input className="file-path validate" type="text" />
+                      </div>
                     </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" />
+                    <div className="image-container">
+                      {this.state.image &&
+                        <img src={this.state.image} alt="book Image" />
+                      }
                     </div>
-                  </div>
-                  <div className="image-container">
-                    {this.state.image &&
-                      <img src={this.state.image} alt="book Image" />
-                    }
                   </div>
                 </div>
-                <div className='row'>
-                  <div className='center'>
-                    <Button type='submit' name='action' label='SAVE CHANGES' />
+                <div className="row">
+                  <div className="center">
+                    <Button type="submit" name="action" label="SAVE CHANGES" />
                   </div>
                 </div>
               </form>

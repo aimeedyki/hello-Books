@@ -15,7 +15,7 @@ import Button from '../Common/Button.jsx';
  */
 class Signup extends Component {
   /** Creates an instance of Signup.
-   * @param {any} props
+   * @param {*} props
    * @memberof Signup
    */
   constructor(props) {
@@ -34,8 +34,8 @@ class Signup extends Component {
     this.renderAlert = this.renderAlert.bind(this);
   }
   /** sets the state to the value of the field
-     * @returns {*} void
-     * @param {any} event
+     * @returns {*} null
+     * @param {*} event
      * @memberof Signup
      */
   handleChange(event) {
@@ -99,45 +99,45 @@ class Signup extends Component {
      */
   render() {
     return (
-      <div className='row' >
-        <div className='col s12 m10 l10 offset-m1'>
-          <div className='card front-signup row'>
-            <div className='col s10 m10 l8 offset-m1 offset-s1 offset-l2'>
-              <h4 className='center greeting indigo-text text-darken-2'>
+      <div className="row" >
+        <div className="col s12 m10 l10 offset-m1">
+          <div className="card front-signup row">
+            <div className="col s10 m10 l8 offset-m1 offset-s1 offset-l2">
+              <h4 className="center greeting indigo-text text-darken-2">
                 New User? Join Us!
               </h4>
               <form onSubmit={this.handleFormSubmit}>
-                <div className='row'>
-                  <div className='input-field  col s12'>
-                    <input name='email' type='email'
-                      className='validate black-text'
+                <div className="row">
+                  <div className="input-field  col s12">
+                    <input name="email" type="email"
+                      className="validate black-text"
                       onChange={this.handleChange}
                       value={this.state.email}
                       required
                     />
                     <label>Email</label>
                   </div>
-                  <div className='input-field col s12'>
-                    <input name='username' type='text'
-                      className='validate black-text'
+                  <div className="input-field col s12">
+                    <input name="username" type="text"
+                      className="validate black-text"
                       onChange={this.handleChange}
                       value={this.state.username}
                       required
                     />
                     <label>Username</label>
                   </div>
-                  <div className='input-field col s12'>
-                    <input name='password' type='password'
-                      className='validate black-text'
+                  <div className="input-field col s12">
+                    <input name="password" type="password"
+                      className="validate black-text"
                       onChange={this.handleChange}
                       value={this.state.password}
                       required
                     />
                     <label>Password</label>
                   </div>
-                  <div className='input-field col s12'>
-                    <input name='confirmpassword' type='password'
-                      className='validate black-text'
+                  <div className="input-field col s12">
+                    <input name="confirmpassword" type="password"
+                      className="validate black-text"
                       onChange={this.handleChange}
                       value={this.state.confirmpassword}
                       required
@@ -145,26 +145,27 @@ class Signup extends Component {
                     <label>Confirm Password</label>
                   </div>
                   <label>Membership Level</label>
-                  <select ref='levelId' id='level'
-                    className='browser-default indigo-text text-darken-2'
+                  <select ref="levelId" id="level"
+                    className="browser-default indigo-text text-darken-2"
                     onChange={this.handleSelectChange}
                     value={this.state.value}
                     required>
-                    <option defaultValue='' selected disabled>
+                    <option defaultValue="" selected disabled>
                       Select a level</option>
-                    <option value='1'>Rookie</option>
-                    <option value='2'>Bookworm  N2000/month</option>
-                    <option value='3' >Voracious  N5000/month</option>
+                    <option value="1">Rookie</option>
+                    <option value="2">Bookworm  N2000/month</option>
+                    <option value="3" >Voracious  N5000/month</option>
                   </select>
                 </div>
-                <div className='row'>
-                  <div className='col s12 m4 l4 offset-l4 offset-m4'>
-                    <Button type='submit' icon='account_box' label='Signup' />
+                <div className="row">
+                  <div className="col s12 m4 l4 offset-l4 offset-m4">
+                    <Button type="submit" icon="account_box" label="Signup" />
                   </div>
                 </div>
-                <p className='center indigo-text text-darken-2'>
+                <p className="center indigo-text text-darken-2">
                   Already registered? Please login
-                  <Link to='/login'> here</Link></p>
+                  <Link to="/login"> here</Link>
+                </p>
               </form>
             </div>
           </div>
@@ -185,7 +186,7 @@ Signup.PropTypes = {
 
 const mapStateToProps = state => (
   {
-    errorMessage: state.auth.error,
+    errorMessage: state.authReducer.error,
   }
 );
 

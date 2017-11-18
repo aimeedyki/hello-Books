@@ -15,13 +15,13 @@ import Pagination from '../Common/Pagination';
  */
 class Outstanding extends Component {
   /** Creates an instance of Outstanding.
-     * @param {any} props
+     * @param {*} props
      * @memberof Outstanding
      */
   constructor(props) {
     super(props);
     this.data = [];
-    this.userId = '';
+    // this.userId = '';
     this.state = {
       limit: 10,
       offset: 0,
@@ -39,9 +39,9 @@ class Outstanding extends Component {
    * @returns {object} outstanding books
    */
   componentDidMount() {
-    const { userId } = this.props.user;
-    this.userId = userId;
-    this.props.getOutstanding(userId, this.state.limit,
+    // const { userId } = this.props.user;
+    // this.userId = userId;
+    this.props.getOutstanding(this.state.limit,
       this.state.offset);
   }
 
@@ -50,16 +50,15 @@ class Outstanding extends Component {
    * @memberof Book
    */
   refresh() {
-    this.props.getOutstanding(this.props.user.userId, this.state.limit,
+    this.props.getOutstanding(this.state.limit,
       this.state.offset);
   }
   /** returns a book
-   * @param {any} id
-   * @param {any} userId
+   * @param {number} id
    * @memberof Outstanding
    * @returns {*} void
    */
-  return(id, userId) {
+  return(id) {
     alert({
       title: 'Return this book?',
       text: 'Are you sure that you want to return this book?',
@@ -68,7 +67,7 @@ class Outstanding extends Component {
     })
       .then((willReturn) => {
         if (willReturn) {
-          this.props.returnBook(id, userId, this.refresh)
+          this.props.returnBook(id, this.refresh)
             .then((res) => {
               if (res) {
                 alert('Returned!', 'Book has been Returned!', 'success');
@@ -86,7 +85,6 @@ class Outstanding extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      const { userId } = this.props.user;
       this.data = nextProps.notReturned.map((notReturnedItem) => {
         const bookTitle = notReturnedItem.book.title;
         const borrowed = moment(
@@ -99,7 +97,7 @@ class Outstanding extends Component {
           borrowdate: borrowed,
           due: expected,
           return: <a className='link-cursor'
-            onClick={() => { this.return(historyId, userId); }}>RETURN</a>
+            onClick={() => { this.return(historyId); }}>RETURN</a>
         });
       });
       this.getPages(nextProps.pagination.pageCount);
@@ -220,15 +218,14 @@ class Outstanding extends Component {
   }
 }
 // function to connect the state from the store to the props of the component
-const mapStateToProps = (state) => {
-  const { user } = state.auth;
-  return {
+const mapStateToProps = state => (
+  {
     notReturned: state.userReducer.notReturned.histories,
     pagination: state.userReducer.notReturned.pagination,
     errorMessage: state.bookReducer.error,
-    user
-  };
-};
+
+  }
+);
 export default connect(mapStateToProps, {
   getOutstanding, returnBook
 })(Outstanding);

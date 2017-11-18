@@ -46,7 +46,7 @@ export default {
               const user = {
                 username: createdUser.username,
                 levelId: createdUser.levelId,
-                profilepic: createdUser.profilepic,
+                profilePic: createdUser.profilePic,
                 email: createdUser.email,
                 borrowCount: createdUser.borrowCount,
                 admin: createdUser.admin,
@@ -96,6 +96,7 @@ export default {
             profilePic: user.profilePic,
             admin: user.admin,
             borrowCount: user.borrowCount,
+            levelId: user.levelId,
             level: user.level.type,
             maxBooks: user.level.maxBooks,
             maxDays: user.level.maxDays

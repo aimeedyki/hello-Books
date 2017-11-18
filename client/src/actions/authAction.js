@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { browserHistory } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import {
   AUTH_USER,
   AUTH_ERROR,
@@ -9,12 +8,10 @@ import {
   UNAUTH_USER,
 } from './types';
 
-// const API_URL = process.env.API_URL;
-
 /**
- * @description decodes the token
+ * @description sets authorization token to header
  * @param {string} token
- * @return {string} decoded user details
+ * @return {*} null
  */
 export const setAuthorizationToken = (token) => {
   if (token) {
@@ -24,19 +21,36 @@ export const setAuthorizationToken = (token) => {
   }
 };
 
+/**
+ * @description clears error message in store
+ * @return {*} null
+ */
 export const clearErrorMessage = () => ({
   type: CLEAR_ERROR
 });
 
+/**
+ * @description sets user details to store
+ * @param {object} user user details
+ * @return {*} null
+ */
 export const setCurrentUser = user => ({
   type: AUTH_USER,
   payload: user
 });
 
+/**
+ * @description deletes user details
+ * @return {*} null
+ */
 export const deleteUser = () => ({
   type: UNAUTH_USER
 });
 
+/**
+ * @description logs out user
+ * @return {*} null
+ */
 export const logoutUser = () => (
   (dispatch) => {
     localStorage.clear();
@@ -45,6 +59,13 @@ export const logoutUser = () => (
   }
 );
 
+/**
+ * @description handles errors
+ * @param {*} dispatch 
+ * @param {object} error
+ * @param {*} type
+ * @return {*} null
+ */
 export const errorHandler = (dispatch, error, type) => {
   if (error.status === 403) {
     dispatch({
@@ -60,12 +81,20 @@ export const errorHandler = (dispatch, error, type) => {
   }
 };
 
+/**
+ * @description registers a user
+ * @param {string} email user email
+ * @param {string} username user name
+ * @param {string} password user password
+ * @param {number} levelId  user level id
+ * @return {boolean} boolean
+ */
 export const signupUser = ({ email, username, password, levelId }) => (
   dispatch => (
     axios.post('/api/v1/users/signup', { email, username, password, levelId })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
-        dispatch(setCurrentUser(jwt.decode(response.data.token)));
+        dispatch(setCurrentUser(response.data.user));
         /* eslint-disable no-undef */
         Materialize.toast('Signup successful! Welcome to Booksville',
           5000, 'indigo darken-2');
@@ -77,6 +106,12 @@ export const signupUser = ({ email, username, password, levelId }) => (
   )
 );
 
+/**
+ * @description logs in user
+ * @param {*} username user name
+ * @param {string} password user password
+ * @return {boolean} boolean
+ */
 export const signinUser = ({ username, password }) => (
   dispatch => (
     axios.post('/api/v1/users/signin', { username, password })
@@ -86,8 +121,24 @@ export const signinUser = ({ username, password }) => (
         /* eslint-disable no-undef */
         Materialize.toast('Welcome back to Booksville!!',
           5000, 'indigo darken-2');
-        dispatch(setCurrentUser(jwt.decode(response.data.token)));
+        dispatch(setCurrentUser(response.data.user));
         return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, AUTH_ERROR);
+      })
+  )
+);
+
+/**
+ * @description gets user details
+ * @return {object} user detail
+ */
+export const getUser = () => (
+  dispatch => (
+    axios.get('/api/v1/user/profile')
+      .then((response) => {
+        dispatch(setCurrentUser(response.data.userProfile));
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, AUTH_ERROR);

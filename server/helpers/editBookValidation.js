@@ -15,7 +15,7 @@ const editBookValidation = (fields) => {
     }
   }
   if (fields.body.categoryId) {
-    const categoryId = parseInt(fields.categoryId, 10);
+    const categoryId = parseInt(fields.body.categoryId, 10);
     if (isNaN(categoryId)) {
       return {
         message: 'Please enter a valid category',

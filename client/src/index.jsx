@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken';
 import ConfigureStore from './store/configureStore';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
-import { setAuthorizationToken, setCurrentUser } from './actions/authAction';
+import { setAuthorizationToken, getUser } from './actions/authAction';
 
 
 import App from './components/App.jsx';
@@ -21,7 +21,7 @@ const store = ConfigureStore();
 if (localStorage.token) {
   setAuthorizationToken(localStorage.token);
   store.dispatch(
-    setCurrentUser(jwt.decode(localStorage.token))
+    getUser()
   );
 }
 

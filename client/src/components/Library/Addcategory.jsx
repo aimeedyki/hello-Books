@@ -41,12 +41,21 @@ class AddCategory extends Component {
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    if (this.props.addNewCategory(this.state)) {
-      /* eslint-disable no-undef */
-      Materialize.toast('Category added Successfully!',
-        4000, 'indigo darken-2');
-      this.props.history.push('/user');
-    }
+    this.props.addNewCategory(this.state)
+      .then((response) => {
+        if (response) {
+          /* eslint-disable no-undef */
+          Materialize.toast('Category added Successfully!',
+            4000, 'indigo darken-2');
+          this.props.history.push('/user');
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          /* eslint-disable no-undef */
+          Materialize.toast(error.message, 4000, 'indigo darken-2');
+        }
+      });
   }
 
   /** @returns {string} error message

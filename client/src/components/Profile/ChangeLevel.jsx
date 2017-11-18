@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import { clearErrorMessage } from '../../actions/authAction';
+import { clearErrorMessage, getUser } from '../../actions/authAction';
 import { changeLevel, displayUserpage } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
@@ -20,8 +20,7 @@ class ChangeLevel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newLevel: '',
-      userId: ''
+      newLevel: ''
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -48,16 +47,18 @@ class ChangeLevel extends Component {
   }
 
   /** @returns {*} void
-   * @param {any} event
+   * @param {*} event
    * @memberof ChangeLevel
    */
   handleFormSubmit(event) {
     event.preventDefault();
-    const { userId, levelId } = this.props.user;
+    const { levelId } = this.props.user;
     const newLevel = parseInt(this.state.newLevel, 10);
     if (newLevel !== levelId) {
-      this.props.changeLevel(userId, newLevel).then(() => {
-        this.props.history.push('/user');
+      this.props.changeLevel(newLevel).then((response) => {
+        if (response) {
+          this.props.history.push('/user/profile');
+        }
       });
     } else {
       /* eslint-disable no-undef */
@@ -131,13 +132,14 @@ class ChangeLevel extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { error } = state.userReducer;
   return {
     user,
-    errorMessage: state.userReducer.error
+    errorMessage: error
   };
 };
 
 export default connect(mapStateToProps, {
-  changeLevel, displayUserpage, clearErrorMessage
+  changeLevel, displayUserpage, clearErrorMessage, getUser
 })(withRouter(ChangeLevel));
