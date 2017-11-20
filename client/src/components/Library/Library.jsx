@@ -60,8 +60,8 @@ class Library extends Component {
 
     return (
       <div className="row">
-        <h4 className="cat-name center">All Books</h4>
-        <div className="col s12 l10 m12 offset-l2">
+        <div className='card white col s12 l9 offset-l2 library'>
+          <h4 className="cat-name center">All Books</h4>
           <div className="row indigo-text text-darken-2">
             <div className="col s12">
               <div>

@@ -34,10 +34,10 @@ export const displayUserpage = () => {
 };
 
 // gets the history of a user
-export const getHistory = (userId, limit, offset) => (
+export const getHistory = (limit, offset) => (
   dispatch => (
     axios
-      .get(`/api/v1/users/${userId}/books?offset=${offset}&limit=${limit}`)
+      .get(`/api/v1/user/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
         dispatch({
           type: GET_HISTORY,
@@ -108,7 +108,6 @@ export const changeLevel = newLevelId => (
     axios.put('/api/v1/user/level', { newLevelId })
       .then(() => {
         dispatch(getUser());
-        /* eslint-disable no-undef */
         Materialize.toast('Level changed successfully!!',
           4000, 'indigo darken-2');
         return true;
@@ -122,14 +121,11 @@ export const changeLevel = newLevelId => (
   )
 );
 
-export const changePic = (userId, profilepic) => (
+export const changePic = profilePic => (
   dispatch => (
-    axios.put(`api/v1/users/${userId}/image`, { profilepic })
+    axios.put('/api/v1/user/profile-image', { profilePic })
       .then(() => {
-        dispatch({
-          type: CHANGE_IMAGE,
-        });
-        /* eslint-disable no-undef */
+        dispatch(getUser());
         Materialize.toast('Profile picture changed successfully!!',
           4000, 'indigo darken-2');
         return true;

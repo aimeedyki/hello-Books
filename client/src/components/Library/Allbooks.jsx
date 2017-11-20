@@ -118,7 +118,7 @@ class Allbooks extends Component {
   }
   /** @description searches on 3rd key stroke
    * @returns {object} books
-   * @param {*} event 
+   * @param {*} event
    * @memberof Allbooks
    */
   searchLibrary(event) {
@@ -133,7 +133,7 @@ class Allbooks extends Component {
   }
   /** @description searches when search icon is clicked
    * @returns {object} books
-   * @param {*} event 
+   * @param {*} event
    * @memberof Allbooks
    */
   submitSearch(event) {

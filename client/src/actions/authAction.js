@@ -141,6 +141,7 @@ export const getUser = () => (
         dispatch(setCurrentUser(response.data.userProfile));
       })
       .catch((error) => {
+        console.log(error);
         errorHandler(dispatch, error.response, AUTH_ERROR);
       })
   )

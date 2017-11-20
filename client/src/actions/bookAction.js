@@ -113,6 +113,7 @@ export const addNewCategory = ({ name }) => (
   )
 );
 
+
 // action creator to get all categories
 export const getCategories = () => (
   dispatch => (
@@ -121,11 +122,42 @@ export const getCategories = () => (
         dispatch(setCategories(response.data.categories));
       })
       .catch((error) => {
+        console.log(error);
         errorHandler(dispatch, error.response, BOOK_ERROR);
       })
   )
 );
 
+// action creator to add a new book category
+export const editCategory = (categoryId, name) => (
+  dispatch => (
+    axios.put(`/api/v1/${categoryId}/category`, { name })
+      .then(() => {
+        getCategories();
+        Materialize.toast(`Category name has been edited to ${name}`, 4000,
+          'indigo darken-2');
+        return true;
+      })
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 4000,
+          'indigo darken-2');
+      })
+  )
+);
+
+// action creator to delete a category
+export const deleteCategory = id => (
+  dispatch => (
+    axios.delete(`/api/v1/${id}/category`)
+      .then(() => {
+        getCategories();
+        return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR);
+      })
+  )
+);
 // action creator to get all books in a library
 export const getBooks = (limit, offset, paginationFunction) => (
   dispatch => (

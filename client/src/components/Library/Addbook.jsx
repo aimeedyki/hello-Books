@@ -197,6 +197,8 @@ class AddBook extends Component {
                     </div>
                   </div>
                   <div className="image-container">
+                    {(this.state.imageFile && !this.state.image) ?
+                      <p className="center">Uploading ....</p> : ''}
                     {this.state.image &&
                       <img src={this.state.image} alt="book Image" />
                     }

@@ -38,9 +38,7 @@ class Borrowed extends Component {
    * @memberof Borrowed
    */
   componentDidMount() {
-    const { userId } = this.props.user;
-    this.userId = userId;
-    this.props.getHistory(userId, this.state.limit,
+    this.props.getHistory(this.state.limit,
       this.state.offset);
   }
   /** @returns {*} book details
@@ -96,7 +94,7 @@ class Borrowed extends Component {
     this.setState({
       offset: (page === 1) ? 0 : pageOffset
     }, () => {
-      this.props.getHistory(userId, this.state.limit,
+      this.props.getHistory(this.state.limit,
         this.state.offset);
     });
   }
@@ -113,7 +111,7 @@ class Borrowed extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getHistory(this.userId, this.state.limit,
+        this.props.getHistory(this.state.limit,
           this.state.offset);
       });
     }
@@ -131,7 +129,7 @@ class Borrowed extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getHistory(this.userId, this.state.limit,
+        this.props.getHistory(this.state.limit,
           this.state.offset);
       });
     }
@@ -179,10 +177,11 @@ class Borrowed extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
+  const { user } = state.authReducer;
+  const { histories, pagination } = state.userReducer.histories;
   return {
-    histories: state.userReducer.histories.histories,
-    pagination: state.userReducer.histories.pagination,
+    histories,
+    pagination,
     user
   };
 };
