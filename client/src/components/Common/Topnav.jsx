@@ -33,7 +33,7 @@ class Topnav extends Component {
    */
   render() {
     return (
-      <div className='row'>
+      <div className='row grey lighten-4'>
         <div className="col s12 navbar-fixed white">
           <nav>
             <div className="nav-wrapper white user-logo">

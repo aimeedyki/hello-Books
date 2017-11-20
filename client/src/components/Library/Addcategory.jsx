@@ -47,7 +47,7 @@ class AddCategory extends Component {
           /* eslint-disable no-undef */
           Materialize.toast('Category added Successfully!',
             4000, 'indigo darken-2');
-          this.props.history.push('/user');
+          this.props.history.push('/user/dashboard');
         }
       })
       .catch((error) => {

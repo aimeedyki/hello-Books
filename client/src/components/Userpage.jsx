@@ -13,7 +13,7 @@ import ChangePassword from './Profile/ChangePassword.jsx';
 import Editprofile from './Profile/Editprofile.jsx';
 import Addbook from './Library/Addbook.jsx';
 import Addcategory from './Library/Addcategory.jsx';
-import Useractivity from './Profile/Useractivity.jsx';
+import AdminDashboard from './Dashboard/AdminDashboard.jsx';
 import Editbook from './Library/Editbook.jsx';
 import ChangeLevel from './Profile/ChangeLevel.jsx';
 import Bookcategory from './Library/Bookcategory';
@@ -82,7 +82,7 @@ class Userpage extends Component {
     profilePic === '' || profilePic === null ?
       (profileImage = noPicture) : (profileImage = profilePic);
     return (
-      <div>
+      <div className="grey lighten-4">
         <Topnav username={username}
           levelIcon={this.setLevelIcon(level, admin)}
         />
@@ -98,8 +98,8 @@ class Userpage extends Component {
             <Route exact path="/user/profile" component={Profile} />
             <Route path="/user/edit-profile" component={Editprofile} />
             <Route path="/user/history" component={Borrowed} />
-            <Route path="/user/notifications"
-              component={AdminAuth(Useractivity)}
+            <Route path="/user/dashboard"
+              component={AdminAuth(AdminDashboard)}
             />
             <Route path="/user/:id/edit-book" component={AdminAuth(Editbook)} />
             <Route path="/user/category" component={AdminAuth(Addcategory)} />

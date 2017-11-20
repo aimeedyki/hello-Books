@@ -39,7 +39,7 @@ export default {
     */
   listCategories(req, res) {
     return Category
-      .all()
+      .all({ order: [['name', 'ASC']] })
       .then((categories) => {
         if (Object.keys(categories).length < 1) {
           return res.status(200)

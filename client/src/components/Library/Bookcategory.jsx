@@ -43,9 +43,9 @@ class Bookcategory extends Component {
   componentWillMount() {
     this.getCategory(this.props.location.pathname);
   }
-  /** @description gets a new 
+  /** @description gets a new
    * @returns {*} category
-   * @param {*} nextProps 
+   * @param {*} nextProps
    * @memberof Bookcategory
    */
   componentWillReceiveProps(nextProps) {
@@ -198,8 +198,8 @@ class Bookcategory extends Component {
       );
     return (
       <div className='row'>
-        <h4 className='cat-name center'>{this.categoryName}</h4>
-        <div className='col s12 l10 m12 offset-l2'>
+        <div className='card white col s12 l9 offset-l2 library'>
+          <h4 className='cat-name center'>{this.categoryName}</h4>
           <div className='row indigo-text text-darken-2'>
             <div className='col s12'>
               <SearchBar

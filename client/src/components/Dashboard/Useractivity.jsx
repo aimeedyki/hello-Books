@@ -74,10 +74,8 @@ class UserActivity extends Component {
       }
     ];
     return (
-      <div className='row'>
-        <div className='card col s12 l6 offset-l3'>
-          <Table data={this.data} header={header} />
-        </div>
+      <div>
+        <Table data={this.data} header={header} />
       </div>
     );
   }

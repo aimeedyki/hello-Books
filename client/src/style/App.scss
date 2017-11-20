@@ -9,6 +9,8 @@ body{
 	"Helvetica Neue",
   sans-serif !important;
   font-weight: light;
+  height: 100%;
+  background-color: #f5f5f5;
 }
 #card-book {
   padding: 0px;
@@ -342,4 +344,32 @@ tbody {
 
 .prefix {
   margin-top: 1%;
+}
+
+.left-fix {
+  margin-left: 3%;
+}
+
+.category-input-fix {
+  width: 45% !important;
+}
+
+.button-fix {
+  margin-left: 1%;
+}
+.dashboard-card{
+  height: 400px;
+  overflow: auto;
+}
+
+.dashboard-card-right{
+  height: 400px;
+  overflow: auto;
+  margin-left: 5% !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .library {
+  margin-left: 20% !important;
+  }
 }

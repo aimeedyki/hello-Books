@@ -284,6 +284,8 @@ class Editbook extends Component {
                       </div>
                     </div>
                     <div className="image-container">
+                      {(this.state.imageFile) ?
+                        <p className="center">Uploading ....</p> : ''}
                       {this.state.image &&
                         <img src={this.state.image} alt="book Image" />
                       }

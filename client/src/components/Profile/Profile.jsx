@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 
 import {
   changePic,
-  getUserLevel,
-  getUserUpdate
+  getUserLevel
 } from '../../actions/userAction';
 
 import { imageUpload } from '../../actions/bookAction';
@@ -81,11 +80,7 @@ class Profile extends Component {
    * @memberof Profile
    */
   uploadPic() {
-    const { userId } = this.props.user;
-    this.props.changePic(userId, this.state.profilepic)
-      .then(() => {
-        this.props.getUserUpdate(userId);
-      });
+    this.props.changePic(this.state.profilepic);
   }
   /* eslint-disable class-methods-use-this */
   /** @param {string} level
@@ -214,8 +209,10 @@ class Profile extends Component {
                   send</i></a>
             </div>
             <div className="image-container">
-              {this.state.image &&
-                <img src={this.state.image} alt="book Image" />
+              {(this.state.imageFile && !this.state.profilepic) ?
+                <p className="center">Uploading ....</p> : ''}
+              {this.state.profilepic &&
+                <img src={this.state.profilepic} alt="profile picture" />
               }
             </div>
           </div>
@@ -239,5 +236,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  imageUpload, changePic, getUserLevel, getUserUpdate
+  imageUpload, changePic, getUserLevel
 })(Profile);

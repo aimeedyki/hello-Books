@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { NavLink, Link, withRouter, } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -36,20 +35,19 @@ class SideNav extends Component {
    */
   render() {
     let adminLinks;
-    /* eslint-disable no-unused-expressions */
+
     // conditionally render navigation links depending on user level
     (this.props.user.admin === true) ? adminLinks = (
       <ul>
-        <li><NavLink to="/user/notifications" className="white-text">
-          Notifications</NavLink></li>
-        <li><NavLink to="/user/category" className="white-text">
-          New Category</NavLink></li>
+        <li><NavLink to="/user/dashboard" className="white-text">
+          Dashboard</NavLink></li>
       </ul>
     ) : adminLinks = '';
+
     const cloud = 'http://res.cloudinary.com/ddxsazo2k/image/upload';
 
     return (
-      <div>
+      <div className="grey lighten-4">
         <ul id="slide-out" className="side-nav fixed indigo darken-2">
           <li>
             <div className="row user-view">
