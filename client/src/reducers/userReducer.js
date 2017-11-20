@@ -22,8 +22,8 @@ const initialState = {
 };
 /** reducers for user components
  * @export
- * @param {any} [state=initialState]
- * @param {any} action
+ * @param {Object} [state=initialState]
+ * @param {*} action
  * @returns {*} state
  */
 export default (state = initialState, action) => {

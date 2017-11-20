@@ -25,6 +25,7 @@ class ChangePassword extends Component {
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.closePage = this.closePage.bind(this);
   }
   /** @returns {*} null
    * @param {*} prevProps
@@ -57,7 +58,6 @@ class ChangePassword extends Component {
           }
         }).catch((error) => {
           if (error) {
-            /* eslint-disable no-undef */
             Materialize.toast(error.message, 4000, 'indigo darken-2');
           }
         });
@@ -65,7 +65,13 @@ class ChangePassword extends Component {
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
-
+  /**
+   * @returns {*} null
+   * @memberof ChangePassword
+   */
+  closePage() {
+    this.props.history.push('/user/profile');
+  }
   /** @returns {*} component
    * @memberof ChangePassword
    */
@@ -75,6 +81,9 @@ class ChangePassword extends Component {
         <div className='card profile col s10 l4 offset-s1 offset-l5'>
           <form onSubmit={this.handleFormSubmit}>
             <div className='row'>
+              <i className="material-icons red-text right close link-cursor"
+                onClick={this.closePage}>
+                close</i>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
                 <h5 className='indigo-text text-darken-2 greeting center'><b>
                   Change password</b></h5>
@@ -99,7 +108,7 @@ class ChangePassword extends Component {
                 </div>
                 <div className='center'>
                   <Button type='submit' name='action'
-                    label='Change Password' icon='save' />
+                    label='Change' />
                 </div>
               </div>
             </div>

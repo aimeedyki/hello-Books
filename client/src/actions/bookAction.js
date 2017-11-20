@@ -14,7 +14,9 @@ import {
   RETURN_BOOK,
   CLOUDINARY_URL,
   CLOUDINARY_PRESET,
-  SEARCH_BOOKS
+  SEARCH_BOOKS,
+  SEARCH_ERROR,
+  CLEAR_SEARCH_ERROR
 } from './types';
 import { errorHandler } from './authAction';
 
@@ -43,6 +45,14 @@ export const setaBook = book => ({
 export const setBookCategory = category => ({
   type: GET_BOOKS_BYCATEGORIES,
   payload: category
+});
+
+/**
+ * @description clears error message in store
+ * @return {*} null
+ */
+export const clearSearchError = () => ({
+  type: CLEAR_SEARCH_ERROR
 });
 
 // action to upload an image to cloudinary
@@ -95,25 +105,6 @@ export const modifyBook =
     )
   );
 
-// action creator to add a new book category
-export const addNewCategory = ({ name }) => (
-  dispatch => (
-    axios.post('/api/v1/category', { name })
-      .then((response) => {
-        dispatch({
-          type: ADD_CATEGORY,
-          category: response.data.category
-        });
-        return true;
-      })
-      .catch((error) => {
-        Materialize.toast(error.response.data.message, 4000,
-          'indigo darken-2');
-      })
-  )
-);
-
-
 // action creator to get all categories
 export const getCategories = () => (
   dispatch => (
@@ -122,8 +113,22 @@ export const getCategories = () => (
         dispatch(setCategories(response.data.categories));
       })
       .catch((error) => {
-        console.log(error);
         errorHandler(dispatch, error.response, BOOK_ERROR);
+      })
+  )
+);
+
+// action creator to add a new book category
+export const addNewCategory = ({ name }) => (
+  dispatch => (
+    axios.post('/api/v1/category', { name })
+      .then((response) => {
+        dispatch(getCategories());
+        return true;
+      })
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 4000,
+          'indigo darken-2');
       })
   )
 );
@@ -163,7 +168,7 @@ export const getBooks = (limit, offset, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/books?offset=${offset}&limit=${limit}`)
       .then((response) => {
-        dispatch(setBooks(response.data));
+        dispatch(setBooks(response.data.allBooks));
         paginationFunction();
       })
       .catch((error) => {
@@ -254,29 +259,31 @@ export const returnBook = (historyId, refresh) => (
 );
 
 // action creator to search a book
-export const searchBooks = term => (
+export const searchBooks = (term, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/search?term=${term}`)
       .then((response) => {
         dispatch(setBooks(response.data.foundBooks));
+        paginationFunction();
         return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
+        errorHandler(dispatch, error.response, SEARCH_ERROR);
       })
   )
 );
 
 // action creator to search a book category
-export const searchCategory = (term, categoryId) => (
+export const searchCategory = (term, categoryId, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/search?term=${term}&category=${categoryId}`)
       .then((response) => {
-        dispatch(setBooks(response.data.foundBooks));
+        dispatch(setBookCategory(response.data.foundBooks));
+        paginationFunction();
         return true;
       })
       .catch((error) => {
-        errorHandler(dispatch, error.response, BOOK_ERROR);
+        errorHandler(dispatch, error.response, SEARCH_ERROR);
       })
   )
 );

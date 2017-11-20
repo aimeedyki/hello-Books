@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import alert from 'sweetalert';
 
 import CategoryControls from './CategoryControls';
-import Useractivity from './Useractivity';
+import UserActivity from './UserActivity';
 
 
 const AdminDashboard = props => (
@@ -14,7 +14,7 @@ const AdminDashboard = props => (
         <h5 className='center greeting indigo-text text-darken-2'><b>
           User Activities</b>
         </h5>
-        <Useractivity />
+        <UserActivity />
       </div>
       <div className="col s12 m6 l4 card dashboard-card-right">
         <CategoryControls />

@@ -44,7 +44,6 @@ class AddCategory extends Component {
     this.props.addNewCategory(this.state)
       .then((response) => {
         if (response) {
-          /* eslint-disable no-undef */
           Materialize.toast('Category added Successfully!',
             4000, 'indigo darken-2');
           this.props.history.push('/user/dashboard');
@@ -52,7 +51,6 @@ class AddCategory extends Component {
       })
       .catch((error) => {
         if (error) {
-          /* eslint-disable no-undef */
           Materialize.toast(error.message, 4000, 'indigo darken-2');
         }
       });

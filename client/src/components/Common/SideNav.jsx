@@ -3,7 +3,7 @@ import { NavLink, Link, withRouter, } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCategories } from '../../actions/bookAction';
 
-import BookCategory from '../Library/Bookcategory.jsx';
+import BookCategory from '../Library/BookCategory.jsx';
 
 /** side navigation on the user page
  * @export
@@ -62,7 +62,7 @@ class SideNav extends Component {
               <Link to="/user/profile"><span><i
                 className="col s2 material-icons">
                 settings</i></span></Link>
-              <a><span className="white-text email">
+              <a><span className="white-text email side-email">
                 {this.props.email}</span></a>
             </div>
           </li>

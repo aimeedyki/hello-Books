@@ -45,7 +45,7 @@ class CategoryControls extends Component {
   /**
    * 
    * @returns {*} null
-   * @param {any} nextProps 
+   * @param {any} nextProps
    * @memberof CategoryControls
    */
   componentWillReceiveProps(nextProps) {
@@ -54,7 +54,6 @@ class CategoryControls extends Component {
         { [category.name]: category.name }));
     }
   }
-  // componentDidMount() { }
   /** @returns {*} null
    * @param {*} event
    * @memberof CategoryControls
@@ -63,7 +62,7 @@ class CategoryControls extends Component {
     this.setState({ categoryName: event.target.value });
   }
   /**
-   *  @returns {*} null 
+   *  @returns {*} null
    * @param {*} categoryId
    * @memberof CategoryControls
    */
@@ -75,9 +74,9 @@ class CategoryControls extends Component {
   }
   /**
    * 
-   * @returns {*} null 
-   * @param {any} name 
-   * @param {any} categoryId 
+   * @returns {*} null
+   * @param {any} name
+   * @param {any} categoryId
    * @memberof CategoryControls
    */
   cancel(name, categoryId) {
@@ -87,9 +86,9 @@ class CategoryControls extends Component {
     this.props.categories.map(category => $(`#${category.id}-edit`).show());
   }
   /**
-   * @returns {*} null 
-   * @param {any} categoryId 
-   * @param {any} categoryName 
+   * @returns {*} null
+   * @param {any} categoryId
+   * @param {any} categoryName
    * @memberof CategoryControls
    */
   submitEdit(categoryId, categoryName) {
@@ -101,7 +100,7 @@ class CategoryControls extends Component {
       });
   }
   /**
-   * @param {any} event 
+   * @param {any} event
    * @memberof CategoryControls
    * @returns {void}
    */
@@ -109,12 +108,10 @@ class CategoryControls extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    // console.log('hi', this.state.categoryName);
-    // console.log(event.target.value, 'yello', event.target.name, this.state);
   }
 
   /**
-   *  @returns {*} null 
+   *  @returns {*} null
    * @param {*} categoryId
    * @memberof CategoryControls
    */

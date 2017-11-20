@@ -1,5 +1,6 @@
 
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 module.exports = {
   up: queryInterface =>
@@ -7,7 +8,7 @@ module.exports = {
       {
         email: 'aimee@yahoo.com',
         username: 'aimee',
-        password: bcrypt.hashSync('bookiiii', 10),
+        password: bcrypt.hashSync(process.env.PASSWORD, 10),
         levelId: 1,
         admin: true,
         borrowCount: 0,

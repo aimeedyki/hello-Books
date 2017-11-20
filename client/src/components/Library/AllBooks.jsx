@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getBooks, searchBooks } from '../../actions/bookAction';
+import {
+  getBooks, searchBooks, clearSearchError
+} from '../../actions/bookAction';
 import Book from '../Library/Book.jsx';
 import SearchBar from '../Common/SearchBar.jsx';
 import Loader from '../Common/Loader.jsx';
@@ -10,13 +12,13 @@ import generic from '../../assets/images/generic.jpg';
 
 
 /** component that displays all books
- * @class Allbooks
+ * @class AllBooks
  * @extends {Component}
  */
-class Allbooks extends Component {
-  /** Creates an instance of Allbooks.
+class AllBooks extends Component {
+  /** Creates an instance of AllBooks.
 * @param {*} props
- * @memberof Allbooks
+ * @memberof AllBooks
  */
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ class Allbooks extends Component {
     this.submitSearch = this.submitSearch.bind(this);
   }
   /** @returns {*} null
-  * @memberof Allbooks
+  * @memberof AllBooks
   */
   componentWillMount() {
     this.props.getBooks(this.state.limit,
@@ -44,7 +46,7 @@ class Allbooks extends Component {
 
   /**
    * @returns {*} null
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   getPagination() {
     this.getPages(this.props.pagination.pageCount);
@@ -53,7 +55,7 @@ class Allbooks extends Component {
   /** @description creates an array of page numbers
    * @returns {*} null
    * @param {number} pageCount
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   getPages(pageCount) {
     const pages = [];
@@ -68,7 +70,7 @@ class Allbooks extends Component {
    * @returns {*} void
    * @param {*} event
    * @param {number} page
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   getNewPage(event, page) {
     event.preventDefault();
@@ -84,7 +86,7 @@ class Allbooks extends Component {
    * @returns {*} void
    * @param {*} event
    * @param {number} currentPage
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   getNextPage(event, currentPage) {
     event.preventDefault();
@@ -102,7 +104,7 @@ class Allbooks extends Component {
    * @returns {*} void
    * @param {*} event
    * @param {number} currentPage
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   getPreviousPage(event, currentPage) {
     event.preventDefault();
@@ -119,13 +121,14 @@ class Allbooks extends Component {
   /** @description searches on 3rd key stroke
    * @returns {object} books
    * @param {*} event
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   searchLibrary(event) {
     event.preventDefault();
+    this.props.clearSearchError();
     this.setState({ searchTerm: event.target.value });
     if (event.target.value.length > 2) {
-      this.props.searchBooks(event.target.value);
+      this.props.searchBooks(event.target.value, this.getPagination);
     } else {
       this.props.getBooks(
         this.state.limit, this.state.offset, this.getPagination);
@@ -134,35 +137,35 @@ class Allbooks extends Component {
   /** @description searches when search icon is clicked
    * @returns {object} books
    * @param {*} event
-   * @memberof Allbooks
+   * @memberof AllBooks
    */
   submitSearch(event) {
     event.preventDefault();
     this.props.searchBooks(this.state.searchTerm);
   }
   /** @returns {*} all the books in the library
-  * @memberof Allbooks
+  * @memberof AllBooks
   */
   render() {
     if (!this.props.books) { return <Loader />; }
     return (
       <div className='row'>
         <SearchBar searchItem={this.searchLibrary} submit={this.submitSearch} />
-        {this.props.books.map((book) => {
-          let image = book.image;
-          if (image === '' || image === null) { image = generic; }
-          // if (this.props.error) { return <p>{this.props.error}</p>; }
-          return (
-            <div key={book.id}>
-              <Book image={image} title={book.title}
-                author={book.author} category={book.category.name}
-                description={book.description} status={book.status}
-                id={book.id} quantity={book.quantity}
-                getPagination={this.getPagination}
-              />
-            </div>
-          );
-        })}
+        {(this.props.error) ? <p>{this.props.error}</p> :
+          this.props.books.map((book) => {
+            let image = book.image;
+            if (image === '' || image === null) { image = generic; }
+            return (
+              <div key={book.id}>
+                <Book image={image} title={book.title}
+                  author={book.author} category={book.category.name}
+                  description={book.description} status={book.status}
+                  id={book.id} quantity={book.quantity}
+                  getPagination={this.getPagination}
+                />
+              </div>
+            );
+          })}
         <div className='col s12 center'>
           <Pagination
             previousPage={this.getPreviousPage}
@@ -180,11 +183,11 @@ class Allbooks extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = state => ({
-  error: state.bookReducer.error,
+  error: state.bookReducer.searchError,
   books: state.bookReducer.books.books,
   pagination: state.bookReducer.books.pagination
 });
 
 export default connect(mapStateToProps, {
-  getBooks, searchBooks
-})(Allbooks);
+  getBooks, searchBooks, clearSearchError
+})(AllBooks);

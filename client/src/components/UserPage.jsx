@@ -3,20 +3,20 @@ import { connect } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 
 import AdminAuth from './Authentication/AdminAuth';
-import Topnav from './Common/Topnav.jsx';
-import SideNav from './Common/SideNav.jsx';
-import Library from './Library/Library.jsx';
-import Borrowed from './Library/Borrowed.jsx';
-import Outstanding from './Library/Outstanding.jsx';
-import Profile from './Profile/Profile.jsx';
-import ChangePassword from './Profile/ChangePassword.jsx';
-import Editprofile from './Profile/Editprofile.jsx';
-import Addbook from './Library/Addbook.jsx';
-import Addcategory from './Library/Addcategory.jsx';
-import AdminDashboard from './Dashboard/AdminDashboard.jsx';
-import Editbook from './Library/Editbook.jsx';
-import ChangeLevel from './Profile/ChangeLevel.jsx';
-import Bookcategory from './Library/Bookcategory';
+import TopNav from './Common/TopNav';
+import SideNav from './Common/SideNav';
+import Library from './Library/Library';
+import Borrowed from './Library/Borrowed';
+import Outstanding from './Library/Outstanding';
+import Profile from './Profile/Profile';
+import ChangePassword from './Profile/ChangePassword';
+import EditProfile from './Profile/EditProfile';
+import AddBook from './Library/AddBook';
+import AddCategory from './Library/AddCategory';
+import AdminDashboard from './Dashboard/AdminDashboard';
+import EditBook from './Library/EditBook';
+import ChangeLevel from './Profile/ChangeLevel';
+import BookCategory from './Library/BookCategory';
 import NotFound from './NotFound';
 
 import rookie from '../assets/images/rookie.jpg';
@@ -83,7 +83,7 @@ class Userpage extends Component {
       (profileImage = noPicture) : (profileImage = profilePic);
     return (
       <div className="grey lighten-4">
-        <Topnav username={username}
+        <TopNav username={username}
           levelIcon={this.setLevelIcon(level, admin)}
         />
         <SideNav profileImage={profileImage}
@@ -93,18 +93,18 @@ class Userpage extends Component {
           <Switch>
             <Route exact path={this.props.match.path} component={Library} />
             <Route path="/user/notreturned" component={Outstanding} />
-            <Route path="/user/add-book" component={AdminAuth(Addbook)} />
+            <Route path="/user/add-book" component={AdminAuth(AddBook)} />
             <Route path="/user/password" component={ChangePassword} />
             <Route exact path="/user/profile" component={Profile} />
-            <Route path="/user/edit-profile" component={Editprofile} />
+            <Route path="/user/edit-profile" component={EditProfile} />
             <Route path="/user/history" component={Borrowed} />
             <Route path="/user/dashboard"
               component={AdminAuth(AdminDashboard)}
             />
-            <Route path="/user/:id/edit-book" component={AdminAuth(Editbook)} />
-            <Route path="/user/category" component={AdminAuth(Addcategory)} />
+            <Route path="/user/:id/edit-book" component={AdminAuth(EditBook)} />
+            <Route path="/user/category" component={AdminAuth(AddCategory)} />
             <Route path="/user/new-level" component={ChangeLevel} />
-            <Route path="/user/:categories" component={Bookcategory} />
+            <Route path="/user/:categories" component={BookCategory} />
             <Route path="/user/*" component={NotFound} />
           </Switch>
         </div>

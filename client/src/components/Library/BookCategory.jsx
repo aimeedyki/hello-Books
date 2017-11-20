@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getBooksByCategory, searchCategory } from '../../actions/bookAction';
+import {
+  getBooksByCategory, searchCategory, clearSearchError
+} from '../../actions/bookAction';
 import Book from '../Library/Book.jsx';
 import SearchBar from '../Common/SearchBar.jsx';
 import Loader from '../Common/Loader.jsx';
@@ -10,13 +12,13 @@ import Pagination from '../Common/Pagination';
 import generic from '../../assets/images/generic.jpg';
 
 /** displays books by their categories
- * @class Bookcategory
+ * @class BookCategory
  * @extends {Component}
  */
-class Bookcategory extends Component {
-  /** Creates an instance of Bookcategory.
+class BookCategory extends Component {
+  /** Creates an instance of BookCategory.
   * @param {any} props
-   * @memberof Bookcategory
+   * @memberof BookCategory
   */
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class Bookcategory extends Component {
   }
   /** gets the category
    * @returns {*} null
-   * @memberof Bookcategory
+   * @memberof BookCategory
    */
   componentWillMount() {
     this.getCategory(this.props.location.pathname);
@@ -46,7 +48,7 @@ class Bookcategory extends Component {
   /** @description gets a new
    * @returns {*} category
    * @param {*} nextProps
-   * @memberof Bookcategory
+   * @memberof BookCategory
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
@@ -55,7 +57,7 @@ class Bookcategory extends Component {
   }
   /** @returns {object} category
    * @param {string} pathName
-   * @memberof Bookcategory
+   * @memberof BookCategory
    */
   getCategory(pathName) {
     const stringArray = pathName.split('/');
@@ -144,9 +146,11 @@ class Bookcategory extends Component {
    */
   searchBookCategory(event) {
     event.preventDefault();
+    this.props.clearSearchError();
     this.setState({ searchTerm: event.target.value });
     if (event.target.value.length > 2) {
-      this.props.searchCategory(event.target.value, this.categoryId);
+      this.props.searchCategory(
+        event.target.value, this.categoryId, this.getPagination);
     } else {
       this.getCategory(this.props.location.pathname);
     }
@@ -162,7 +166,7 @@ class Bookcategory extends Component {
   }
   /** renders the books in a category
    * @returns {*} category component
-   * @memberof Bookcategory
+   * @memberof BookCategory
    */
   render() {
     if (!this.props.books) { return <Loader />; }
@@ -206,7 +210,7 @@ class Bookcategory extends Component {
                 searchItem={this.searchBookCategory}
                 submit={this.submitCategorySearch}
               />
-              {bookObject}
+              {(this.props.error) ? <p>{this.props.error}</p> : bookObject}
             </div>
           </div>
         </div>
@@ -218,10 +222,11 @@ class Bookcategory extends Component {
 const mapStateToProps = state => (
   {
     books: state.bookReducer.bookCategory.books,
-    pagination: state.bookReducer.bookCategory.pagination
+    pagination: state.bookReducer.bookCategory.pagination,
+    error: state.bookReducer.searchError,
   }
 );
 
 export default connect(mapStateToProps, {
-  getBooksByCategory, searchCategory
-})(Bookcategory);
+  getBooksByCategory, searchCategory, clearSearchError
+})(BookCategory);
