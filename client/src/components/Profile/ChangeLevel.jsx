@@ -25,6 +25,7 @@ class ChangeLevel extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
+    this.closePage = this.closePage.bind(this);
   }
 
   /** @returns {*} void
@@ -61,7 +62,6 @@ class ChangeLevel extends Component {
         }
       });
     } else {
-      /* eslint-disable no-undef */
       Materialize.toast(
         'You can not change to a current level! Please choose another level',
         4000, 'indigo darken-2'
@@ -69,6 +69,13 @@ class ChangeLevel extends Component {
     }
   }
 
+  /**
+   * @returns {*} null
+   * @memberof ChangeLevel
+   */
+  closePage() {
+    this.props.history.push('/user/profile');
+  }
   /** @returns {string} error message
    * @memberof ChangeLevel
    */
@@ -91,6 +98,9 @@ class ChangeLevel extends Component {
     return (
       <div className='row'>
         <div className='card col s10 m8 l4 offset-s1 offset-m2 offset-l5'>
+          <i className="material-icons red-text right close link-cursor"
+            onClick={this.closePage}>
+            close</i>
           <form onSubmit={this.handleFormSubmit}>
             <div className='row profile'>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'

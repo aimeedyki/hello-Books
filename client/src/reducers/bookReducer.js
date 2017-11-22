@@ -9,11 +9,14 @@ import {
   BORROW_BOOK,
   RETURN_BOOK,
   CLEAR_ERROR,
-  GET_PAGINATION
+  GET_PAGINATION,
+  SEARCH_ERROR,
+  CLEAR_SEARCH_ERROR
 } from '../actions/types';
 
 const initialState = {
   error: '',
+  searchError: '',
   books: [],
   categories: [],
   bookCategory: {},
@@ -38,6 +41,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload
+      };
+    case SEARCH_ERROR:
+      return {
+        ...state,
+        searchError: action.payload
       };
     case ADD_CATEGORY:
       return {
@@ -78,6 +86,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: ''
+      };
+    case CLEAR_SEARCH_ERROR:
+      return {
+        ...state,
+        searchError: ''
       };
     case GET_PAGINATION:
       return {

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { browserHistory } from 'react-router-dom';
 import {
@@ -141,7 +140,6 @@ export const getUser = () => (
         dispatch(setCurrentUser(response.data.userProfile));
       })
       .catch((error) => {
-        console.log(error);
         errorHandler(dispatch, error.response, AUTH_ERROR);
       })
   )

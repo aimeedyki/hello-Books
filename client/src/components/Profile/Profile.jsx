@@ -176,7 +176,7 @@ class Profile extends Component {
             </div>
             <div className='col s12'>
               <div className='col s6 details-left'><h6>Email</h6></div>
-              <div className='col s6'><p><c>{email}</c></p></div>
+              <div className='col s6 email-fix'><p><c>{email}</c></p></div>
             </div>
             <div className='col s6 details-left'>
               <h6>Maximum books allowed</h6></div>
@@ -208,13 +208,13 @@ class Profile extends Component {
                 <i className='material-icons medium left link-cursor'>
                   send</i></a>
             </div>
-            <div className="image-container">
-              {(this.state.imageFile && !this.state.profilepic) ?
-                <p className="center">Uploading ....</p> : ''}
-              {this.state.profilepic &&
-                <img src={this.state.profilepic} alt="profile picture" />
-              }
-            </div>
+          </div>
+          <div className="image-container center">
+            {(this.state.imageFile && !this.state.profilepic) ?
+              <p className="center">Uploading ....</p> : ''}
+            {this.state.profilepic &&
+              <img src={this.state.profilepic} alt="profile picture" />
+            }
           </div>
           <div className='link-cursor'>
             <a onClick={this.handlePassword}>Change password?</a>

@@ -344,6 +344,7 @@ tbody {
 
 .prefix {
   margin-top: 1%;
+  cursor: pointer !important;
 }
 
 .left-fix {
@@ -368,8 +369,25 @@ tbody {
   margin-left: 5% !important;
 }
 
-@media only screen and (min-width: 768px) {
+.image-container img {
+  height: 200px;
+  width: 200px;
+}
+@media only screen and (min-width: 1025px) {
   .library {
   margin-left: 20% !important;
   }
+}
+
+.side-email {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.email-fix {
+  overflow-wrap: break-word;
+}
+.close {
+  margin-top: 1%;
 }

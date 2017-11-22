@@ -11,7 +11,8 @@ const SearchBar = props => (
             className="autocomplete"
             onChange={props.searchItem}
           />
-          <i className="indigo-text text-darken-2 material-icons prefix"
+          <i
+            className="indigo-text text-darken-2 material-icons prefix"
             onClick={props.submit}
           >search</i>
         </div>

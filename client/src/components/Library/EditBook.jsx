@@ -12,13 +12,13 @@ import {
 import Button from '../Common/Button.jsx';
 
 /** Edits a book
- * @class Editbook
+ * @class EditBook
  * @extends {Component}
  */
-class Editbook extends Component {
-  /** Creates an instance of Editbook.
+class EditBook extends Component {
+  /** Creates an instance of EditBook.
    * @param {*} props
-   * @memberof Editbook
+   * @memberof EditBook
    */
   constructor(props) {
     super(props);
@@ -45,14 +45,14 @@ class Editbook extends Component {
   }
   /** gets the categories in the library
      *  @returns {*} null
-     * @memberof Editbook
+     * @memberof EditBook
      */
   componentWillMount() {
     this.props.getCategories();
   }
   /** gets the book to be edited
    * @returns {*} null
-   * @memberof Editbook
+   * @memberof EditBook
    */
   componentDidMount() {
     this.getBookId(this.props.location.pathname);
@@ -60,7 +60,7 @@ class Editbook extends Component {
   }
   /** @returns {*} null
      * @param {*} nextProps
-     * @memberof Editbook
+     * @memberof EditBook
      */
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
@@ -73,9 +73,9 @@ class Editbook extends Component {
         nextProps.book.image, this.bookId);
     }
   }
-  /** @returns {*} void
+  /** @returns {*} null
    * @param {*} prevProps
-   * @memberof Editbook
+   * @memberof EditBook
    */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
@@ -90,7 +90,7 @@ class Editbook extends Component {
    * @param {number} categoryId
    * @param {string} image
    * @param {string} bookId
-   * @memberof Editbook
+   * @memberof EditBook
    */
   setBookDetails(title,
     author, description, quantity, categoryId, image, bookId) {
@@ -124,14 +124,14 @@ class Editbook extends Component {
   }
   /** @returns {*} null
    * @param {*} event
-   * @memberof Editbook
+   * @memberof EditBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   /** @returns {*} null
    * @param {any} event
-   * @memberof Editbook
+   * @memberof EditBook
    */
   handleSelectChange(event) {
     event.preventDefault();
@@ -139,7 +139,7 @@ class Editbook extends Component {
   }
   /** @returns {*} null
    * @param {*} event
-   * @memberof Editbook
+   * @memberof EditBook
    */
   handleFormSubmit(event) {
     event.preventDefault();
@@ -158,7 +158,7 @@ class Editbook extends Component {
       });
   }
   /** @returns {string} error message
-   * @memberof Editbook
+   * @memberof EditBook
    */
   renderAlert() {
     if (this.props.errorMessage) {
@@ -172,7 +172,7 @@ class Editbook extends Component {
   }
   /** @returns {string} book id
    * @param {any} pathName
-   * @memberof Editbook
+   * @memberof EditBook
    */
   getBookId(pathName) {
     const stringArray = pathName.split('/');
@@ -180,13 +180,13 @@ class Editbook extends Component {
     this.bookId = id;
   }
   /** @returns {*} void
-   * @memberof Editbook
+   * @memberof EditBook
    */
   onCancel() {
     this.props.history.push('/user');
   }
   /** @returns {*} component that edits a book
-   * @memberof Editbook
+   * @memberof EditBook
    */
   render() {
     const { book } = this.props;
@@ -195,7 +195,7 @@ class Editbook extends Component {
         <div className="col s10 m8 l6 offset-s1 offset-m2 offset-l4">
           <div className="card row">
             <div className="margin-fix col s10 m8 l8 offset-s1 offset-l2">
-              <h5 className="center indigo-text text-darken-2">
+              <h5 className="center indigo-text text-darken-2 greeting">
                 <b>Edit Book</b></h5>
               <form onSubmit={this.handleFormSubmit} >
                 <div className="row edit-form">
@@ -261,7 +261,7 @@ class Editbook extends Component {
                     <select ref="category" id="category"
                       className="browser-default indigo-text text-darken-2"
                       onChange={this.handleSelectChange}
-                      value={this.state.value}
+                      value={this.state.categoryId}
                       required>
                       {this.props.categories.map(category => (
                         (
@@ -318,4 +318,4 @@ export default connect(mapStateToProps, {
   getCategories,
   getaBook,
   imageUpload
-})(withRouter(Editbook));
+})(withRouter(EditBook));

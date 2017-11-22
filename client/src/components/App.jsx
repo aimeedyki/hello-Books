@@ -2,10 +2,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import RequireAuth from './Authentication/RequireAuth.jsx';
-import Home from './Home.jsx';
-import UserPage from './UserPage.jsx';
-import NotFound from './NotFound.jsx';
+import RequireAuth from './Authentication/RequireAuth';
+import Home from './Home';
+import UserPage from './UserPage';
+import NotFound from './NotFound';
 
 const App = props => (
   <div>

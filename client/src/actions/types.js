@@ -27,5 +27,7 @@ export const AUTH_USER = 'auth_user',
   SET_USER = 'set_user',
   GET_LEVEL = 'get_level',
   GET_PAGINATION = 'get_pagination',
+  SEARCH_ERROR = 'search_error',
+  CLEAR_SEARCH_ERROR = 'clear_search_error',
   SEARCH_BOOKS = 'search_books';
 

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { withRouter, Link, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCategories, getBooksByCategory } from '../../actions/bookAction';
-import Allbooks from './Allbooks.jsx';
-import Bookcategory from './Bookcategory.jsx';
+import AllBooks from './AllBooks.jsx';
+import BookCategory from './BookCategory.jsx';
 
 /** Component that holds all the books
  * and the Library that displays the categories
@@ -20,7 +20,7 @@ class Library extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      bookcategory: '',
+      BookCategory: '',
       id: '',
     };
   }
@@ -39,7 +39,7 @@ class Library extends Component {
      * @memberof Library
      */
   handleClick(id, category) {
-    this.setState({ id, bookcategory: category }, () => {
+    this.setState({ id, BookCategory: category }, () => {
     });
   }
 
@@ -65,7 +65,7 @@ class Library extends Component {
           <div className="row indigo-text text-darken-2">
             <div className="col s12">
               <div>
-                <Allbooks />
+                <AllBooks />
               </div>
               {addBookButton}
             </div>

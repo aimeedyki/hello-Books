@@ -135,7 +135,7 @@ export default {
         const allBooks = {
           books: books.rows, pagination: paginate(offset, limit, books)
         };
-        res.status(200).send(allBooks);
+        res.status(200).send({ message: 'Success', allBooks });
       })
       .catch(error => res.status(500).send(error));
   },

@@ -16,13 +16,13 @@ import ChangePassword from './ChangePassword.jsx';
 
 
 /** component that allows a user to edit their profile
- * @class Editprofile
+ * @class EditProfile
  * @extends {Component}
  */
-class Editprofile extends Component {
-  /** Creates an instance of Editprofile.
+class EditProfile extends Component {
+  /** Creates an instance of EditProfile.
    * @param {any} props
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ class Editprofile extends Component {
   }
 
   /** displays usersdetails
-   * @memberof Editprofile
+   * @memberof EditProfile
    * @returns {object} users details
    */
   componentWillMount() {
@@ -46,7 +46,7 @@ class Editprofile extends Component {
 
   /** displays users details
    * @returns {*} void
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   componentDidMount() {
     const { username, email, level, userId } = this.props;
@@ -60,7 +60,7 @@ class Editprofile extends Component {
   /** checks when there is a change and sets it to state
    * @returns {*} void
    * @param {any} event
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -69,7 +69,7 @@ class Editprofile extends Component {
   /** submits the form
    * @returns {*} void
    * @param {any} event
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   handleFormSubmit(event) {
     event.preventDefault();
@@ -84,7 +84,7 @@ class Editprofile extends Component {
   /** checks the level and sets the picture
    * @param {any} level
    * @returns {object} picture
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   setLevelIcon(level) {
     switch (level) {
@@ -104,7 +104,7 @@ class Editprofile extends Component {
 
   /** renders component
    * @returns {*} component
-   * @memberof Editprofile
+   * @memberof EditProfile
    */
   render() {
     const { levelicon } = this.state;
@@ -186,4 +186,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   displayUserpage,
-})(Editprofile);
+})(EditProfile);

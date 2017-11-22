@@ -9,7 +9,7 @@ import { logoutUser } from '../../actions/authAction';
  * @class Topnav
  * @extends {Component}
  */
-class Topnav extends Component {
+class TopNav extends Component {
   /** Creates an instance of Topnav.
      * @param {any} props
      * @memberof Topnav
@@ -21,7 +21,7 @@ class Topnav extends Component {
 
   /** Logs out user
      * @param {any} event
-     * @memberof Topnav
+     * @memberof TopNav
      * @returns {*} void
      */
   logout(event) {
@@ -29,7 +29,7 @@ class Topnav extends Component {
     this.props.logoutUser();
   }
   /** @returns {object} element
-   * @memberof Topnav
+   * @memberof TopNav
    */
   render() {
     return (
@@ -70,4 +70,4 @@ class Topnav extends Component {
 const mapStateToProps = state => (
   state
 );
-export default connect(mapStateToProps, { logoutUser })(Topnav);
+export default connect(mapStateToProps, { logoutUser })(TopNav);
