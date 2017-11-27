@@ -3,7 +3,11 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env': {
+    NODE_ENV: JSON.stringify('production')
+  },
+  CLIENT_ID: JSON.stringify('406108815512-6lu003ugn55vjhu1pg359lkpq8ih7o9t'
+    + '.apps.googleusercontent.com')
 };
 
 module.exports = {

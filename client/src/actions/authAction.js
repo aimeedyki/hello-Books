@@ -88,22 +88,24 @@ export const errorHandler = (dispatch, error, type) => {
  * @param {number} levelId  user level id
  * @return {boolean} boolean
  */
-export const signupUser = ({ email, username, password, levelId }) => (
-  dispatch => (
-    axios.post('/api/v1/users/signup', { email, username, password, levelId })
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        dispatch(setCurrentUser(response.data.user));
-        /* eslint-disable no-undef */
-        Materialize.toast('Signup successful! Welcome to Booksville',
-          5000, 'indigo darken-2');
-        return true;
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, AUTH_ERROR);
-      })
-  )
-);
+export const signupUser =
+  ({ email, username, name, password, googleId, profilePic }) => (
+    dispatch => (
+      axios.post('/api/v1/users/signup',
+        { email, username, name, password, googleId, profilePic })
+        .then((response) => {
+          setAuthorizationToken(response.data.token);
+          localStorage.setItem('token', response.data.token);
+          dispatch(setCurrentUser(response.data.user));
+          Materialize.toast('Signup successful! Welcome to Booksville',
+            5000, 'indigo darken-2');
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(dispatch, error.response, AUTH_ERROR);
+        })
+    )
+  );
 
 /**
  * @description logs in user
@@ -111,23 +113,24 @@ export const signupUser = ({ email, username, password, levelId }) => (
  * @param {string} password user password
  * @return {boolean} boolean
  */
-export const signinUser = ({ username, password }) => (
-  dispatch => (
-    axios.post('/api/v1/users/signin', { username, password })
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        setAuthorizationToken(response.data.token);
-        /* eslint-disable no-undef */
-        Materialize.toast('Welcome back to Booksville!!',
-          5000, 'indigo darken-2');
-        dispatch(setCurrentUser(response.data.user));
-        return true;
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response, AUTH_ERROR);
-      })
-  )
-);
+export const signinUser =
+  ({ email, username, name, password, googleId, profilePic }) => (
+    dispatch => (
+      axios.post('/api/v1/users/signin',
+        { email, username, name, password, googleId, profilePic })
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          setAuthorizationToken(response.data.token);
+          Materialize.toast('Welcome back to Booksville!!',
+            5000, 'indigo darken-2');
+          dispatch(setCurrentUser(response.data.user));
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(dispatch, error.response, AUTH_ERROR);
+        })
+    )
+  );
 
 /**
  * @description gets user details

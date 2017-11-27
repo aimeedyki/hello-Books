@@ -25,11 +25,21 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
       filename: '../css/style.css',
       allChunks: true
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      },
+      CLIENT_ID: JSON.stringify('406108815512-6lu003ugn55vjhu1pg359lkpq8ih7o9t'
+        + '.apps.googleusercontent.com'),
+      CLOUDINARY_UPLOAD_URL: JSON.stringify('https://api.cloudinary.com'
+        + '/v1_1/ddxsazo2k/image/upload'),
+      CLOUDINARY_UPLOAD_PRESET: JSON.stringify('kqndqiq6')
+    }),
   ],
 
   devServer: {

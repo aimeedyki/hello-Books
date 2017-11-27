@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import validator from 'validator';
-import 'materialize-css';
+import { GoogleLogin } from 'react-google-login';
 
 import { signupUser, clearErrorMessage } from '../../actions/authAction';
 
@@ -26,12 +25,13 @@ class Signup extends Component {
       email: '',
       password: '',
       confirmpassword: '',
-      levelId: '',
+      name: '',
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
+    this.googleSignup = this.googleSignup.bind(this);
   }
   /** sets the state to the value of the field
      * @returns {*} null
@@ -78,6 +78,33 @@ class Signup extends Component {
     } else {
       /* eslint-disable no-undef */
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
+    }
+  }
+  /**
+   * @returns {*} void
+   * @param {any} response 
+   * @memberof Signup
+   */
+  googleSignup(response) {
+    const {
+      email, givenName, familyName, googleId, imageUrl } = response.profileObj;
+    const username = givenName + googleId;
+    this.props.signupUser({
+      email,
+      username,
+      name: givenName,
+      password: familyName,
+      googleId,
+      profilePic: imageUrl
+    }).then((res) => {
+      if (res) {
+        this.props.history.push('/user');
+      }
+    });
+    if (response.error) {
+      Materialize
+        .toast('Please resume google signup or fill signup form', 4000, ''
+        );
     }
   }
   /** displays error message
@@ -127,6 +154,15 @@ class Signup extends Component {
                     <label>Username</label>
                   </div>
                   <div className="input-field col s12">
+                    <input name="name" type="text"
+                      className="validate black-text"
+                      onChange={this.handleChange}
+                      value={this.state.name}
+                      required
+                    />
+                    <label>Name</label>
+                  </div>
+                  <div className="input-field col s12">
                     <input name="password" type="password"
                       className="validate black-text"
                       onChange={this.handleChange}
@@ -144,23 +180,21 @@ class Signup extends Component {
                     />
                     <label>Confirm Password</label>
                   </div>
-                  <label>Membership Level</label>
-                  <select ref="levelId" id="level"
-                    className="browser-default indigo-text text-darken-2"
-                    onChange={this.handleSelectChange}
-                    value={this.state.value}
-                    required>
-                    <option defaultValue="" selected disabled>
-                      Select a level</option>
-                    <option value="1">Rookie</option>
-                    <option value="2">Bookworm  N2000/month</option>
-                    <option value="3" >Voracious  N5000/month</option>
-                  </select>
                 </div>
                 <div className="row">
                   <div className="col s12 m4 l4 offset-l4 offset-m4">
                     <Button type="submit" icon="account_box" label="Signup" />
                   </div>
+                </div>
+                <div className="center login-button">
+                  <GoogleLogin
+                    clientId={CLIENT_ID}
+                    onSuccess={this.googleSignup}
+                    onFailure={this.googleSignup}>
+                    <i className="fa fa-google-plus google-icon"
+                      aria-hidden="true" />
+                    <span className="google-text">Login with google</span>
+                  </GoogleLogin>
                 </div>
                 <p className="center indigo-text text-darken-2">
                   Already registered? Please login

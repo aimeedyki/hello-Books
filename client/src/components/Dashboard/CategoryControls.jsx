@@ -32,16 +32,7 @@ class CategoryControls extends Component {
     this.updateForm = this.updateForm.bind(this);
     this.cancel = this.cancel.bind(this);
   }
-  /**
-   * @returns {*} null
-   * @memberof CategoryControls
-   */
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.categories.map(category => this.setState(
-        { [category.name]: category.name }));
-    }, 100);
-  }
+
   /**
    * 
    * @returns {*} null
@@ -50,7 +41,7 @@ class CategoryControls extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.categories !== nextProps.categories) {
-      this.props.categories.map(category => this.setState(
+      nextProps.categories.map(category => this.setState(
         { [category.name]: category.name }));
     }
   }
@@ -126,7 +117,7 @@ class CategoryControls extends Component {
           this.props.deleteCategory(categoryId)
             .then((res) => {
               if (res) {
-                alert('Deleted!', 'Book has been deleted!', 'success');
+                alert('Deleted!', 'Category has been deleted!', 'success');
                 this.props.history.push('/user/dashboard');
               } else {
                 alert('Oops!', this.props.errorMessage, 'error');
@@ -148,36 +139,42 @@ class CategoryControls extends Component {
           <li><NavLink to="/user/category"
             className="blue-text text-lighten-2 link-cursor">
             Add a New Category</NavLink></li>
-          {this.props.categories.map(category => (
-            (
-              <li key={category.id}>
-                <input disabled className="category-input-fix black-text"
-                  id={`${category.id}-disabled`}
-                  name={category.name}
-                  value={this.state[category.name]}
-                  onChange={this.updateForm}>
-                </input>
-                <button type="submit"
-                  className="button-fix btn indigo darken-2"
-                  style={{ display: 'none' }}
-                  id={`${category.id}-submit`}
-                  onClick={() => this.submitEdit(
-                    category.id, this.state[category.name])}>Save
-                </button>
-                <button type="submit"
-                  className="button-fix btn orange darken-4"
-                  style={{ display: 'none' }}
-                  id={`${category.id}-cancel`}
-                  onClick={() => this.cancel(category.name, category.id)}>Cancel
-                </button>
-                <i className='left-fix material-icons link-cursor'
-                  onClick={() => this.handleCategoryEdit(category.id)}
-                  id={`${category.id}-edit`}>edit</i>
-                <i className='material-icons link-cursor'
-                  onClick={() => this.handleDelete(category.id)}>
-                  delete</i></li>)
-          )
-          )}
+          {!this.props.categories ? <p className="black-text center">
+            No categories yet! Add one</p> :
+            <div>
+              {
+                this.props.categories.map(category => (
+                  (
+                    <li key={category.id}>
+                      <input disabled className="category-input-fix black-text"
+                        id={`${category.id}-disabled`}
+                        name={category.name}
+                        value={this.state[category.name]}
+                        onChange={this.updateForm}>
+                      </input>
+                      <button type="submit"
+                        className="button-fix btn indigo darken-2"
+                        style={{ display: 'none' }}
+                        id={`${category.id}-submit`}
+                        onClick={() => this.submitEdit(
+                          category.id, this.state[category.name])}>Save
+                      </button>
+                      <button type="submit"
+                        className="button-fix btn orange darken-4"
+                        style={{ display: 'none' }}
+                        id={`${category.id}-cancel`}
+                        onClick={() =>
+                          this.cancel(category.name, category.id)}>Cancel
+                      </button>
+                      <i className='left-fix material-icons link-cursor'
+                        onClick={() => this.handleCategoryEdit(category.id)}
+                        id={`${category.id}-edit`}>edit</i>
+                      <i className='material-icons link-cursor'
+                        onClick={() => this.handleDelete(category.id)}>
+                        delete</i></li>)
+                )
+                )
+              }</div>}
         </ul>
       </div>
     );

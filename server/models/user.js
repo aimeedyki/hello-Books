@@ -39,6 +39,13 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'Please enter your name',
+      }
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: {
@@ -57,12 +64,7 @@ export default (sequelize, DataTypes) => {
     levelId: {
       allownull: false,
       type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Please enter a level'
-        },
-      },
+      defaultValue: 1
     },
     admin: {
       type: DataTypes.BOOLEAN,
@@ -73,6 +75,18 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    googleId: {
+      type: DataTypes.STRING,
+      defaultValue: 0
+    },
+    surcharge: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    outstandingSubscription: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {
     hooks: {
       beforeCreate: (user) => {

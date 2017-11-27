@@ -155,7 +155,7 @@ export const deleteCategory = id => (
   dispatch => (
     axios.delete(`/api/v1/${id}/category`)
       .then(() => {
-        getCategories();
+        dispatch(getCategories());
         return true;
       })
       .catch((error) => {

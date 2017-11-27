@@ -11,6 +11,8 @@ import {
   CHANGE_IMAGE,
   DISPLAY_USER,
   GET_LEVEL,
+  DISPLAY_ALL_TRANSACTIONS,
+  CONFIRM_TRANSACTION
 } from './types';
 import {
   errorHandler,
@@ -128,6 +130,67 @@ export const changePic = profilePic => (
         dispatch(getUser());
         Materialize.toast('Profile picture changed successfully!!',
           4000, 'indigo darken-2');
+        return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, USER_ERROR);
+      })
+  )
+);
+
+export const displayAllTransactions = () => (
+  dispatch => (
+    axios.get('/api/v1/transactions')
+      .then((response) => {
+        dispatch({
+          type: DISPLAY_ALL_TRANSACTIONS,
+          payload: response.data.allTransactions
+        });
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, USER_ERROR);
+      })
+  )
+);
+
+export const displayConfirmedTransactions = () => (
+  dispatch => (
+    axios.get('/api/v1/transactions?confirmed=true')
+      .then((response) => {
+        dispatch({
+          type: DISPLAY_ALL_TRANSACTIONS,
+          payload: response.data.allTransactions
+        });
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, USER_ERROR);
+      })
+  )
+);
+
+export const displayUnconfirmedTransactions = () => (
+  dispatch => (
+    axios.get('/api/v1/transactions?confirmed=false')
+      .then((response) => {
+        dispatch({
+          type: DISPLAY_ALL_TRANSACTIONS,
+          payload: response.data.allTransactions
+        });
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, USER_ERROR);
+      })
+  )
+);
+
+export const confirmTransaction = transactionId => (
+  dispatch => (
+    axios.put('/api/v1/transactions', { transactionId })
+      .then((response) => {
+        dispatch(displayAllTransactions());
+        dispatch({
+          type: CONFIRM_TRANSACTION
+        });
         return true;
       })
       .catch((error) => {

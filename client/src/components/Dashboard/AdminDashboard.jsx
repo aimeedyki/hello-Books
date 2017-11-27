@@ -5,6 +5,7 @@ import alert from 'sweetalert';
 
 import CategoryControls from './CategoryControls';
 import UserActivity from './UserActivity';
+import UserTransactions from './UserTransactions';
 
 
 const AdminDashboard = props => (
@@ -21,13 +22,8 @@ const AdminDashboard = props => (
       </div>
     </div>
     <div className="col s12 l12">
-      <div className="col s12 l5 offset-l2 card dashboard-card">
-        <h5 className='center greeting indigo-text text-darken-2'><b>
-          User Controls</b></h5>
-      </div>
-      <div className="col s12 l4 card dashboard-card-right">
-        <h5 className='center greeting indigo-text text-darken-2'><b>
-          Account Subscriptions</b></h5>
+      <div className="col s12 l10 offset-l2 card dashboard-card">
+        <UserTransactions />
       </div>
     </div>
   </div>
