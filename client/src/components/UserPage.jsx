@@ -76,18 +76,18 @@ class Userpage extends Component {
    * @memberof Userpage
    */
   render() {
-    const { username, level, email, profilePic, admin } = this.props.user;
+    const { name, level, email, profilePic, admin } = this.props.user;
     const { authenticated } = this.props.authenticated;
     let profileImage;
     profilePic === '' || profilePic === null ?
       (profileImage = noPicture) : (profileImage = profilePic);
     return (
       <div className="grey lighten-4">
-        <TopNav username={username}
+        <TopNav
           levelIcon={this.setLevelIcon(level, admin)}
         />
         <SideNav profileImage={profileImage}
-          username={username} email={email}
+          name={name} email={email}
         />
         <div>
           <Switch>

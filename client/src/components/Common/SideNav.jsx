@@ -44,7 +44,7 @@ class SideNav extends Component {
       </ul>
     ) : adminLinks = '';
 
-    const cloud = 'http://res.cloudinary.com/ddxsazo2k/image/upload';
+    const pictureUrl = 'http://res.cloudinary.com/ddxsazo2k/image/upload';
 
     return (
       <div className="grey lighten-4">
@@ -52,13 +52,13 @@ class SideNav extends Component {
           <li>
             <div className="row user-view">
               <div className="background">
-                <img src={`${cloud}/v1509441598/booksbw2_emnjkv.jpg`}
+                <img src={`${pictureUrl}/v1509441598/booksbw2_emnjkv.jpg`}
                   alt="background" />
               </div>
               <a><img className="circle"
                 src={this.props.profileImage} alt="level icon" /></a>
-              <a><span className="col s10 white-text name">
-                Hello {this.props.username}!</span></a>
+              <a><span className="col s10 white-text name side-email">
+                Hello {this.props.name}!</span></a>
               <Link to="/user/profile"><span><i
                 className="col s2 material-icons">
                 settings</i></span></Link>
@@ -75,17 +75,19 @@ class SideNav extends Component {
           {adminLinks}
           <div className="white cat">
             <h5 className="cat-head indigo-text text-darken-2">Categories</h5>
-            <ul>
-              {this.props.categories.map(category => (
-                (
-                  <li key={category.id}>
-                    <NavLink
-                      to={`/user/${category.id}/${category.name}/category`}
-                      className="indigo-text text-darken-2">
-                      {category.name}</NavLink></li>)
-              )
-              )}
-            </ul>
+            {!this.props.categories ? <p className="blue-text center">
+              No categories yet!</p> :
+              <ul>
+                {this.props.categories.map(category => (
+                  (
+                    <li key={category.id}>
+                      <NavLink
+                        to={`/user/${category.id}/${category.name}/category`}
+                        className="indigo-text text-darken-2">
+                        {category.name}</NavLink></li>)
+                )
+                )}
+              </ul>}
           </div>
         </ul>
         <a href="#" data-activates="slide-out"

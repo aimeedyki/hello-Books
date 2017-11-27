@@ -7,6 +7,7 @@ const nullValidation = (fields) => {
   const email = fields.email || null;
   const password = fields.password || null;
   const username = fields.username || null;
+  const name = fields.name || null;
   const levelId = fields.levelId || null;
 
   if (email === null) {
@@ -27,9 +28,9 @@ const nullValidation = (fields) => {
       isValid: false
     };
   }
-  if (levelId === null) {
+  if (name === null) {
     return {
-      message: 'Please enter your level',
+      message: 'Please enter your name',
       isValid: false
     };
   }

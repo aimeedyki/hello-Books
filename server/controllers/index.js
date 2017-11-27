@@ -4,6 +4,7 @@ import categories from './categories';
 import books from './books';
 import histories from './histories';
 import notifications from './notifications';
+import transactions from './transaction';
 
 // controllers for users,books,categories, and histories
 export default {
@@ -13,4 +14,5 @@ export default {
   books,
   histories,
   notifications,
+  transaction
 };

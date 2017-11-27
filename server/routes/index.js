@@ -6,6 +6,8 @@ import categoriesController from '../controllers/categories';
 import authController from '../controllers/auth';
 import authentication from '../middleware/authentication';
 import notificationsController from '../controllers/notifications';
+import transactionsController from '../controllers/transaction';
+
 
 const app = express();
 
@@ -262,7 +264,7 @@ app.put(
 // route to display user profile
 app.get(
   '/user/profile',
-  authentication.verifyUser, usersController.profile
+  authentication.verifyUser, usersController.displayProfile
 );
 
 /**
@@ -574,4 +576,15 @@ app.get(
   authentication.verifyAdmin, notificationsController.displayNotification
 );
 
+// confirms subscription
+app.put(
+  '/transactions', authentication.verifyUser,
+  authentication.verifyAdmin, transactionsController.confirmTransaction
+);
+
+// displays subscription
+app.get(
+  '/transactions', authentication.verifyUser,
+  authentication.verifyAdmin, transactionsController.getTransactions
+);
 export default app;

@@ -7,7 +7,8 @@ import {
   CHANGE_PASSWORD,
   CHANGE_LEVEL,
   DISPLAY_USER,
-  GET_LEVEL
+  GET_LEVEL,
+  DISPLAY_ALL_TRANSACTIONS
 } from '../actions/types';
 
 
@@ -18,7 +19,8 @@ const initialState = {
   notReturned: [],
   notifications: [],
   userDetails: {},
-  level: {}
+  level: {},
+  transactions: []
 };
 /** reducers for user components
  * @export
@@ -44,6 +46,8 @@ export default (state = initialState, action) => {
       return { ...state, userDetails: action.payload };
     case GET_LEVEL:
       return { ...state, level: action.payload };
+    case DISPLAY_ALL_TRANSACTIONS:
+      return { ...state, transactions: action.payload };
     default:
       return state;
   }

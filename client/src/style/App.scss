@@ -51,6 +51,10 @@ body{
   font-family:'Eczar', serif;
   margin-top: 10%;
 }
+.transaction{
+  font-family:'Eczar', serif;
+  margin-top: 5%;
+}
 .cat-name{
   font-family:'Eczar', serif;
   color: #303f9f;
@@ -390,4 +394,30 @@ tbody {
 }
 .close {
   margin-top: 1%;
+}
+
+.google-icon {
+  font-size: 25px !important;
+}
+
+.google-text {
+  margin-left: 4%;
+  font-size: 19px !important;
+  margin-bottom: 20%;
+}
+
+.login-button button {
+  width: 210px !important;
+}
+
+.page-footer {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  font-size: .6875rem;
+  border-top: .0625rem solid #ddd;
+  background-color: #fff;
+  margin-top: .625rem;
+  padding: .625rem;
+  text-align: center;
 }

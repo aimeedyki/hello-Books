@@ -1,55 +1,33 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Users', {
+    queryInterface.createTable('Subscriptions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      transactionId: {
         allowNull: false,
-        unique: true,
         type: Sequelize.STRING
       },
-      name: {
+      confirmed: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN
+      },
+      amount: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       username: {
         allowNull: false,
-        targetKey: true,
-        unique: true,
         type: Sequelize.STRING
       },
-      password: {
+      transactionType: {
         allowNull: false,
         type: Sequelize.STRING
       },
       levelId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      profilePic: {
-        type: Sequelize.STRING
-      },
-      admin: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      borrowCount: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      googleId: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      surcharge: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      outstandingSubscription: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -63,5 +41,5 @@ module.exports = {
       }
     }),
   down: queryInterface =>
-    queryInterface.dropTable('Users')
+    queryInterface.dropTable('Subscriptions')
 };

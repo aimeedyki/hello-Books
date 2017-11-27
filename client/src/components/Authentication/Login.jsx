@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { GoogleLogin } from 'react-google-login';
 
 import { signinUser, clearErrorMessage } from '../../actions/authAction';
 
@@ -23,6 +24,7 @@ class Login extends Component {
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
   /** sets changed field to state
      * @returns {*} void
@@ -56,6 +58,34 @@ class Login extends Component {
           this.props.history.push('/user');
         }
       });
+  }
+
+  /**
+   * @returns {*} void
+   * @param {any} response 
+   * @memberof Login
+   */
+  handleGoogleLogin(response) {
+    const {
+      email, givenName, familyName, googleId, imageUrl } = response.profileObj;
+    const username = givenName + googleId;
+    this.props.signinUser({
+      email,
+      username,
+      name: givenName,
+      password: familyName,
+      googleId,
+      profilePic: imageUrl
+    }).then((res) => {
+      if (res) {
+        this.props.history.push('/user');
+      }
+    });
+    if (response.error) {
+      Materialize
+        .toast('Please resume google login', 4000, ''
+        );
+    }
   }
   /** displays error
      * @returns {string} error message
@@ -109,6 +139,18 @@ class Login extends Component {
                   <div className="input-field col s4 offset-s3">
                     <Button type="submit" name="action" label="Login" icon="" />
                   </div>
+                </div>
+                <div className="center login-button">
+
+                  <GoogleLogin
+                    clientId={CLIENT_ID}
+                    onSuccess={this.handleGoogleLogin}
+                    onFailure={this.handleGoogleLogin}
+                  >
+                    <i className="fa fa-google-plus google-icon"
+                      aria-hidden="true" />
+                    <span className="google-text">Login with google</span>
+                  </GoogleLogin>
                 </div>
                 <p className=' center indigo-text text-darken-2'>
                   Not registered yet?</p>

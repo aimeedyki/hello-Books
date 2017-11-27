@@ -7,6 +7,9 @@ import app from '../server/app';
 const server = supertest.agent(app);
 
 let token2 = '';
+const errorToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFkb'
+  + 'WluIjp0cnVlLCJpYXQiOjE1MTE0NDY5MzIsImV4cCI6MTUxMTQ4MjkzMn0.o8lQNA304KlGeK'
+  + 'XiBySRe098Zht1XtNJyfWiBx45iGg';
 
 describe('Authentication', () => {
   it('should return 403 if token is not a token', (done) => {
@@ -26,7 +29,7 @@ describe('Authentication', () => {
         email: faker.internet.email(),
         username: faker.internet.userName(),
         password: 'bookiiii',
-        levelId: 1,
+        name: 'fred',
         profilepic: faker.internet.avatar(),
       })
       .end((err, res) => {
@@ -38,6 +41,16 @@ describe('Authentication', () => {
   });
   it('should return 401 if token is not an admin token', (done) => {
     server.post('/api/v1/category').set('x-access-token', token2)
+      .send({
+        name: 'EDUCATIONAL'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 401);
+        done();
+      });
+  });
+  it('should return 401 if error with token', (done) => {
+    server.post('/api/v1/category').set('x-access-token', errorToken)
       .send({
         name: 'EDUCATIONAL'
       })

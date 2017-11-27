@@ -3,9 +3,11 @@ import jwt from 'jsonwebtoken';
 
 import getUserToken from '../helpers/jwt';
 import getUserId from '../middleware/getUserId';
-import { User, Level } from '../models';
+import { User, Level, Subscription } from '../models';
 import signinValidation from '../helpers/signinValidation';
 import validatePassword from '../helpers/validatePassword';
+import levelChangeValidation from '../helpers/levelChangeValidation';
+import usersController from './users';
 
 const authController = {
 
@@ -19,6 +21,7 @@ const authController = {
     if (signinValidation(req.body).isValid) {
       const password = req.body.password;
       const username = req.body.username;
+      const googleId = req.body.googleId || null;
       User
         .findOne({
           where: {
@@ -31,6 +34,10 @@ const authController = {
           }]
         }).then((foundUser) => {
           if (!foundUser) {
+            // signup google user.
+            if (googleId) {
+              return usersController.signup(req, res);
+            }
             return res.status(404)
               .send({ message: 'Username does not exist. Please confirm' });
           }
@@ -55,7 +62,7 @@ const authController = {
             .send({ message: 'username or password is incorrect' });
         })
         .catch(error =>
-          res.status(500).send(error));
+          res.status(500).send(error.message));
     } else {
       res.status(400).send({ message: signinValidation(req.body).message });
     }
@@ -77,9 +84,6 @@ const authController = {
             id: userId
           }
         }).then((user) => {
-          if (!user) {
-            return res.status(404).send({ message: 'User not found' });
-          }
           // checks if new password is the same with received to stored password
           const compareNew = bcrypt.compareSync(newPassword, user.password);
           if (compareNew) {
@@ -108,43 +112,52 @@ const authController = {
      * @returns {object} response object
      */
   changeLevel(req, res) {
-    const newLevelId = parseInt(req.body.newLevelId, 10);
-    const userId = getUserId(req);
-    if (isNaN(newLevelId)) {
-      return res.status(400).send({
-        message: 'Please enter new Level'
-      });
-    }
-    User
-      .findById(userId).then((user) => {
-        if (!user) {
-          return res.status(404).send({ message: 'User not found' });
-        }
-        if (newLevelId === user.levelId) {
-          return res.status(409)
-            .send({ message: 'You are already on this level' });
-        }
-        Level.findById(newLevelId)
-          .then((level) => {
-            if (!level) {
-              return res.status(404).send({ message: 'Level does not exist' });
-            }
-            user.update({
-              levelId: newLevelId
-            });
-            user.getLevel()
-              .then((newLevel) => {
-                const userDetails = {
+    levelChangeValidation(req.body);
+    const userId = req.decoded.userId;
+    if (levelChangeValidation(req.body).isValid) {
+      const newLevelId = req.body.newLevelId;
+      const transactionId = req.body.transactionId;
+      const amount = req.body.amount;
+      User
+        .findById(userId).then((user) => {
+          if (newLevelId === user.levelId) {
+            return res.status(409)
+              .send({ message: 'You are already on this level' });
+          }
+          Level.findById(newLevelId)
+            .then((level) => {
+              if (!level) {
+                return res.status(404)
+                  .send({ message: 'Level does not exist' });
+              }
+              user.update({
+                outstandingSubscription:
+                  user.outstandingSubscription + level.subscription
+              });
+              Subscription.create(
+                {
+                  newLevelId,
+                  transactionId,
+                  amount,
                   username: user.username,
-                  level: newLevel.type
-                };
-                res.status(200).send({ message: 'Level changed', userDetails });
-              })
-              .catch(error => res.status(500).send(error.message));
-          })
-          .catch(error => res.status(500).send(error.message));
-      })
-      .catch(error => res.status(500).send(error.message));
+                  levelId: newLevelId,
+                  transactionType: 'subscription'
+                }
+              ).then(subscription => res.status(202)
+                .send({
+                  message: 'Subscription received, level will be changed soon',
+                  subscription
+                }))
+                .catch(error => res.status(500).send(error.message));
+            })
+            .catch(error => res.status(500).send(error.message));
+        })
+        .catch(error => res.status(500).send(error.message));
+    }
+    if (levelChangeValidation(req.body).message) {
+      res.status(400)
+        .send({ message: levelChangeValidation(req.body).message });
+    }
   }
 };
 export default authController;

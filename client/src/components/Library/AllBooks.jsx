@@ -182,11 +182,14 @@ class AllBooks extends Component {
   }
 }
 // function to connect the state from the store to the props of the component
-const mapStateToProps = state => ({
-  error: state.bookReducer.searchError,
-  books: state.bookReducer.books.books,
-  pagination: state.bookReducer.books.pagination
-});
+const mapStateToProps = (state) => {
+  const { error, books } = state.bookReducer;
+  return {
+    error: error.searchError,
+    books: books.books,
+    pagination: books.pagination
+  };
+};
 
 export default connect(mapStateToProps, {
   getBooks, searchBooks, clearSearchError

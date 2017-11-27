@@ -141,7 +141,7 @@ class Profile extends Component {
   render() {
     const { levelicon } = this.state;
     const {
-      username,
+      name,
       level,
       levelId,
       email,
@@ -162,7 +162,7 @@ class Profile extends Component {
             <div className='user'>
               <img className='circle photo'
                 src={profileImage} alt='profile photo' />
-              <h5 >{username}</h5>
+              <h5 >{name}</h5>
             </div>
           </div>
           <div className='row'>

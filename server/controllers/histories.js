@@ -33,10 +33,6 @@ export default {
           }]
         })
           .then((user) => {
-            if (!user) {
-              return res.status(404)
-                .send({ message: 'Please register to borrow' });
-            }
             if (user.borrowCount === user.level.maxBooks) {
               return res.status(400)
                 .send({ message: 'Please return a book to borrow again' });
@@ -149,7 +145,7 @@ export default {
    * @returns {object} users' history
    */
   displayHistory(req, res) {
-    const whereClause = { userId: getUserId(req) };
+    const whereClause = { userId: req.decoded.userId };
     const offset = req.query.offset || 0;
     const limit = req.query.limit || 10;
     if (req.query.returned === 'false') {

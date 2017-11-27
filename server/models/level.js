@@ -13,6 +13,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    subscription: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
 
   // defines user associations
@@ -20,6 +24,10 @@ export default (sequelize, DataTypes) => {
     Level.hasMany(models.User, {
       foreignKey: 'id',
       as: 'levels',
+    });
+    Level.hasMany(models.Subscription, {
+      foreignKey: 'id',
+      as: 'level',
     });
   };
   return Level;

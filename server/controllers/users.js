@@ -21,7 +21,8 @@ export default {
       const email = req.body.email;
       const password = req.body.password;
       const username = req.body.username;
-      const levelId = req.body.levelId; User.findOne({
+      const name = req.body.name;
+      User.findOne({
         where: {
           $or: [{
             username
@@ -36,37 +37,34 @@ export default {
         User.create({
           email,
           username,
+          name,
           password,
-          levelId,
-          profilepic: req.body.profilepic || null
+          googleId: req.body.googleId || null,
+          profilePic: req.body.profilePic || null
         }).then((createdUser) => {
-          createdUser.getLevel()
-            .then((level) => {
-              const token = getUserToken(createdUser);
-              const user = {
-                username: createdUser.username,
-                levelId: createdUser.levelId,
-                profilePic: createdUser.profilePic,
-                email: createdUser.email,
-                borrowCount: createdUser.borrowCount,
-                admin: createdUser.admin,
-                level: level.type,
-                maxDays: level.maxDays,
-                maxBooks: level.maxBooks
-              };
-              res.status(201).send({ message: 'Welcome', user, token });
-            })
-            .catch((error) => {
-              res.status(500).send(error.message);
-            });
-        })
-          .catch((error) => {
+          createdUser.getLevel().then((level) => {
+            const token = getUserToken(createdUser);
+            const user = {
+              name: createdUser.name,
+              levelId: createdUser.levelId,
+              profilePic: createdUser.profilePic,
+              email: createdUser.email,
+              borrowCount: createdUser.borrowCount,
+              admin: createdUser.admin,
+              level: level.type,
+              maxDays: level.maxDays,
+              maxBooks: level.maxBooks
+            };
+            res.status(201).send({ message: 'Welcome', user, token });
+          }).catch((error) => {
             res.status(500).send(error.message);
           });
-      })
-        .catch((error) => {
+        }).catch((error) => {
           res.status(500).send(error.message);
         });
+      }).catch((error) => {
+        res.status(500).send(error.message);
+      });
     } else if (nullValidation(req.body).message) {
       res.status(400).send({ message: nullValidation(req.body).message });
     } else if (signupInputValidation(req.body).message) {
@@ -79,8 +77,8 @@ export default {
    * @param {object} res HTTP response object
    * @returns {object} user details
    */
-  profile: (req, res) => {
-    const userId = getUserId(req);
+  displayProfile: (req, res) => {
+    const userId = req.decoded.userId;
     User.findById(userId, {
       include: [{
         model: Level,
@@ -89,23 +87,18 @@ export default {
       }]
     })
       .then((user) => {
-        if (user) {
-          const userProfile = {
-            email: user.email,
-            username: user.username,
-            profilePic: user.profilePic,
-            admin: user.admin,
-            borrowCount: user.borrowCount,
-            levelId: user.levelId,
-            level: user.level.type,
-            maxBooks: user.level.maxBooks,
-            maxDays: user.level.maxDays
-          };
-          return res.status(200).send({ message: 'Success!', userProfile });
-        }
-        return res.status(404).json({
-          message: 'User not found',
-        });
+        const userProfile = {
+          email: user.email,
+          name: user.name,
+          profilePic: user.profilePic,
+          admin: user.admin,
+          borrowCount: user.borrowCount,
+          levelId: user.levelId,
+          level: user.level.type,
+          maxBooks: user.level.maxBooks,
+          maxDays: user.level.maxDays
+        };
+        return res.status(200).send({ message: 'Success!', userProfile });
       })
       .catch(error => res.status(500).send(error.message));
   },
@@ -116,7 +109,7 @@ export default {
    * @returns {object} user
    */
   changeImage(req, res) {
-    const userId = getUserId(req);
+    const userId = req.decoded.userId;
     const profilePic = req.body.profilePic || null;
     if (profilePic === null) {
       return res.status(400).send({
@@ -129,9 +122,6 @@ export default {
           id: userId
         }
       }).then((user) => {
-        if (!user) {
-          return res.status(404).send({ message: 'User not found' });
-        }
         user.update({
           profilePic
         });
