@@ -183,9 +183,9 @@ class AllBooks extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  const { error, books } = state.bookReducer;
+  const { searchError, books } = state.bookReducer;
   return {
-    error: error.searchError,
+    error: searchError,
     books: books.books,
     pagination: books.pagination
   };

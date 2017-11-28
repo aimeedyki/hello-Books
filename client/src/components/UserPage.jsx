@@ -70,7 +70,6 @@ class Userpage extends Component {
         return rookie;
     }
   }
-  /* eslint-disable no-unused-expressions */
   /** @description renders the user page
    * @returns {*} users' page
    * @memberof Userpage
