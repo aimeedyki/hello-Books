@@ -24,6 +24,7 @@ export default (sequelize, DataTypes) => {
     });
     History.belongsTo(models.User, {
       foreignKey: 'userId',
+      as: 'user',
       onDelete: 'CASCADE',
     });
   };
