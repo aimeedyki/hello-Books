@@ -18,6 +18,7 @@ import EditBook from './Library/EditBook';
 import ChangeLevel from './Profile/ChangeLevel';
 import BookCategory from './Library/BookCategory';
 import NotFound from './NotFound';
+import UserPayments from './Profile/UserPayments';
 
 import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
@@ -100,6 +101,7 @@ class Userpage extends Component {
             <Route path="/user/dashboard"
               component={AdminAuth(AdminDashboard)}
             />
+            <Route exact path="/user/payments" component={UserPayments} />
             <Route path="/user/:id/edit-book" component={AdminAuth(EditBook)} />
             <Route path="/user/category" component={AdminAuth(AddCategory)} />
             <Route path="/user/new-level" component={ChangeLevel} />

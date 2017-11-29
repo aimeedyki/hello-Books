@@ -8,7 +8,8 @@ import {
   CHANGE_LEVEL,
   DISPLAY_USER,
   GET_LEVEL,
-  DISPLAY_ALL_TRANSACTIONS
+  DISPLAY_ALL_TRANSACTIONS,
+  SUBMIT_TRANSACTION
 } from '../actions/types';
 
 
@@ -48,6 +49,8 @@ export default (state = initialState, action) => {
       return { ...state, level: action.payload };
     case DISPLAY_ALL_TRANSACTIONS:
       return { ...state, transactions: action.payload };
+    case SUBMIT_TRANSACTION:
+      return { ...state, transaction: action.payload };
     default:
       return state;
   }

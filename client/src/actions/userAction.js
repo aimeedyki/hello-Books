@@ -12,7 +12,8 @@ import {
   DISPLAY_USER,
   GET_LEVEL,
   DISPLAY_ALL_TRANSACTIONS,
-  CONFIRM_TRANSACTION
+  CONFIRM_TRANSACTION,
+  SUBMIT_TRANSACTION
 } from './types';
 import {
   errorHandler,
@@ -105,12 +106,12 @@ export const passwordChange = (newPassword, confirmNewPassword) => (
   )
 );
 
-export const changeLevel = newLevelId => (
+export const changeLevel = ({ newLevelId, transactionId, amount }) => (
   dispatch => (
-    axios.put('/api/v1/user/level', { newLevelId })
+    axios.put('/api/v1/user/level', { newLevelId, transactionId, amount })
       .then(() => {
         dispatch(getUser());
-        Materialize.toast('Level changed successfully!!',
+        Materialize.toast('Level Change has been requested!!',
           4000, 'indigo darken-2');
         return true;
       })
@@ -198,3 +199,21 @@ export const confirmTransaction = transactionId => (
       })
   )
 );
+
+export const submitTransaction = (
+  { transactionId, transactionType, amount }) => (
+    dispatch => (
+      axios.post('/api/v1/transactions',
+        { transactionId, transactionType, amount })
+        .then((response) => {
+          dispatch({
+            type: SUBMIT_TRANSACTION,
+            payload: response.data.transaction
+          });
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(dispatch, error.response, USER_ERROR);
+        })
+    )
+  );
