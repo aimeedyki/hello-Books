@@ -1,9 +1,11 @@
 import { Subscription, Level, User } from '../models';
 import paginate from '../middleware/book';
+import transactionValidation from '../helpers/transactionValidation';
 
 export default {
   confirmTransaction(req, res) {
     const transactionId = parseInt(req.body.transactionId, 10);
+    let transactionUpdate;
     if (isNaN(transactionId)) {
       return res.status(400).send({
         message: 'Please enter a valid subscripton Id'
@@ -21,17 +23,29 @@ export default {
               message: 'Sorry this transaction has already been confirmed'
             });
         }
+
         User.findOne({ where: { username: foundTransaction.username } })
           .then((user) => {
-            user.update({
-              outstandingSubscription:
-                user.outstandingSubscription - foundTransaction.amount,
-              levelId: foundTransaction.levelId
-            });
+            if (foundTransaction.transactionType === 'surcharge') {
+              transactionUpdate = {
+                surcharge: user.surcharge - foundTransaction.amount
+              };
+            }
+            if (foundTransaction.transactionType === 'subscription') {
+              transactionUpdate = {
+                outstandingSubscription:
+                  user.outstandingSubscription - foundTransaction.amount,
+                levelId: foundTransaction.levelId
+              };
+            }
+            user.update(transactionUpdate);
             foundTransaction.update({
               confirmed: true
             }).then(updatedSubcription => res.status(200)
-              .send({ message: 'Transaction confirmed!', updatedSubcription }))
+              .send({
+                message: 'Transaction confirmed!',
+                updatedSubcription
+              }))
               .catch(error => res.status(500).send(error.message));
           })
           .catch(error => res.status(500).send(error.message));
@@ -59,10 +73,6 @@ export default {
         offset
       })
       .then((transactions) => {
-        // if (books.rows.length < 1) {
-        //   return res.status(200)
-        //     .send({ message: 'Sorry, there are no books available' });
-        // }
         const allTransactions = {
           transactions: transactions.rows,
           pagination: paginate(offset, limit, transactions)
@@ -70,5 +80,37 @@ export default {
         res.status(200).send({ message: 'Success', allTransactions });
       })
       .catch(error => res.status(500).send(error.message));
+  },
+
+  /** @description adds a book
+  * @param {object} req HTTP request object
+  * @param {object} res HTTP response object
+  * @returns {object} created book
+  */
+  submitTransaction(req, res) {
+    if (transactionValidation(req.body).isValid) {
+      const transactionId = req.body.transactionId;
+      const transactionType = req.body.transactionType;
+      const amount = parseInt(req.body.amount, 10);
+      const userId = req.decoded.userId;
+      User.findById(userId).then((user) => {
+        Subscription.create({
+          transactionId,
+          transactionType,
+          amount,
+          levelId: user.levelId,
+          username: user.username,
+          confirmed: false
+        }).then((transaction) => {
+          res.status(202).send(transaction);
+        })
+          .catch(error => res.status(500).send(error.message));
+      })
+        .catch(error => res.status(500).send(error.message));
+    }
+    if (transactionValidation(req.body).message) {
+      res.status(400)
+        .send({ message: transactionValidation(req.body).message });
+    }
   }
 };

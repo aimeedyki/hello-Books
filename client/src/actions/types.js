@@ -31,5 +31,6 @@ export const AUTH_USER = 'auth_user',
   CLEAR_SEARCH_ERROR = 'clear_search_error',
   DISPLAY_ALL_TRANSACTIONS = 'display_all_transactions',
   CONFIRM_TRANSACTION = 'confirm_transaction',
+  SUBMIT_TRANSACTION = 'submit_transaction',
   SEARCH_BOOKS = 'search_books';
 

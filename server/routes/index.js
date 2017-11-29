@@ -587,4 +587,10 @@ app.get(
   '/transactions', authentication.verifyUser,
   authentication.verifyAdmin, transactionsController.getTransactions
 );
+
+// add subscription
+app.post(
+  '/transactions', authentication.verifyUser,
+  transactionsController.submitTransaction
+);
 export default app;

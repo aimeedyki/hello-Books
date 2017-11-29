@@ -46,7 +46,7 @@ const authController = {
           if (passkey) {
             const token = getUserToken(foundUser);
             const user = {
-              username: foundUser.username,
+              name: foundUser.name,
               profilePic: foundUser.profilePic,
               email: foundUser.email,
               borrowCount: foundUser.borrowCount,

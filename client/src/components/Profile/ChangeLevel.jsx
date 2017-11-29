@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -20,10 +20,12 @@ class ChangeLevel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newLevel: ''
+      newLevelId: this.props.user.levelId,
+      transactionId: '',
+      amount: 0
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
     this.closePage = this.closePage.bind(this);
   }
@@ -42,9 +44,9 @@ class ChangeLevel extends Component {
    * @param {any} event
    * @memberof ChangeLevel
    */
-  handleSelectChange(event) {
+  handleChange(event) {
     event.preventDefault();
-    this.setState({ newLevel: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   /** @returns {*} void
@@ -54,9 +56,9 @@ class ChangeLevel extends Component {
   handleFormSubmit(event) {
     event.preventDefault();
     const { levelId } = this.props.user;
-    const newLevel = parseInt(this.state.newLevel, 10);
-    if (newLevel !== levelId) {
-      this.props.changeLevel(newLevel).then((response) => {
+    const newLevelId = parseInt(this.state.newLevelId, 10);
+    if (newLevelId !== levelId) {
+      this.props.changeLevel(this.state).then((response) => {
         if (response) {
           this.props.history.push('/user/profile');
         }
@@ -115,10 +117,10 @@ class ChangeLevel extends Component {
                 </div>
                 <div className='level-select'>
                   <label>Membership Level</label>
-                  <select ref='levelId' id='level'
+                  <select name='newLevelId' id='level'
                     className='browser-default indigo-text text-darken-2'
-                    onChange={this.handleSelectChange}
-                    value={this.state.value}
+                    onChange={this.handleChange}
+                    value={this.state.newLevelId}
                     required>
                     <option defaultValue='' selected disabled>
                       Select a level</option>
@@ -127,10 +129,26 @@ class ChangeLevel extends Component {
                       Bookworm  N2000/month</option>
                     <option value='3' >Voracious  N5000/month</option>
                   </select>
+                  <div className='input-field col s12'>
+                    <input name='transactionId' type='text' className='validate'
+                      onChange={this.handleChange}
+                      value={this.state.transactionId}
+                      required
+                    />
+                    <label>Transaction Reference</label>
+                  </div>
+                  <div className='input-field col s12'>
+                    <input name='amount' type='text' className='validate'
+                      onChange={this.handleChange}
+                      value={this.state.amount}
+                      required
+                    />
+                    <label>Amount</label>
+                  </div>
                 </div>
                 <div className='center margin-fix'>
                   <Button type='submit' name='action'
-                    label='Change Level' icon='save' />
+                    label='Submit' icon='save' />
                 </div>
               </div>
             </div>

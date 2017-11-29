@@ -56,7 +56,8 @@ class UserTransactions extends Component {
           confirmLink = 'Confirmed';
         } else {
           confirmLink = <a className='link-cursor'
-            onClick={() => { this.confirm(id, level); }}>CONFIRM</a>;
+            onClick={() => { this.confirm(id, level, transactionType); }}>
+            CONFIRM</a>;
         }
         return ({
           username,
@@ -72,13 +73,21 @@ class UserTransactions extends Component {
   /**
    * @returns {*} null
    * @param {number} id 
-   * @param {string} level 
+   * @param {string} level
+   * @param {string} type
    * @memberof UserTransactions
    */
-  confirm(id, level) {
+  confirm(id, level, type) {
+    let text;
+    if (type === 'subscription') {
+      text = `Confirm user change to ${level}?`;
+    }
+    if (type === 'surcharge') {
+      text = 'Confirm surcharge payment?';
+    }
     alert({
       title: 'Confirm?',
-      text: `Confirm user change to ${level}?`,
+      text,
       icon: 'warning',
     })
       .then((willConfirm) => {

@@ -4,6 +4,8 @@ import faker from 'faker';
 
 import app from '../server/app';
 
+require('dotenv').config();
+
 const server = supertest.agent(app);
 
 let token = '';
@@ -136,7 +138,7 @@ describe('User', () => {
     server.post('/api/v1/users/signin')
       .send({
         username: 'aimee',
-        password: 'bookiiii',
+        password: process.env.PASSWORD,
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
@@ -1138,6 +1140,76 @@ describe('Transaction', () => {
       .set('x-access-token', adminToken)
       .end((err, res) => {
         assert.equal(res.status, 200);
+        done();
+      });
+  });
+  it('should return 202 when surcharge transaction upload is uploaded',
+    (done) => {
+      server.post('/api/v1/transactions').set('x-access-token', adminToken)
+        .send({
+          transactionId: 'okookom',
+          transactionType: 'surcharge',
+          amount: 1000
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 202);
+          done();
+        });
+    });
+  it('should return 202 when subscription transaction upload is uploaded',
+    (done) => {
+      server.post('/api/v1/transactions').set('x-access-token', adminToken)
+        .send({
+          transactionId: 'okookom',
+          transactionType: 'subscription',
+          amount: 1000
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 202);
+          done();
+        });
+    });
+  it('should return 400 when transactionId is null', (done) => {
+    server.post('/api/v1/transactions').set('x-access-token', adminToken)
+      .send({
+        transactionType: 'surcharge',
+        amount: 1000
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 200 when transaction type is null', (done) => {
+    server.post('/api/v1/transactions').set('x-access-token', adminToken)
+      .send({
+        transactionId: 'okookom',
+        amount: 1000
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 400 when amount is null', (done) => {
+    server.post('/api/v1/transactions').set('x-access-token', adminToken)
+      .send({
+        transactionId: 'okookom',
+        transactionType: 'surcharge'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
+  it('should return 200 when transaction is confirmed', (done) => {
+    server.put('/api/v1/transactions').set('x-access-token', adminToken)
+      .send({
+        transactionId: 2,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.isNotNull(res.body.notification);
         done();
       });
   });
