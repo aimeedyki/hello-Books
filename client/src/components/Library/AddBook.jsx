@@ -11,7 +11,7 @@ import Button from '../Common/Button.jsx';
  * @class AddBook
  * @extends {Component}
  */
-class AddBook extends Component {
+export class AddBook extends Component {
   /** Creates an instance of AddBook.
    * @param {*} props
    * @memberof AddBook
@@ -32,7 +32,7 @@ class AddBook extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.imageChange = this.imageChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.categorySelect = this.categorySelect.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
   }
@@ -41,7 +41,7 @@ class AddBook extends Component {
    * @returns {*} null
    * @memberof AddBook
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCategories();
   }
   /** @returns {*} null
@@ -78,7 +78,7 @@ class AddBook extends Component {
    * @param {*} event
    * @memberof AddBook
    */
-  handleSelectChange(event) {
+  categorySelect(event) {
     event.preventDefault();
     this.setState({ categoryId: event.target.value });
   }
@@ -102,14 +102,12 @@ class AddBook extends Component {
     event.preventDefault();
     this.props.addBook(this.state).then((res) => {
       if (res) {
-        /* eslint-disable no-undef */
         Materialize.toast('Book added Successfully!', 4000, 'indigo darken-2');
-        this.props.history.push('/user');
+        this.props.history.push('/main');
       }
     })
       .catch((error) => {
         if (error) {
-          /* eslint-disable no-undef */
           Materialize.toast(error.message, 4000, 'indigo darken-2');
         }
       });
@@ -176,7 +174,7 @@ class AddBook extends Component {
                   </div>
                   <select ref='category' id='category'
                     className='browser-default indigo-text text-darken-2'
-                    onChange={this.handleSelectChange}
+                    onChange={this.categorySelect}
                     value={this.state.value}
                     required>
                     <option defaultValue='' selected disabled>
@@ -219,7 +217,7 @@ class AddBook extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: state.bookReducer.categories,
+  categories: state.categoryReducer.categories,
   errorMessage: state.bookReducer.error
 });
 

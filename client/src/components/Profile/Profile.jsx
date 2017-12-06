@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -21,7 +20,7 @@ import noPicture from '../../assets/images/profile.jpeg';
  * @class Profile
  * @extends {Component}
  */
-class Profile extends Component {
+export class Profile extends Component {
   /** Creates an instance of Profile.
    * @param {*} props
    * @memberof Profile
@@ -30,28 +29,15 @@ class Profile extends Component {
     super(props);
     this.state = {
       levelicon: '',
-      profilepic: '',
+      profilepPic: '',
       imageFile: null,
     };
     this.setLevelIcon = this.setLevelIcon.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleLevel = this.handleLevel.bind(this);
     this.imageChange = this.imageChange.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.uploadPic = this.uploadPic.bind(this);
   }
 
-  /** calls the function to display error if there is an error
-     * @returns {*} void
-     * @param {any} prevProps
-     * @memberof Login
-     */
-  componentDidUpdate(prevProps) {
-    if (prevProps.errorMessage !== this.props.errorMessage) {
-      this.renderAlert();
-    }
-  }
   /** @returns {*} void
    * @param {any} image
    * @memberof Profile
@@ -80,7 +66,7 @@ class Profile extends Component {
    * @memberof Profile
    */
   uploadPic() {
-    this.props.changePic(this.state.profilepic);
+    this.props.changePic(this.state.profilePic);
   }
   /* eslint-disable class-methods-use-this */
   /** @param {string} level
@@ -99,41 +85,7 @@ class Profile extends Component {
         return rookie;
     }
   }
-  /** @returns {*} null
-   * @memberof Profile
-   */
-  handleEdit() {
-    this.props.history.push('/user/edit-profile');
-  }
-  /** @returns {*} null
-   * @memberof Profile
-   */
-  handlePassword() {
-    this.props.history.push('/user/password');
-  }
-  /** @returns {*} null
-   * @memberof Profile
-   */
-  handleLevel() {
-    this.props.history.push('/user/new-level');
-  }
-  /** displays error
-     * @returns {string} error message
-     * @memberof Login
-     */
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        /* eslint-disable no-undef */
-        Materialize.toast(
-          this.props.errorMessage, 4000,
-          'indigo darken-2', () => {
-            this.props.clearErrorMessage();
-          }
-        )
-      );
-    }
-  }
+
   /** renders profile component
    * @returns {*} component
    * @memberof Profile
@@ -156,8 +108,8 @@ class Profile extends Component {
       (profileImage = noPicture) : (profileImage = profilePic);
 
     return (
-      <div className='row'>
-        <div className='card center col l4 offset-l5'>
+      <div className='row layout-fix'>
+        <div className='card center col m8 l4 offset-m2 offset-l5'>
           <div className='indigo darken-2'>
             <div className='user'>
               <img className='circle photo'
@@ -217,10 +169,10 @@ class Profile extends Component {
             }
           </div>
           <div className='link-cursor'>
-            <a onClick={this.handlePassword}>Change password?</a>
+            <Link to="/main/password" >Change password?</Link>
           </div>
           <div className='levelLink link-cursor'>
-            <a onClick={this.handleLevel}>Want a new Level?</a>
+            <Link to="/main/new-level" >Want a new Level?</Link>
           </div>
         </div>
       </div>

@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import { clearErrorMessage, getUser } from '../../actions/authAction';
-import { changeLevel, displayUserpage } from '../../actions/userAction';
+import { changeLevel } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
 /** Change level component
  * @class ChangeLevel
  * @extends {Component}
  */
-class ChangeLevel extends Component {
+export class ChangeLevel extends Component {
   /**
    * Creates an instance of ChangeLevel.
    * @param {any} props
@@ -60,7 +60,7 @@ class ChangeLevel extends Component {
     if (newLevelId !== levelId) {
       this.props.changeLevel(this.state).then((response) => {
         if (response) {
-          this.props.history.push('/user/profile');
+          this.props.history.push('/main/profile');
         }
       });
     } else {
@@ -76,7 +76,7 @@ class ChangeLevel extends Component {
    * @memberof ChangeLevel
    */
   closePage() {
-    this.props.history.push('/user/profile');
+    this.props.history.push('/main/profile');
   }
   /** @returns {string} error message
    * @memberof ChangeLevel
@@ -169,5 +169,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  changeLevel, displayUserpage, clearErrorMessage, getUser
+  changeLevel, clearErrorMessage, getUser
 })(withRouter(ChangeLevel));

@@ -95,6 +95,7 @@ export default {
             }
             const categoryBooks = {
               message: 'Success!',
+              category: category.name,
               books: books.rows,
               pagination: paginate(offset, limit, books)
             };

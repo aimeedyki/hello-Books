@@ -107,7 +107,7 @@ describe('User', () => {
       });
   });
 
-  it('should return 422 if username is already taken', (done) => {
+  it('should return 409 if username is already taken', (done) => {
     server.post('/api/v1/users/signup')
       .send({
         email: faker.internet.email(),
@@ -117,7 +117,7 @@ describe('User', () => {
         profilepic: faker.internet.avatar(),
       })
       .end((err, res) => {
-        assert.equal(res.status, 422);
+        assert.equal(res.status, 409);
         done();
       });
   });
@@ -217,10 +217,24 @@ describe('User', () => {
         done();
       });
   });
+  it('should return 422 if old password is not correct',
+  (done) => {
+    server.put('/api/v1/user/password').set('x-access-token', token)
+      .send({
+        oldPassword: 'bookiiiiee',
+        newPassword: 'bookiiii',
+        confirmNewPassword: 'bookiiii',
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 422);
+        done();
+      });
+  });
   it('should return 409 if new password is the same as old password',
     (done) => {
       server.put('/api/v1/user/password').set('x-access-token', token)
         .send({
+          oldPassword: 'bookiiii',
           newPassword: 'bookiiii',
           confirmNewPassword: 'bookiiii',
         })
@@ -232,6 +246,7 @@ describe('User', () => {
   it('should return 200 when password change is successful', (done) => {
     server.put('/api/v1/user/password').set('x-access-token', token)
       .send({
+        oldPassword: 'bookiiii',
         newPassword: 'password',
         confirmNewPassword: 'password',
       })
@@ -241,10 +256,21 @@ describe('User', () => {
         done();
       });
   });
-
+  it('should return 400 oldPassword is null', (done) => {
+    server.put('/api/v1/user/password').set('x-access-token', token)
+      .send({
+        newPassword: 'halooooo',
+        confirmNewPassword: 'halooooo'
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 400);
+        done();
+      });
+  });
   it('should return 400 confirmNewPassword is null', (done) => {
     server.put('/api/v1/user/password').set('x-access-token', token)
       .send({
+        oldPassword: 'password',
         newPassword: 'halooooo'
       })
       .end((err, res) => {
@@ -255,7 +281,7 @@ describe('User', () => {
 
   it('should return 400 when newPassword is null', (done) => {
     server.put('/api/v1/user/password').set('x-access-token', token)
-      .send({
+      .send({oldPassword: 'password',
         confirmNewPassword: 'halooooo'
       })
       .end((err, res) => {
@@ -870,10 +896,10 @@ describe('Book', () => {
         done();
       });
   });
-  it('should return 404 when no books match search criteria', (done) => {
+  it('should return 200 when no books match search criteria', (done) => {
     server.get('/api/v1/search?term=xyz').set('x-access-token', token)
       .end((err, res) => {
-        assert.equal(res.status, 404);
+        assert.equal(res.status, 200);
         assert.isNotNull(res.body);
         done();
       });

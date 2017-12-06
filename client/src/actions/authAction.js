@@ -66,18 +66,10 @@ export const logoutUser = () => (
  * @return {*} null
  */
 export const errorHandler = (dispatch, error, type) => {
-  if (error.status === 403) {
-    dispatch({
-      type,
-      payload: error.data.message
-    });
-    logoutUser();
-  } else {
-    dispatch({
-      type,
-      payload: error.data.message
-    });
-  }
+  dispatch({
+    type,
+    payload: error.data.message
+  });
 };
 
 /**

@@ -1,48 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { withRouter, Link, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCategories, getBooksByCategory } from '../../actions/bookAction';
-import AllBooks from './AllBooks.jsx';
-import BookCategory from './BookCategory.jsx';
+import ConnectedAllBooks from './AllBooks.jsx';
 
 /** Component that holds all the books
  * and the Library that displays the categories
  * @class Library
  * @extends {Component}
  */
-class Library extends Component {
-  /** Creates an instance of Library.
-   * @param {*} props
-   * @memberof Library
-   */
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      BookCategory: '',
-      id: '',
-    };
-  }
-
-  /** calls methods that gets all categories
-   * @returns {*} null
-   * @memberof Library
-   */
-  componentWillMount() {
-    this.props.getCategories();
-  }
-  /** setting category id to display
-     * @returns {*} null
-     * @param {number} id
-     * @param {string} category
-     * @memberof Library
-     */
-  handleClick(id, category) {
-    this.setState({ id, BookCategory: category }, () => {
-    });
-  }
-
+export class Library extends Component {
   /** @returns {*} library component
    * @memberof Library
    */
@@ -50,13 +17,14 @@ class Library extends Component {
     const { admin } = this.props.user;
     // displays add book button only for admin users
     let addBookButton;
-    /* eslint-disable no-unused-expressions */
-    (admin === true) ? addBookButton = (
+    const addButton = (
       <div className="fixed-action-btn">
-        <Link to="/user/add-book"
+        <Link to="/main/add-book"
           className="btn-floating btn-large indigo darken-2">
           <i className="large material-icons">add</i></Link>
-      </div>) : addBookButton = '';
+      </div>);
+
+    (admin === true) ? addBookButton = addButton : addBookButton = '';
 
     return (
       <div className="row">
@@ -65,7 +33,7 @@ class Library extends Component {
           <div className="row indigo-text text-darken-2">
             <div className="col s12">
               <div>
-                <AllBooks />
+                <ConnectedAllBooks />
               </div>
               {addBookButton}
             </div>
@@ -79,9 +47,7 @@ class Library extends Component {
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
-  const { categories } = state.bookReducer;
   return {
-    categories,
     user
   };
 };

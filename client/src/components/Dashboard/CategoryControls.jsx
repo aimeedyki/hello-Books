@@ -15,7 +15,7 @@ import {
  * @class CategoryControls
  * @extends {Component}
  */
-class CategoryControls extends Component {
+export class CategoryControls extends Component {
   /**
    * Creates an instance of CategoryControls.
    * @param {any} props
@@ -45,13 +45,6 @@ class CategoryControls extends Component {
         { [category.name]: category.name }));
     }
   }
-  /** @returns {*} null
-   * @param {*} event
-   * @memberof CategoryControls
-   */
-  handleChange(event) {
-    this.setState({ categoryName: event.target.value });
-  }
   /**
    *  @returns {*} null
    * @param {*} categoryId
@@ -59,9 +52,9 @@ class CategoryControls extends Component {
    */
   handleCategoryEdit(categoryId) {
     $(`#${categoryId}-disabled`).prop('disabled', false);
-    $(`#${categoryId}-submit`).show();
-    $(`#${categoryId}-cancel`).show();
-    this.props.categories.map(category => $(`#${category.id}-edit`).hide());
+    $(`#submit-${categoryId}`).show();
+    $(`#cancel-${categoryId}`).show();
+    this.props.categories.map(category => $(`#edit-${categoryId}`).hide());
   }
   /**
    * 
@@ -71,10 +64,10 @@ class CategoryControls extends Component {
    * @memberof CategoryControls
    */
   cancel(name, categoryId) {
-    $(`#${categoryId}-submit`).hide();
-    $(`#${categoryId}-cancel`).hide();
+    $(`#submit-${categoryId}`).hide();
+    $(`#cancel-${categoryId}`).hide();
     this.setState({ [name]: name });
-    this.props.categories.map(category => $(`#${category.id}-edit`).show());
+    this.props.categories.map(category => $(`#edit-${category.id}`).show());
   }
   /**
    * @returns {*} null
@@ -86,7 +79,7 @@ class CategoryControls extends Component {
     this.props.editCategory(categoryId, categoryName)
       .then((response) => {
         if (response) {
-          this.props.history.push('/user/dashboard');
+          this.props.history.push('/main/dashboard');
         }
       });
   }
@@ -118,7 +111,7 @@ class CategoryControls extends Component {
             .then((res) => {
               if (res) {
                 alert('Deleted!', 'Category has been deleted!', 'success');
-                this.props.history.push('/user/dashboard');
+                this.props.history.push('/main/dashboard');
               } else {
                 alert('Oops!', this.props.errorMessage, 'error');
               }
@@ -136,7 +129,7 @@ class CategoryControls extends Component {
         <h5 className='center greeting indigo-text text-darken-2'><b>
           Category Controls</b></h5>
         <ul>
-          <li><NavLink to="/user/category"
+          <li><NavLink to="/main/category"
             className="blue-text text-lighten-2 link-cursor">
             Add a New Category</NavLink></li>
           {!this.props.categories ? <p className="black-text center">
@@ -155,21 +148,22 @@ class CategoryControls extends Component {
                       <button type="submit"
                         className="button-fix btn indigo darken-2"
                         style={{ display: 'none' }}
-                        id={`${category.id}-submit`}
+                        id={`submit-${category.id}`}
                         onClick={() => this.submitEdit(
                           category.id, this.state[category.name])}>Save
                       </button>
                       <button type="submit"
                         className="button-fix btn orange darken-4"
                         style={{ display: 'none' }}
-                        id={`${category.id}-cancel`}
+                        id={`cancel-${category.id}`}
                         onClick={() =>
                           this.cancel(category.name, category.id)}>Cancel
                       </button>
                       <i className='left-fix material-icons link-cursor'
                         onClick={() => this.handleCategoryEdit(category.id)}
-                        id={`${category.id}-edit`}>edit</i>
-                      <i className='material-icons link-cursor'
+                        id={`edit-${category.id}`}>edit</i>
+                      <i id={`delete-${category.id}`}
+                        className='material-icons link-cursor'
                         onClick={() => this.handleDelete(category.id)}>
                         delete</i></li>)
                 )
@@ -184,12 +178,10 @@ class CategoryControls extends Component {
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
-  const { categories, books, error } = state.bookReducer;
+  const { categories, error } = state.categoryReducer;
   return {
     categories,
     user,
-    books: books.books,
-    pagination: books.pagination,
     errorMessage: error
   };
 };

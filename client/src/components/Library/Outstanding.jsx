@@ -12,15 +12,14 @@ import Pagination from '../Common/Pagination';
  * @class Outstanding
  * @extends {Component}
  */
-class Outstanding extends Component {
+export class Outstanding extends Component {
   /** Creates an instance of Outstanding.
      * @param {*} props
      * @memberof Outstanding
      */
   constructor(props) {
     super(props);
-    this.data = [];
-    // this.userId = '';
+    this.outstandingBooks = [];
     this.state = {
       limit: 10,
       offset: 0,
@@ -84,22 +83,24 @@ class Outstanding extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.data = nextProps.notReturned.map((notReturnedItem) => {
-        const bookTitle = notReturnedItem.book.title;
-        const borrowed = moment(
-          notReturnedItem.createdAt).format('MMMM Do YYYY');
-        const expected = moment(
-          notReturnedItem.expectedDate).format('MMMM Do YYYY');
-        const historyId = notReturnedItem.id;
-        return ({
-          title: bookTitle,
-          borrowdate: borrowed,
-          due: expected,
-          return: <a className='link-cursor'
-            onClick={() => { this.return(historyId); }}>RETURN</a>
+      if (nextProps.notReturned) {
+        this.outstandingBooks = nextProps.notReturned.map((notReturnedItem) => {
+          const bookTitle = notReturnedItem.book.title;
+          const borrowed = moment(
+            notReturnedItem.createdAt).format('MMMM Do YYYY');
+          const expected = moment(
+            notReturnedItem.expectedDate).format('MMMM Do YYYY');
+          const historyId = notReturnedItem.id;
+          return ({
+            title: bookTitle,
+            borrowdate: borrowed,
+            due: expected,
+            return: <a className='link-cursor' id={`return-${historyId}`}
+              onClick={() => { this.return(historyId); }}>RETURN</a>
+          });
         });
-      });
-      this.getPages(nextProps.pagination.pageCount);
+        this.getPages(nextProps.pagination.pageCount);
+      }
     }
   }
 
@@ -126,13 +127,12 @@ class Outstanding extends Component {
    */
   getNewPage(event, page) {
     event.preventDefault();
-    const { userId } = this.props.user;
     const pageOffset = this.state.limit * (page - 1);
     this.setState({
       offset: (page === 1) ? 0 : pageOffset
     }, () => {
-      this.props.getHistory(
-        userId, this.state.limit, this.state.offset
+      this.props.getOutstanding(
+        this.state.limit, this.state.offset
       );
     });
   }
@@ -149,8 +149,8 @@ class Outstanding extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getHistory(
-          this.userId, this.state.limit, this.state.offset
+        this.props.getOutstanding(
+          this.state.limit, this.state.offset
         );
       });
     }
@@ -168,8 +168,8 @@ class Outstanding extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getHistory(
-          this.userId, this.state.limit, this.state.offset
+        this.props.getOutstanding(
+          this.state.limit, this.state.offset
         );
       });
     }
@@ -202,7 +202,7 @@ class Outstanding extends Component {
     return (
       <div className='row'>
         <div className='card col s12 l8 offset-l3'>
-          <Table data={this.data} header={header} />
+          <Table record={this.outstandingBooks} header={header} />
           <Pagination
             previousPage={this.getPreviousPage}
             pages={this.state.pages}

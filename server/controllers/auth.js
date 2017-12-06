@@ -76,6 +76,7 @@ const authController = {
   changePassword(req, res) {
     validatePassword(req.body);
     if (validatePassword(req.body).isValid) {
+      const oldPassword = req.body.oldPassword;
       const newPassword = req.body.newPassword;
       const userId = getUserId(req);
       User
@@ -84,6 +85,12 @@ const authController = {
             id: userId
           }
         }).then((user) => {
+          // checks if oldpassword matches old password
+          const passkey = bcrypt.compareSync(oldPassword, user.password);
+          if (!passkey) {
+            return res.status(422)
+              .send({ message: 'Please reconfirm password' });
+          }
           // checks if new password is the same with received to stored password
           const compareNew = bcrypt.compareSync(newPassword, user.password);
           if (compareNew) {

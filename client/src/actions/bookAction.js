@@ -4,6 +4,8 @@ import {
   ADD_BOOK,
   ADD_CATEGORY,
   GET_CATEGORIES,
+  EDIT_CATEGORY,
+  DELETE_CATEGORY,
   BOOK_ERROR,
   MODIFY_BOOK,
   GET_BOOKS,
@@ -20,9 +22,6 @@ import {
 } from './types';
 import { errorHandler } from './authAction';
 
-// const API_URL = process.env.API_URL;
-
-/* eslint-disable no-undef */
 // action to set the book categories to the redux store
 export const setCategories = categories => ({
   type: GET_CATEGORIES,
@@ -36,7 +35,7 @@ export const setBooks = books => ({
 });
 
 // action to get a particular book
-export const setaBook = book => ({
+export const setABook = book => ({
   type: GET_ABOOK,
   payload: book
 });
@@ -83,6 +82,21 @@ export const addBook =
         })
     )
   );
+// action creator to get all books in a library
+export const getBooks = (limit, offset, paginationFunction) => (
+  dispatch => (
+    axios.get(`/api/v1/books?offset=${offset}&limit=${limit}`)
+      .then((response) => {
+        dispatch(setBooks(response.data.allBooks));
+        if (paginationFunction) {
+          paginationFunction();
+        }
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, BOOK_ERROR);
+      })
+  )
+);
 
 // action creator to modify a book
 export const modifyBook =
@@ -91,11 +105,9 @@ export const modifyBook =
       axios.put(`/api/v1/books/${bookId}`,
         { title, author, description, quantity, categoryId, image })
         .then((response) => {
-          Materialize.toast('Book information has been modified!',
-            4000, 'indigo darken-2');
           dispatch({
             type: MODIFY_BOOK,
-            book: response.data.book
+            book: response.data.updatedBook
           });
           return true;
         })
@@ -123,6 +135,10 @@ export const addNewCategory = ({ name }) => (
   dispatch => (
     axios.post('/api/v1/category', { name })
       .then((response) => {
+        dispatch({
+          type: ADD_CATEGORY,
+          category: response.data.categories
+        });
         dispatch(getCategories());
         return true;
       })
@@ -137,7 +153,11 @@ export const addNewCategory = ({ name }) => (
 export const editCategory = (categoryId, name) => (
   dispatch => (
     axios.put(`/api/v1/${categoryId}/category`, { name })
-      .then(() => {
+      .then((response) => {
+        dispatch({
+          type: EDIT_CATEGORY,
+          category: response.data.updatedCategory
+        });
         getCategories();
         Materialize.toast(`Category name has been edited to ${name}`, 4000,
           'indigo darken-2');
@@ -155,6 +175,10 @@ export const deleteCategory = id => (
   dispatch => (
     axios.delete(`/api/v1/${id}/category`)
       .then(() => {
+        dispatch({
+          type: DELETE_CATEGORY,
+          payload: id
+        });
         dispatch(getCategories());
         return true;
       })
@@ -163,26 +187,13 @@ export const deleteCategory = id => (
       })
   )
 );
-// action creator to get all books in a library
-export const getBooks = (limit, offset, paginationFunction) => (
-  dispatch => (
-    axios.get(`/api/v1/books?offset=${offset}&limit=${limit}`)
-      .then((response) => {
-        dispatch(setBooks(response.data.allBooks));
-        paginationFunction();
-      })
-      .catch((error) => {
-        errorHandler(dispatch, error.response.data, BOOK_ERROR);
-      })
-  )
-);
 
 // action creator to get a single book
-export const getaBook = id => (
+export const getABook = id => (
   dispatch => (
     axios.get(`/api/v1/books/${id}`)
       .then((response) => {
-        dispatch(setaBook(response.data.book));
+        dispatch(setABook(response.data.book));
       })
       .catch((error) => {
         errorHandler(dispatch, error.response, BOOK_ERROR);
@@ -210,10 +221,11 @@ export const deleteBook = (id, refresh) => (
   dispatch => (
     axios.delete(`/api/v1/books/${id}`)
       .then(() => {
-        refresh();
         dispatch({
-          type: DELETE_BOOK
+          type: DELETE_BOOK,
+          payload: id
         });
+        refresh();
         return true;
       })
       .catch((error) => {
@@ -228,10 +240,10 @@ export const borrowBook = (bookId, refresh) => (
     axios.post('/api/v1/user/borrow-book',
       { bookId })
       .then(() => {
-        refresh();
         dispatch({
           type: BORROW_BOOK
         });
+        refresh();
         return true;
       })
       .catch((error) => {
@@ -246,10 +258,10 @@ export const returnBook = (historyId, refresh) => (
     axios.put('/api/v1/user/return-book',
       { historyId })
       .then(() => {
-        refresh();
         dispatch({
           type: RETURN_BOOK
         });
+        refresh();
         return true;
       })
       .catch((error) => {

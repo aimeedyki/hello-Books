@@ -14,14 +14,14 @@ import Pagination from '../Common/Pagination';
  * @class Borrowed
  * @extends {Component}
  */
-class Borrowed extends Component {
+export class Borrowed extends Component {
   /** Creates an instance of Borrowed.
    * @param {any} props
    * @memberof Borrowed
    */
   constructor(props) {
     super(props);
-    this.data = [];
+    this.borrowedBooks = [];
     this.userId = '';
     this.state = {
       limit: 10,
@@ -47,7 +47,7 @@ class Borrowed extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.data = nextProps.histories.map((history) => {
+      this.borrowedBooks = nextProps.histories.map((history) => {
         const bookTitle = history.book.title;
         const borrowed = moment(history.createdAt).format('MMMM Do YYYY');
         const expected = moment(history.expectedDate).format('MMMM Do YYYY');
@@ -89,7 +89,6 @@ class Borrowed extends Component {
    */
   getNewPage(event, page) {
     event.preventDefault();
-    const { userId } = this.props.user;
     const pageOffset = this.state.limit * (page - 1);
     this.setState({
       offset: (page === 1) ? 0 : pageOffset
@@ -156,11 +155,11 @@ class Borrowed extends Component {
         prop: 'due'
       }
     ];
-    if (!this.props.pagination) { return <Loader />; }
+    if (!this.props.histories) { return <Loader />; }
     return (
       <div className='row'>
         <div className='card col s12 l8 offset-l3'>
-          <Table data={this.data}
+          <Table record={this.borrowedBooks}
             header={header} />
           <Pagination
             previousPage={this.getPreviousPage}

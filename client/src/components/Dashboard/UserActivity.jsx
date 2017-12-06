@@ -11,14 +11,14 @@ import Table from '../Common/Table.jsx';
  * @class UserActivity
  * @extends {Component}
  */
-class UserActivity extends Component {
+export class UserActivity extends Component {
   /** Creates an instance of UserActivity.
    * @param {any} props
    * @memberof UserActivity
    */
   constructor(props) {
     super(props);
-    this.data = [];
+    this.activities = [];
   }
 
   /** fetches notification table
@@ -35,7 +35,7 @@ class UserActivity extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.data = nextProps.notifications.map((notification) => {
+      this.activities = nextProps.notifications.map((notification) => {
         const user = notification.user.username;
         const book = notification.book.title;
         const userAction = notification.action;
@@ -74,7 +74,7 @@ class UserActivity extends Component {
     ];
     return (
       <div>
-        <Table data={this.data} header={header} />
+        <Table record={this.activities} header={header} />
       </div>
     );
   }

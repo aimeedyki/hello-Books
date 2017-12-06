@@ -4,19 +4,19 @@
   "description": "a simple library app that manages its processes",
   "main": "index.js",
   "scripts": {
-    "start:c": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",
-    "client": "node start-client.js",
     "start:dev": "nodemon server/app.js --exec babel-node server/app.js",
     "start": "babel-node server/app.js",
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
     "dev:build": "webpack --config ./webpack.prod.config.js --progress --colors",
     "heroku-postbuild": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
-    "start2": "node ./client/src/app.js",
-    "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
+    "client:test": "jest",
     "test:db": "sequelize db:migrate --env test",
+    "test": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && NODE_ENV=test mocha test/routes_test --compilers js:babel-register --timeout 70000",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run cover | coveralls",
-    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly _mocha --compilers js:babel-register test/*.js --timeout 70000"
+    "cover": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test && sequelize db:seed:all --env test && cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=lcovonly _mocha --compilers js:babel-register test/*.js --timeout 70000",
+    "e2e-setup": "selenium-standalone install",
+    "e2e-server": "selenium-standalone start"
   },
   "nyc": {
     "exclude": [
@@ -39,15 +39,25 @@
   },
   "homepage": "https://github.com/aimeedyki/hello-Books#readme",
   "devDependencies": {
-    "json-loader": "^0.5.7",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
+    "jest": "^21.2.1",
+    "jest-enzyme": "^4.0.1",
+    "json-loader": "^0.5.7",
+    "react-test-renderer": "^15.6.1",
+    "redux-mock-store": "^1.3.0",
+    "regenerator-runtime": "^0.11.0",
+    "selenium-standalone": "^6.12.0",
     "url-loader": "^0.5.9",
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "axios-mock-adapter": "^1.10.0",
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
@@ -57,7 +67,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
     "classname": "0.0.0",
@@ -77,6 +87,7 @@
     "file-loader": "^0.11.2",
     "image-webpack-loader": "^3.4.2",
     "istanbul": "^0.4.5",
+    "jest-localstorage-mock": "^2.1.0",
     "jquery": "^3.2.1",
     "json-loader": "^0.5.7",
     "jsonwebtoken": "^7.4.2",
@@ -84,7 +95,7 @@
     "mocha": "^3.5.0",
     "moment": "^2.18.1",
     "morgan": "^1.8.2",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.5.3",
     "nodemailer": "^4.4.0",
     "nodemon": "^1.11.0",
     "nyc": "^11.2.1",
@@ -115,5 +126,31 @@
   },
   "directories": {
     "test": "test"
+  },
+  "jest": {
+    "verbose": true,
+    "roots": [
+      "client/src/"
+    ],
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ],
+    "setupTestFrameworkScriptFile": "./client/src/setup.js",
+    "collectCoverageFrom": [
+      "client/src/**/*.{js|jsx}"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/client/src/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/client/src/__mocks__/styleMock.js"
+    },
+    "modulePathIgnorePatterns": [
+      "./client/src/components/Authentication/AdminAuth.jsx",
+      "./client/src/components/Authentication/RequireAuth.jsx"
+    ]
   }
 }

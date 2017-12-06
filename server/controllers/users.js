@@ -30,8 +30,8 @@ export default {
         }
       }).then((foundUser) => {
         if (foundUser && foundUser !== null) {
-          return res.status(422).json({
-            message: 'Email already Exists, Please choose another one'
+          return res.status(409).json({
+            message: 'Email/username already Exists, Please choose another one'
           });
         }
         User.create({

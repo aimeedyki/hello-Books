@@ -15,7 +15,7 @@ import generic from '../../assets/images/generic.jpg';
  * @class AllBooks
  * @extends {Component}
  */
-class AllBooks extends Component {
+export class AllBooks extends Component {
   /** Creates an instance of AllBooks.
 * @param {*} props
  * @memberof AllBooks
@@ -152,14 +152,14 @@ class AllBooks extends Component {
       <div className='row'>
         <SearchBar searchItem={this.searchLibrary} submit={this.submitSearch} />
         {(this.props.error) ? <p>{this.props.error}</p> :
-          this.props.books.map((book) => {
+          this.props.books.map((book, index) => {
             let image = book.image;
             if (image === '' || image === null) { image = generic; }
             return (
               <div key={book.id}>
                 <Book image={image} title={book.title}
                   author={book.author} category={book.category.name}
-                  description={book.description} status={book.status}
+                  description={book.description}
                   id={book.id} quantity={book.quantity}
                   getPagination={this.getPagination}
                 />

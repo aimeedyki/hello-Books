@@ -1,10 +1,19 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react';
 
 const Loader = () => (
-  <div className='container loader-body center'>
-    <div className='loader loader-1'>
-      <div className='loader-outter'></div>
-      <div className='loader-inner'></div>
+  <div className="row">
+    <div className="col s2 offset-s6">
+      <div className="preloader-wrapper center big active">
+        <div className="spinner-layer spinner-blue-only">
+          <div className="circle-clipper left">
+            <div className="circle"></div>
+          </div><div className="gap-patch">
+            <div className="circle"></div>
+          </div><div className="circle-clipper right">
+            <div className="circle"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );

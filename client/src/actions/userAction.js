@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 import {
   GET_USER,
   GET_HISTORY,
@@ -12,7 +11,6 @@ import {
   DISPLAY_USER,
   GET_LEVEL,
   DISPLAY_ALL_TRANSACTIONS,
-  CONFIRM_TRANSACTION,
   SUBMIT_TRANSACTION
 } from './types';
 import {
@@ -22,19 +20,6 @@ import {
   setAuthorizationToken,
   getUser
 } from './authAction';
-
-
-// displays user details on userpage
-export const displayUserpage = () => {
-  let user = {};
-  user = localStorage.getItem('user');
-  return (dispatch) => {
-    dispatch({
-      type: GET_USER,
-      payload: JSON.parse(user)
-    });
-  };
-};
 
 // gets the history of a user
 export const getHistory = (limit, offset) => (
@@ -85,7 +70,8 @@ export const displayNotification = () => (
   )
 );
 
-export const passwordChange = (newPassword, confirmNewPassword) => (
+export const passwordChange = (
+  oldPassword, newPassword, confirmNewPassword) => (
   dispatch => (
     axios.put('/api/v1/user/password',
       { newPassword, confirmNewPassword })
@@ -128,6 +114,9 @@ export const changePic = profilePic => (
   dispatch => (
     axios.put('/api/v1/user/profile-image', { profilePic })
       .then(() => {
+        dispatch({
+          type: CHANGE_IMAGE
+        });
         dispatch(getUser());
         Materialize.toast('Profile picture changed successfully!!',
           4000, 'indigo darken-2');
@@ -189,9 +178,6 @@ export const confirmTransaction = transactionId => (
     axios.put('/api/v1/transactions', { transactionId })
       .then((response) => {
         dispatch(displayAllTransactions());
-        dispatch({
-          type: CONFIRM_TRANSACTION
-        });
         return true;
       })
       .catch((error) => {

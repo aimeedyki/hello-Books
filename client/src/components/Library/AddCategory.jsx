@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import { clearErrorMessage } from '../../actions/authAction';
 import { addNewCategory } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
@@ -12,7 +11,7 @@ import Button from '../Common/Button.jsx';
  * @class AddCategory
  * @extends {Component}
  */
-class AddCategory extends Component {
+export class AddCategory extends Component {
   /** Creates an instance of AddCategory.
    * @param {any} props
    * @memberof AddCategory
@@ -24,7 +23,6 @@ class AddCategory extends Component {
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.renderAlert = this.renderAlert.bind(this);
   }
 
   /** @returns {*} void
@@ -54,20 +52,6 @@ class AddCategory extends Component {
           Materialize.toast(error.message, 4000, 'indigo darken-2');
         }
       });
-  }
-
-  /** @returns {string} error message
-   * @memberof AddCategory
-   */
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        Materialize.toast(this.props.errorMessage, 4000,
-          'indigo darken-2', () => {
-            this.props.clearErrorMessage();
-          })
-      );
-    }
   }
 
   /** @returns {*} add category component
@@ -111,6 +95,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  addNewCategory,
-  clearErrorMessage
+  addNewCategory
 })(withRouter(AddCategory));

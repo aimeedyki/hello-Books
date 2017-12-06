@@ -10,7 +10,7 @@ import BookCategory from '../Library/BookCategory.jsx';
  * @class SideNav
  * @extends {Component}
  */
-class SideNav extends Component {
+export class SideNav extends Component {
   /* eslint-disable class-methods-use-this */
   /** calls methods that gets all categories
  * @returns {*} null
@@ -39,8 +39,8 @@ class SideNav extends Component {
     // conditionally render navigation links depending on user level
     (this.props.user.admin === true) ? adminLinks = (
       <ul>
-        <li><NavLink to="/user/dashboard" className="white-text">
-          Dashboard</NavLink></li>
+        <li><NavLink to="/main/admin-dashboard" className="white-text">
+          Admin Dashboard</NavLink></li>
       </ul>
     ) : adminLinks = '';
 
@@ -59,19 +59,19 @@ class SideNav extends Component {
                 src={this.props.profileImage} alt="level icon" /></a>
               <a><span className="col s10 white-text name side-email">
                 Hello {this.props.name}!</span></a>
-              <Link to="/user/profile"><span><i
+              <Link to="/main/profile"><span><i
                 className="col s2 material-icons">
                 settings</i></span></Link>
               <a><span className="white-text email side-email">
                 {this.props.email}</span></a>
             </div>
           </li>
-          <li><NavLink to="/user" className="white-text active">
+          <li><NavLink to="/main" className="white-text active">
             Library</NavLink></li>
-          <li><NavLink to="/user/history" className="white-text">
-            History</NavLink></li>
-          <li><NavLink to="/user/notreturned" className="white-text">
-            Outstanding</NavLink></li>
+          <li><NavLink to="/main/borrow-history" className="white-text">
+            Borrow History</NavLink></li>
+          <li><NavLink to="/main/unreturned-books" className="white-text">
+            Unreturned Books</NavLink></li>
           {adminLinks}
           <div className="white cat">
             <h5 className="cat-head indigo-text text-darken-2">Categories</h5>
@@ -82,7 +82,7 @@ class SideNav extends Component {
                   (
                     <li key={category.id}>
                       <NavLink
-                        to={`/user/${category.id}/${category.name}/category`}
+                        to={`/main/category/${category.id}/${category.name}/`}
                         className="indigo-text text-darken-2">
                         {category.name}</NavLink></li>)
                 )
@@ -101,7 +101,7 @@ class SideNav extends Component {
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
-  const { categories } = state.bookReducer;
+  const { categories } = state.categoryReducer;
   return {
     categories,
     user
