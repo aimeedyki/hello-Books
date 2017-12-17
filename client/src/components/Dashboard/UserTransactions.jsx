@@ -13,7 +13,7 @@ import {
  * @class UserTransactions
  * @extends {Component}
  */
-class UserTransactions extends Component {
+export class UserTransactions extends Component {
   /**
    * Creates an instance of UserTransactions.
    * @param {any} props 
@@ -55,7 +55,7 @@ class UserTransactions extends Component {
         if (confirmed === true) {
           confirmLink = 'Confirmed';
         } else {
-          confirmLink = <a className='link-cursor'
+          confirmLink = <a className='link-cursor' id={`confirm-${id}`}
             onClick={() => { this.confirm(id, level, transactionType); }}>
             CONFIRM</a>;
         }
@@ -80,7 +80,7 @@ class UserTransactions extends Component {
   confirm(id, level, type) {
     let text;
     if (type === 'subscription') {
-      text = `Confirm user change to ${level}?`;
+      text = `Confirm ${level} subscription?`;
     }
     if (type === 'surcharge') {
       text = 'Confirm surcharge payment?';
@@ -167,7 +167,7 @@ class UserTransactions extends Component {
             Unconfirmed
           </option>
         </select>
-        <Table data={this.transactionDetails} header={header} />
+        <Table record={this.transactionDetails} header={header} />
       </div>
     );
   }

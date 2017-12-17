@@ -7,7 +7,10 @@ const GLOBALS = {
     NODE_ENV: JSON.stringify('production')
   },
   CLIENT_ID: JSON.stringify('406108815512-6lu003ugn55vjhu1pg359lkpq8ih7o9t'
-    + '.apps.googleusercontent.com')
+    + '.apps.googleusercontent.com'),
+  CLOUDINARY_UPLOAD_URL: JSON.stringify('https://api.cloudinary.com'
+    + '/v1_1/ddxsazo2k/image/upload'),
+  CLOUDINARY_UPLOAD_PRESET: JSON.stringify('kqndqiq6')
 };
 
 module.exports = {

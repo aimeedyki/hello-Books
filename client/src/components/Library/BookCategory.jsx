@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
   getBooksByCategory, searchCategory, clearSearchError
 } from '../../actions/bookAction';
-import Book from '../Library/Book.jsx';
+import ABook from '../Library/Book.jsx';
 import SearchBar from '../Common/SearchBar.jsx';
 import Loader from '../Common/Loader.jsx';
 import Pagination from '../Common/Pagination';
@@ -15,7 +15,7 @@ import generic from '../../assets/images/generic.jpg';
  * @class BookCategory
  * @extends {Component}
  */
-class BookCategory extends Component {
+export class BookCategory extends Component {
   /** Creates an instance of BookCategory.
   * @param {any} props
    * @memberof BookCategory
@@ -61,8 +61,7 @@ class BookCategory extends Component {
    */
   getCategory(pathName) {
     const stringArray = pathName.split('/');
-    const id = stringArray[2];
-    this.categoryName = stringArray[3];
+    const id = stringArray[3];
     this.categoryId = id;
     this.props.getBooksByCategory(this.categoryId,
       this.state.limit, this.state.offset, this.getPagination);
@@ -101,7 +100,8 @@ class BookCategory extends Component {
     this.setState({
       offset: (page === 1) ? 0 : pageOffset
     }, () => {
-      this.props.getBooks(this.state.limit, this.state.offset);
+      this.props.getBooksByCategory(this.categoryId,
+        this.state.limit, this.state.offset, this.getPagination);
     });
   }
   /**
@@ -117,7 +117,8 @@ class BookCategory extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getBooks(this.state.limit, this.state.offset);
+        this.props.getBooksByCategory(this.categoryId,
+          this.state.limit, this.state.offset, this.getPagination);
       });
     }
   }
@@ -134,7 +135,8 @@ class BookCategory extends Component {
       this.setState({
         offset: pageOffset
       }, () => {
-        this.props.getBooks(this.state.limit, this.state.offset);
+        this.props.getBooksByCategory(this.categoryId,
+          this.state.limit, this.state.offset, this.getPagination);
       });
     }
   }
@@ -180,7 +182,7 @@ class BookCategory extends Component {
           if (image === '' || image === null) { image = generic; }
           return (
             <div key={book.id}>
-              <Book image={image} title={book.title}
+              <ABook image={image} title={book.title}
                 author={book.author} category={this.props.category}
                 description={book.description} status={book.status}
                 id={book.id} quantity={book.quantity} />
@@ -203,7 +205,7 @@ class BookCategory extends Component {
     return (
       <div className='row'>
         <div className='card white col s12 l9 offset-l2 library'>
-          <h4 className='cat-name center'>{this.categoryName}</h4>
+          <h4 className='cat-name center'>{this.props.name}</h4>
           <div className='row indigo-text text-darken-2'>
             <div className='col s12'>
               <SearchBar
@@ -224,6 +226,7 @@ const mapStateToProps = state => (
     books: state.bookReducer.bookCategory.books,
     pagination: state.bookReducer.bookCategory.pagination,
     error: state.bookReducer.searchError,
+    name: state.bookReducer.bookCategory.category
   }
 );
 

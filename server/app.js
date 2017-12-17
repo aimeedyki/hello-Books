@@ -41,7 +41,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'API that manages the processes for a library',
   },
-  host: 'localhost:5000',
+  host: 'https://hello-books-amarachi.herokuapp.com',
   basePath: '/api/v1',
 };
 

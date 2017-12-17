@@ -9,7 +9,7 @@ import Button from '../Common/Button';
  * @class UserPayments
  * @extends {Component}
  */
-class UserPayments extends Component {
+export class UserPayments extends Component {
   /**
    * Creates an instance of UserPayments.
    * @param {any} props 
@@ -40,7 +40,7 @@ class UserPayments extends Component {
    * @memberof ChangePassword
    */
   closePage() {
-    this.props.history.push('/user/profile');
+    this.props.history.push('/main/profile');
   }
 
   /** submits a form and adds book to library
@@ -53,13 +53,11 @@ class UserPayments extends Component {
     this.props.submitTransaction(this.state).then((res) => {
       if (res) {
         Materialize.toast('Uploaded Successfully!', 4000, 'indigo darken-2');
-        this.props.history.push('/user/profile');
+        this.props.history.push('/main/profile');
       }
     })
       .catch((error) => {
-        if (error) {
-          Materialize.toast(error.message, 4000, 'indigo darken-2');
-        }
+        Materialize.toast(error.message, 4000, 'indigo darken-2');
       });
   }
   /**
@@ -124,12 +122,10 @@ class UserPayments extends Component {
 
 // function to connect the state from the store to the props of the component
 const mapStateToProps = (state) => {
-  // const { user } = state.authReducer;
-  // const { error } = state.userReducer;
-  // return {
-  //   user,
-  //   errorMessage: error
-  // };
+  const { user } = state.authReducer;
+  return {
+    user
+  };
 };
 
 export default connect(mapStateToProps, {

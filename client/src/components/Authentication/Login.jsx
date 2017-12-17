@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
@@ -11,7 +10,7 @@ import Button from '../Common/Button.jsx';
 /** @class Login
  * @extends {Component}
  */
-class Login extends Component {
+export class Login extends Component {
   /** Creates an instance of Login.
    * @param {any} props
    * @memberof Login
@@ -55,7 +54,7 @@ class Login extends Component {
       .signinUser(this.state)
       .then((res) => {
         if (res) {
-          this.props.history.push('/user');
+          this.props.history.push('/main');
         }
       });
   }
@@ -78,7 +77,7 @@ class Login extends Component {
       profilePic: imageUrl
     }).then((res) => {
       if (res) {
-        this.props.history.push('/user');
+        this.props.history.push('/main');
       }
     });
     if (response.error) {

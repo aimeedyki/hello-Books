@@ -9,7 +9,7 @@ const Pagination = props => (
         }
         disabled={props.currentPage === 1}
       >
-        <a onClick={event =>
+        <a id="previous" onClick={event =>
           props.previousPage(event, props.currentPage)}>
           <i className='material-icons'>
             chevron_left</i></a></li>
@@ -18,7 +18,7 @@ const Pagination = props => (
           className={page === props.currentPage &&
             'active'
           }>
-          <a onClick={event => props.newPage(event, page)}>
+          <a id={`new${page}`} onClick={event => props.newPage(event, page)}>
             {page}</a></li>
       )
       )}
@@ -28,7 +28,7 @@ const Pagination = props => (
         }
         disabled={props.currentPage === props.totalPages}
       >
-        <a onClick={event =>
+        <a id="next" onClick={event =>
           props.nextPage(event, props.currentPage)}>
           <i className='material-icons'>
             chevron_right</i></a></li>

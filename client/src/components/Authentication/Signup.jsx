@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Switch, Route, withRouter } from 'react-router-dom';
@@ -12,7 +11,7 @@ import Button from '../Common/Button.jsx';
  * @class Signup
  * @extends {Component}
  */
-class Signup extends Component {
+export class Signup extends Component {
   /** Creates an instance of Signup.
    * @param {*} props
    * @memberof Signup
@@ -24,12 +23,11 @@ class Signup extends Component {
       username: '',
       email: '',
       password: '',
-      confirmpassword: '',
+      confirmPassword: '',
       name: '',
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
     this.googleSignup = this.googleSignup.bind(this);
   }
@@ -40,15 +38,6 @@ class Signup extends Component {
      */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-  }
-  /** sets the state of the level to the value of the select field
-     * @returns {*} void
-     * @param {any} event
-     * @memberof Signup
-     */
-  handleSelectChange(event) {
-    event.preventDefault();
-    this.setState({ levelId: event.target.value });
   }
   /** starts the method that displays error messages
      * @returns {*} void
@@ -68,15 +57,14 @@ class Signup extends Component {
       */
   handleFormSubmit(event, res) {
     event.preventDefault();
-    if (this.state.password === this.state.confirmpassword) {
+    if (this.state.password === this.state.confirmPassword) {
       this.props.signupUser(this.state)
         .then((res) => {
           if (res) {
-            this.props.history.push('/user');
+            this.props.history.push('/main');
           }
         });
     } else {
-      /* eslint-disable no-undef */
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
@@ -98,7 +86,7 @@ class Signup extends Component {
       profilePic: imageUrl
     }).then((res) => {
       if (res) {
-        this.props.history.push('/user');
+        this.props.history.push('/main');
       }
     });
     if (response.error) {
@@ -172,10 +160,10 @@ class Signup extends Component {
                     <label>Password</label>
                   </div>
                   <div className="input-field col s12">
-                    <input name="confirmpassword" type="password"
+                    <input name="confirmPassword" type="password"
                       className="validate black-text"
                       onChange={this.handleChange}
-                      value={this.state.confirmpassword}
+                      value={this.state.confirmPassword}
                       required
                     />
                     <label>Confirm Password</label>

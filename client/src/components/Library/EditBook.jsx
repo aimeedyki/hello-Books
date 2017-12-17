@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { clearErrorMessage } from '../../actions/authAction';
 import {
   modifyBook,
-  getCategories, getaBook, imageUpload
+  getCategories, imageUpload, getABook
 } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
@@ -15,7 +15,7 @@ import Button from '../Common/Button.jsx';
  * @class EditBook
  * @extends {Component}
  */
-class EditBook extends Component {
+export class EditBook extends Component {
   /** Creates an instance of EditBook.
    * @param {*} props
    * @memberof EditBook
@@ -37,18 +37,12 @@ class EditBook extends Component {
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.categorySelect = this.categorySelect.bind(this);
     this.renderAlert = this.renderAlert.bind(this);
     this.setBookDetails = this.setBookDetails.bind(this);
     this.getBookId = this.getBookId.bind(this);
     this.onCancel = this.onCancel.bind(this);
-  }
-  /** gets the categories in the library
-     *  @returns {*} null
-     * @memberof EditBook
-     */
-  componentWillMount() {
-    this.props.getCategories();
+    this.closePage = this.closePage.bind(this);
   }
   /** gets the book to be edited
    * @returns {*} null
@@ -56,14 +50,15 @@ class EditBook extends Component {
    */
   componentDidMount() {
     this.getBookId(this.props.location.pathname);
-    this.props.getaBook(this.bookId);
+    this.props.getABook(this.bookId);
+    this.props.getCategories();
   }
   /** @returns {*} null
      * @param {*} nextProps
      * @memberof EditBook
      */
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
+    if (nextProps.book !== this.props.book && nextProps.book) {
       this.setBookDetails(
         nextProps.book.title,
         nextProps.book.author,
@@ -133,7 +128,7 @@ class EditBook extends Component {
    * @param {any} event
    * @memberof EditBook
    */
-  handleSelectChange(event) {
+  categorySelect(event) {
     event.preventDefault();
     this.setState({ categoryId: event.target.value });
   }
@@ -146,13 +141,13 @@ class EditBook extends Component {
     this.props.modifyBook(this.state)
       .then((response) => {
         if (response) {
-          /* eslint-disable no-undef */
-          this.props.history.push('/user');
+          Materialize.toast('Book information has been modified!',
+            4000, 'indigo darken-2');
+          this.props.history.push('/main');
         }
       })
       .catch((error) => {
         if (error) {
-          /* eslint-disable no-undef */
           Materialize.toast(error.message, 4000, 'indigo darken-2');
         }
       });
@@ -179,6 +174,13 @@ class EditBook extends Component {
     const id = stringArray[2];
     this.bookId = id;
   }
+  /**
+   * @returns {*} null
+   * @memberof ChangeLevel
+   */
+  closePage() {
+    this.props.history.push('/main');
+  }
   /** @returns {*} void
    * @memberof EditBook
    */
@@ -194,16 +196,19 @@ class EditBook extends Component {
       <div className="row">
         <div className="col s10 m8 l6 offset-s1 offset-m2 offset-l4">
           <div className="card row">
-            <div className="margin-fix col s10 m8 l8 offset-s1 offset-l2">
+            <i className="material-icons red-text right close link-cursor"
+              onClick={this.closePage}>
+              close</i>
+            <div className="col s10 m10 l8 offset-s1 offset-l2 offset-m1">
               <h5 className="center indigo-text text-darken-2 greeting">
-                <b>Edit Book</b></h5>
+                <b>Edit {this.state.title}</b></h5>
               <form onSubmit={this.handleFormSubmit} >
-                <div className="row edit-form">
+                <div className="row center edit-form">
                   <div className="input-field col s12">
-                    <div className="col s3">
+                    <div className="col s12 l3 m3">
                       <p>Title</p>
                     </div>
-                    <div className="col s9">
+                    <div className="col s12 l9 m9">
                       <input name="title"
                         type="text" className="validate"
                         onChange={this.handleChange}
@@ -214,10 +219,10 @@ class EditBook extends Component {
                     </div>
                   </div>
                   <div className="input-field col s12">
-                    <div className="col s3">
+                    <div className="col s12 l3 m3">
                       <p>Author</p>
                     </div>
-                    <div className="col s9">
+                    <div className="col s12 l9 m9">
                       <input name="author"
                         type="text" className="validate"
                         onChange={this.handleChange}
@@ -228,10 +233,10 @@ class EditBook extends Component {
                     </div>
                   </div>
                   <div className="input-field col s12">
-                    <div className="col s3">
+                    <div className="col s12 l3 m3">
                       <p>Description</p>
                     </div>
-                    <div className="col s9">
+                    <div className="col s12 l9 m9">
                       <input name="description"
                         type="text" className="validate"
                         onChange={this.handleChange}
@@ -242,10 +247,10 @@ class EditBook extends Component {
                     </div>
                   </div>
                   <div className="input-field col s12">
-                    <div className="col s3">
+                    <div className="col s12 l3 m3">
                       <p>Quantity</p>
                     </div>
-                    <div className="col s9">
+                    <div className="col s12 l9 m9">
                       <input name="quantity"
                         type="text" className="validate"
                         onChange={this.handleChange}
@@ -254,13 +259,13 @@ class EditBook extends Component {
                       />
                     </div>
                   </div>
-                  <div className="col s3">
+                  <div className="col s12 l3 m3">
                     <p>Category</p>
                   </div>
-                  <div className="col s9">
+                  <div className="col s12 l9 m9">
                     <select ref="category" id="category"
                       className="browser-default indigo-text text-darken-2"
-                      onChange={this.handleSelectChange}
+                      onChange={this.categorySelect}
                       value={this.state.categoryId}
                       required>
                       {this.props.categories.map(category => (
@@ -307,15 +312,15 @@ class EditBook extends Component {
 }
 // function to connect the state from the store to the props of the component
 const mapStateToProps = state => ({
-  categories: state.bookReducer.categories,
+  categories: state.categoryReducer.categories,
   errorMessage: state.bookReducer.error,
-  book: state.bookReducer.book
+  book: state.bookReducer.book,
 }
 );
 export default connect(mapStateToProps, {
   modifyBook,
   clearErrorMessage,
   getCategories,
-  getaBook,
+  getABook,
   imageUpload
 })(withRouter(EditBook));

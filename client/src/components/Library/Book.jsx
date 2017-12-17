@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import alert from 'sweetalert';
 
-import { displayUserpage } from '../../actions/userAction';
 import { clearErrorMessage } from '../../actions/authAction';
 import { deleteBook, borrowBook, getBooks } from '../../actions/bookAction';
 
@@ -14,7 +12,7 @@ import Button from '../Common/Button.jsx';
  * @class Book
  * @extends {Component}
  */
-class Book extends Component {
+export class Book extends Component {
   /** Creates an instance of Book.
    * @param {any} props
    * @memberof Book
@@ -26,15 +24,8 @@ class Book extends Component {
     this.refresh = this.refresh.bind(this);
   }
 
-  /** @returns {*} void
-   * @memberof Book
-   */
-  componentDidMount() {
-    const { level } = this.props;
-  }
   /** method that allows a user to delete a book
      * @returns {*} void
-     * @param {number} id
      * @memberof Book
      */
   handleDelete() {
@@ -95,19 +86,11 @@ class Book extends Component {
    */
   render() {
     // path to edit a book page
-    const editPath = `/user/${this.props.id}/edit-book`;
+    const editPath = `/main/${this.props.id}/edit-book`;
     const { admin } = this.props.user;
     let status;
     let adminButtons;
-
-    /* eslint-disable no-unused-expressions */
-    // display available copies based on quantity
-    (this.props.quantity > 1) ?
-      (status = `${this.props.quantity} Copies available`) :
-      (status = 'Unavailable');
-
-    // conditionally render buttons depending on user level
-    (admin === true) ? adminButtons = (
+    const buttonList = (
       <ul>
         <li><Link to={editPath} className='btn-floating editColor'>
           <i className='material-icons'>edit</i></Link></li>
@@ -116,7 +99,15 @@ class Book extends Component {
           <i className='material-icons'>delete</i></a>
         </li>
       </ul>
-    ) : adminButtons = '';
+    );
+
+    // display available copies based on quantity
+    (this.props.quantity > 1) ?
+      (status = `${this.props.quantity} Copies available`) :
+      (status = 'Unavailable');
+
+    // conditionally render buttons depending on user level
+    (admin === true) ? adminButtons = buttonList : adminButtons = '';
 
     return (
       <div className='card small col s6 m3 l3'>
@@ -143,6 +134,7 @@ class Book extends Component {
           <p>{status}</p>
           <div className='fixed-action-btn book-buttons'>
             <a onClick={() => { this.borrow(this.props.id); }}
+              id='rent'
               className='btn-floating btn-large indigo darken-2'>RENT</a>
             {adminButtons}
           </div>

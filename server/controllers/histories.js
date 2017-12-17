@@ -10,7 +10,7 @@ export default {
      */
   borrow(req, res) {
     const bookId = parseInt(req.body.bookId, 10);
-    const userId = getUserId(req);
+    const userId = req.decoded.userId;
     if (isNaN(bookId)) {
       return res.status(400).send({
         message: 'Please enter a valid book Id'

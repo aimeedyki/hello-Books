@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 
 const row = (heading, index, header) =>
@@ -10,8 +9,8 @@ const row = (heading, index, header) =>
     )}
   </tr>;
 
-export default ({ data, header }) =>
-  <table className='striped responsive-table centered table' >
+export default ({ record, header }) =>
+  <table className='striped centered table' >
     <thead>
       <tr>
         {header.map((heading, index) =>
@@ -22,6 +21,6 @@ export default ({ data, header }) =>
       </tr>
     </thead>
     <tbody>
-      {data.map((heading, index) => row(heading, index, header))}
+      {record.map((heading, index) => row(heading, index, header))}
     </tbody>
   </table>;

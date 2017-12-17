@@ -251,7 +251,7 @@ export default {
             books: books.rows, pagination: paginate(offset, limit, books)
           };
           if (books.rows.length === 0) {
-            return res.status(404)
+            return res.status(200)
               .send({ message: 'Sorry no books match your search term' });
           }
           return res.status(200).send({ message: 'Success', foundBooks });
