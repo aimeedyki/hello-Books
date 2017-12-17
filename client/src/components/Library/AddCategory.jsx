@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -7,13 +6,17 @@ import { addNewCategory } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/** adds a new category to the library
+/** @description adds a new category to the library
+ *
  * @class AddCategory
+ *
  * @extends {Component}
  */
 export class AddCategory extends Component {
-  /** Creates an instance of AddCategory.
-   * @param {any} props
+  /** @description Creates an instance of AddCategory
+   *
+   * @param {object} props
+   *
    * @memberof AddCategory
    */
   constructor(props) {
@@ -25,16 +28,24 @@ export class AddCategory extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  /** @returns {*} void
-   * @param {any} event
+  /** @description sets the value of the field to state on change
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof AddCategory
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /** @returns {*} void
-   * @param {any} event
+  /** @description submits the form to add a category
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof AddCategory
    */
   handleFormSubmit(event) {
@@ -44,7 +55,7 @@ export class AddCategory extends Component {
         if (response) {
           Materialize.toast('Category added Successfully!',
             4000, 'indigo darken-2');
-          this.props.history.push('/user/dashboard');
+          this.props.history.push('/main/admin-dashboard');
         }
       })
       .catch((error) => {
@@ -54,7 +65,10 @@ export class AddCategory extends Component {
       });
   }
 
-  /** @returns {*} add category component
+  /** @description displays AddCategory component
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof AddCategory
    */
   render() {
@@ -90,6 +104,12 @@ export class AddCategory extends Component {
   }
 }
 
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { * } null
+   */
 const mapStateToProps = state => ({
   state
 });

@@ -6,14 +6,18 @@ import { displayNotification } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 
 
-/** component that notifies the admin
+/** @description component that notifies the admin
  * of users activities
+ *
  * @class UserActivity
+ *
  * @extends {Component}
  */
 export class UserActivity extends Component {
-  /** Creates an instance of UserActivity.
-   * @param {any} props
+  /** @description Creates an instance of UserActivity
+   *
+   * @param {object} props
+   *
    * @memberof UserActivity
    */
   constructor(props) {
@@ -21,16 +25,22 @@ export class UserActivity extends Component {
     this.activities = [];
   }
 
-  /** fetches notification table
-   * @returns {*} void
+  /** @description fetches notification table
+   *
+   * @returns {*} null
+   *
    * @memberof UserActivity
    */
   componentDidMount() {
     this.props.displayNotification();
   }
 
-  /** @returns {*} notification details
-   * @param {any} nextProps
+  /** @description maps the notification record to its heading
+   *
+   * @returns {array} notification details
+   *
+   * @param {object} nextProps
+   *
    * @memberof UserActivity
    */
   componentWillReceiveProps(nextProps) {
@@ -50,7 +60,11 @@ export class UserActivity extends Component {
       });
     }
   }
-  /** @returns {*} component
+
+  /** @description displays users activities
+   *
+   * @returns {*} null
+   *
    * @memberof UserActivity
    */
   render() {
@@ -79,7 +93,13 @@ export class UserActivity extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } notifications
+   */
 const mapStateToProps = state => (
   {
     notifications: state.userReducer.notifications,

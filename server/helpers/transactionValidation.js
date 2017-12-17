@@ -1,7 +1,9 @@
 /** @description validates signup form for valid email and password fields
-   * @param {object} fields a form object
-   * @returns {object} response object
-   */
+ *
+ * @param {object} fields a form object
+ *
+ * @returns {object} response object with a validation boolean and a message
+ */
 const transactionValidation = (fields) => {
   const transactionId = fields.transactionId || null;
   const transactionType = fields.transactionType || null;

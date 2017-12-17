@@ -22,39 +22,64 @@ import {
 } from './types';
 import { errorHandler } from './authAction';
 
-// action to set the book categories to the redux store
+/** @description sets the book categories to the redux store
+ * 
+ * @param {arrays} categories categories in the library
+ *
+ * @return {Object} with a type as string and an array of categories
+ */
 export const setCategories = categories => ({
   type: GET_CATEGORIES,
   payload: categories
 });
 
-// action to set all books from api to the store
+/** @description sets all books to the redux store
+ * 
+ * @param {arrays} books books in the library
+ *
+ * @return {Object} with a type as string and an array of books
+ */
 export const setBooks = books => ({
   type: GET_BOOKS,
   payload: books
 });
 
-// action to get a particular book
+/** @description sets a single book
+ * 
+ * @param {object} book a single book
+ *
+ * @return {Object} with a type as string and a book object
+ */
 export const setABook = book => ({
   type: GET_ABOOK,
   payload: book
 });
 
-// action to set all the books in a category to store
+/** @description sets books in a category to store
+ *
+ * @param {arrays} category the books in a category
+ *
+ * @return {Object} with a type as string and a category object
+ */
 export const setBookCategory = category => ({
   type: GET_BOOKS_BYCATEGORIES,
   payload: category
 });
 
-/**
- * @description clears error message in store
- * @return {*} null
+/** @description clears error message in store
+ *
+ * @return {Object} with a type as string
  */
 export const clearSearchError = () => ({
   type: CLEAR_SEARCH_ERROR
 });
 
-// action to upload an image to cloudinary
+/** @description uploads an image to cloudinary
+ *
+ * @param {file} image an image file
+ *
+ * @return {*} null
+ */
 export const imageUpload = image => (
   () => (
     request
@@ -64,7 +89,17 @@ export const imageUpload = image => (
   )
 );
 
-// action creator to add a book
+/** @description action creator to add a book
+ *
+ * @param {string} title book title
+ * @param {string} author book author
+ * @param {string} description book description
+ * @param {number} quantity book quantity
+ * @param {number} categoryId category book belongs to
+ * @param {string} image book image url
+ *
+ * @return {function} dispatch
+ */
 export const addBook =
   ({ title, author, description, quantity, categoryId, image }) => (
     dispatch => (
@@ -82,7 +117,15 @@ export const addBook =
         })
     )
   );
-// action creator to get all books in a library
+
+/** @description action creator to get all books in a library
+ *
+ * @param {number} limit The maximum number of items to display
+ * @param {number} offset The offset from the first result to list from
+ * @param {function} paginationFunction function that displays pagination
+ *
+ * @return {function} dispatch
+ */
 export const getBooks = (limit, offset, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/books?offset=${offset}&limit=${limit}`)
@@ -98,7 +141,17 @@ export const getBooks = (limit, offset, paginationFunction) => (
   )
 );
 
-// action creator to modify a book
+/** @description action creator to modify a book
+ *
+ * @param {string} title book title
+ * @param {string} author book author
+ * @param {string} description book description
+ * @param {number} quantity book quantity
+ * @param {number} categoryId category book belongs to
+ * @param {string} image book image url
+ *
+ * @return {function} dispatch
+ */
 export const modifyBook =
   ({ title, author, description, quantity, categoryId, bookId, image }) => (
     dispatch => (
@@ -117,7 +170,11 @@ export const modifyBook =
     )
   );
 
-// action creator to get all categories
+// 
+/** @description action creator to get all categories
+ *
+ * @return {function} dispatch
+ */
 export const getCategories = () => (
   dispatch => (
     axios.get('/api/v1/category')
@@ -130,7 +187,12 @@ export const getCategories = () => (
   )
 );
 
-// action creator to add a new book category
+/** @description action creator to add a new book category
+ *
+ * @param {string} name category name
+ *
+ * @return {function} dispatch
+ */
 export const addNewCategory = ({ name }) => (
   dispatch => (
     axios.post('/api/v1/category', { name })
@@ -149,7 +211,13 @@ export const addNewCategory = ({ name }) => (
   )
 );
 
-// action creator to add a new book category
+/** @description action creator to edit a category name
+ *
+ * @param {number} categoryId id of the category to be edited
+ * @param {string} name category name
+ *
+ * @return {function} dispatch
+ */
 export const editCategory = (categoryId, name) => (
   dispatch => (
     axios.put(`/api/v1/${categoryId}/category`, { name })
@@ -170,7 +238,12 @@ export const editCategory = (categoryId, name) => (
   )
 );
 
-// action creator to delete a category
+/** @description action creator to delete a category
+ *
+ * @param {number} id id of the category to be deleted
+ *
+ * @return {function} dispatch
+ */
 export const deleteCategory = id => (
   dispatch => (
     axios.delete(`/api/v1/${id}/category`)
@@ -188,7 +261,12 @@ export const deleteCategory = id => (
   )
 );
 
-// action creator to get a single book
+/** @description action creator to get a single book
+ *
+ * @param {number} id id of the book to be displayed
+ *
+ * @return {function} dispatch
+ */
 export const getABook = id => (
   dispatch => (
     axios.get(`/api/v1/books/${id}`)
@@ -201,7 +279,15 @@ export const getABook = id => (
   )
 );
 
-// action creator to get the books in a category
+/** @description action creator to get the books in a category
+ *
+ * @param {number} id id of the category to be displayed
+ * @param {number} limit The maximum number of items to display
+ * @param {number} offset The offset from the first result to list from
+ * @param {function} paginationFunction function that displays pagination
+ *
+ * @return {*} null
+ */
 export const getBooksByCategory = (id, limit, offset, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/${id}/category?offset=${offset}
@@ -216,7 +302,13 @@ export const getBooksByCategory = (id, limit, offset, paginationFunction) => (
   )
 );
 
-// action creator to delete a book
+/** @description action creator to delete a book
+ *
+ * @param {number} id id of the book to be borrowed
+ * @param {function} refresh a function to refresh the page
+ *
+ * @return {*} null
+ */
 export const deleteBook = (id, refresh) => (
   dispatch => (
     axios.delete(`/api/v1/books/${id}`)
@@ -234,7 +326,13 @@ export const deleteBook = (id, refresh) => (
   )
 );
 
-// action creator to borrow a book
+/** @description action creator to borrow a book
+ *
+ * @param {number} bookId id of the book to be borrowed
+ *  @param {function} refresh a function to refresh the page
+ *
+ * @return {*} null
+ */
 export const borrowBook = (bookId, refresh) => (
   dispatch => (
     axios.post('/api/v1/user/borrow-book',
@@ -252,7 +350,13 @@ export const borrowBook = (bookId, refresh) => (
   )
 );
 
-// action creator to return a book
+/** @description action creator to return a book
+ *
+ * @param {number} historyId the id of the history record
+ * @param {function} refresh a function to refresh the page
+ *
+ * @return {*} null
+ */
 export const returnBook = (historyId, refresh) => (
   dispatch => (
     axios.put('/api/v1/user/return-book',
@@ -270,13 +374,26 @@ export const returnBook = (historyId, refresh) => (
   )
 );
 
-// action creator to search a book
+/** @description action creator to search for a book
+ *
+ * @param {string} term search term
+ * @param {function} paginationFunction function that displays pagination
+ *
+ * @return {*} null
+ */
 export const searchBooks = (term, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/search?term=${term}`)
       .then((response) => {
-        dispatch(setBooks(response.data.foundBooks));
-        paginationFunction();
+        if (response.data.message !== 'Success') {
+          dispatch({
+            type: SEARCH_ERROR,
+            payload: response.data.message
+          });
+        } else {
+          dispatch(setBooks(response.data.foundBooks));
+          paginationFunction();
+        }
         return true;
       })
       .catch((error) => {
@@ -285,13 +402,27 @@ export const searchBooks = (term, paginationFunction) => (
   )
 );
 
-// action creator to search a book category
+/** @description action creator to search a book category
+ *
+ * @param {string} term search term
+ * @param {number} categoryId the category the books belong to
+ * @param {function} paginationFunction function that displays pagination
+ *
+ * @return {*} null
+ */
 export const searchCategory = (term, categoryId, paginationFunction) => (
   dispatch => (
     axios.get(`/api/v1/search?term=${term}&category=${categoryId}`)
       .then((response) => {
-        dispatch(setBookCategory(response.data.foundBooks));
-        paginationFunction();
+        if (response.data.message !== 'Success') {
+          dispatch({
+            type: SEARCH_ERROR,
+            payload: response.data.message
+          });
+        } else {
+          dispatch(setBookCategory(response.data.foundBooks));
+          paginationFunction();
+        }
         return true;
       })
       .catch((error) => {

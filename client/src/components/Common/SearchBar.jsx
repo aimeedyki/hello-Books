@@ -1,5 +1,11 @@
 import React from 'react';
 
+/** @description displays search bar
+   * 
+   * @param { object } props 
+   * 
+   * @returns { JSX } JSX
+   */
 const SearchBar = props => (
   <div className="search-bar row">
     <div className="col s12 " >

@@ -1,14 +1,20 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import RequireAuth from './Authentication/RequireAuth';
+import Authentication from './Authentication/Authentication';
 import Home from './Home';
 import UserPage from './UserPage';
 
+/** @description entry point of the application
+   *
+   * @param { object } props
+   *
+   * @returns { JSX } JSX
+   */
 const App = props => (
   <div>
     <Switch>
-      <Route path="/main" component={RequireAuth(UserPage)} />
+      <Route path="/main" component={Authentication(UserPage)} />
       <Route path="/" component={Home} />
     </Switch>
   </div>

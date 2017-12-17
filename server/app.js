@@ -1,5 +1,4 @@
 import express from 'express';
-import logger from 'morgan';
 import bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import path from 'path';
@@ -17,8 +16,6 @@ const app = express();
 
 // sets port
 const port = process.env.PORT || 5000;
-
-// db.sequelize.sync({ force: true })
 
 // Log requests to the console.
 if (process.env.NODE_ENV === 'development') {
@@ -84,10 +81,6 @@ app.get('/*', (req, res) => {
   res.sendFile(indexFile);
 });
 
-app.listen(port, (err) => {
-  /* eslint-disable no-console */
-  if (err) console.log(err);
-  console.log('started');
-});
+app.listen(port);
 
 export default app;

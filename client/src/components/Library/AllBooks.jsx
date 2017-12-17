@@ -11,15 +11,19 @@ import Pagination from '../Common/Pagination';
 import generic from '../../assets/images/generic.jpg';
 
 
-/** component that displays all books
+/** @description component that displays all books
+ *
  * @class AllBooks
+ *
  * @extends {Component}
  */
 export class AllBooks extends Component {
-  /** Creates an instance of AllBooks.
-* @param {*} props
- * @memberof AllBooks
- */
+  /** @description Creates an instance of AllBooks.
+   *
+   * @param {*} props
+   *
+   * @memberof AllBooks
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -36,40 +40,53 @@ export class AllBooks extends Component {
     this.searchLibrary = this.searchLibrary.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
   }
-  /** @returns {*} null
+
+  /** @description fetches books in the library
+   * 
+   * @returns {*} null
+   *
   * @memberof AllBooks
   */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getBooks(this.state.limit,
       this.state.offset, this.getPagination);
   }
 
-  /**
+  /** @description gets pagination
+   *
    * @returns {*} null
+   *
    * @memberof AllBooks
    */
   getPagination() {
-    this.getPages(this.props.pagination.pageCount);
+    if (this.props.pagination) {
+      this.getPages(this.props.pagination.pageCount);
+    }
   }
 
   /** @description creates an array of page numbers
+   *
    * @returns {*} null
+   *
    * @param {number} pageCount
+   *
    * @memberof AllBooks
    */
   getPages(pageCount) {
-    const pages = [];
-    for (let index = 1; index <= pageCount; index++) {
-      pages.push(index);
-    }
+    const pages = Array.from({ length: pageCount },
+      (value, index) => index + 1);
     this.setState({
       pages
     });
   }
-  /**
-   * @returns {*} void
-   * @param {*} event
+
+  /** @description moves to a new page
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
    * @param {number} page
+   *
    * @memberof AllBooks
    */
   getNewPage(event, page) {
@@ -82,10 +99,13 @@ export class AllBooks extends Component {
         this.state.limit, this.state.offset, this.getPagination);
     });
   }
-  /**
-   * @returns {*} void
-   * @param {*} event
+  /** @description moves to the next page
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
    * @param {number} currentPage
+   *
    * @memberof AllBooks
    */
   getNextPage(event, currentPage) {
@@ -100,10 +120,14 @@ export class AllBooks extends Component {
       });
     }
   }
-  /**
-   * @returns {*} void
-   * @param {*} event
+
+  /** @description moves to a previous page
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
    * @param {number} currentPage
+   *
    * @memberof AllBooks
    */
   getPreviousPage(event, currentPage) {
@@ -118,34 +142,47 @@ export class AllBooks extends Component {
       });
     }
   }
+
   /** @description searches on 3rd key stroke
-   * @returns {object} books
-   * @param {*} event
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof AllBooks
    */
   searchLibrary(event) {
     event.preventDefault();
     this.props.clearSearchError();
-    this.setState({ searchTerm: event.target.value });
-    if (event.target.value.length > 2) {
-      this.props.searchBooks(event.target.value, this.getPagination);
-    } else {
-      this.props.getBooks(
-        this.state.limit, this.state.offset, this.getPagination);
-    }
+    this.setState({ searchTerm: event.target.value }, () => {
+      if (this.state.searchTerm.length > 2) {
+        this.props.searchBooks(this.state.searchTerm, this.getPagination);
+      } else {
+        this.props.getBooks(
+          this.state.limit, this.state.offset, this.getPagination);
+      }
+    });
   }
+
   /** @description searches when search icon is clicked
-   * @returns {object} books
-   * @param {*} event
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof AllBooks
    */
   submitSearch(event) {
     event.preventDefault();
     this.props.searchBooks(this.state.searchTerm);
   }
-  /** @returns {*} all the books in the library
-  * @memberof AllBooks
-  */
+
+  /** @description renders the Allbooks component
+   *
+   * @returns {JSX} JSX
+   *
+   * @memberof AllBooks
+   */
   render() {
     if (!this.props.books) { return <Loader />; }
     return (
@@ -181,7 +218,15 @@ export class AllBooks extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state 
+   *
+   * @returns { string } error
+   * @returns { array } books
+   * @returns { object } pagination details
+   */
 const mapStateToProps = (state) => {
   const { searchError, books } = state.bookReducer;
   return {

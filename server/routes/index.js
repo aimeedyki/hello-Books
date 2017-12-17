@@ -1,12 +1,12 @@
 import express from 'express';
-import usersController from '../controllers/users';
-import booksController from '../controllers/books';
-import historiesController from '../controllers/histories';
-import categoriesController from '../controllers/categories';
-import authController from '../controllers/auth';
+import usersController from '../controllers/usersController';
+import booksController from '../controllers/booksController';
+import historiesController from '../controllers/historiesController';
+import categoriesController from '../controllers/categoriesController';
+import authController from '../controllers/authController';
 import authentication from '../middleware/authentication';
-import notificationsController from '../controllers/notifications';
-import transactionsController from '../controllers/transaction';
+import notificationsController from '../controllers/notificationsController';
+import transactionsController from '../controllers/transactionController';
 
 
 const app = express();
@@ -240,24 +240,10 @@ const app = express();
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: email
- *         description: users' email
+ *       - name: user
+ *         description: users' object
  *         in: body
  *         required: true
- *       - name: username
- *         description: users' username
- *         in: body
- *         required: true
- *       - name: name
- *         description: user's name
- *         in: body
- *         required: true
- *       - name: password
- *         description: users' password. should be up to 8 characters
- *         in: body
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Register'
  *     responses:
  *       201:
  *         description: Successfully created
@@ -282,12 +268,8 @@ app.post('/users/signup', usersController.signup);
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: username
- *         description: User's username
- *         in: body
- *         required: true
- *       - name: password
- *         description: User's password
+ *       - name: user
+ *         description: User object
  *         in: body
  *         required: true
  *         schema:
@@ -297,7 +279,7 @@ app.post('/users/signup', usersController.signup);
  *         description: User logged in
  *       400:
  *         description: Please fill in required parameters
- *       403:
+ *       401:
  *         description: Username or password is incorrect
  *       404:
  *         description: Username does not exist
@@ -316,16 +298,12 @@ app.post('/users/signin', authController.login);
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: oldPassword
- *         description: user's current password
+ *       - name: user
+ *         description: user object
  *         in: body
  *         required: true
- *       - name: newPassword
- *         description: user's new password
- *         in: body
- *         required: true
- *       - name: confirmNewPassword
- *         description: confirm user's new password
+ *       - name: password
+ *         description: user password
  *         in: body
  *         required: true
  *       - name: Authorization
@@ -360,16 +338,12 @@ app.put('/user/password',
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: newLevelId
- *         description: new level a user want to change to either 1, 2 or 3
+ *       - name: user
+ *         description: user object
  *         in: body
  *         required: true
- *       - name: transactionId
- *         description: the reference number of payment
- *         in: body
- *         required: true
- *       - name: amount
- *         description: the amount paid to subscribe
+ *       - name: level
+ *         description: user level
  *         in: body
  *         required: true
  *       - name: Authorization
@@ -404,7 +378,11 @@ app.put(
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: profilePic
+ *       - name: user
+ *         description: user object
+ *         in: body
+ *         required: true
+ *       - name: profile-image
  *         description: new image url
  *         in: body
  *         required: true
@@ -462,8 +440,8 @@ app.get(
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: Category
- *         description: category title
+ *       - name: category
+ *         description: category
  *         in: body
  *         required: true
  *       - name: Authorization
@@ -634,28 +612,8 @@ app.delete(
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: title
- *         description: title of the book
- *         in: body
- *         required: true
- *       - name: author
- *         description: author of the book
- *         in: body
- *         required: true
- *       - name: description
- *         description: description of the book
- *         in: body
- *         required: true
- *       - name: quantity
- *         description: quantity of the book
- *         in: body
- *         required: true
- *       - name: categoryId
- *         description: category of the book
- *         in: body
- *         required: true
- *       - name: image
- *         description: picture of the book
+ *       - name: books
+ *         description: book object
  *         in: body
  *         required: true
  *       - name: Authorization
@@ -684,28 +642,12 @@ app.post(
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: title
- *         description: title of the book
+ *       - name: books
+ *         description: book object
  *         in: body
  *         required: false
- *       - name: author
- *         description: author of the book
- *         in: body
- *         required: false
- *       - name: description
- *         description: description of the book
- *         in: body
- *         required: false
- *       - name: quantity
- *         description: quantity of the book
- *         in: body
- *         required: false
- *       - name: categoryId
- *         description: category of the book
- *         in: body
- *         required: false
- *       - name: image
- *         description: picture of the book
+ *       - name: id
+ *         description: book id
  *         in: body
  *         required: false
  *       - name: Authorization
@@ -855,7 +797,7 @@ app.get('/books/', authentication.verifyUser, booksController.listBooks);
 
 /**
  * @swagger
- * /users/:userId/books:
+ * /user/borrow-book:
  *   post:
  *     tags:
  *       - History

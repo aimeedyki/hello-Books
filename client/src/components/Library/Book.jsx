@@ -8,13 +8,17 @@ import { deleteBook, borrowBook, getBooks } from '../../actions/bookAction';
 
 import Button from '../Common/Button.jsx';
 
-/** component that displays a single book
+/** @description component that displays a single book
+ *
  * @class Book
+ *
  * @extends {Component}
  */
 export class Book extends Component {
-  /** Creates an instance of Book.
-   * @param {any} props
+  /** @description Creates an instance of Book
+   *
+   * @param {object} props
+   *
    * @memberof Book
    */
   constructor(props) {
@@ -24,10 +28,12 @@ export class Book extends Component {
     this.refresh = this.refresh.bind(this);
   }
 
-  /** method that allows a user to delete a book
-     * @returns {*} void
-     * @memberof Book
-     */
+  /** @description method that allows a user to delete a book
+    *
+    * @returns {*} null
+    *
+    * @memberof Book
+    */
   handleDelete() {
     alert({
       title: 'Delete?',
@@ -49,15 +55,20 @@ export class Book extends Component {
   }
 
   /** @description refreshes book page
-   * @returns {*} void
+   *
+   * @returns {*} null
+   *
    * @memberof Book
    */
   refresh() {
     this.props.getBooks(8, 0, this.props.getPagination);
   }
-  /** method that allows a user to borrow a book
-   * @returns {*} void
-   * @param {any} id
+  /** @description method that allows a user to borrow a book
+   *
+   * @returns {*} null
+   *
+   * @param {number} id
+   *
    * @memberof Book
    */
   borrow(id) {
@@ -81,11 +92,14 @@ export class Book extends Component {
       });
   }
 
-  /** @returns {*} book to edit
+  /** @description renders the edit book component
+   * 
+   * @returns {JSX} JSX
+   *
    * @memberof Book
    */
   render() {
-    // path to edit a book page
+    // path to the edit a book page
     const editPath = `/main/${this.props.id}/edit-book`;
     const { admin } = this.props.user;
     let status;
@@ -113,13 +127,13 @@ export class Book extends Component {
       <div className='card small col s6 m3 l3'>
         <div className='card-image'
           className='book-image waves-effect waves-block waves-light'>
-          <img className='activator responsive-img'
+          <img className='responsive-img book-image'
             src={this.props.image} alt='book image' />
         </div>
         <div id='card-book' className='card-content'>
           <span
-            className='card-title activator center indigo-text text-darken-2'>
-            <i className='material-icons right'>
+            className='card-title center indigo-text text-darken-2'>
+            <i className='material-icons activator right'>
               more_vert</i>{this.props.title}
           </span>
         </div>
@@ -144,7 +158,13 @@ export class Book extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state 
+   *
+   * @returns { array } categories
+   * @returns { string } error message
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { error } = state.bookReducer;

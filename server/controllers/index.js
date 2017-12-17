@@ -1,12 +1,12 @@
-import users from './users';
-import auth from './auth';
-import categories from './categories';
-import books from './books';
-import histories from './histories';
-import notifications from './notifications';
-import transactions from './transaction';
+import users from './usersController';
+import auth from './authController';
+import categories from './categoriesController';
+import books from './booksController';
+import histories from './historiesController';
+import notifications from './notificationsController';
+import transactions from './transactionController';
 
-// controllers for users,books,categories, and histories
+// all controllers
 export default {
   users,
   auth,

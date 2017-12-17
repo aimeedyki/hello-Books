@@ -8,13 +8,18 @@ import { getOutstanding } from '../../actions/userAction';
 import Table from '../Common/Table.jsx';
 import Loader from '../Common/Loader.jsx';
 import Pagination from '../Common/Pagination';
-/** displays books not returned
+
+/** @description displays books not returned
+ *
  * @class Outstanding
+ *
  * @extends {Component}
  */
 export class Outstanding extends Component {
-  /** Creates an instance of Outstanding.
+  /** @description Creates an instance of Outstanding.
+    *
      * @param {*} props
+     *
      * @memberof Outstanding
      */
   constructor(props) {
@@ -32,29 +37,34 @@ export class Outstanding extends Component {
     this.getNextPage = this.getNextPage.bind(this);
     this.getPreviousPage = this.getPreviousPage.bind(this);
   }
-  /** fetches outstanding books
+  /** @description fetches outstanding books
+   *
    * @memberof Outstanding
-   * @returns {object} outstanding books
+   *
+   * @returns {*} null
    */
   componentDidMount() {
-    // const { userId } = this.props.user;
-    // this.userId = userId;
     this.props.getOutstanding(this.state.limit,
       this.state.offset);
   }
 
   /** @description refreshes book page
-   * @returns {*} void
+   *
+   * @returns {*} null
+   *
    * @memberof Book
    */
   refresh() {
     this.props.getOutstanding(this.state.limit,
       this.state.offset);
   }
-  /** returns a book
+  /** @description returns a book
+   *
    * @param {number} id
+   *
+   * @returns {*} null
+   *
    * @memberof Outstanding
-   * @returns {*} void
    */
   return(id) {
     alert({
@@ -76,10 +86,13 @@ export class Outstanding extends Component {
         }
       });
   }
-  /** sets an array of books fetched when available
-   * @param {any} nextProps
+  /** @description sets an array of books fetched when available
+   *
+   * @returns {*} null
+   * 
+   * @param { object } nextProps
+   *
    * @memberof Outstanding
-   * @returns {object} outstanding books
    */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
@@ -105,25 +118,29 @@ export class Outstanding extends Component {
   }
 
   /** @description creates an array of page numbers
-   * @returns {*} void
-   * @param {any} pageCount
-   * @memberof Allbooks
+   *
+   * @returns { * } null
+   *
+   * @param { number } pageCount
+   *
+   * @memberof Outstanding
    */
   getPages(pageCount) {
-    const pages = [];
-    /* eslint-disable no-plusplus */
-    for (let index = 1; index <= pageCount; index++) {
-      pages.push(index);
-    }
+    const pages = Array.from({ length: pageCount },
+      (value, index) => index + 1);
     this.setState({
       pages
     });
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} page
-   * @memberof Allbooks
+
+  /** @description moves to a new page
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   * @param { number } page
+   *
+   * @memberof Outstanding
    */
   getNewPage(event, page) {
     event.preventDefault();
@@ -136,11 +153,15 @@ export class Outstanding extends Component {
       );
     });
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+
+  /** @description moves to the next page
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   * @param { number } currentPage
+   *
+   * @memberof Outstanding
    */
   getNextPage(event, currentPage) {
     event.preventDefault();
@@ -155,11 +176,14 @@ export class Outstanding extends Component {
       });
     }
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+  /** @description moves to a previous page
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   * @param { number } currentPage
+   * 
+   * @memberof Outstanding
    */
   getPreviousPage(event, currentPage) {
     event.preventDefault();
@@ -175,8 +199,10 @@ export class Outstanding extends Component {
     }
   }
 
-  /** renders outstanding books table
-   * @returns {*} component
+  /** @description renders outstanding books table
+   *
+   * @returns { JSX } JSX
+   *
    * @memberof Outstanding
    */
   render() {
@@ -200,7 +226,7 @@ export class Outstanding extends Component {
     ];
     if (!this.props.pagination) { return <Loader />; }
     return (
-      <div className='row'>
+      <div className='row center'>
         <div className='card col s12 l8 offset-l3'>
           <Table record={this.outstandingBooks} header={header} />
           <Pagination
@@ -216,7 +242,15 @@ export class Outstanding extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state 
+   *
+   * @returns { array } books not returned
+   * @returns { object } pagination details
+   * @returns { string } error message
+   */
 const mapStateToProps = state => (
   {
     notReturned: state.userReducer.notReturned.histories,

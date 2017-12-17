@@ -1,8 +1,9 @@
-/* eslint-disable no-useless-escape */
 /** @description validates email format
-   * @param {object} email a form object
-   * @returns {boolean} a boolean for validated email
-   */
+ *
+ * @param {object} email a form object
+ *
+ * @returns {boolean} a boolean for if email is valid
+ */
 const validateEmail = (email) => {
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (email.match(mailformat)) {
@@ -12,9 +13,11 @@ const validateEmail = (email) => {
 };
 
 /** @description validates signup form for valid email and password fields
-   * @param {object} fields a form object
-   * @returns {object} response object
-   */
+ *
+ * @param {object} fields a form object
+ * 
+ * @returns {object} response object with a validation boolean and a message
+ */
 const signupInputValidation = (fields) => {
   const email = fields.email || null;
   const password = fields.password || null;

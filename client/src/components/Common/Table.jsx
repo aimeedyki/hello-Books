@@ -1,5 +1,13 @@
 import React from 'react';
 
+/** @description dynamically maps the table's row
+   *
+   * @param { string } heading
+   * @param { number } index
+   * @param { array } header 
+   *
+   * @returns { JSX } JSX
+   */
 const row = (heading, index, header) =>
   <tr key={`tr-${index}`}>
     {header.map((info, rowIndex) =>
@@ -9,6 +17,12 @@ const row = (heading, index, header) =>
     )}
   </tr>;
 
+/** @description returns the table
+   *
+   * @param { object } props
+   *
+   * @returns { JSX } JSX
+   */
 export default ({ record, header }) =>
   <table className='striped centered table' >
     <thead>

@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Switch, Route, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 
 import { signupUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
-/** sign up form
+
+/** @description sign up form
+ *
  * @class Signup
+ *
  * @extends {Component}
  */
 export class Signup extends Component {
-  /** Creates an instance of Signup.
+  /** @description Creates an instance of Signup.
+   *
    * @param {*} props
+   *
    * @memberof Signup
    */
   constructor(props) {
@@ -31,31 +36,42 @@ export class Signup extends Component {
     this.renderAlert = this.renderAlert.bind(this);
     this.googleSignup = this.googleSignup.bind(this);
   }
-  /** sets the state to the value of the field
-     * @returns {*} null
-     * @param {*} event
-     * @memberof Signup
-     */
+
+  /** @description sets the state to the value of the field
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof Signup
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** starts the method that displays error messages
-     * @returns {*} void
-     * @param {any} prevProps
-     * @memberof Signup
-     */
+
+  /** @description starts the method that displays error messages
+   *
+   * @returns {*} null
+   *
+   * @param {object} prevProps
+   *
+   * @memberof Signup
+   */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
       this.renderAlert();
     }
   }
-  /** signs up a user when form is submitted
-      * @returns {*} void
-      * @param {any} event
-      * @param {any} res
-      * @memberof Signup
-      */
-  handleFormSubmit(event, res) {
+
+  /** @description signs up a user when form is submitted
+   *
+   * @returns {*} null
+   *
+   * @param {any} event
+   * 
+   * @memberof Signup
+   */
+  handleFormSubmit(event) {
     event.preventDefault();
     if (this.state.password === this.state.confirmPassword) {
       this.props.signupUser(this.state)
@@ -68,12 +84,21 @@ export class Signup extends Component {
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
-  /**
-   * @returns {*} void
-   * @param {any} response 
+
+  /** @description handles signup with google authentication
+   *
+   * @returns {*} null
+   *
+   * @param {object} response 
+   *
    * @memberof Signup
    */
   googleSignup(response) {
+    if (response.error) {
+      return Materialize
+        .toast('Please resume google signup or fill signup form', 4000, ''
+        );
+    }
     const {
       email, givenName, familyName, googleId, imageUrl } = response.profileObj;
     const username = givenName + googleId;
@@ -89,16 +114,14 @@ export class Signup extends Component {
         this.props.history.push('/main');
       }
     });
-    if (response.error) {
-      Materialize
-        .toast('Please resume google signup or fill signup form', 4000, ''
-        );
-    }
   }
-  /** displays error message
-     * @returns {string} error message
-     * @memberof Signup
-     */
+
+  /** @description displays error message
+   *
+   * @returns {string} error message
+   *
+   * @memberof Signup
+   */
   renderAlert() {
     if (this.props.errorMessage) {
       return (
@@ -108,10 +131,12 @@ export class Signup extends Component {
       );
     }
   }
-  /** renders signup form
-     * @returns {*} signup component
-     * @memberof Signup
-     */
+  /** @description renders signup form
+   *
+   * @returns {*} signup component
+   *
+   * @memberof Signup
+   */
   render() {
     return (
       <div className="row" >
@@ -206,6 +231,12 @@ Signup.PropTypes = {
   clearErrorMessage: PropTypes.func
 };
 
+/** @description connect the state from the store to the component props
+   *
+   * @param {object} state
+   *
+   * @returns {string} error message
+   */
 const mapStateToProps = state => (
   {
     errorMessage: state.authReducer.error,

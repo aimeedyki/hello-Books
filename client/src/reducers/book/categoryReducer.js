@@ -10,11 +10,12 @@ const initialState = {
   categories: []
 };
 
-/** reducers for book components
- * @export
- * @param {*} [state=initialState]
- * @param {*} action
- * @returns {*} state
+/** @description reducers for book components
+ *
+ * @param {object} [state=initialState]
+ * @param {object} action
+ *
+ * @returns {object} state
  */
 export default (state = initialState, action) => {
   switch (action.type) {

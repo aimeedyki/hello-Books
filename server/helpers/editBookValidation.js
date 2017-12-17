@@ -1,3 +1,9 @@
+/** @description validates form fields for editing a book
+   *
+   * @param {object} fields a form object
+   *
+   * @returns {object} response object with a validation boolean and a message
+   */
 const editBookValidation = (fields) => {
   const bookId = parseInt(fields.params.id, 10);
   if (isNaN(bookId)) {

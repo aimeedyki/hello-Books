@@ -7,14 +7,17 @@ import { clearErrorMessage, getUser } from '../../actions/authAction';
 import { changeLevel } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
-/** Change level component
+/** @description Change level component
+ *
  * @class ChangeLevel
+ *
  * @extends {Component}
  */
 export class ChangeLevel extends Component {
-  /**
-   * Creates an instance of ChangeLevel.
-   * @param {any} props
+  /** @description Creates an instance of ChangeLevel
+   *
+   * @param { object } props
+   *
    * @memberof ChangeLevel
    */
   constructor(props) {
@@ -30,8 +33,12 @@ export class ChangeLevel extends Component {
     this.closePage = this.closePage.bind(this);
   }
 
-  /** @returns {*} void
-   * @param {any} prevProps
+  /** @description calls the function to display an error if there is one
+   *
+   * @returns {*} null
+   *
+   * @param {object} prevProps
+   *
    * @memberof ChangeLevel
    */
   componentDidUpdate(prevProps) {
@@ -39,9 +46,13 @@ export class ChangeLevel extends Component {
       this.renderAlert();
     }
   }
-  /** sets the state of the level to the value of the select field
-   * @returns {*} void
-   * @param {any} event
+
+  /** @description sets the state of the level to the value of the select field
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof ChangeLevel
    */
   handleChange(event) {
@@ -49,8 +60,12 @@ export class ChangeLevel extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /** @returns {*} void
-   * @param {*} event
+  /** @description submits the level change form
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   *
    * @memberof ChangeLevel
    */
   handleFormSubmit(event) {
@@ -71,14 +86,19 @@ export class ChangeLevel extends Component {
     }
   }
 
-  /**
+  /** @description closes the page
+   *
    * @returns {*} null
+   *
    * @memberof ChangeLevel
    */
   closePage() {
     this.props.history.push('/main/profile');
   }
-  /** @returns {string} error message
+  /** @description displays error message
+   *
+   * @returns {string} error message
+   *
    * @memberof ChangeLevel
    */
   renderAlert() {
@@ -92,8 +112,10 @@ export class ChangeLevel extends Component {
       );
     }
   }
-  /** renders the component to change level
+  /** @description renders the component to change level
+   *
    * @returns {*} component
+   *
    * @memberof ChangeLevel
    */
   render() {
@@ -101,7 +123,7 @@ export class ChangeLevel extends Component {
       <div className='row'>
         <div className='card col s10 m8 l4 offset-s1 offset-m2 offset-l5'>
           <i className="material-icons red-text right close link-cursor"
-            onClick={this.closePage}>
+            id="close" onClick={this.closePage}>
             close</i>
           <form onSubmit={this.handleFormSubmit}>
             <div className='row profile'>
@@ -158,7 +180,14 @@ export class ChangeLevel extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { object } user details
+   * @returns { string } error message
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { error } = state.userReducer;

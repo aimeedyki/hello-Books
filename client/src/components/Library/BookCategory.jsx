@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -11,15 +10,19 @@ import Loader from '../Common/Loader.jsx';
 import Pagination from '../Common/Pagination';
 import generic from '../../assets/images/generic.jpg';
 
-/** displays books by their categories
+/** @description displays books by their categories
+ *
  * @class BookCategory
+ *
  * @extends {Component}
  */
 export class BookCategory extends Component {
-  /** Creates an instance of BookCategory.
-  * @param {any} props
+  /** @description Creates an instance of BookCategory
+   *
+   * @param {object} props
+   *
    * @memberof BookCategory
-  */
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -38,16 +41,23 @@ export class BookCategory extends Component {
     this.searchBookCategory = this.searchBookCategory.bind(this);
     this.submitCategorySearch = this.submitCategorySearch.bind(this);
   }
-  /** gets the category
+
+  /** @description gets the category
+   *
    * @returns {*} null
+   *
    * @memberof BookCategory
    */
   componentWillMount() {
     this.getCategory(this.props.location.pathname);
   }
-  /** @description gets a new
-   * @returns {*} category
-   * @param {*} nextProps
+
+  /** @description gets a new category
+   *
+   * @returns {*} null
+   *
+   * @param {object} nextProps
+   *
    * @memberof BookCategory
    */
   componentWillReceiveProps(nextProps) {
@@ -55,8 +65,13 @@ export class BookCategory extends Component {
       this.getCategory(nextProps.location.pathname);
     }
   }
-  /** @returns {object} category
+
+  /** @description gets the books in a category
+   *
+   * @returns {*} null
+   *
    * @param {string} pathName
+   *
    * @memberof BookCategory
    */
   getCategory(pathName) {
@@ -66,33 +81,43 @@ export class BookCategory extends Component {
     this.props.getBooksByCategory(this.categoryId,
       this.state.limit, this.state.offset, this.getPagination);
   }
+
   /** @description gets pages
-  * @returns {*} null
-  * @memberof Allbooks
-  */
+   *
+   * @returns {*} null
+   *
+   * @memberof BookCategory
+   */
   getPagination() {
-    this.getPages(this.props.pagination.pageCount);
+    if (this.props.pagination) {
+      this.getPages(this.props.pagination.pageCount);
+    }
   }
 
   /** @description creates an array of page numbers
-   * @returns {*} void
-   * @param {any} pageCount
-   * @memberof Allbooks
+   *
+   * @returns {*} null
+   *
+   * @param {number} pageCount
+   *
+   * @memberof BookCategory
    */
   getPages(pageCount) {
-    const pages = [];
-    for (let index = 1; index <= pageCount; index++) {
-      pages.push(index);
-    }
+    const pages = Array.from({ length: pageCount },
+      (value, index) => index + 1);
     this.setState({
       pages
     });
   }
-  /**
-   * @returns {*} null
-   * @param {*} event
-   * @param {number} page
-   * @memberof Allbooks
+
+  /** @description moves to a new page
+   *
+   * @returns { * } null
+   *
+   * @param { object } event
+   * @param { number } page
+   *
+   * @memberof BookCategory
    */
   getNewPage(event, page) {
     event.preventDefault();
@@ -104,11 +129,15 @@ export class BookCategory extends Component {
         this.state.limit, this.state.offset, this.getPagination);
     });
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+
+  /** @description moves to the next page
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   * @param {number} currentPage
+   *
+   * @memberof BookCategory
    */
   getNextPage(event, currentPage) {
     event.preventDefault();
@@ -122,11 +151,15 @@ export class BookCategory extends Component {
       });
     }
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+
+  /** @description moves to a previous page
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   * @param {number} currentPage
+   *
+   * @memberof BookCategory
    */
   getPreviousPage(event, currentPage) {
     event.preventDefault();
@@ -142,9 +175,12 @@ export class BookCategory extends Component {
   }
 
   /** @description searches on 3rd key stroke
-   * @returns {object} books
-   * @param {*} event
-   * @memberof Allbooks
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof BookCategory
    */
   searchBookCategory(event) {
     event.preventDefault();
@@ -157,17 +193,24 @@ export class BookCategory extends Component {
       this.getCategory(this.props.location.pathname);
     }
   }
+
   /** @description searches when search icon is clicked
-   * @returns {object} books
-   * @param {*} event
-   * @memberof Allbooks
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof BookCategory
    */
   submitCategorySearch(event) {
     event.preventDefault();
     this.props.searchCategory(this.state.searchTerm, this.categoryId);
   }
-  /** renders the books in a category
-   * @returns {*} category component
+
+  /** @description renders the books in a category
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof BookCategory
    */
   render() {
@@ -220,7 +263,16 @@ export class BookCategory extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { string } error
+   * @returns { array } books
+   * @returns { object } pagination details
+   * @returns { string } name of the category
+   */
 const mapStateToProps = state => (
   {
     books: state.bookReducer.bookCategory.books,

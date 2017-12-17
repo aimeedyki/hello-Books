@@ -31,7 +31,35 @@ The application has the following features:
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-#### Dependencies
+#### System Dependencies
+
+- [node](https://nodejs.org/en/download/): version 5 or greater is required
+
+- [postgres](https://www.postgresql.org/download/): an object-relational database management system 
+
+
+#### Installation
+
+You can get the app running locally in the following way:
+ - Install NodeJs and Postgres on your machine
+ - Clone the repository `$ git clone` [https://github.com/aimeedyki/hello-Books.git]( https://github.com/aimeedyki/hello-Books.git)
+- Change into the directory $ cd /helloBooks
+- Use `$ npm install` to install all required dependencies.
+- Create a `.env` file in your root directory and set the 'SECRET' environment variable.
+- Run migrations with `$ sequelize db:migrate.`
+- Start app with `$ npm run start:dev`
+
+The app will be running at `http://localhost:5000`
+
+#### Running the tests
+
+- The tests were written using Mocha, Supertest and Chai.
+- To run test, navigate to app directory
+- run test
+  `$ npm run test` for server side tests, and
+  `$ npm run client:test` for client tests
+
+## Technologies
 
 - [axios](https://www.npmjs.com/package/axios): A JavaScript library used to make http requests from nodejs or XMLHttpRequests from the browser
 - [babel-cli](https://www.npmjs.com/package/babel-cli) : Used to transpile es6 code to es5 on the command line
@@ -43,26 +71,6 @@ These instructions will get you a copy of the project up and running on your loc
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) : Used to create access tokens that asserts some number of claims.
 - [react](https://www.npmjs.com/package/react) : A Javascript library for building user interfaces
 - [sequelize](https://www.npmjs.com/package/sequelize) : Sequelize is a promise-based Node.js ORM for Postgres, MySQL, SQLite and Microsoft SQL Server. It features solid - transaction support, relations, read replication and more.
-
-#### Installation
-
-You can get the app running locally in the following way:
- - Install NodeJs and Postgres on your machine
- - Clone the repository $ git clone [https://github.com/aimeedyki/hello-Books.git]( https://github.com/aimeedyki/hello-Books.git)
-- Change into the directory $ cd /helloBooks
-- Use $ npm install to install all required dependencies.
-- Create a .env file in your root directory and set the 'SECRET' environment variable.
-- Run migrations with $ sequelize db:migrate.
-- Start app with $ npm run start:dev
-
-The app will be running at http://localhost:5000
-
-#### Running the tests
-
-- The tests were written using Mocha, Supertest and Chai.
-- To run test, navigate to app directory
-- run test
-  $ npm run test
 
 ## Contributing
 
@@ -80,10 +88,32 @@ While raising a pull request be descriptive enough about your contributions so t
 
 For detailed information on how to use api, view [api documentation](https://hello-books-amarachi.herokuapp.com/api-docs)
 
+## FAQ
+
+#### Is this an Open-Source Application?
+
+Yes! this is an open-source application and to contribute to the development of this application is by raising PRs
+
+#### Who can contribute?
+
+Anyone! This application is open to all those who want to contribute to open-source development and are willing to follow
+the set standards for contributing.
+
+#### Is there a set standard for PRs to this repository?
+
+Yes, there are set conventions for PRs to this repository and can be found in the project [wiki](https://github.com/aimeedyki/hello-Books/wiki).
+
+#### What language was used to develop this application?
+
+This project is a full stack Javascript application
+
+#### Can I clone this application for personal use?
+
+Yes!. This application is licensed under MIT, and is open for whatever you may choose to use it for.
+
 ## License
+[MIT](./License.md)
 
 ## Author
 
 * **Amarachi Akuwudike** 
-
-

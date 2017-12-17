@@ -7,12 +7,18 @@ import { GoogleLogin } from 'react-google-login';
 import { signinUser, clearErrorMessage } from '../../actions/authAction';
 
 import Button from '../Common/Button.jsx';
-/** @class Login
+
+/** @description Logs in a user
+ *
+ * @class Login
+ *
  * @extends {Component}
  */
 export class Login extends Component {
-  /** Creates an instance of Login.
-   * @param {any} props
+  /** @description Creates an instance of Login.
+   *
+   * @param {object} props
+   *
    * @memberof Login
    */
   constructor(props) {
@@ -25,29 +31,41 @@ export class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
-  /** sets changed field to state
-     * @returns {*} void
-     * @param {any} event
-     * @memberof Login
-     */
+
+  /** @description sets changed field to state
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof Login
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** calls the function to display error if there is an error
-     * @returns {*} void
-     * @param {any} prevProps
-     * @memberof Login
-     */
+
+  /** @description calls the function to display error if there is an error
+   *
+   * @returns {*} null
+   *
+   * @param {object} prevProps
+   *
+   * @memberof Login
+   */
   componentDidUpdate(prevProps) {
     if (prevProps.errorMessage !== this.props.errorMessage) {
       this.renderAlert();
     }
   }
-  /** submits the login form
-     * @returns {*} void
-     * @param {any} event
-     * @memberof Login
-     */
+
+  /** @description submits the login form
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof Login
+   */
   handleFormSubmit(event) {
     event.preventDefault();
     this.props
@@ -59,12 +77,20 @@ export class Login extends Component {
       });
   }
 
-  /**
-   * @returns {*} void
-   * @param {any} response 
+  /** @description handles login through google authentication
+   *
+   * @returns {*} null
+   *
+   * @param {object} response
+   *
    * @memberof Login
    */
   handleGoogleLogin(response) {
+    if (response.error) {
+      return Materialize
+        .toast('Please resume google login', 4000, ''
+        );
+    }
     const {
       email, givenName, familyName, googleId, imageUrl } = response.profileObj;
     const username = givenName + googleId;
@@ -80,20 +106,17 @@ export class Login extends Component {
         this.props.history.push('/main');
       }
     });
-    if (response.error) {
-      Materialize
-        .toast('Please resume google login', 4000, ''
-        );
-    }
   }
-  /** displays error
+
+  /** @description displays signup error
+     *
      * @returns {string} error message
+     *
      * @memberof Login
      */
   renderAlert() {
     if (this.props.errorMessage) {
       return (
-        /* eslint-disable no-undef */
         Materialize.toast(this.props.errorMessage, 4000,
           'indigo darken-2', () => {
             this.props.clearErrorMessage();
@@ -101,10 +124,13 @@ export class Login extends Component {
       );
     }
   }
-  /** renders login form component
-     * @returns {*} void
-     * @memberof Login
-     */
+
+  /** @description renders login form component
+   *
+    * @returns {*} null
+    *
+    * @memberof Login
+    */
   render() {
     return (
       <div className="row">
@@ -163,12 +189,20 @@ export class Login extends Component {
     );
   }
 }
+
 Login.PropTypes = {
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   signinUser: PropTypes.func,
   clearErrorMessage: PropTypes.func
 };
+
+/** @description connect the state from the store to the component props
+   *
+   * @param {object} state
+   *
+   * @returns {string} error message
+   */
 const mapStateToProps = state => ({
   errorMessage: state.authReducer.error
 });

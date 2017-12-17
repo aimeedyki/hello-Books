@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -7,13 +6,17 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { addBook, getCategories, imageUpload } from '../../actions/bookAction';
 import Button from '../Common/Button.jsx';
 
-/** Adds a book to library
+/** @description Adds a book to library
+ *
  * @class AddBook
+ *
  * @extends {Component}
  */
 export class AddBook extends Component {
-  /** Creates an instance of AddBook.
-   * @param {*} props
+  /** @description Creates an instance of AddBook
+   *
+   * @param { object } props
+   *
    * @memberof AddBook
    */
   constructor(props) {
@@ -37,22 +40,34 @@ export class AddBook extends Component {
     this.handleImageUpload = this.handleImageUpload.bind(this);
   }
 
-  /** gets the categories to be selected
-   * @returns {*} null
+  /** @description gets the categories to be selected
+   *
+   * @returns { * } null
+   *
    * @memberof AddBook
    */
   componentDidMount() {
     this.props.getCategories();
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description sets the value of the field to state on change
+   *
+   * @returns { * } null
+   *
+   * @param { object } event
+   *
    * @memberof AddBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description sets image file to state
+   *
+   * @returns { * } null
+   *
+   * @param { object } event
+   *
    * @memberof AddBook
    */
   imageChange(event) {
@@ -61,8 +76,13 @@ export class AddBook extends Component {
     });
     this.handleImageUpload(event.target.files[0]);
   }
-  /** @returns {*} null
-   * @param {*} image
+
+  /** @description uploads image
+   *
+   * @returns {*} null
+   *
+   * @param {file} image
+   *
    * @memberof AddBook
    */
   handleImageUpload(image) {
@@ -74,8 +94,13 @@ export class AddBook extends Component {
         });
       });
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description selects the category
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof AddBook
    */
   categorySelect(event) {
@@ -83,8 +108,12 @@ export class AddBook extends Component {
     this.setState({ categoryId: event.target.value });
   }
 
-  /** @returns {*} null
-   * @param {any} prevProps
+  /** @description calls the function to display error
+   *
+   * @returns {*} null
+   *
+   * @param {object} prevProps
+   *
    * @memberof AddBook
    */
   componentDidUpdate(prevProps) {
@@ -93,9 +122,12 @@ export class AddBook extends Component {
     }
   }
 
-  /** submits a form and adds book to library
+  /** @description submits a form and adds book to library
+   *
    * @returns {*} null
-   * @param {*} event
+   *
+   * @param {object} event
+   *
    * @memberof AddBook
    */
   handleFormSubmit(event) {
@@ -113,7 +145,10 @@ export class AddBook extends Component {
       });
   }
 
-  /** @returns {string} error message
+  /** @description displays errors
+   *
+   * @returns {string} error message
+   *
    * @memberof AddBook
    */
   renderAlert() {
@@ -127,7 +162,10 @@ export class AddBook extends Component {
     }
   }
 
-  /** @returns {*} adds book component
+  /** @description displays the addBook component
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof AddBook
    */
   render() {
@@ -216,6 +254,13 @@ export class AddBook extends Component {
   }
 }
 
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } categories
+   * @returns { string } error message
+   */
 const mapStateToProps = state => ({
   categories: state.categoryReducer.categories,
   errorMessage: state.bookReducer.error

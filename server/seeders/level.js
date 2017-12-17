@@ -25,8 +25,6 @@ module.exports = {
         subscription: 5000,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }]),
+      }])
 
-  // down: queryInterface =>
-  //   queryInterface.bulkDelete('Levels', null, {})
 };

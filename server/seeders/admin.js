@@ -19,8 +19,4 @@ module.exports = {
         updatedAt: new Date(),
       }]),
 
-  // down: queryInterface =>
-  //   queryInterface.bulkDelete('Users', [{
-  //     username: 'aimee'
-  //   }])
 };
