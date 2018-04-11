@@ -1,23 +1,32 @@
-'use strict';
-export default (sequelize, DataTypes)=> {
+
+export default (sequelize, DataTypes) => {
+  // Defines History attributes
   const History = sequelize.define('History', {
-    borrowedDate: DataTypes.DATE,
+    expectedDate: DataTypes.DATE,
     returnedDate: DataTypes.DATE,
-    return: DataTypes.BOOLEAN,
+    returned: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
-    bookId: DataTypes.INTEGER,
-  }, {
-    classMethods: {
-      associate: (models) => {
-        History.belongsTo(models.Book, {
-          foreignKey: 'bookId',
-        });
-        History.belongsTo(models.User, {
-          foreignKey: 'userId',
-          onDelete: 'CASCADE',
-        });
-      }
+    userLevel: DataTypes.STRING,
+    bookId: {
+      type: DataTypes.INTEGER,
+      allowNull: {
+        args: false,
+        msg: 'Please enter bookId',
+      },
     }
   });
+
+  // Defines associations to book and user models
+  History.associate = (models) => {
+    History.belongsTo(models.Book, {
+      as: 'book',
+      foreignKey: 'bookId',
+    });
+    History.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user',
+      onDelete: 'CASCADE',
+    });
+  };
   return History;
 };

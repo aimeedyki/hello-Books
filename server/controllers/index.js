@@ -1,11 +1,18 @@
-const users = require('./users');
-const categories = require('./categories');
-const books = require('./books');
-const histories = require('./histories')
-//controllers for users,books, 
-module.exports = {
+import users from './usersController';
+import auth from './authController';
+import categories from './categoriesController';
+import books from './booksController';
+import histories from './historiesController';
+import notifications from './notificationsController';
+import transactions from './transactionController';
+
+// all controllers
+export default {
   users,
+  auth,
   categories,
- books,
+  books,
   histories,
+  notifications,
+  transaction
 };

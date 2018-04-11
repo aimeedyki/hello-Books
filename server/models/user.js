@@ -2,14 +2,15 @@
 import bcrypt from 'bcrypt';
 
 export default (sequelize, DataTypes) => {
+  // defines user attributes
   const User = sequelize.define('User', {
-    email:{ 
+    email: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
         msg: 'Please enter an email',
       },
-      unique:{
+      unique: {
         args: true,
         msg: 'Email already exists, please log in or choose a new email',
       },
@@ -19,60 +20,95 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
+
     username: {
       type: DataTypes.STRING,
       allowNull: {
         args: false,
         msg: 'Please enter a username',
       },
-      unique:{
+      unique: {
         args: true,
         msg: 'Username already exists! Please choose another username'
       },
       validate: {
-        len: {
-          args: [3,10],
-          msg: 'Username should be more than 2 characters and less than 10',
+        isNotShort: (value) => {
+          if (value.length < 3) {
+            throw new Error('Username should be at least 3 characters');
+          }
         },
       },
     },
-    password:{
+    name: {
       type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: 'Please enter your name',
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: {
+        args: true,
+        msg: 'Please choose a password'
+      },
       validate: {
-        len: {
-          args: [3,10],
-          msg: 'Password should be more than 2 characters and less than 10',
+        isNotShort: (value) => {
+          if (value.length < 8) {
+            throw new Error('Password should be at least 8 characters');
+          }
         },
+
       },
     },
-    level: DataTypes.STRING,
-    profilepic: DataTypes.STRING,
-  }, 
-  
-    // hashes password
-  {  hooks: {
-    beforeCreate: (user) => {
-      const salt = bcrypt.genSaltSync();
-      user.password = bcrypt.hashSync(user.password, salt);
+    levelId: {
+      allownull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    profilePic: DataTypes.STRING,
+    borrowCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    googleId: {
+      type: DataTypes.STRING,
+      defaultValue: 0
+    },
+    surcharge: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    outstandingSubscription: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
-  },
-    /*instanceMethods: {
-        generateHash: (password) => {
-            return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-        },
-        validPassword: (password) =>{
-            return bcrypt.compareSync(password, this.password);
-        },
-    },*/
-    
-  }); 
+  }, {
+    hooks: {
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync(user.password, salt);
+      }
+    }
+  });
 
+  // defines user associations
   User.associate = (models) => {
     User.hasMany(models.History, {
-      foreignKey: 'userId',
+      foreignKey: 'id',
       as: 'histories',
+    });
+    User.hasMany(models.Notification, {
+      foreignKey: 'id',
+      as: 'Notifications',
+    });
+    User.belongsTo(models.Level, {
+      as: 'level',
+      foreignKey: 'levelId',
     });
   };
   return User;
