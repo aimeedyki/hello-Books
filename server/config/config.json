@@ -8,18 +8,18 @@
     "dialect": "postgresql"
   },
   "test": {
-     "username": "admin1",
-    "password": "booksville",
-    "database": "booksville",
+    "username": "",
+    "password": "",
+    "database": "travis",
     "host": "127.0.0.1",
-    "port": "5432",
-    "dialect": "postgresql"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
-     "username": "admin1",
-    "password": "booksville",
-    "database": "booksville",
-    "host": "127.0.0.1",
+    "username": "gdbqliph",
+    "password": "AWcLyH8kbPJDv3Q5-CpGwqYk9R0F-YWl",
+    "database": "gdbqliph",
+    "host": "babar.elephantsql.com",
     "port": "5432",
     "dialect": "postgresql"
   }

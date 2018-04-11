@@ -1,386 +1,88 @@
-* { padding:0; margin:0; outline:0; }
-.booksville{
-  font-family: georgia, serif;
-  font-size: 90%;
-  background-image: url('"../images/booksbw2.jpg"');
-  }
-
 /*sets background image for all pages*/
 #background-image{
-  width: 100%;
-  height: 400px;
-  background-image: url("../images/booksbw2.jpg"); 
-  background-size: cover;
-   position: center;
-    top:0;
-    left:0;
-    z-index:0;
-}
-/*header for all pages*/
-h1, h2 {
-  margin-top: 10px;
-  font-size: 34px;
-    font-weight: 100;
-    color: #555;
-    line-height: 48px;
-}
-body {
-  background: #333;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-    color: #888;
-    line-height: 28px;
-    text-align: center;
-}
-
-
-@media (min-width: 992px) and (max-width: 1199px) {}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  
-  .forms-right-icons .icon { font-size: 22px; }
-  
-}
-
-@media (max-width: 767px) {
-  
-  .show-forms, .forms-right-icons, .forms-right-icons .icon { text-align: center; }
-  .forms-right-icons .icon { padding-top: 10px; }
-  .forms-right-icons h3 { margin-top: 15px; }
-  
-}
-
-@media (max-width: 415px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-  h1, h2 { font-size: 28px; }
-
-}
-/*header properties*/
-#top { 
-  height:53px;
-  }
-  a.header  { 
-    float:right; 
-    white-space:nowrap;
-    color: white;
-    padding-top:1%;
-    margin-right: 3%;
-    }
-.top-navigation a{ 
-  color:white; 
-}
-.top-navigation span{ 
-  color:#dca598; 
-}
-/*tab for login and registration*/
-div.tab {
-    overflow: hidden;
-    border: 3px solid #ccc;
-    background-color: #800080;
-    padding: 40px;
-  max-width:600px;
-  margin:40px auto;
-  color: white;
-  border-radius: 15px;
-}
-/*for userpage*/
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  display: inline-block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav .icon {
-  display: none;
-}div.tab2 {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #800080;
-    width: 10%;
-    height: 240px;
-    color: white;
-    border: 3px solid #ccc;
-}
-/*for adminpage*/
-div.tab3 { 
-  height:53%;
-  width: 41%; 
-  margin-left: 20%
-  outline: 5px solid #800080;
-  background-color: #800080;
-}
-/* Style the buttons inside the tab */
-div.tab button, div.tab2 button {
-    background-color: inherit;
-    float: center;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    text-align: left;
-}
-
-div.tab3 button.active, div.tab3 button:hover { 
-  color: white; 
-  text-align: center;
-  background-color: #ff00ff;
-  font-weight: bold;
-}
-
-/* Change background color of buttons on hover */
-div.tab button:hover, div.tab2 button:hover , div.tab2 button:hover{
-    background-color: #ddd;
-    color: #800080;
-}
-/* Create an active/current tablink class */
-div.tab button.active, div.tab2 button.active {
-    background-color: #ccc;
-    color: #800080;
-}
-.btns-container {
-    position: relative;
-    }
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border-top: none;
-
-}
-input[type=text], input[type=password] {
-    width: 30%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    align-items: center;
-    font-size: 14px;
-}
-div.tab3 button{ 
-  color: #800080;
-    cursor: pointer;
-    padding: 14px 16px;
-    text-align: left;
-  background-color: white; 
-    display: inline-block;
-  }
-.shell { 
-  width:988px; 
-  margin:0 auto; }
-/*google plus login button*/
-.google{
-  color:white;
-  background-color: #800080;
-  width: 15%;
-  border-radius:10px;
-  border: 2px solid white;
-}
-button#googleplus {
-    border-color: #111;
-    background-color: #222;
-    text-shadow: #333 -1px -1px 0;
-    background-image:url(http://www.iconsdb.com/icons/preview/white/google-plus-xxl.png);
-}
-.social-login { margin-top: 35px; color: #fff; }
-.social-login-buttons { margin-top: 20px; }
-.btn-link-1 {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin: 5px;
-  padding: 0;
-  background: #555;
-  background: rgba(0, 0, 0, 0.3);
-  font-size: 20px;
-    line-height: 40px;
-    color: #fff;
-    -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;
-}
-.btn-link-1:hover, .btn-link-1:focus, .btn-link-1:active {
-  outline: 0; opacity: 0.6; 
-  background: #555; background: rgba(0, 0, 0, 0.3); color: #fff;
-}
-
-/*button style for submit or upload*/
-.btn{
-  background-color: #800080;
-  color: white;
-}
-.btn:hover{
-  background-color: #9932CC;
-  color: white;
-}
-.btn:active{
-  background-color: #800080;
-  color: white;
-}
-/*style for page navigation for books*/
-.pagination {
-    float: center;
-}
-.pagination a {
-    color: #800080;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-}
-.pagination a.active {
-    background-color: #800080;
-    color: white;
-    border: 1px solid #800080;
-}
-.pagination a:hover:not(.active) {background-color: #ddd;}
-/*format for displaying books*/
-div.gallery {
-    margin: 5px;
-    float: left;
-    width: 180px;
-    overflow:scroll; height:300px;
-}
-div.gallery:hover {
-    border: 1px solid #777;
-}
-div.gallery img {
     width: 100%;
-    height: 50%;
-    color:   #E9967A;
-}
-div.desc {
-    padding: 15px;
-    text-align: center;
-    color: #800080;
-    background-color:   white;
+    height: 20%;
+    background-image: url("../images/reading.jpg"); 
+    background-size: cover;
+     position: center;
+      top:0;
+      left:0;
+      z-index:0;
   }
-/*formating for user profile*/
-.avatar{
-    border-radius: 100px;
-    border: 5px solid #800080;
+body{
+	font-family: -apple-system,
+	BlinkMacSystemFont,
+	"Segoe UI",
+	Roboto,
+	Oxygen-Sans,
+	Ubuntu,
+	Cantarell,
+	"Helvetica Neue",
+	sans-serif;
+
 }
-.avatar:hover {
-    margin-top: 23%;
+
+.card-image{
+	max-height: 70% !important;
 }
-div.profile-details {
-    color: white;
-    float: center;
-    /*margin-left: 60%;
-    margin-right: 46%;*/
-    text-align: center;
-    font-weight: bold;
-    background-color: #800080;
-    border-radius: 10px
-    outline: 5px solid white;
+.activator{
+	width: auto;
+  height: 180px !important;
+  max-width: 100%;
+  max-height: 100%;
+	display:block;
+	object-fit: contain;
 }
-.profile-content {
-    float: center;
-    /*margin-left: 600px;
-    margin-right: 460px;*/
-    
-}
-.digits {
-    font-weight: bold;
-    font-size: 16px;
-    color: white;
-}
-/*link styling*/
-a.zoom:hover, a.edit:hover {
-    background-color: #800080 ;
-    margin-top: 30px;
-}
-ul{
-   list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #800080;
-    color: white;
-    float: center;
-    height: 25px
-    width:20%;
+.image_placeholder{
+    background-image:url("../images/book.jpg");
+    background-position-y: 20px;
+    padding:100px;
+    top:56px;
+    position:relative;
   }
-li {
-    display: inline-block;
-    padding: 16px;
-    text-align: center;
+
+	.fixed-rent-btn{
+		top: 280px !important;
+	}
+  .front{
+    overflow: visible !important;
+  }
+
+  .tabs{
+    overflow-x: hidden;
+    background-color: #9c27b0 !important;
+}
+.tabs .indicator {
+    color: white !important;
+    background-color: white !important; 
+}  
+
+.tabs .tab a{
+    color:white !important;
 }
 
+.tabs .tab a:hover {
+    background-color: white!important;
+    color: #9c27b0!important;
+} /*Text color on hover*/
 
-/*success message*/
-.msg { 
-  position:relative; 
-  padding-right:25%; 
-  margin-bottom:10%; }
-.msg a.close{ 
-  font-size:0; 
-  line-height:0; 
-  position:absolute; 
-  top:0; right:0; 
-  background:url(images/close.gif); 
-  text-indent: -4000px;
-}
-.msg-ok p{ 
-  background-color:#ff00ff; 
-  border:solid 1px #dbd6a2; 
-  color:white; 
-  background-image:url(images/msg-ok.gif); }
-/*head of add book form*/
-.box-head { 
-  border-radius: 20px;
-  background:#800080; 
-  height:35%; 
-  color:#fff; padding: 0 10%;
-  line-height:60%; 
-  white-space:nowrap; 
-  border-bottom:solid 2px white; }
-.box-head .right{ 
- /* padding-top:5px; 
-  line-height:13px;}*/
-.field { border:solid 1px #d3cfc7; 
-  background:#fff; 
-  padding:5px; }
-.small-field { border:solid 1px #d3cfc7;
- background:#fff; padding:3px 1px; font-size:11px; }
+.tabs .tab a.active {
+    color: #9c27b0!important;
+    background-color: white !important;
+ } /*Background and text color when a tab is active*/
 
-.left, .alignleft { float:left; display:inline; }
-.right, .alignright { float:right; display:inline; }
-#content { float:left; width:750px; }
-
-/*style for table*/
-.table th{ 
-  background:#fffdfa 
-  color:#818181; 
-  text-align: left; 
-  padding:7px 10px; 
-  border-bottom:solid 1px #d2d1cb;}
-.table td{ 
-  background-color: white; 
-  border-bottom:solid 1px #e0e0e0; 
-  padding:8px 10px; }
-.table tr.odd td{ 
-  background:#f8f8f8; }
-.table tr:hover td{ 
-  background:#fff9e1; }
+ .input-field input:focus + label {
+    color: #9c27b0 !important;
+  }
+  /* label underline focus color */
+  .row .input-field input:focus {
+    border-bottom: 1px solid #9c27b0 !important;
+    box-shadow: 0 1px 0 0 #9c27b0 !important
+	}
+	
 
 
 
 
 
+            

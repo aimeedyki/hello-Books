@@ -1,23 +1,27 @@
-'use strict';
+
 module.exports = {
-  up: (queryInterface, Sequelize)=> {
-    return queryInterface.createTable('Histories', {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Histories', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      borrowedDate: {
+      expectedDate: {
         allowNull: false,
         type: Sequelize.DATE
       },
       returnedDate: {
         type: Sequelize.DATE
       },
-      return: {
+      returned: {
         allowNull: false,
         type: Sequelize.BOOLEAN
+      },
+      userLevel: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +37,6 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          as: 'userId',
         },
       },
       bookId: {
@@ -42,12 +45,9 @@ module.exports = {
         references: {
           model: 'Books',
           key: 'id',
-          as: 'bookId',
         },
       },
-    });
-  },
-  down: (queryInterface, Sequelize)=> {
-    return queryInterface.dropTable('Histories');
-  }
+    }),
+  down: queryInterface =>
+    queryInterface.dropTable('Histories')
 };

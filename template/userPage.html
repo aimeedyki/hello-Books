@@ -2,211 +2,220 @@
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-  <title>hello books</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width initial-scale= 1.0">
-  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <title>hello books</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale= 1.0">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
 </head>
 
 
 <!--head of the page-->
+
 <body class="booksville" id="background-image">
     <div class="header">
-      <div class="container">
-      
-      <div class="row">
-        <div style="background-color: #800080;">
-            <h2 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;"" >WELCOME BACK</h2>
+        <div class="container">
+
+            <div class="row">
+                <div style="background-color: #800080;">
+                    <h2 style="color: white; font-family: Comic Sans MS, cursive, sans-serif;">WELCOME BACK</h2>
+                </div>
+                <div align="right">
+                    <ul style="color: white;">
+                        <li>
+                            <a style="color: white;" class="page-scroll" href="#about">Help</a>
+                        </li>
+                        <li>
+                            <a style="color: white;" class="page-scroll" href="#services">Profile settings</a>
+                        </li>
+                        <li>
+                            <a style="color: white;" class="page-scroll" href="#about">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div align="right">
-          <ul style="color: white;">
-              <li>
-                  <a style="color: white;" class="page-scroll" href="#about">Help</a>
-              </li>
-              <li>
-                  <a style="color: white;" class="page-scroll" href="#services">Profile settings</a>
-              </li>
-               <li>
-                  <a style="color: white;" class="page-scroll" href="#about">Log out</a>
-              </li>
-          </ul>
+
+        <!--side tab for navigation-->
+        <div class="topnav" id="myTopnav">
+            <a style="color: white;" class="tablinks" onclick="openTab(event, 'library')">LIBRARY</a>
+            <a style="color: white;" class="tablinks" onclick="openTab(event, 'profile')">PROFILE</a>
+            <a style="color: white;" class="tablinks" onclick="openTab(event, 'unreturned')">NOT YET RETURNED</a>
+            <a style="color: white;" class="tablinks" onclick="openTab(event, 'history')">HISTORY</a>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
         </div>
-    </div>
-    </div>
-   <!--side tab for navigation-->
-    <div class="topnav" id="myTopnav">
-      <a style="color: white;" class="tablinks" onclick="openTab(event, 'library')">LIBRARY</a>
-       <a style="color: white;" class="tablinks" onclick="openTab(event, 'profile')">PROFILE</a>
-       <a style="color: white;" class="tablinks" onclick="openTab(event, 'unreturned')">NOT YET RETURNED</a>
-       <a style="color: white;" class="tablinks" onclick="openTab(event, 'history')">HISTORY</a>
-    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-    </div>
-    <!--displays when library button is clicked-->
-    <div id="library" class="tabcontent">
-        <form class="form-search" align="center">
-        <input type="text" class="input-medium search-query">
-        <button type="submit" class="btn">Search</button>
-        </form>
-         <div class="gallery">
-          <a target="_blank">
+
+        <!--displays when library button is clicked-->
+        <div id="library" class="tabcontent">
+            <form class="form-search" align="center">
+                <input type="text" class="input-medium search-query">
+                <button type="submit" class="btn">Search</button>
+            </form>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/magicobt.jpg" alt="The magic of big thinking" width="300" height="200">
           </a>
-          <div class="desc">The Magic of Thinking Big</div>
-          <div class="desc">by David J. Schwartz.</br>This book gives you useful methods for getting  the most out of your job, your marriage and family life</div>
-          <div class="desc">3 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-        <div class="gallery">
-          <a target="_blank">
+                <div class="desc">The Magic of Thinking Big</div>
+                <div class="desc">by David J. Schwartz.</br>This book gives you useful methods for getting the most out of your job, your marriage
+                    and family life</div>
+                <div class="desc">3 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
+            </div>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/dolphin.jpg" alt="little dolphin" width="300" height="200">
           </a>
-          <div class="desc">Little Dolphin</div>
-          <div class="desc">By John Smith</br>A beautiful story of a true dolphin love. over many seas and oceans</div>
-          <div class="desc">2 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-        <div class="gallery">
-          <a target="_blank">
+                <div class="desc">Little Dolphin</div>
+                <div class="desc">By John Smith</br>A beautiful story of a true dolphin love. over many seas and oceans</div>
+                <div class="desc">2 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
+            </div>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/fiftysf.png" alt="Fifty Shades Freed" width="300" height="200">
           </a>
-          <div class="desc">Fifty Shades Freed</div>
-          <div class="desc">By E.L.James</br>the third and final installment of the erotic romance Fifty Shades Trilogy </div>
-          <div class="desc">5 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-        <div class="gallery">
-          <a target="_blank">
+                <div class="desc">Fifty Shades Freed</div>
+                <div class="desc">By E.L.James</br>the third and final installment of the erotic romance Fifty Shades Trilogy </div>
+                <div class="desc">5 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
+            </div>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/davinci.jpg" alt="The Davinci Code" width="300" height="200">
           </a>
-          <div class="desc">The Davinci Code</div>
-          <div class="desc">By Dan Brown</br> It follows symbologist Robert Langdon and cryptologist Sophie Neveu after a murder in the Louvre Museum in Paris</div>
-          <div class="desc">3 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-        <div class="gallery">
-          <a target="_blank">
+                <div class="desc">The Davinci Code</div>
+                <div class="desc">By Dan Brown</br> It follows symbologist Robert Langdon and cryptologist Sophie Neveu after a murder in the
+                    Louvre Museum in Paris</div>
+                <div class="desc">3 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
+            </div>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/whistler.png" alt="Fjords" width="300" height="200">
           </a>
-          <div class="desc">The Whistler</div>
-          <div class="desc">By John Grisham</br> It is a legal thriller about Florida Board on Judicial Conduct investigator Lacy Stoltz.</div>
-          <div class="desc">3 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-        <div class="gallery">
-          <a target="_blank">
+                <div class="desc">The Whistler</div>
+                <div class="desc">By John Grisham</br> It is a legal thriller about Florida Board on Judicial Conduct investigator Lacy Stoltz.</div>
+                <div class="desc">3 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
+            </div>
+            <div class="gallery">
+                <a target="_blank">
           <img src="images/PurpleHibiscus.jpg" alt="Purple Hibiscus" width="300" height="200">
           </a>
-          <div class="desc">Purple Hibiscus</div>
-          <div class="desc">By Chimamanda Ngozi Adichie</br>Purple Hibiscus is set in postcolonial Nigeria, a country beset by political instability and economic difficulties</div>
-          <div class="desc">12 copies available</div>
-          <button type="submit" class="btn">Borrow</button>
-        </div>
-    </div>
-   <!-- displays user profile-->
-    <div id="profile" class="tabcontent" class="profile-card" align="center">
-        <div class="profile-avatar">
-          <a href="#"><img src="images/profilephoto.jpg" class="avatar" /></a>
-          <div class="btns-container">
-            <div class="profile-links">
-                <a class="edit" style="color: white;" href="#">Edit Profile</a>
+                <div class="desc">Purple Hibiscus</div>
+                <div class="desc">By Chimamanda Ngozi Adichie</br>Purple Hibiscus is set in postcolonial Nigeria, a country beset by political
+                    instability and economic difficulties</div>
+                <div class="desc">12 copies available</div>
+                <button type="submit" class="btn">Borrow</button>
             </div>
-          </div>
         </div>
-        <div class="profile-details">
+
+        <!-- displays user profile-->
+        <div id="profile" class="tabcontent" class="profile-card" align="center">
+            <div class="profile-avatar">
+                <a href="#"><img src="images/profilephoto.jpg" class="avatar" /></a>
+                <div class="btns-container">
+                    <div class="profile-links">
+                        <a class="edit" style="color: white;" href="#">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-details">
                 <h1 style="color: white;">Grace Joel</h1>
                 <h3>Rookie</h3>
+            </div>
+            <div class="profile-content">
+                <ul>
+                    <li>
+                        <div class="digits">11</div>
+                        Books read
+                    </li>
+                    <li>
+                        <div class="digits">9</div>
+                        Books returned
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
         </div>
-        <div class="profile-content">
-            <ul>
-                <li>
-                    <div class="digits">11</div>
-                    Books read
-                </li>
-                <li>
-                    <div class="digits">9</div>
-                    Books returned
-                </li>
-            </ul>
-            <div class="clear"></div>
+
+        <!-- displays tab for unreturned books-->
+        <div id="unreturned" class="tabcontent" align="center">
+            <table cellspacing="0" style="color: #800080;
+    background-color: white;">
+                <tr>
+                    <th>Title</th>
+                    <th>Date Borrowed</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td><a>RETURN</a></td>
+                </tr>
+                <tr>
+                    <td id="title">There was a country</td>
+                    <td id="dateB">16/04/2017</td>
+                    <td><a>RETURN</a></td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td><a>RETURN</a></td>
+                </tr>
+            </table>
         </div>
-      </div>
-      <!-- displays tab for unreturned books-->
-      <div id="unreturned" class="tabcontent" align="center" >
-        <table cellspacing="0" style="color: #800080;
+
+        <!-- displays users' history-->
+        <div id="history" class="tabcontent" align="center">
+            <table cellspacing="0" style="color: #800080;
     background-color: white;">
-            <tr>
-                <th>Title</th>
-                <th>Date Borrowed</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td ><a>RETURN</a></td>
-            </tr>
-            <tr>
-                <td id="title">There was a country</td>
-                <td id="dateB">16/04/2017</td>
-                <td ><a>RETURN</a></td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td><a>RETURN</a></td>
-            </tr>
-        </table>
-      </div>
-      <!-- displays users' history-->
-      <div id="history" class="tabcontent" align="center">
-          <table cellspacing="0" style="color: #800080;
-    background-color: white;">
-            <tr>
-                <th>Title</th>
-                <th>Date Borrowed</th>
-                <th>Date Returned</th>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-            <tr>
-                <td id="title">The beautiful ones are not yet born</td>
-                <td id="dateB">12/01/2017</td>
-                <td id="dateR">16/01/2017</td>
-            </tr>
-          </table>
-      </div>
+                <tr>
+                    <th>Title</th>
+                    <th>Date Borrowed</th>
+                    <th>Date Returned</th>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+                <tr>
+                    <td id="title">The beautiful ones are not yet born</td>
+                    <td id="dateB">12/01/2017</td>
+                    <td id="dateR">16/01/2017</td>
+                </tr>
+            </table>
+        </div>
     </div>
-  </div>
+    </div>
 </body>
