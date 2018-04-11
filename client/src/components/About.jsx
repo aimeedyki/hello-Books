@@ -4,10 +4,14 @@ import rookie from '../assets/images/rookie.jpg';
 import bookworm from '../assets/images/bookworm.png';
 import voracious from '../assets/images/voracious.jpg';
 
+/** @description component that tells user what the library is about
+   *
+   * @returns { JSX } JSX
+   */
 const About = () => (
   <div className="row">
     <div className="col s12 m10 l10 offset-m1 white-text">
-      <h5 className="greeting white-text center">
+      <h5 className="greeting white-text center" id="home">
         Welcome to Booksville, home for book lovers.</h5>
       <p>Booksville goes all over the world to bring you
         intersting and fresh books.</p>

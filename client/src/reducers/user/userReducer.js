@@ -21,11 +21,12 @@ const initialState = {
   level: {},
   transactions: []
 };
-/** reducers for user components
- * @export
+/** @description reducers for user components
+ *
  * @param {Object} [state=initialState]
- * @param {*} action
- * @returns {*} state
+ * @param {object} action
+ *
+ * @returns {object} state
  */
 export default (state = initialState, action) => {
   switch (action.type) {

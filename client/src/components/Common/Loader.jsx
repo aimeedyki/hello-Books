@@ -1,5 +1,9 @@
 import React from 'react';
 
+/** @description Shows loader component
+   * 
+   * @returns { JSX } JSX
+   */
 const Loader = () => (
   <div className="row">
     <div className="col s2 offset-s6">

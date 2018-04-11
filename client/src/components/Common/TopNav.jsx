@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 
 import { logoutUser } from '../../actions/authAction';
 
+/** @description displays top navigation for the user page
+   * 
+   * @param { object } props 
+   * 
+   * @returns { JSX } JSX
+   */
 export default (props) => {
-  /** Logs out user
-     * @param {any} event
-     * @memberof TopNav
-     * @returns {*} void
-     */
+  /** @description Logs out user
+   *
+   * @memberof TopNav
+   *
+   * @returns {*} null
+   */
   const logout = () => {
     logoutUser();
   };

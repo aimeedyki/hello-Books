@@ -21,7 +21,13 @@ import {
   getUser
 } from './authAction';
 
-// gets the history of a user
+/** @description action creator to get users borrow history
+ *
+ * @param {number} limit The maximum number of items to display
+ * @param {number} offset The offset from the first result to list from
+ *
+ * @return {function} dispatch
+ */
 export const getHistory = (limit, offset) => (
   dispatch => (
     axios
@@ -38,6 +44,13 @@ export const getHistory = (limit, offset) => (
   )
 );
 
+/** @description action creator to get a users outstanding books
+ *
+ * @param {number} limit The maximum number of items to display
+ * @param {number} offset The offset from the first result to list from
+ *
+ * @return {function} dispatch
+ */
 export const getOutstanding = (limit, offset) => (
   dispatch => (
     axios
@@ -55,6 +68,10 @@ export const getOutstanding = (limit, offset) => (
   )
 );
 
+/** @description action creator to display notifications
+ *
+ * @return {function} dispatch
+ */
 export const displayNotification = () => (
   dispatch => (
     axios.get('/api/v1/notifications')
@@ -70,11 +87,19 @@ export const displayNotification = () => (
   )
 );
 
+/** @description action creator to change password
+ *
+ * @param {string} oldPassword users old password
+ * @param {string} newPassword users new password
+ * @param {string} confirmNewPassword confirms user password
+ * 
+ * @return {function} dispatch
+ */
 export const passwordChange = (
   oldPassword, newPassword, confirmNewPassword) => (
   dispatch => (
     axios.put('/api/v1/user/password',
-      { newPassword, confirmNewPassword })
+      { oldPassword, newPassword, confirmNewPassword })
       .then(() => {
         dispatch({
           type: CHANGE_PASSWORD,
@@ -92,6 +117,14 @@ export const passwordChange = (
   )
 );
 
+/** @description action creator to change level of user
+ *
+ * @param {number} newLevelId id of the new level
+ * @param {string} transactionId the id of the transaction
+ * @param {number} amount amount paid to change level
+ * 
+ * @return {function} dispatch
+ */
 export const changeLevel = ({ newLevelId, transactionId, amount }) => (
   dispatch => (
     axios.put('/api/v1/user/level', { newLevelId, transactionId, amount })
@@ -110,6 +143,12 @@ export const changeLevel = ({ newLevelId, transactionId, amount }) => (
   )
 );
 
+/** @description action creator to change picture
+ *
+ * @param {string} profilePic profile picture url
+ * 
+ * @return {function} dispatch
+ */
 export const changePic = profilePic => (
   dispatch => (
     axios.put('/api/v1/user/profile-image', { profilePic })
@@ -128,6 +167,10 @@ export const changePic = profilePic => (
   )
 );
 
+/** @description action creator to display all transactions to admin
+ *
+ * @return {function} dispatch
+ */
 export const displayAllTransactions = () => (
   dispatch => (
     axios.get('/api/v1/transactions')
@@ -143,6 +186,10 @@ export const displayAllTransactions = () => (
   )
 );
 
+/** @description action creator to display confirmed transactions to admin
+ *
+ * @return {function} dispatch
+ */
 export const displayConfirmedTransactions = () => (
   dispatch => (
     axios.get('/api/v1/transactions?confirmed=true')
@@ -158,6 +205,10 @@ export const displayConfirmedTransactions = () => (
   )
 );
 
+/** @description action creator to display unconfirmed transactions to admin
+ *
+ * @return {function} dispatch
+ */
 export const displayUnconfirmedTransactions = () => (
   dispatch => (
     axios.get('/api/v1/transactions?confirmed=false')
@@ -173,6 +224,12 @@ export const displayUnconfirmedTransactions = () => (
   )
 );
 
+/** @description action creator to confirm a transaction
+ *
+ * @param {number} transactionId id of transaction
+ *
+ * @return {function} dispatch
+ */
 export const confirmTransaction = transactionId => (
   dispatch => (
     axios.put('/api/v1/transactions', { transactionId })
@@ -186,20 +243,28 @@ export const confirmTransaction = transactionId => (
   )
 );
 
+/** @description action creator to submit a payment transaction
+ *
+ * @param {string} transactionId id of transaction
+ * @param {string} transactionType the type of transaction
+ * @param {number} amount amount paid
+ *
+ * @return {function} dispatch
+ */
 export const submitTransaction = (
   { transactionId, transactionType, amount }) => (
-    dispatch => (
-      axios.post('/api/v1/transactions',
-        { transactionId, transactionType, amount })
-        .then((response) => {
-          dispatch({
-            type: SUBMIT_TRANSACTION,
-            payload: response.data.transaction
-          });
-          return true;
-        })
-        .catch((error) => {
-          errorHandler(dispatch, error.response, USER_ERROR);
-        })
-    )
-  );
+  dispatch => (
+    axios.post('/api/v1/transactions',
+      { transactionId, transactionType, amount })
+      .then((response) => {
+        dispatch({
+          type: SUBMIT_TRANSACTION,
+          payload: response.data.transaction
+        });
+        return true;
+      })
+      .catch((error) => {
+        errorHandler(dispatch, error.response, USER_ERROR);
+      })
+  )
+);

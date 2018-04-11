@@ -1,6 +1,8 @@
-/** @description validates signup form for valid email and password fields
+/** @description validates form for adding a book
+   *
    * @param {object} fields a form object
-   * @returns {object} response object
+   *
+   * @returns {object} response object with a validation boolean and a message
    */
 const addBookValidation = (fields) => {
   const title = fields.title || null;

@@ -6,11 +6,13 @@ import {
 } from '../../actions/types';
 
 const initialState = { error: '', authenticated: '', user: {} };
-/** reducers for authentication component
- * @export
- * @param {any} [state=initialState]
- * @param {any} action
- * @returns {*} state
+
+/** @description reducers for authentication component
+ *
+ * @param {object} [state=initialState]
+ * @param {object} action
+ *
+ * @returns {object} state
  */
 export default (state = initialState, action) => {
   switch (action.type) {

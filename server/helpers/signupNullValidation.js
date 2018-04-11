@@ -1,9 +1,11 @@
 
 /** @description validates signup form for null values
-   * @param {object} fields a form object
-   * @returns {object} response object
-   */
-const nullValidation = (fields) => {
+ *
+ * @param {object} fields a form object
+ *
+ * @returns {object} response object with a validation boolean and a message
+ */
+const signupNullValidation = (fields) => {
   const email = fields.email || null;
   const password = fields.password || null;
   const username = fields.username || null;
@@ -37,4 +39,4 @@ const nullValidation = (fields) => {
   return { isValid: true };
 };
 
-export default nullValidation;
+export default signupNullValidation;

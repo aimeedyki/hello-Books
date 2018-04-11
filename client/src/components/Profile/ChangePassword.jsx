@@ -6,13 +6,17 @@ import { clearErrorMessage } from '../../actions/authAction';
 import { passwordChange, } from '../../actions/userAction';
 import Button from '../Common/Button.jsx';
 
-/** component to change password
+/** @description component to change password
+ *
  * @class ChangePassword
+ *
  * @extends {Component}
  */
 export class ChangePassword extends Component {
-  /** Creates an instance of ChangePassword.
-   * @param {*} props
+  /** @description Creates an instance of ChangePassword
+   *
+   * @param { object } props
+   *
    * @memberof ChangePassword
    */
   constructor(props) {
@@ -26,15 +30,25 @@ export class ChangePassword extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.closePage = this.closePage.bind(this);
   }
-  /** @returns {*} null
-   * @param {any} event
+
+  /** @description sets the state to the value of the respective fields
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof ChangePassword
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description submits the form
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof ChangePassword
    */
   handleFormSubmit(event) {
@@ -55,14 +69,21 @@ export class ChangePassword extends Component {
       Materialize.toast('Passwords do not match', 4000, 'indigo darken-2');
     }
   }
-  /**
+
+  /** @description closes the page
+   *
    * @returns {*} null
+   *
    * @memberof ChangePassword
    */
   closePage() {
     this.props.history.push('/main/profile');
   }
-  /** @returns {*} component
+
+  /** @description renders the ChangePassword component
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof ChangePassword
    */
   render() {
@@ -72,7 +93,7 @@ export class ChangePassword extends Component {
           <form onSubmit={this.handleFormSubmit}>
             <div className='row'>
               <i className="material-icons red-text right close link-cursor"
-                onClick={this.closePage}>
+                id="close" onClick={this.closePage}>
                 close</i>
               <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
                 <h5 className='indigo-text text-darken-2 greeting center'><b>
@@ -117,7 +138,14 @@ export class ChangePassword extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { object } user details
+   * @returns { string } error message
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { error } = state.userReducer;

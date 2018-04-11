@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -9,14 +8,18 @@ import Table from '../Common/Table.jsx';
 import Loader from '../Common/Loader.jsx';
 import Pagination from '../Common/Pagination';
 
-/** Displays a users history of borrowed
+/** @description Displays a users history of borrowed
  * books
+ *
  * @class Borrowed
+ *
  * @extends {Component}
  */
 export class Borrowed extends Component {
-  /** Creates an instance of Borrowed.
-   * @param {any} props
+  /** @description Creates an instance of Borrowed
+   *
+   * @param { object } props
+   *
    * @memberof Borrowed
    */
   constructor(props) {
@@ -33,16 +36,24 @@ export class Borrowed extends Component {
     this.getNextPage = this.getNextPage.bind(this);
     this.getPreviousPage = this.getPreviousPage.bind(this);
   }
-  /** gets the history of a user
-   * @returns {*} void
+
+  /** @description gets the history of a user
+   *
+   * @returns { * } null
+   *
    * @memberof Borrowed
    */
   componentDidMount() {
     this.props.getHistory(this.state.limit,
       this.state.offset);
   }
-  /** @returns {*} book details
-   * @param {any} nextProps
+
+  /** @description maps the users borrow history to the table
+   *
+   * @returns { array } history details
+   *
+   * @param { object } nextProps
+   *
    * @memberof Borrowed
    */
   componentWillReceiveProps(nextProps) {
@@ -52,7 +63,6 @@ export class Borrowed extends Component {
         const borrowed = moment(history.createdAt).format('MMMM Do YYYY');
         const expected = moment(history.expectedDate).format('MMMM Do YYYY');
         let returned;
-        /* eslint-disable no-unused-expressions */
         (history.returnedDate === null) ? (returned = 'Not returned') :
           (returned = moment(history.returnedDate).format('MMMM Do YYYY'));
         return ({
@@ -67,25 +77,28 @@ export class Borrowed extends Component {
   }
 
   /** @description creates an array of page numbers
-   * @returns {*} void
-   * @param {any} pageCount
-   * @memberof Allbooks
+   *
+   * @returns {*} null
+   *
+   * @param { number } pageCount
+   * @memberof Borrowed
    */
   getPages(pageCount) {
-    const pages = [];
-    /* eslint-disable no-plusplus */
-    for (let index = 1; index <= pageCount; index++) {
-      pages.push(index);
-    }
+    const pages = Array.from({ length: pageCount },
+      (value, index) => index + 1);
     this.setState({
       pages
     });
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} page
-   * @memberof Allbooks
+
+  /** @description moves to a new page
+   *
+   * @returns { * } null
+   *
+   * @param { object } event
+   * @param { number } page
+   *
+   * @memberof Borrowed
    */
   getNewPage(event, page) {
     event.preventDefault();
@@ -97,11 +110,15 @@ export class Borrowed extends Component {
         this.state.offset);
     });
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+
+  /** @description moves to the next page
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   * @param { number } currentPage
+   *
+   * @memberof Borrowed
    */
   getNextPage(event, currentPage) {
     event.preventDefault();
@@ -115,11 +132,15 @@ export class Borrowed extends Component {
       });
     }
   }
-  /**
-   * @returns {*} void
-   * @param {any} event
-   * @param {any} currentPage
-   * @memberof Allbooks
+
+  /** @description moves to a previous page
+   *
+   * @returns {*} null
+   *
+   * @param { object } event
+   * @param { number } currentPage
+   *
+   * @memberof Borrowed
    */
   getPreviousPage(event, currentPage) {
     event.preventDefault();
@@ -133,7 +154,10 @@ export class Borrowed extends Component {
       });
     }
   }
-  /** @returns {*} users' history
+
+  /** @description renders user's history
+   *
+   * @returns {*} users' history
    * @memberof Borrowed
    */
   render() {
@@ -157,7 +181,7 @@ export class Borrowed extends Component {
     ];
     if (!this.props.histories) { return <Loader />; }
     return (
-      <div className='row'>
+      <div className='row center'>
         <div className='card col s12 l8 offset-l3'>
           <Table record={this.borrowedBooks}
             header={header} />
@@ -174,7 +198,15 @@ export class Borrowed extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } borroy history
+   * @returns { object } pagination details
+   * @returns { object } user details
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { histories, pagination } = state.userReducer.histories;

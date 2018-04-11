@@ -1,8 +1,10 @@
 
 /** @description validates level change form for null values
-   * @param {object} fields a form object
-   * @returns {object} response object
-   */
+ *
+ * @param {object} fields a form object
+ *
+ * @returns {object} response object with a validation boolean and a message
+ */
 const levelChangeValidation = (fields) => {
   const newLevelId = parseInt(fields.newLevelId, 10);
   const transactionId = fields.transactionId || null;

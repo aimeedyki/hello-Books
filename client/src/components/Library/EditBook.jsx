@@ -11,13 +11,17 @@ import {
 
 import Button from '../Common/Button.jsx';
 
-/** Edits a book
+/** @description Edits a book
+ *
  * @class EditBook
+ *
  * @extends {Component}
  */
 export class EditBook extends Component {
-  /** Creates an instance of EditBook.
-   * @param {*} props
+  /** @description Creates an instance of EditBook.
+   *
+   * @param { object } props
+   *
    * @memberof EditBook
    */
   constructor(props) {
@@ -41,11 +45,13 @@ export class EditBook extends Component {
     this.renderAlert = this.renderAlert.bind(this);
     this.setBookDetails = this.setBookDetails.bind(this);
     this.getBookId = this.getBookId.bind(this);
-    this.onCancel = this.onCancel.bind(this);
     this.closePage = this.closePage.bind(this);
   }
-  /** gets the book to be edited
+
+  /** @description gets the book to be edited
+   *
    * @returns {*} null
+   *
    * @memberof EditBook
    */
   componentDidMount() {
@@ -53,10 +59,15 @@ export class EditBook extends Component {
     this.props.getABook(this.bookId);
     this.props.getCategories();
   }
-  /** @returns {*} null
-     * @param {*} nextProps
-     * @memberof EditBook
-     */
+
+  /** @description calls the function to set the book
+   *
+   * @returns {*} null
+   *
+   * @param { object } nextProps
+   *
+   * @memberof EditBook
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.book !== this.props.book && nextProps.book) {
       this.setBookDetails(
@@ -68,8 +79,13 @@ export class EditBook extends Component {
         nextProps.book.image, this.bookId);
     }
   }
-  /** @returns {*} null
-   * @param {*} prevProps
+
+  /** @description calls the function to display error
+   *
+   * @returns {*} null
+   *
+   * @param { object } prevProps
+   *
    * @memberof EditBook
    */
   componentDidUpdate(prevProps) {
@@ -77,14 +93,19 @@ export class EditBook extends Component {
       this.renderAlert();
     }
   }
-  /** @returns {*} book details
-   * @param {string} title
-   * @param {string} author
-   * @param {string} description
-   * @param {number} quantity
-   * @param {number} categoryId
-   * @param {string} image
-   * @param {string} bookId
+
+  /** @description populates form with book details
+   *
+   * @returns {*} null
+   *
+   * @param { string } title
+   * @param { string } author
+   * @param { string } description
+   * @param { number } quantity
+   * @param { number } categoryId
+   * @param { string } image
+   * @param { number } bookId
+   *
    * @memberof EditBook
    */
   setBookDetails(title,
@@ -94,6 +115,7 @@ export class EditBook extends Component {
     }, () => {
     });
   }
+
   /** @returns {*} null
    * @param {*} event
    * @memberof AddBook
@@ -104,9 +126,14 @@ export class EditBook extends Component {
     });
     this.handleImageUpload(event.target.files[0]);
   }
-  /** @returns {*} null
+
+  /** @description uploads image
+   *
+   * @returns {*} null
+   *
    * @param {file} image
-   * @memberof AddBook
+   *
+   * @memberof EditBook
    */
   handleImageUpload(image) {
     this.props.imageUpload(image)
@@ -117,23 +144,38 @@ export class EditBook extends Component {
         });
       });
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description sets the value of the field to state on change
+   *
+   *  @returns {*} null
+   *
+   * @param { object } event
+   *
    * @memberof EditBook
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /** @returns {*} null
+
+  /** @description gets the value of the select field
+   *
+   * @returns {*} null
+   *
    * @param {any} event
+   *
    * @memberof EditBook
    */
   categorySelect(event) {
     event.preventDefault();
     this.setState({ categoryId: event.target.value });
   }
-  /** @returns {*} null
-   * @param {*} event
+
+  /** @description submits the editted book
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof EditBook
    */
   handleFormSubmit(event) {
@@ -152,7 +194,11 @@ export class EditBook extends Component {
         }
       });
   }
-  /** @returns {string} error message
+
+  /** @description displays error message if there is any
+   *
+   * @returns { string } error message
+   *
    * @memberof EditBook
    */
   renderAlert() {
@@ -165,8 +211,12 @@ export class EditBook extends Component {
       );
     }
   }
-  /** @returns {string} book id
-   * @param {any} pathName
+  /** @description gets the bookId from path
+   *
+   * @returns {*} null
+   *
+   * @param { string } pathName
+   *
    * @memberof EditBook
    */
   getBookId(pathName) {
@@ -174,20 +224,21 @@ export class EditBook extends Component {
     const id = stringArray[2];
     this.bookId = id;
   }
-  /**
+
+  /** @description closes the page
+   *
    * @returns {*} null
+   *
    * @memberof ChangeLevel
    */
   closePage() {
     this.props.history.push('/main');
   }
-  /** @returns {*} void
-   * @memberof EditBook
-   */
-  onCancel() {
-    this.props.history.push('/user');
-  }
-  /** @returns {*} component that edits a book
+
+  /** @description renders the edit book component
+   *
+   *  @returns {*} component that edits a book
+   *
    * @memberof EditBook
    */
   render() {
@@ -310,7 +361,15 @@ export class EditBook extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } categories
+   * @returns { string } error message
+   * @returns { array } book
+   */
 const mapStateToProps = state => ({
   categories: state.categoryReducer.categories,
   errorMessage: state.bookReducer.error,

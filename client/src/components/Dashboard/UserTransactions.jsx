@@ -9,14 +9,18 @@ import {
   displayConfirmedTransactions,
   displayUnconfirmedTransactions
 } from '../../actions/userAction';
-/**
+
+/** @description displays users transactions
+ *
  * @class UserTransactions
+ *
  * @extends {Component}
  */
 export class UserTransactions extends Component {
-  /**
-   * Creates an instance of UserTransactions.
-   * @param {any} props 
+  /** @description Creates an instance of UserTransactions
+   *
+   * @param {object} props
+   *
    * @memberof UserTransactions
    */
   constructor(props) {
@@ -29,17 +33,23 @@ export class UserTransactions extends Component {
     this.confirm = this.confirm.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
   }
-  /**
+
+  /** @description displays all the transactions
+   *
    * @returns {*} null
+   *
    * @memberof UserTransactions
    */
   componentDidMount() {
     this.props.displayAllTransactions();
   }
-  /**
-   * 
+
+  /** @description maps transactions to headings
+   *
    * @returns {*} null
-   * @param {any} nextProps 
+   *
+   * @param {object} nextProps
+   *
    * @memberof UserTransactions
    */
   componentWillReceiveProps(nextProps) {
@@ -70,11 +80,14 @@ export class UserTransactions extends Component {
       });
     }
   }
-  /**
+  /** @description confirms transaction
+   *
    * @returns {*} null
-   * @param {number} id 
+   *
+   * @param {number} id
    * @param {string} level
    * @param {string} type
+   *
    * @memberof UserTransactions
    */
   confirm(id, level, type) {
@@ -103,10 +116,12 @@ export class UserTransactions extends Component {
         }
       });
   }
-  /**
-   * 
+  /** @description handles transaction filter
+   *
    * @returns {*} null
-   * @param {*} event 
+   *
+   * @param { object } event
+   *
    * @memberof UserTransactions
    */
   handleFilter(event) {
@@ -121,7 +136,8 @@ export class UserTransactions extends Component {
       this.props.displayUnconfirmedTransactions();
     }
   }
-  /**
+  /** @description displays user's transction
+   *
    * @returns {*} null
    * @memberof UserTransactions
    */
@@ -173,7 +189,13 @@ export class UserTransactions extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } transactions
+   * @returns { strings } error message
+   */
 const mapStateToProps = state => (
   {
     transactions: state.userReducer.transactions.transactions,

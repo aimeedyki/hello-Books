@@ -5,14 +5,17 @@ import { submitTransaction } from '../../actions/userAction';
 
 import Button from '../Common/Button';
 
-/** 
+/** @description allows user to upload payments
+ *
  * @class UserPayments
+ *
  * @extends {Component}
  */
 export class UserPayments extends Component {
-  /**
-   * Creates an instance of UserPayments.
-   * @param {any} props 
+  /** @description Creates an instance of UserPayments.
+   *
+   * @param {object} props
+   *
    * @memberof UserPayments
    */
   constructor(props) {
@@ -27,26 +30,35 @@ export class UserPayments extends Component {
     this.closePage = this.closePage.bind(this);
   }
 
-  /** @returns {*} null
-   * @param {*} event
-   * @memberof AddBook
+  /** @description sets the state to the value of the respective fields
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
+   * @memberof UserPayments
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  /**
+  /** @description sets the state to the value of the respective fields
+   *
    * @returns {*} null
-   * @memberof ChangePassword
+   *
+   * @memberof UserPayments
    */
   closePage() {
     this.props.history.push('/main/profile');
   }
 
-  /** submits a form and adds book to library
+  /** @description submits a form and adds book to library
+   *
    * @returns {*} null
-   * @param {*} event
-   * @memberof AddBook
+   *
+   * @param {object} event
+   *
+   * @memberof UserPayments
    */
   handleFormSubmit(event) {
     event.preventDefault();
@@ -60,15 +72,19 @@ export class UserPayments extends Component {
         Materialize.toast(error.message, 4000, 'indigo darken-2');
       });
   }
-  /**
- * @returns {*} null
- * @memberof UserPayments
- */
+
+  /** @description renders the UserPayments component
+   *
+   * @returns {*} null
+   *
+   * @memberof UserPayments
+   */
   render() {
     return (
       <div className="row">
         <div className="card profile col l5 offset-l4 shadow">
           <i className="material-icons red-text right close link-cursor"
+            id='close'
             onClick={this.closePage}>
             close</i>
           <h5 className='greeting indigo-text text-darken-2 center'><b>
@@ -120,7 +136,12 @@ export class UserPayments extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { object } user details
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   return {

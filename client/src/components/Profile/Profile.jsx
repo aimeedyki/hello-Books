@@ -16,13 +16,17 @@ import voracious from '../../assets/images/voracious.jpg';
 import admin from '../../assets/images/admin.jpg';
 import noPicture from '../../assets/images/profile.jpeg';
 
-/** shows the users' profile
+/** @description shows the users' profile
+ *
  * @class Profile
+ *
  * @extends {Component}
  */
 export class Profile extends Component {
-  /** Creates an instance of Profile.
-   * @param {*} props
+  /** @description Creates an instance of Profile
+   *
+   * @param {object} props
+   *
    * @memberof Profile
    */
   constructor(props) {
@@ -38,8 +42,12 @@ export class Profile extends Component {
     this.uploadPic = this.uploadPic.bind(this);
   }
 
-  /** @returns {*} void
-   * @param {any} image
+  /** @description uploads image
+   *
+   * @returns {*} null
+   *
+   * @param {file} image
+   *
    * @memberof Profile
    */
   handleImageUpload(image) {
@@ -51,8 +59,13 @@ export class Profile extends Component {
         });
       });
   }
-  /** @returns {*} void
-   * @param {any} event
+
+  /** @description sets image file to state
+   *
+   * @returns {*} null
+   *
+   * @param {object} event
+   *
    * @memberof Profile
    */
   imageChange(event) {
@@ -62,15 +75,20 @@ export class Profile extends Component {
     this.handleImageUpload(event.target.files[0]);
   }
 
-  /** @returns {*} void
+  /** @returns {*} null
    * @memberof Profile
    */
   uploadPic() {
     this.props.changePic(this.state.profilePic);
   }
   /* eslint-disable class-methods-use-this */
-  /** @param {string} level
-   * @returns {*} level icon
+  /** @description Chooses the level icon to display based on
+   * user's level
+   *
+   * @param {string} level
+   *
+   * @returns {*} null
+   *
    * @memberof Profile
    */
   setLevelIcon(level) {
@@ -86,8 +104,10 @@ export class Profile extends Component {
     }
   }
 
-  /** renders profile component
-   * @returns {*} component
+  /** @description renders profile component
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof Profile
    */
   render() {
@@ -99,11 +119,12 @@ export class Profile extends Component {
       email,
       borrowCount,
       profilePic,
+      surcharge,
+      outstandingSubscription,
       maxDays,
       maxBooks }
       = this.props.user;
     let profileImage;
-    /* eslint-disable no-unused-expressions */
     profilePic === '' || profilePic === null ?
       (profileImage = noPicture) : (profileImage = profilePic);
 
@@ -139,6 +160,18 @@ export class Profile extends Component {
             <div className='col s6 details-left'>
               <h6>Books Borrowed</h6></div>
             <div className='col s6'><p><c>{borrowCount}</c></p></div>
+            <div className='col s6 details-left'>
+              <h6>Surcharge</h6></div>
+            <div className='col s6'><p><c>{surcharge}</c></p></div>
+            {outstandingSubscription === 0 ? '' :
+              <div>
+                <div className='col s6 details-left'>
+                  <h6>Subscription charge</h6></div>
+                <div className='col s6'>
+                  <p><c>{outstandingSubscription}</c></p>
+                </div>
+              </div>
+            }
           </div>
           <div className='row'>
             <div className='col s9'>
@@ -156,7 +189,7 @@ export class Profile extends Component {
             <div className='col s3'>
               <a onClick={this.uploadPic}
                 className='btn-floating btn-large waves-effect waves-light'
-                className=' black'>
+                id="send">
                 <i className='material-icons medium left link-cursor'>
                   send</i></a>
             </div>
@@ -168,18 +201,32 @@ export class Profile extends Component {
               <img src={this.state.profilepic} alt="profile picture" />
             }
           </div>
-          <div className='link-cursor'>
-            <Link to="/main/password" >Change password?</Link>
+          <div className="row link-margin">
+            <Link to="/main/password"
+              className="col s5 link-cursor" >Change password?</Link>
+            <span className="col s1 grey-text" >|</span>
+            <Link to="/main/new-level"
+              className="col s5 link-cursor" >Want a new Level?</Link>
           </div>
-          <div className='levelLink link-cursor'>
-            <Link to="/main/new-level" >Want a new Level?</Link>
+          <div className='levelLink'>
+            <p>Already paid? Please upload payments
+              <Link to="/main/payment-upload"
+                className="link-cursor"> here
+              </Link>
+            </p>
           </div>
         </div>
       </div>
     );
   }
 }
-// function to connect the state from the store to the props of the component
+
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { object } user details
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   return {

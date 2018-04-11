@@ -9,16 +9,18 @@ import {
   editCategory,
   deleteCategory
 } from '../../actions/bookAction';
-/**
- * 
- * 
+
+/** @description adds, edits and deletes categories
+ *
  * @class CategoryControls
- * @extends {Component}
+ *
+ * @extends { Component }
  */
 export class CategoryControls extends Component {
-  /**
-   * Creates an instance of CategoryControls.
-   * @param {any} props
+  /** @description Creates an instance of CategoryControls.
+   *
+   * @param { object } props
+   *
    * @memberof CategoryControls
    */
   constructor(props) {
@@ -33,10 +35,12 @@ export class CategoryControls extends Component {
     this.cancel = this.cancel.bind(this);
   }
 
-  /**
+  /** @description gets the categories and sets them to state
    * 
    * @returns {*} null
-   * @param {any} nextProps
+   *
+   * @param {object} nextProps
+   *
    * @memberof CategoryControls
    */
   componentWillReceiveProps(nextProps) {
@@ -45,9 +49,13 @@ export class CategoryControls extends Component {
         { [category.name]: category.name }));
     }
   }
-  /**
-   *  @returns {*} null
-   * @param {*} categoryId
+
+  /** @description edits a category
+   *
+   * @returns {*} null
+   *
+   * @param {number} categoryId
+   *
    * @memberof CategoryControls
    */
   handleCategoryEdit(categoryId) {
@@ -56,11 +64,13 @@ export class CategoryControls extends Component {
     $(`#cancel-${categoryId}`).show();
     this.props.categories.map(category => $(`#edit-${categoryId}`).hide());
   }
-  /**
+  /** @description cancels category edit
    * 
-   * @returns {*} null
-   * @param {any} name
-   * @param {any} categoryId
+   * @returns { * } null
+   *
+   * @param { string } name
+   * @param { number } categoryId
+   *
    * @memberof CategoryControls
    */
   cancel(name, categoryId) {
@@ -69,10 +79,13 @@ export class CategoryControls extends Component {
     this.setState({ [name]: name });
     this.props.categories.map(category => $(`#edit-${category.id}`).show());
   }
-  /**
-   * @returns {*} null
-   * @param {any} categoryId
-   * @param {any} categoryName
+  /** @description submits category edits
+   *
+   * @returns { * } null
+   *
+   * @param { number } categoryId
+   * @param { string } categoryName
+   *
    * @memberof CategoryControls
    */
   submitEdit(categoryId, categoryName) {
@@ -83,10 +96,14 @@ export class CategoryControls extends Component {
         }
       });
   }
-  /**
-   * @param {any} event
+
+  /** @description updates the category edit form on change
+   *
+   * @param { object } event
+   *
    * @memberof CategoryControls
-   * @returns {void}
+   *
+   * @returns {*} null
    */
   updateForm(event) {
     this.setState({
@@ -94,9 +111,12 @@ export class CategoryControls extends Component {
     });
   }
 
-  /**
+  /** @description deletes a category
+   *
    *  @returns {*} null
-   * @param {*} categoryId
+   *
+   * @param { number } categoryId
+   *
    * @memberof CategoryControls
    */
   handleDelete(categoryId) {
@@ -119,8 +139,11 @@ export class CategoryControls extends Component {
         }
       });
   }
-  /**
-   * @returns {*} dashboard
+
+  /** @description renders the categoryControls component
+   *
+   * @returns {*} null
+   *
    * @memberof CategoryControls
    */
   render() {
@@ -175,7 +198,14 @@ export class CategoryControls extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { array } categories
+   * @returns { object } user details
+   * @returns { string } error message
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { categories, error } = state.categoryReducer;

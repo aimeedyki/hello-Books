@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { withRouter, Link, Route, Switch } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCategories, getBooksByCategory } from '../../actions/bookAction';
+
 import ConnectedAllBooks from './AllBooks.jsx';
 
-/** Component that holds all the books
- * and the Library that displays the categories
+/** @description Component that holds all the books
+ * in the Library
+ *
  * @class Library
+ *
  * @extends {Component}
  */
 export class Library extends Component {
-  /** @returns {*} library component
+  /** @description displays the library component
+   *
+   * @returns { JSX } JSX
+   *
    * @memberof Library
    */
   render() {
@@ -44,7 +49,12 @@ export class Library extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state
+   *
+   * @returns { object } user
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   return {
@@ -54,5 +64,4 @@ const mapStateToProps = (state) => {
 
 // connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
-  getCategories
 })(withRouter(Library));

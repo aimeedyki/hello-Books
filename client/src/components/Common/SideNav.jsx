@@ -5,32 +5,33 @@ import { getCategories } from '../../actions/bookAction';
 
 import BookCategory from '../Library/BookCategory.jsx';
 
-/** side navigation on the user page
- * @export
+/** @description side navigation on the user page
+ *
  * @class SideNav
+ *
  * @extends {Component}
  */
 export class SideNav extends Component {
-  /* eslint-disable class-methods-use-this */
-  /** calls methods that gets all categories
- * @returns {*} null
- * @memberof SideNav
- */
-  componentWillMount() {
-    this.props.getCategories();
-  }
-  /** @returns {*} void
+  /** @description gets the categories to display on nav
+   * and initializes the side navigation
+   * 
+   * @returns { * } null
+   *
    * @memberof SideNav
    */
   componentDidMount() {
+    this.props.getCategories();
     $(document).ready(() => {
       $('.button-collapse').sideNav({
         menuWidth: 200,
       });
     });
   }
-  /** displays side navigation on user page
-   * @returns {*} side nav
+
+  /** @description displays side navigation on user page
+   *
+   * @returns { JSX } JSX
+   *
    * @memberof SideNav
    */
   render() {
@@ -44,7 +45,7 @@ export class SideNav extends Component {
       </ul>
     ) : adminLinks = '';
 
-    const pictureUrl = 'http://res.cloudinary.com/ddxsazo2k/image/upload';
+    const pictureUrl = 'https://res.cloudinary.com/ddxsazo2k/image/upload';
 
     return (
       <div className="grey lighten-4">
@@ -98,7 +99,13 @@ export class SideNav extends Component {
   }
 }
 
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { object } state 
+   *
+   * @returns { array } categories
+   * @returns { object } user details
+   */
 const mapStateToProps = (state) => {
   const { user } = state.authReducer;
   const { categories } = state.categoryReducer;
@@ -108,7 +115,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-// connects the state from the store to the props of the component
 export default connect(mapStateToProps, {
   getCategories
 })(withRouter(SideNav));

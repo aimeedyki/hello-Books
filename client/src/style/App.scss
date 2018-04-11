@@ -127,7 +127,13 @@ input-field input[type=text].invalid {
   max-height: 70% !important;
   max-width: 60% !important;
 }
-.activator{
+i .activator .right {
+  max-height: 50px !important;
+}
+.activator {
+  height: 50px !important;
+}
+.book-image{
 	width: auto;
   height: 180px !important;
   max-width: 100%;
@@ -151,11 +157,7 @@ Navlink{
   margin: 0 ;
  }
  .layout{
-  /*min-height: 100vh;*/
   position: relative;
- }
- .layout-fix{
-  //  margin-bottom: 10%;
  }
  .front{
    overflow: visible !important;
@@ -244,6 +246,9 @@ c{
   cursor: pointer !important;
 }
 
+.link-margin{
+  margin-left: 6%;
+}
 .pagination li.active {
   background-color: #303f9f;
 }
@@ -358,6 +363,9 @@ tbody {
   .library {
   margin-left: 20% !important;
   }
+  .transaction-page {
+    max-width: 80% !important;
+  }
 }
 
 .side-email {
@@ -404,6 +412,9 @@ tbody {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.transaction-page {
+  max-width: 97%;
+}
 .preloader-wrapper{
   margin-top: 70%;
 }

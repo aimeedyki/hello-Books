@@ -23,12 +23,15 @@ import {
   displayUnconfirmedTransactions, confirmTransaction, submitTransaction
 } from '../../actions/userAction';
 
-const store = mockStore({ book: {} });
+
 const details = {
   history: {
     id: 1,
   },
   notification: {
+    id: 1
+  },
+  transaction: {
     id: 1
   },
   error: 'this is an error'
@@ -45,65 +48,72 @@ const profilePic = 'pic.jpg';
 const clearErrorMessage = jest.fn();
 
 describe('getHistory action creator', () => {
-  test('successfully gets a user borrow history',
+  test(`dispatches an action type GET_HISTORY when fetching 
+  a user\'s borrow history`,
     () => {
-      mock.onGet().replyOnce(200, {
-        details
-      });
+      const store = mockStore({});
+      mock.onGet().replyOnce(200, details.history);
 
-      const expectedAction = {
+      const expectedAction = [{
         type: GET_HISTORY,
         payload: details.history
-      };
+      }];
 
       store.dispatch(getHistory(limit, offset))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(GET_HISTORY);
         });
     });
-  test('should give an error if there is an error getting user history',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error getting user history`,
     () => {
+      const store = mockStore({});
       mock.onPost().replyOnce(400, {
-        details
+        message: details.error
       });
 
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
 
       store.dispatch(getHistory('invalid'))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('getOutstanding action creator', () => {
-  test('successfully gets a user outstanding books',
+  test(`should dispatch an action type GET_OUTSTANDING 
+  when successfully gets a user outstanding books`,
     () => {
-      mock.onGet().replyOnce(200, {
-        details
-      });
-      const expectedAction = {
+      const store = mockStore({});
+      mock.onGet().replyOnce(200, details.history);
+      const expectedAction = [{
         type: GET_OUTSTANDING,
         payload: details.history
-      };
+      }];
       store.dispatch(getOutstanding(limit, offset))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
-          expect(actions[0].type).toBe(GET_HISTORY);
+          expect(actions).toEqual(expectedAction);
+          expect(actions[0].type).toBe(GET_OUTSTANDING);
         });
     });
-  test('should give an error if there is an error with books not returned',
+  test(`should should dispatch an action type USER_ERROR 
+  if there is an error with books not returned`,
     () => {
+      const store = mockStore({});
       mock.onPost().replyOnce(400, {
-        details
+        message: details.error
       });
 
       const expectedAction = {
@@ -115,156 +125,140 @@ describe('getOutstanding action creator', () => {
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('displayNotification action creator', () => {
-  test('successfully displays notification',
+  test(`should dispatch an action type DISPLAY_NOTIFICATION 
+  when it successfully displays notification`,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(200, {
-        details
+        notifications: details.notification
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: DISPLAY_NOTIFICATION,
         payload: details.notification
-      };
+      }];
       store.dispatch(displayNotification(limit, offset))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(DISPLAY_NOTIFICATION);
         });
     });
-  test('should give an error if there is an error with books not returned',
+  test(`should should dispatch an action type USER_ERROR 
+  if there is an error fetching books not returned`,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(displayNotification('invalid'))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('passwordChange action creator', () => {
-  test('successfully change a password',
+  test(`should dispatch an action type CHANGE_PASSWORD 
+  when password is changed successfully`,
     () => {
-      mock.onPut().replyOnce(200, {
-        details
-      });
-      const expectedAction = {
+      const store = mockStore({});
+      mock.onPut().replyOnce(200, {});
+      const expectedAction = [{
         type: CHANGE_PASSWORD
-      };
+      }];
       store.dispatch(passwordChange(password, confirmPassword))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(CHANGE_PASSWORD);
         });
     });
-  test('should give an error changing password',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error changing password`,
     () => {
+      const store = mockStore({});
       mock.onPost().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(passwordChange('invalid', confirmPassword))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
-
-
-describe('changeLevel action creator', () => {
-  test('successfully change a user\'s level',
-    () => {
-      mock.onPut().replyOnce(200, {
-        level
-      });
-      const expectedAction = {
-        type: CHANGE_LEVEL
-      };
-      store.dispatch(changeLevel(
-        level.newLevelId, level.transactionId, level.amount))
-        .then(() => store.getActions())
-        .then((actions) => {
-          expect(actions.length).toBe(1);
-          expect(actions[0].type).toBe(CHANGE_LEVEL);
-        });
-    });
-  test('should give an error when level is same as level',
-    () => {
-      mock.onPut().replyOnce(400, {
-        details
-      });
-      const expectedAction = {
-        type: USER_ERROR,
-        payload: details.error
-      };
-      store.dispatch(changeLevel(1, level.transactionId, level.amount))
-        .then(() => store.getActions())
-        .then((actions) => {
-          expect(actions.length).toBe(1);
-          expect(actions[0].type).toBe(USER_ERROR);
-        });
-    });
-});
-
 
 describe('changePic action creator', () => {
-  test('successfully change a user\'s profile pic',
+  test(`should dispatch an action type CHANGE_IMAGE
+   when it successfully changes a user's profile pic`,
     () => {
+      const store = mockStore({});
       mock.onPut().replyOnce(200, {
         details
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: CHANGE_IMAGE
-      };
+      }];
       store.dispatch(changePic(profilePic))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(CHANGE_IMAGE);
         });
     });
-  test('should give an error changing profile picture',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error changing profile picture`,
     () => {
+      const store = mockStore({});
       mock.onPut().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(changePic('hey'))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('displayAllTransactions action creator', () => {
-  test('successfully displays user transaction',
+  test(`should dispatch an action type DISPLAY_ALL_TRANSACTION 
+  when it successfully fetches all transaction`,
     () => {
+      const store = mockStore({});
+      mock.restore();
+
       mock.onGet().replyOnce(200, {
-        details
+        allTransactions: details.transaction
       });
       const expectedAction = {
         type: DISPLAY_ALL_TRANSACTIONS
@@ -273,13 +267,17 @@ describe('displayAllTransactions action creator', () => {
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(DISPLAY_ALL_TRANSACTIONS);
         });
     });
-  test('should give an error if there is one',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error displaying transactions`,
     () => {
+      const store = mockStore({});
+      mock.restore();
       mock.onGet().replyOnce(400, {
-        details
+        message: details.error
       });
       const expectedAction = {
         type: USER_ERROR,
@@ -289,142 +287,165 @@ describe('displayAllTransactions action creator', () => {
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 describe('displayConfirmedTransactions action creator', () => {
-  test('successfully displays user transaction',
+  test(`should dispatch an action type DISPLAY_ALL_TRANSACTION 
+  when it successfully fetches all confirmed `,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(200, {
-        details
+        allTransactions: details.transaction
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: DISPLAY_ALL_TRANSACTIONS
-      };
+      }];
       store.dispatch(displayConfirmedTransactions())
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(DISPLAY_ALL_TRANSACTIONS);
         });
     });
-  test('should give an error if there is one',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error fetching transactions`,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(displayConfirmedTransactions())
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('displayUnconfirmedTransactions action creator', () => {
-  test('successfully displays user transaction',
+  test(`should dispatch an action type DISPLAY_ALL_TRANSACTION 
+  when it successfully fetches all unconfirmed transactions`,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(200, {
-        details
+        allTransactions: details.transaction
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: DISPLAY_ALL_TRANSACTIONS
-      };
+      }];
       store.dispatch(displayUnconfirmedTransactions())
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(DISPLAY_ALL_TRANSACTIONS);
         });
     });
-  test('should give an error if there is one',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error fetching transactions`,
     () => {
+      const store = mockStore({});
       mock.onGet().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(displayUnconfirmedTransactions())
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('confirmTransactions action creator', () => {
-  test('successfully confirms a user transaction',
+  test(`should dispatch an action type CONFIRM_TRANSACTION 
+  when it successfully confirms a transaction`,
     () => {
-      mock.onPut().replyOnce(200, {
-        details
-      });
-      const expectedAction = {
+      const store = mockStore({});
+      mock.onPut().replyOnce(200, {});
+      const expectedAction = [{
         type: CONFIRM_TRANSACTION
-      };
+      }];
       store.dispatch(confirmTransaction(level.transactionId))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(CONFIRM_TRANSACTION);
         });
     });
-  test('should give an error confirming transaction',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error displaying transactions`,
     () => {
+      const store = mockStore({});
       mock.onPut().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(confirmTransaction('h'))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });
 });
 
 describe('submitTransactions action creator', () => {
-  test('successfully submits a user transaction',
+  test(`should dispatch an action type DISPLAY_ALL_TRANSACTION 
+  when it successfully submits a transaction`,
     () => {
+      const store = mockStore({});
       mock.onPost().replyOnce(201, {
-        details
+        transaction: details.transaction
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: SUBMIT_TRANSACTION
-      };
+      }];
       store.dispatch(submitTransaction(
         level.transactionId, level.transactionType, level.amount))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(SUBMIT_TRANSACTION);
         });
     });
-  test('should give an error if the transaction is invalid',
+  test(`should dispatch an action type USER_ERROR 
+  if there is an error submiting transactions`,
     () => {
+      const store = mockStore({});
       mock.onPost().replyOnce(400, {
-        details
+        message: details.error
       });
-      const expectedAction = {
+      const expectedAction = [{
         type: USER_ERROR,
         payload: details.error
-      };
+      }];
       store.dispatch(submitTransaction('h'))
         .then(() => store.getActions())
         .then((actions) => {
           expect(actions.length).toBe(1);
+          expect(actions).toEqual(expectedAction);
           expect(actions[0].type).toBe(USER_ERROR);
         });
     });

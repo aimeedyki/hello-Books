@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Router } from 'react-router-dom';
 
-import AdminAuth from './Authentication/AdminAuth';
+import AdminAuthentication from './Authentication/AdminAuthentication';
 import TopNav from './Common/TopNav';
 import SideNav from './Common/SideNav';
 import Library from './Library/Library';
@@ -28,12 +28,16 @@ import noPicture from '../assets/images/profile.jpeg';
 
 
 /** @description component that renders the users page
+ *
  * @class UserPage
+ *
  * @extends {Component}
  */
 export class UserPage extends Component {
   /** @description Creates an instance of UserPage.
-     * @param {any} props
+   *
+     * @param {Object} props
+     *
      * @memberof UserPage
      */
   constructor(props) {
@@ -44,9 +48,12 @@ export class UserPage extends Component {
 
   /* eslint-disable class-methods-use-this */
   /** @description sets icon according to a users level
+   *
    * @param {string} level
    * @param {boolean} adminStatus
-   * @returns {object} users level icon
+   *
+   * @returns {Object} users level icon
+   *
    * @memberof UserPage
    */
   setLevelIcon(level, adminStatus) {
@@ -65,7 +72,9 @@ export class UserPage extends Component {
     }
   }
   /** @description renders the user page
-   * @returns {*} users' page
+   *
+   * @returns {JSX} JSX
+   *
    * @memberof UserPage
    */
   render() {
@@ -87,18 +96,19 @@ export class UserPage extends Component {
             <Route exact path={this.props.match.path} component={Library} />
             <Route exact path="/main/unreturned-books"
               component={Outstanding} />
-            <Route exact path="/main/add-book" component={AdminAuth(AddBook)} />
+            <Route exact path="/main/add-book"
+              component={AdminAuthentication(AddBook)} />
             <Route exact path="/main/password" component={ChangePassword} />
             <Route exact path="/main/profile" component={Profile} />
             <Route exact path="/main/borrow-history" component={Borrowed} />
             <Route exact path="/main/admin-dashboard"
-              component={AdminAuth(AdminDashboard)}
+              component={AdminAuthentication(AdminDashboard)}
             />
             <Route exact path="/main/payment-upload" component={UserPayments} />
             <Route exact path="/main/:id/edit-book"
-              component={AdminAuth(EditBook)} />
+              component={AdminAuthentication(EditBook)} />
             <Route exact path="/main/category"
-              component={AdminAuth(AddCategory)} />
+              component={AdminAuthentication(AddCategory)} />
             <Route exact path="/main/new-level" component={ChangeLevel} />
             <Route path="/main/category/:categories"
               component={BookCategory} />
@@ -110,7 +120,13 @@ export class UserPage extends Component {
     );
   }
 }
-// function to connect the state from the store to the props of the component
+/** @description connects the state from the store to the component props
+   *
+   * @param { Object } state
+   *
+   * @returns { Object } an object containing user details and
+   * a boolean indicating authenticated status
+   */
 const mapStateToProps = (state) => {
   const { user, authenticated } = state.authReducer;
   return {

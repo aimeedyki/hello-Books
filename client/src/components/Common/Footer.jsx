@@ -1,5 +1,9 @@
 import React from 'react';
 
+/** @description footer component
+   *
+   * @returns { JSX } JSX
+   */
 const Footer = () => (
   <div className="my-footer">
     <div>

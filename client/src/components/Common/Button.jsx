@@ -1,6 +1,11 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react';
 
-// button component ensures buttons are uniform
+/** @description button component ensures buttons are uniform
+   *
+   * @param { object } props
+   * 
+   * @returns { JSX } JSX
+   */
 const Button = props => (
   <div>
     <button className="btn indigo darken-2"

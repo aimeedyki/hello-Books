@@ -10,7 +10,12 @@ import About from './About';
 
 const imageUrl = 'https://res.cloudinary.com/ddxsazo2k/image/upload/';
 
-// landing page
+/** @description landing page of application
+   *
+   * @param { object } props
+   *
+   * @returns { JSX } JSX
+   */
 const Home = props => (
   <div className="background-set">
     <div className="background-set">

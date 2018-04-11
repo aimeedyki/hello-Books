@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router-dom';
 import {
   AUTH_USER,
   AUTH_ERROR,
@@ -7,9 +6,10 @@ import {
   UNAUTH_USER,
 } from './types';
 
-/**
- * @description sets authorization token to header
+/** @description sets authorization token to header
+ *
  * @param {string} token
+ *
  * @return {*} null
  */
 export const setAuthorizationToken = (token) => {
@@ -20,35 +20,36 @@ export const setAuthorizationToken = (token) => {
   }
 };
 
-/**
- * @description clears error message in store
- * @return {*} null
+/** @description clears error message in store
+ *
+ * @return {Object} with a type as string
  */
 export const clearErrorMessage = () => ({
   type: CLEAR_ERROR
 });
 
-/**
- * @description sets user details to store
+/** @description sets user details to store
+ *
  * @param {object} user user details
- * @return {*} null
+ *
+ * @return {Object} with a type as string and a user object
  */
 export const setCurrentUser = user => ({
   type: AUTH_USER,
   payload: user
 });
 
-/**
- * @description deletes user details
- * @return {*} null
+/** @description deletes user details
+ *
+ * @return {Object} with a type as string
  */
 export const deleteUser = () => ({
   type: UNAUTH_USER
 });
 
-/**
- * @description logs out user
- * @return {*} null
+/** @description logs out an already logged in user
+ *
+ * @return {function} dispatch
  */
 export const logoutUser = () => (
   (dispatch) => {
@@ -58,12 +59,13 @@ export const logoutUser = () => (
   }
 );
 
-/**
- * @description handles errors
- * @param {*} dispatch 
- * @param {object} error
- * @param {*} type
- * @return {*} null
+/** @description handles application errors
+ *
+ * @param {function} dispatch dispatch function
+ * @param {object} error error
+ * @param {string} type action type
+ *
+ * @return {function} dispatch
  */
 export const errorHandler = (dispatch, error, type) => {
   dispatch({
@@ -72,13 +74,14 @@ export const errorHandler = (dispatch, error, type) => {
   });
 };
 
-/**
- * @description registers a user
+/** @description registers a user
+ *
  * @param {string} email user email
  * @param {string} username user name
  * @param {string} password user password
  * @param {number} levelId  user level id
- * @return {boolean} boolean
+ *
+ * @return {function} dispatch
  */
 export const signupUser =
   ({ email, username, name, password, googleId, profilePic }) => (
@@ -99,11 +102,16 @@ export const signupUser =
     )
   );
 
-/**
- * @description logs in user
- * @param {*} username user name
- * @param {string} password user password
- * @return {boolean} boolean
+/** @description logs in user
+ *
+ * @param {string} email google user's email
+ * @param {string} username user's username
+ * @param {string} name google user name
+ * @param {string} password user's password
+ * @param {string} googleId google user's Id
+ * @param {string} profilePic google user's profilePic
+ * 
+ * @return {function} dispatch
  */
 export const signinUser =
   ({ email, username, name, password, googleId, profilePic }) => (
@@ -124,9 +132,9 @@ export const signinUser =
     )
   );
 
-/**
- * @description gets user details
- * @return {object} user detail
+/** @description gets user details
+ *
+ * @return {function} dispatch
  */
 export const getUser = () => (
   dispatch => (

@@ -1,8 +1,10 @@
 
-/**  validate password change form
-    * @param {object} fields password form object
-    * @returns {object} Message object
-    */
+/** @description validate password change form
+ *
+ * @param {object} fields password form object
+ *
+ * @returns {object} response object with a validation boolean and a message
+ */
 const validatePassword = (fields) => {
   const oldPassword = fields.oldPassword || null;
   const newPassword = fields.newPassword || null;

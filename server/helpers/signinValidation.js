@@ -1,8 +1,10 @@
 
-/** @description validates signin form
-   * @param {object} fields a form object
-   * @returns {object} response object
-   */
+/** @description validates signin form for null values in fields
+ *
+ * @param {object} fields a form object
+ *
+ * @returns {object} response object with a validation boolean and a message
+ */
 const signinNullValidation = (fields) => {
   const password = fields.password || null;
   const username = fields.username || null;

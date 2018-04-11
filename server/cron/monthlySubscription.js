@@ -1,6 +1,10 @@
 import { User, Level } from '../models';
 import { transporter, mailOptions } from '../nodeMailer/mailer';
 
+/** @description charges user for monthly subscription
+   *
+   * @returns {*} null
+   */
 const chargeSubscription = () => (User.findAll({
   where: {
     levelId: { $gt: 1 }

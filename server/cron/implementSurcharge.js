@@ -1,6 +1,10 @@
 import { History, User, Book } from '../models';
 import { transporter, mailOptions } from '../nodeMailer/mailer';
 
+/** @description implements surcharge and sends a mail to defaulting users
+   *
+   * @returns {*} null
+   */
 const implementSurcharge = () => (History.findAll({
   where: {
     $and: [{

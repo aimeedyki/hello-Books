@@ -3,6 +3,14 @@ import jwt from 'jsonwebtoken';
 const secret = process.env.SECRET;
 
 const authentication = {
+  /** @description confirms a user's transaction
+   *
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
+   * @param {object} next 
+   *
+   * @returns {string} error message
+   */
   verifyUser: (req, res, next) => {
     const token = req.headers.authorization || req.headers['x-access-token'];
     if (!token) {
@@ -19,6 +27,14 @@ const authentication = {
     });
   },
 
+  /** @description confirms a user's transaction
+   *
+   * @param {object} req HTTP request object
+   * @param {object} res HTTP response object
+   * @param {object} next
+   *
+   * @returns {string} error message
+   */
   verifyAdmin: (req, res, next) => {
     if (req.decoded && req.decoded.admin === true) return next();
     return res.status(401).send({ message: 'you are not an admin' });
