@@ -75,7 +75,7 @@ export class AddCategory extends Component {
     return (
       <div className='row'>
         <div className='col s10 m8 l4 offset-s1 offset-m2 offset-l5 '>
-          <div className='card row catCard'>
+          <div className='card row cat-card'>
             <div className='col s10 m8 l8 offset-s1 offset-m2 offset-l2'>
               <h5 className='center greeting indigo-text text-darken-2'>
                 Add A New Category</h5>

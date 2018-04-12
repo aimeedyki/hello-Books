@@ -106,10 +106,10 @@ export class Book extends Component {
     let adminButtons;
     const buttonList = (
       <ul>
-        <li><Link to={editPath} className='btn-floating editColor'>
+        <li><Link to={editPath} className='btn-floating edit-color'>
           <i className='material-icons'>edit</i></Link></li>
         <li><a onClick={this.handleDelete}
-          className='btn-floating deleteColor'>
+          className='btn-floating delete-color'>
           <i className='material-icons'>delete</i></a>
         </li>
       </ul>
@@ -131,11 +131,12 @@ export class Book extends Component {
             src={this.props.image} alt='book image' />
         </div>
         <div id='card-book' className='card-content'>
-          <span
-            className='card-title center indigo-text text-darken-2'>
-            <i className='material-icons activator right'>
-              more_vert</i>{this.props.title}
-          </span>
+          <div
+            className='card-title row center indigo-text text-darken-2'>
+            <span className="side-email col s10">{this.props.title}</span>
+            <i className='material-icons activator col s1'>
+              more_vert</i>
+          </div>
         </div>
         <div className='card-reveal'>
           <span className='card-title indigo-text text-darken-2'>

@@ -8,7 +8,6 @@ import NotFound from './NotFound';
 import Footer from './Common/Footer';
 import About from './About';
 
-const imageUrl = 'https://res.cloudinary.com/ddxsazo2k/image/upload/';
 
 /** @description landing page of application
    *
@@ -40,7 +39,7 @@ const Home = props => (
       <div className="background-set">
         <div className="row white-text">
           <img
-            src={`${imageUrl}/v1509441751/girl_ckyyla.png`}
+            src="https://goo.gl/Gj9uR3"
             className="col l4 m4 offset-m1 offset-l1 hide-on-small-only"
             id="pic" alt="BOOKSVILLE" />
 

@@ -1,20 +1,13 @@
 engines:
+  eslint:
+      enabled: true
+      channel: beta
+      config: eslintrc.json
   duplication:
     enabled: true
     config:
       languages:
-        javascript:
-          mass_threshold: 500
+      - javascript
 checks:
   method-lines:
-    config:
-      threshold: 60
-  complex-logic:
-    config:
-      threshold: 8
-  method-complexity:
-    config:
-      threshold: 8
-  return-statements:
-    config:
-      threshold: 12
+    enabled: false
